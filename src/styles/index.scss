@@ -1,0 +1,298 @@
+@import './transition.scss';
+
+@import './sidebar.module.scss';
+@import './form.scss';
+@import './table.scss';
+@import './btn.scss';
+
+/* Global scss */
+
+html {
+  height: 100%;
+  font-size: 10px;
+}
+
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+blockquote, body, button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul {
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  // font-weight: 700;
+}
+
+#app {
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  // box-sizing: inherit;
+}
+
+a,
+a:focus,
+a:hover {
+  color: $primary;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+div:focus {
+  outline: none;
+}
+
+ul, li{
+  list-style: none;
+}
+
+.app-container {
+  height: 100%;
+  // padding: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.context-container{
+  height: calc(100vh - 150px);
+  overflow: auto;
+}
+
+.components-container {
+  margin: 30px 50px;
+  position: relative;
+}
+
+// // Refine element ui upload
+// .upload-container {
+//   .el-upload {
+//     width: 100%;
+
+//     .el-upload-dragger {
+//       width: 100%;
+//       height: 200px;
+//     }
+//   }
+// }
+
+aside {
+  background: #eef1f6;
+  color: #2c3e50;
+  padding: 8px 24px;
+  margin-bottom: 20px;
+  border-radius: 2px;
+  display: block;
+  line-height: 32px;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  a {
+    color: $primary;
+    cursor: pointer;
+
+    &:hover {
+      color: rgb(32, 160, 255);
+    }
+  }
+}
+
+.link-type, .link-type:focus {
+  color: $primary;
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(32, 160, 255);
+  }
+}
+
+.text-center {
+  text-align: center
+}
+
+.no-padding {
+  padding: 0px !important;
+}
+
+.customer-loading{
+  color: $primary;
+
+  .el-loading-spinner .circular{
+    width: 35px;
+    height: 35px;
+    animation: none;
+  }
+}
+
+// ----------------------------------------------------------------- 附件 -----------------------------------------------------------------
+.attach{
+  margin-right: 40px;
+}
+
+// 解决el-input类型为number时，中文输入法光标上移
+.el-input__inner{
+  line-height: 1px !important;
+}
+
+// ----------------------------------------------------------------- input type=number 隐藏上下箭头 -----------------------------------------------------------------
+
+// chrome浏览器
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+}
+
+// 火狐浏览器
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+
+// ----------------------------------------------------------------- 描述列表 -----------------------------------------------------------------
+.el-descriptions__label.is-bordered-label{
+    color: #303133 !important;
+    // background: #f2f8ff !important;
+    width: 150px !important;
+}
+
+.el-descriptions__body .el-descriptions__table{
+ .el-descriptions__content{
+    word-break: break-word;
+  }
+}
+
+
+// ----------------------------------------------------------------- Card -----------------------------------------------------------------
+.el-card {
+  .el-card__header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 12px 20px;
+  }
+}
+
+
+// ----------------------------------------------------------------- 刷新图标旋转 -----------------------------------------------------------------
+.refresh-spin1{
+  i{
+    animation: rotate 1s linear infinite;
+  }
+}
+
+.refresh-spin2{
+  animation: rotate 2s linear infinite;
+}
+
+
+// ----------------------------------------------------------------- Popup -----------------------------------------------------------------
+.el-popconfirm{
+  .el-popconfirm__main{
+    font-size: 1.2rem;
+    margin: 10px;
+  }
+}
+
+
+// ----------------------------------------------------------------- Tabs -----------------------------------------------------------------
+.el-tabs{
+  width: 100%;
+  height: 100%;
+
+  .el-tabs__item.is-active{
+    color: $primary;
+    background: rgba(8, 123, 230, .1);
+  }
+}
+
+
+// ----------------------------------------------------------------- Space -----------------------------------------------------------------
+.el-space, .el-space__item{
+  // width: 100%;
+}
+
+// ----------------------------------------------------------------- Drawer -----------------------------------------------------------------
+.el-drawer__header{
+  margin-bottom: 0 !important;
+  padding: 15px 25px !important;
+  background-color: #e9f3f6 !important;
+  font-size: 16px !important;
+  color: #333333 !important;
+}
+
+.el-drawer__body{
+  padding: 0 !important;
+  cursor: initial !important;
+}
+
+
+// ----------------------------------------------------------------- Filter-Item -----------------------------------------------------------------
+.filter-item{
+  line-height: normal;
+  display: inline-table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  label{
+    padding: 0 10px;
+    background-color: var(--el-bg-color);
+    color: var(--el-color-info);
+    vertical-align: middle;
+    display: table-cell;
+    position: relative;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    width: 1px;
+    white-space: nowrap;
+    font-size: 13px;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .el-input__inner{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+} 
+
+// ----------------------------------------------------------------- 左树右表格 -----------------------------------------------------------------
+.l-tree-r-table{
+  display: flex;
+  flex-direction: row;
+
+  .l-container{
+    width: 200px;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .r-container{
+    width: 0;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .r-description{
+
+    }
+
+    .r-table{
+
+    }
+  }
+
+}

@@ -1,0 +1,180 @@
+.form-show {
+
+    .el-form-item {
+      margin-bottom: 10px;
+    }
+  }
+  
+  .form-card{
+  
+    .el-form-item{
+      margin-bottom: 20px;
+    }
+  }
+
+  .el-descriptions__body .el-form-item {
+    margin-bottom: 0 !important;
+  }
+  
+  .el-form-item {
+  
+    .attach-wrap {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  
+    a,
+    .attach {
+      color: blue;
+      margin-right: 40px;
+    }
+  
+    .attach-none {
+      color: #2D86EE;
+    }
+  
+    img{
+      max-width: 100%;
+    }
+  }
+  
+  // .el-form-item__label {
+  //   // line-height: 35px;
+  // }
+  
+  .el-form-item__content {
+    // line-height: 35px;
+  
+    .el-tabs--border-card {
+      .el-tabs__header {
+        .el-tabs__item.is-active {
+          font-weight: 700;
+        }
+      }
+  
+      .el-tabs__content {
+        padding: 20px;
+      }
+    }
+  }
+  
+  .el-select {
+    width: 100%;
+  }
+  
+  .el-date-editor {
+    width: 100% !important;
+  }
+  
+  .input-align-right {
+    input {
+      text-align: right;
+    }
+  }
+  
+  .select-tag{
+    height: auto;
+    min-height: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 10px 5px 10px;
+  
+    i{
+      position: absolute;
+      right: 0;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  
+    >*{
+      height: 25px;
+      line-height: 25px;
+      margin-top: 5px;
+      margin-right: 10px;
+    }
+  }
+  
+  .image-mar-right{
+    margin-right: 10px;
+  }
+  
+  .table-image,
+  .show-form-image {
+    max-height: 100px;
+  
+    img {
+      width: auto;
+      max-height: 100px;
+    }
+  
+    .image-slot {
+      font-size: 30px;
+    }
+  }
+  
+  .table-image-medium,
+  .show-form-image-medium {
+    max-height: 80px;
+  
+    img {
+      width: auto;
+      max-height: 80px;
+    }
+  
+    .image-slot {
+      font-size: 30px;
+    }
+  }
+  
+  .table-image-small,
+  .show-form-image-small {
+    max-height: 60px;
+  
+    img {
+      width: auto;
+      max-height: 60px;
+    }
+  
+    .image-slot {
+      font-size: 30px;
+    }
+  }
+  
+  .table-image-mini,
+  .show-form-image-mini {
+    max-height: 40px;
+  
+    img {
+      width: auto;
+      max-height: 40px;
+    }
+  
+    .image-slot {
+      font-size: 30px;
+    }
+  }
+  
+  .el-image-viewer__close{
+    color: #ffffff;
+  }
+
+  // 
+  .form-item-line{
+    .el-form-item__content{
+      display: flex;
+
+      > * {
+        display: flex;
+      }
+
+      > *:not(:first-child) {
+        margin-left: 10px;
+      }
+    }
+  }
+  

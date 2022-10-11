@@ -1,0 +1,25 @@
+/* Element Variables */
+$--colors: (
+  'primary': (
+    'base': #2376b7 // #087be6,
+  ),
+  'success': (
+    'base': #62be9d // #00953e // #21ba45
+  ),
+  'warning': (
+    'base': #ea5514
+  ),
+  'danger': (
+    'base': #d80835,  // #ff3535
+  ),
+  'error': (
+    'base': #e02623,
+  ),
+  // 'info': (
+  //   'base': #42b8dd,
+  // ),
+);
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with(
+  $colors: $--colors,
+);

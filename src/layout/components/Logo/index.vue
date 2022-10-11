@@ -1,0 +1,92 @@
+<template>
+  <div class="logo-container top-logo" :class="{'expand': !collapse}">
+    <transition name="logo-fade">
+      <router-link v-if="collapse" key="collapse" class="logo-link" to="/">
+        <img class="logo" :src="Logo">
+      </router-link>
+      <router-link v-else key="expand" class="logo-link" to="/">
+        <img class="logo" :src="Logo">
+        <h1 class="sidebar-title">
+          {{ title }}
+        </h1>
+      </router-link>
+    </transition>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import settings from '@/config/setting.config'
+import Logo from '@/assets/images/logo.png'
+
+interface Props {
+  collapse: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  collapse: true
+})
+
+const title = settings.title
+
+</script>
+
+<style lang="scss" scoped>
+
+.logo-fade-enter-active {
+  transition: opacity 1s;
+}
+
+.logo-fade-enter-from,
+.logo-fade-leave-to {
+  opacity: 0;
+}
+
+.logo-container {
+  position: relative;
+  width: 240px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  overflow: hidden;
+
+  & .logo-link {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    & .logo {
+      display: inline-block;
+      height: 100%;
+    }
+
+    & .sidebar-title {
+      display: inline-block;
+      margin: 0;
+      color: #FFF;
+      font-weight: 600;
+      font-size: 22px;
+      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+      vertical-align: middle;
+    }
+  }
+
+  &.expand {
+    .logo {
+      margin-right: 20px;
+    }
+  }
+}
+
+.top-logo{
+  padding: 15px 0;
+}
+
+.hideSidebar {
+  .logo-container {
+    width: 54px !important;
+  }
+}
+</style>
