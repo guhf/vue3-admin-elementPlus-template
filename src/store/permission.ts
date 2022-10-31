@@ -22,6 +22,20 @@ export const usePermissionStore = defineStore('permissionStore', {
       this.dynamicRoutes = routes
 
       await routerRegister(routes, '')
+      
+      // this.menus = [{
+      //   id: '',
+      //   name: 'Dashboard',
+      //   path: '/dashboard',
+      //   component: 'dashboard/index.vue',
+      //   meta: {
+      //     title: '首页',
+      //     tagName: '首页',
+      //     icon: 'icon-shouye'
+      //   },
+      //   menuType: 2,
+      //   authority: '', // 权限码
+      // }, ...await traverseMenu(this.menus)]
       this.menus = await traverseMenu(this.menus)
 
       // 最后注册404路由,否则刷新页面会直接到空白页/404页面

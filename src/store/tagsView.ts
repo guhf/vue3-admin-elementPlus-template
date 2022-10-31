@@ -16,8 +16,6 @@ export const useTagsViewStore = defineStore('tagsView', {
   },
   actions: {
     async addCachedView(view: TagView) {
-      console.log('11111', view);
-      
       await this.addVisitedView(view)
 
       if (!view.name) return

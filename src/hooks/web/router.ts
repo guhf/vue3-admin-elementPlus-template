@@ -52,7 +52,9 @@ export const useRouterShow = (options: routerOptions = {}) => {
 export const useRouterUpdate = (options: routerOptions = {}) => {
   let currentPath = router.currentRoute.value.fullPath
   let prefixPath = currentPath.substring(0, currentPath.indexOf('show') - 1)
-  options.path = `${prefixPath}/update/${options.path}`
+  
+  options.path = options.path || `${prefixPath}/update/${options.path}`
+  console.log(333, options.path);
 
   return useRouterPush(options)
 }
@@ -72,7 +74,7 @@ export const useRouterBackIndex = (options: routerOptions = {}) => {
 
   return useRouterPush(options).then(() => {
     // 有缓存，需要跳转后清除
-    options.path = ''
+    // options.path = ''
     if (options.msg) { ElMessage.success(options.msg) }
   })
 }

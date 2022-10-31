@@ -47,7 +47,7 @@
 import { reactive, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import { useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
-import { useRouterCreate, useRouterShow } from '@/hooks/web/router'
+import { useRouterCreate, useRouterUpdate } from '@/hooks/web/router'
 import { Response } from '@/models/response'
 import { MenuTree, Menu } from '@/models/sys/menuModel'
 
@@ -85,7 +85,7 @@ const mCreate = () => {
 }
 
 const mEdit = (id: string) => {
-  useRouterShow({ path: id })
+  useRouterUpdate({ path: `menu/update/${id}` })
 }
 
 const mDel = () => {

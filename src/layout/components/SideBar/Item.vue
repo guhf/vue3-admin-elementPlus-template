@@ -16,7 +16,7 @@
     </el-sub-menu>
     <sidebar-item-link v-else-if="item.menuType === 2" :to="resolvePath(item.path)">
       <el-menu-item :index="resolvePath(item.path)">
-        <svg-icon v-if="item.meta.icon" :iconName="item.meta.icon" style="width: 1.5rem; height: 1.5rem;" />
+        <svg-icon v-if="item.meta.icon" :iconName="item.meta.icon" :class="{'mini-icon': item.parentId}" />
         <span v-if="item.meta.title">
           {{ item.meta.title }}
         </span>
@@ -71,3 +71,10 @@ const resolvePath = (routePath: string) => {
   // return (props.basePath + '/' + routePath).replaceAll('//', '/') //path.resolve(props.basePath, routePath)
 }
 </script>
+
+<style lang="scss">
+.mini-icon{
+  width: 1.5rem; 
+  height: 1.5rem;
+}
+</style>
