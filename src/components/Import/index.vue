@@ -1,6 +1,6 @@
 <template>
   <el-button type="primary" :icon="Upload" @click="show">{{ title }}</el-button>
-  <const-dialog ref="importDialogRef" :title="dialogTitle" :btns="['import']" @import="handleImport">
+  <ConstDialog ref="importDialogRef" :title="dialogTitle" :btns="['import']" @import="handleImport">
     <el-form label-width="160px" :inline="false">
       <el-form-item label="下载模板：">
         <el-button type="text" @click="downloadTemplate">下载模板</el-button>
@@ -9,7 +9,7 @@
         <upload ref="importUploadRef" btn-text="选取文件" :file-list="stateData.uploadList || []" />
       </el-form-item>
     </el-form>
-  </const-dialog>
+  </ConstDialog>
 </template>
 
 <script lang="ts" setup>

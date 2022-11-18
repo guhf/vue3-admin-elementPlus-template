@@ -6,12 +6,12 @@
         <el-button v-permission="['sys.menu.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <const-table :data="state.pageListData" height="calc(100vh - 206px)" :pagination="false" rowKey="id" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable :data="state.pageListData" height="calc(100vh - 206px)" :pagination="false" rowKey="id" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="菜单名称" prop="menuName" sortable="custom" width="200" header-align="center" align="left" fixed show-overflow-tooltip />
       <el-table-column label="菜单标识" prop="menuCode" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="图标" prop="icon" sortable="custom" width="80" align="center" show-overflow-tooltip>
         <template #default="{ row }">
-          <svg-icon :icon-name="row.icon" />
+          <SvgIcon :icon-name="row.icon" />
         </template>
       </el-table-column>
       <el-table-column label="菜单路由" prop="path" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
@@ -39,7 +39,7 @@
           <el-button v-permission="['sys.menu.update']" type="primary" size="small" @click="mEdit(row.id)">编辑</el-button>
         </template>
       </el-table-column>
-    </const-table>
+    </ConstTable>
   </div>
 </template>
 

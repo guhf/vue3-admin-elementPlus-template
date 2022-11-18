@@ -22,7 +22,7 @@
       <el-empty description="暂无数据~~" />
     </template>
   </el-table>
-  <table-pagination :hidden="!pagination" :total="total" :page-index="pageQuery.pageIndex" :page-size="pageQuery.pageSize" :page-sizes="pageSizes" :layout="layout" :background="background" :auto-scroll="autoScroll" @current-change="currentChange" @size-change="sizeChange" />
+  <TablePagination :hidden="!pagination" :total="total" :page-index="pageQuery.pageIndex" :page-size="pageQuery.pageSize" :page-sizes="pageSizes" :layout="layout" :background="background" :auto-scroll="autoScroll" @current-change="currentChange" @size-change="sizeChange" />
 </template>
 
 <script lang="ts" setup>

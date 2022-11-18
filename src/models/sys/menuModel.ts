@@ -20,11 +20,3 @@ export declare interface MenuTreeItem extends Menu {
 
 export declare type MenuTree = MenuTreeItem[]
 
-export declare interface PermissionTreeItem extends Menu {
-  children: PermissionTreeItem[]
-  btns: PermissionTreeItem[]
-  checked: boolean
-}
-
-export declare type PermissionTree = PermissionTreeItem[]
-

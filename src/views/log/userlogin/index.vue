@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
-    <const-filter @search="filterData" @reset="resetData">
+    <ConstFilter @search="filterData" @reset="resetData">
       <div class="filter-item">
         <label>用户名称</label>
         <el-input v-model="state.pageQuery.userName" type="text" clearable placeholder="请输入用户/账号名称" />
       </div>
-    </const-filter>
-    <const-table ref="userloginTbRef" :data="state.pageListData" :total="state.total" height="calc(100vh - 254px)" :check="false" @reload="reloadTableData" @selection-change="selectedChange">
+    </ConstFilter>
+    <ConstTable ref="userloginTbRef" :data="state.pageListData" :total="state.total" height="calc(100vh - 254px)" :check="false" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="用户名称" prop="userName" sortable="custom" width="120" align="center" fixed="left" show-overflow-tooltip />
       <el-table-column label="账号名称" prop="accountName" sortable="custom" width="120" align="center" show-overflow-tooltip />
       <el-table-column label="登录IP" prop="ip" sortable="custom" width="120" align="center" show-overflow-tooltip />
@@ -21,7 +21,7 @@
           <el-tag v-else-if="row.loginType === 3" type="danger" size="small" effect="light">登录失败</el-tag>
         </template>
       </el-table-column>
-    </const-table>
+    </ConstTable>
   </div>
 </template>
 

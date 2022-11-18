@@ -9,6 +9,7 @@ import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import viteCompression from 'vite-plugin-compression'
 import DefineOptions from 'unplugin-vue-define-options/vite'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 const resolve = (dir: string) => path.join(__dirname, dir)
 
@@ -125,7 +126,8 @@ export default defineConfig(({ mode } : ConfigEnv) => {
         algorithm: 'gzip',
         ext: '.gz',
       }),
-      DefineOptions()
+      DefineOptions(),
+      vueJsx()
     ],
   };
 });

@@ -1,17 +1,17 @@
 <template>
-  <const-dialog
+  <ConstDialog
     ref="tbDialogRef" :title="title" :width="width" :btns="btns"
     @confirm="mConfirm" @check="mCheck" @save="mSave" @close="mClose"
   >
-    <const-table
+    <ConstTable
       ref="tbRef"
       :stateData="state.pageListData" :total="state.total" :pageSize="state.pageQuery.pageSize" :canCheck="canCheck"
       @reload="reloadTableData" @selection-change="selectionChange"
       @select="select" @select-all="selectAll" @row-click="rowClick"
     >
       <slot />
-    </const-table>
-  </const-dialog>
+    </ConstTable>
+  </ConstDialog>
 </template>
 
 <script lang="ts" setup>

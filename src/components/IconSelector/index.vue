@@ -1,30 +1,30 @@
 <template>
   <el-input v-model="modelValue" type="text" class="icon-input" :placeholder="placeholder" readonly prefix-icon="">
     <template #prefix>
-      <svg-icon :icon-name="modelValue" />
+      <SvgIcon :icon-name="modelValue" />
     </template>
     <template #append>
       <el-button :icon="Search" @click="openIconPopup" />
     </template>
   </el-input>
 
-  <const-dialog ref="selectIconDialogRef" title="选择图标" :btns="['check']" @check="checkIcon">
-    <const-filter @search="filterData" @reset="resetData">
+  <ConstDialog ref="selectIconDialogRef" title="选择图标" :btns="['check']" @check="checkIcon">
+    <ConstFilter @search="filterData" @reset="resetData">
       <div class="filter-item">
         <label>图标名称</label>
         <el-input v-model="state.pageQuery.iconName" type="text" clearable placeholder="请输入图标名称/代码" @keyup.enter="filterData" />
       </div>
-    </const-filter>
+    </ConstFilter>
     <ul class="icon-list">
       <li v-for="item in state.iconData" :key="item.icon_id" class="icon-item" @click="iconClick(item)">
         <span class="icon-wapper" :style="{'color': state.checkIcon.icon_id === item.icon_id ? variables.theme : '#666666'}">
-          <svg-icon :icon-name="state.iconPrefix + item.font_class" class="icon" :color="state.checkIcon.icon_id === item.icon_id ? variables.theme : '#666666'" />
+          <SvgIcon :icon-name="state.iconPrefix + item.font_class" class="icon" :color="state.checkIcon.icon_id === item.icon_id ? variables.theme : '#666666'" />
           <i :class="state.iconPrefix + item.font_class" />
           <span class="icon-code" :title="state.iconPrefix + item.font_class">{{ state.iconPrefix + item.font_class }}</span>
           <span class="icon-name" :title="item.name">{{ item.name }}</span>
         </span></li>
     </ul>
-  </const-dialog>
+  </ConstDialog>
 </template>
 
 <script lang="ts" setup>
@@ -118,7 +118,7 @@ const checkIcon = () => {
 
 <style lang="scss" scoped>
 .icon-input{
-  .svg-icon{
+  .SvgIcon{
     width: 1rem;
     height: 1rem;
   }

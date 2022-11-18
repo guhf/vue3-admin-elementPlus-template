@@ -54,7 +54,6 @@ export const useRouterUpdate = (options: routerOptions = {}) => {
   let prefixPath = currentPath.substring(0, currentPath.indexOf('show') - 1)
   
   options.path = options.path || `${prefixPath}/update/${options.path}`
-  console.log(333, options.path);
 
   return useRouterPush(options)
 }

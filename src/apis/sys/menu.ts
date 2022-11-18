@@ -1,5 +1,6 @@
 import http from '@/utils/http'
-import { MenuTree, Menu, PermissionTree } from '@/models/sys/menuModel'
+import { MenuTree, Menu } from '@/models/sys/menuModel'
+import { Tree } from '@/models/common/treeModel'
 
 /**
  * 创建菜单
@@ -43,7 +44,7 @@ export const getMenuTreeList = (type = 0) => {
  * @returns 菜单树状列表
  */
 export const getRoleMenuTreeList = (roleId: string) => {
-  return http.get<PermissionTree>(`sys/menu/${roleId}/tree`)
+  return http.get<Tree>(`sys/menu/${roleId}/tree`)
 }
 
 /**

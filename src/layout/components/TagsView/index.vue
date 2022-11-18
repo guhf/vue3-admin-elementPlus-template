@@ -286,6 +286,7 @@ onBeforeUpdate(() => {
       &.active, &:hover {
         background-color: $primary;
         color: #fff;
+        transition: width 0.3s;
       }
 
       &:hover .el-icon-close{
@@ -295,7 +296,7 @@ onBeforeUpdate(() => {
 
       .el-icon-close {
         font-size: 0;
-        vertical-align: -2px;
+        vertical-align: -3px;
         border-radius: 50%;
         text-align: center;
         transition: all 0.3s;

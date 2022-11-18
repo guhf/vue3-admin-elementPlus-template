@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <const-filter @search="filterData" @reset="resetData">
+    <ConstFilter @search="filterData" @reset="resetData">
       <div class="filter-item">
         <label>用户编号</label>
         <el-input v-model="state.pageQuery.userCode" type="text" clearable placeholder="请输入用户编号" />
@@ -9,14 +9,14 @@
         <label>用户名称</label>
         <el-input v-model="state.pageQuery.userName" type="text" clearable placeholder="请输入用户名称" />
       </div>
-    </const-filter>
+    </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">
         <el-button v-permission="['sys.user.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
         <el-button v-permission="['sys.user.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <const-table ref="userTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable ref="userTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="用户编号" prop="userCode" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="用户名称" prop="userName" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="性别" prop="sex" sortable="custom" width="80" align="center" show-overflow-tooltip>
@@ -44,7 +44,7 @@
           <el-button v-permission="['sys.user.resetpwd']" type="warning" size="small" @click="mReset(row.id)">重置密码</el-button>
         </template>
       </el-table-column>
-    </const-table>
+    </ConstTable>
   </div>
 </template>
 

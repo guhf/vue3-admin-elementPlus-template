@@ -1,12 +1,11 @@
 <template>
   <div class="app-container">
     <div class="l-tree-r-table">
-
       <div class="l-container">
         <!-- 左侧树 -->
-        <const-tree ref="authTree" :data="state.treeData">
+        <ConstTree ref="authTree" :data="state.treeData">
           
-        </const-tree>
+        </ConstTree>
       </div>
       <div class="r-container">
         <div class="r-description">
@@ -16,24 +15,19 @@
               <el-button v-permission="['sys.dict.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
             </div>
           </div>
+          <el-descriptions title="" :column="2" border>
+            <el-descriptions-item label="字典编号">{{ state.modelData.dictCode }}</el-descriptions-item>
+            <el-descriptions-item label="字典名称">{{ state.modelData.dictName }}</el-descriptions-item>
+            <el-descriptions-item label="字典类型">{{ state.modelData.dictType }}</el-descriptions-item>
+            <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
+            <el-descriptions-item label="备注">{{ state.modelData.remark }}</el-descriptions-item>
+          </el-descriptions>
         </div>
         <div class="r-table">
-          <const-table ref="dictTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
-            <el-table-column label="用户编号" prop="dictCode" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
-            <el-table-column label="用户名称" prop="dictName" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
-            <el-table-column label="性别" prop="sex" sortable="custom" width="80" align="center" show-overflow-tooltip>
-              <template #default="{ row }">
-                <el-tag v-if="row.sex > 0" size="small" effect="light">男</el-tag>
-                <el-tag v-else type="danger" size="small" effect="light">女</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column label="角色" prop="roles" sortable="custom" min-width="120" header-align="center" align="left" show-overflow-tooltip>
-              <template #default="{ row }">
-                <el-space v-if="row.dictRoles" wrap>
-                  <el-tag v-for="(role, index) in row.dictRoles" :key="index" size="small" effect="light">{{ role.roleName }}</el-tag>
-                </el-space>
-              </template>
-            </el-table-column>
+          <ConstTable ref="dictTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
+            <el-table-column label="字典明细编号" prop="dictCode" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
+            <el-table-column label="字典名称" prop="dictName" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
+            <el-table-column label="字典键值" prop="dictName" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
             <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
               <template #default="{ row }">
                 <el-tag v-if="row.status" type="success" size="small" effect="light">正常</el-tag>
@@ -46,12 +40,11 @@
                 <el-button v-permission="['sys.dict.resetpwd']" type="warning" size="small" @click="mReset(row.id)">重置密码</el-button>
               </template>
             </el-table-column>
-          </const-table>
-
+          </ConstTable>
         </div>
       </div>
     </div>
-    <!-- <const-filter @search="filterData" @reset="resetData">
+    <!-- <ConstFilter @search="filterData" @reset="resetData">
       <div class="filter-item">
         <label>用户编号</label>
         <el-input v-model="state.pageQuery.dictCode" type="text" clearable placeholder="请输入用户编号" />
@@ -60,7 +53,7 @@
         <label>用户名称</label>
         <el-input v-model="state.pageQuery.dictName" type="text" clearable placeholder="请输入用户名称" />
       </div>
-    </const-filter>
+    </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">
         <el-button v-permission="['sys.dict.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
@@ -87,6 +80,7 @@ defineOptions({
 
 const state = reactive({
   treeData: [] as Dict[],
+  modelData: {} as Dict,
   pageListData: [] as DictItem[],
   total: 0,
   pageQuery: {} as PageQuery,

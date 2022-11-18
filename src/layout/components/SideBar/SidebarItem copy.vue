@@ -3,7 +3,7 @@
     <template v-if="!alwaysShowRootMenu && theOnlyOneChild && (!theOnlyOneChild.children || theOnlyOneChild.children.length === 0)">
       <SidebarItemLink v-if="theOnlyOneChild.meta" :to="resolvePath(theOnlyOneChild.path)">
         <el-menu-item :index="resolvePath(theOnlyOneChild.path)" :class="{'sub-menu-title-noDropdown': isFirstLevel}">
-          <svg-icon v-if="theOnlyOneChild.meta.icon" :iconName="theOnlyOneChild.meta.icon" style="width: 1.5rem; height: 1.5rem;" />
+          <SvgIcon v-if="theOnlyOneChild.meta.icon" :iconName="theOnlyOneChild.meta.icon" style="width: 1.5rem; height: 1.5rem;" />
           <span v-if="theOnlyOneChild.meta.title">
             {{ theOnlyOneChild.meta.title }}
           </span>
@@ -12,7 +12,7 @@
     </template>
     <el-sub-menu v-else :index="resolvePath(item.path)" popper-append-to-body>
       <template #title>
-        <svg-icon v-if="item.meta.icon" :iconName="item.meta.icon" />
+        <SvgIcon v-if="item.meta.icon" :iconName="item.meta.icon" />
         <span v-if="item.meta && item.meta.title">
           {{ item.meta.title }}
         </span>

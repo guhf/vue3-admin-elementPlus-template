@@ -1,22 +1,22 @@
 <template>
-  <const-dialog ref="treeDialogRef" :title="title" :width="width" :btns="btns"
+  <ConstDialog ref="treeDialogRef" :title="title" :width="width" :btns="btns"
     @confirm="mConfirm" @check="mCheck" @save="mSave" @close="mClose">
-    <const-tree ref="constTreeRef" :data="treeData" :default-props="defaultProps" show-checkbox :radio="radio"></const-tree>
-  </const-dialog>
+    <ConstTree ref="constTreeRef" :data="treeData" :default-props="defaultProps" show-checkbox :radio="radio"></ConstTree>
+  </ConstDialog>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { PermissionTree } from '@/models/sys/menuModel'
+import { TreeData } from 'element-plus/es/components/tree/src/tree.type';
+import { Tree } from '@/models/common/treeModel';
 
 import ConstTree from '@/components/ConstTree/index.vue'
-import { TreeData } from 'element-plus/es/components/tree/src/tree.type';
 
 interface Props {
   title?: string
   width?: string | number
   btns?: string[]
-  treeData?: PermissionTree
+  treeData?: Tree
   radio?: boolean
   defaultProps?: {
     label: string,

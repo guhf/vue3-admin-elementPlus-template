@@ -1,15 +1,18 @@
 import { BaseModel } from '../baseModel'
 
 export declare interface Dict extends BaseModel {
-  dicCode?: string
-  dicName?: string
-  dicType?: number
+  dictCode?: string
+  dictName?: string
+  dictType?: number
+  sortNo?: number
+  remark?: string
+  dictItem?: DictItem[]
 }
 
 export declare interface DictItem extends BaseModel {
-  dicId: string
-  dicCode: string
-  dicName: string
-  dicValue: string
+  dictId: string
+  ditcItemName: string
+  dictItemValue: string
   sortNo?: number
+  remark?: string
 }

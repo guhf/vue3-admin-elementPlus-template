@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <const-filter @search="filterData" @reset="resetData">
+    <ConstFilter @search="filterData" @reset="resetData">
       <div class="filter-item">
         <label>角色名称</label>
         <el-input v-model="state.pageQuery.roleName" type="text" clearable placeholder="请输入角色名称" />
@@ -9,14 +9,14 @@
         <label>角色标识</label>
         <el-input v-model="state.pageQuery.roleCode" type="text" clearable placeholder="请输入角色标识" />
       </div>
-    </const-filter>
+    </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">
         <el-button v-permission="['sys.role.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
         <el-button v-permission="['sys.role.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <const-table ref="roleTbRef" :data="state.pageListData" :total="state.total" :pageSize="state.pageQuery.pageSize" :canCheck="canCheck" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable ref="roleTbRef" :data="state.pageListData" :total="state.total" :pageSize="state.pageQuery.pageSize" :canCheck="canCheck" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="角色名称" prop="roleName" sortable="custom" width="120" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="角色标识" prop="roleCode" sortable="custom" width="120" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="描述" prop="description" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
@@ -32,8 +32,8 @@
           <el-button v-permission="['sys.role.auth']" type="primary" size="small" @click="mGetAuth(row.id)">分配权限</el-button>
         </template>
       </el-table-column>
-    </const-table>
-    <TreeDialog ref="roleAuthDialogRef" title="分配权限" :tree-data="state.treeData" :default-props="state.defaultProps" :btns="['save']" @save="mSetAuth">
+    </ConstTable>
+    <TreeDialog ref="roleAuthDialogRef" title="分配权限" :tree-data="state.treeData" :btns="['save']" @save="mSetAuth">
     </TreeDialog>
   </div>
 </template>
@@ -46,7 +46,7 @@ import { useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
 import { Role } from '@/models/sys/roleModel'
-import { PermissionTree } from '@/models/sys/menuModel'
+import { Tree } from '@/models/common/treeModel'
 import TreeDialog from '@/components/ConstDialog/TreeDialog/index.vue'
 
 import { getRolePageList, delRole } from '@/apis/sys/role'
@@ -68,11 +68,7 @@ const state = reactive({
   } as PageQuery,
   selectTableData: [] as Role[],
   roleId: '',
-  treeData: [] as PermissionTree,
-  defaultProps: {
-    label: 'menuName',
-    children: 'children',
-  },
+  treeData: [] as Tree,
 })
 
 const roleTbRef = ref<ConstTable>()
@@ -159,7 +155,7 @@ const mDel = () => {
 const mGetAuth = (id: string) => {
   roleAuthDialogRef.value?.open()
   state.roleId = id
-  getRoleMenuTreeList(id).then((res: Response<PermissionTree>) => {
+  getRoleMenuTreeList(id).then((res: Response<Tree>) => {
     if (res.data != null) {
       state.treeData = res.data
     }
