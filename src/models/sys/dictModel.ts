@@ -6,7 +6,7 @@ export declare interface Dict extends BaseModel {
   dictType?: number
   sortNo?: number
   remark?: string
-  dictItem?: DictItem[]
+  dictItems?: DictItem[]
 }
 
 export declare interface DictItem extends BaseModel {

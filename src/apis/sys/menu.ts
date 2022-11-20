@@ -34,8 +34,8 @@ export const getMenu = (id : string) => {
  * @param type 查询类型
  * @returns 菜单树状列表
  */
-export const getMenuTreeList = (type = 0) => {
-  return http.get<MenuTree>(`sys/menu/tree${type}`)
+export const getMenuTreeList = (type: number | string = '') => {
+  return http.get<MenuTree>(`sys/menu/tree/${type}`)
 }
 
 /**

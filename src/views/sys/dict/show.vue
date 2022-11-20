@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="btn-container">
-      <el-button v-permission="['sys.user.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
+      <el-button v-permission="['sys.dict.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <el-descriptions title="" :column="2" border>
@@ -20,9 +20,9 @@ import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
 import { useRouterUpdate, useRouterBackIndex } from '@/hooks/web/router'
 import { Response } from '@/models/response'
-import { User } from '@/models/sys/userModel'
+import { Dict } from '@/models/sys/dictModel'
 
-import { getUser } from '@/apis/sys/user'
+import { getDict } from '@/apis/sys/dict'
 
 defineOptions({
   name: 'SysDictShow'
@@ -32,7 +32,7 @@ const state = reactive({
   id: '',
   modelData: {
     id: '',
-  } as User,
+  } as Dict,
 })
 
 onMounted(() => {
@@ -44,7 +44,7 @@ onMounted(() => {
 })
 
 const getData = () => {
-  getUser(state.id).then((res: Response<User>) => {
+  getDict(state.id).then((res: Response<Dict>) => {
     if (res.data != null) {
       state.modelData = res.data
     }

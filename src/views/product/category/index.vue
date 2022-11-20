@@ -72,7 +72,7 @@ import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
 import { Dict, DictItem } from '@/models/sys/dictModel'
 
-import { getDictTreeList, getDictItemList, delDict, delDictItem } from '@/apis/sys/dict'
+import { delDict } from '@/apis/sys/dict'
 
 defineOptions({
   name: 'SysDict'
@@ -93,17 +93,17 @@ onMounted(() => {
 })
 
 const getTreeData = () => {
-  getDictTreeList().then((res: Response<Dict[]>) => {
-    state.treeData = res.data
-    state.total = res.total ?? 0
-  })
+  // getDictTreeList().then((res: Response<Dict[]>) => {
+  //   state.treeData = res.data
+  //   state.total = res.total ?? 0
+  // })
 }
 
 const getItemData = () => {
-  getDictItemList().then((res: Response<Dict[]>) => {
-    state.treeData = res.data
-    state.total = res.total ?? 0
-  })
+  // getDictItemList().then((res: Response<Dict[]>) => {
+  //   state.treeData = res.data
+  //   state.total = res.total ?? 0
+  // })
 }
 
 const filterData = () => {
@@ -117,7 +117,7 @@ const resetData = () => {
 
 const reloadTableData = (pageQuery: PageQuery) => {
   Object.assign(state.pageQuery, pageQuery)
-  getPageData()
+  // getPageData()
 }
 
 const selectedChange = (val: Dict[]) => {
@@ -126,9 +126,9 @@ const selectedChange = (val: Dict[]) => {
 
 const mReset = (id: string) => {
   useConfirm({ message: '确认重置该用户密码吗？', type: 'warning' }).then(() => {
-    resetPwd(id).then((res: Response<any>) => {
-      useMessageSuccess(res.msg)
-    })
+    // resetPwd(id).then((res: Response<any>) => {
+    //   useMessageSuccess(res.msg)
+    // })
   })
 }
 
@@ -154,7 +154,7 @@ const mDel = () => {
     delDict(ids.join(',')).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       state.pageQuery.pageIndex = 1
-      getPageData()
+      // getPageData()
     })
   })
 }

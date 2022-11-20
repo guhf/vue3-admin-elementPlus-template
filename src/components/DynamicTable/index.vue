@@ -4,11 +4,11 @@
       <div class="table-tool-title">
         <span>{{ title }}</span>
       </div>
-      <div class="table-tool-self">
-        <div v-if="stateData.batchAddShow" class="self-inline" title="批量添加" @click="batchAdd"><i class="el-icon-zoom-in" />批量添加</div>
-        <div v-if="stateData.addShow" class="self-inline" title="添加" @click="add"><i class="el-icon-circle-plus-outline" />添加</div>
-        <div v-if="stateData.delShow" class="self-inline" title="删除" @click="del"><i class="el-icon-remove-outline" />删除</div>
-        <div v-if="stateData.clearShow" class="self-inline" title="清空" @click="clear"><i class="el-icon-delete" />清空</div>
+      <div class="table-tool-btns">
+        <el-button v-if="stateData.batchAddShow" title="批量添加" size="small" :icon="ZoomIn" @click="batchAdd">批量添加</el-button>
+        <el-button v-if="stateData.addShow" title="添加" size="small" :icon="CirclePlus" @click="add">添加</el-button>
+        <el-button v-if="stateData.delShow" title="删除" size="small" :icon="Remove" @click="del">删除</el-button>
+        <el-button v-if="stateData.clearShow" title="清空" size="small" :icon="Delete" @click="clear">清空</el-button>
       </div>
     </div>
     <el-form ref="dynamicTable" :model="stateData" label-width="0">
@@ -27,8 +27,9 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted, watch } from 'vue'
-import { useConfirm } from '@/hooks/web/message'
 import { ElTable, FormInstance } from 'element-plus'
+import { ZoomIn, CirclePlus, Remove, Delete } from '@element-plus/icons-vue'
+import { useConfirm } from '@/hooks/web/message'
 
 interface Props {
   title?: string
@@ -141,10 +142,10 @@ defineExpose({
       float: left;
     }
 
-    .table-tool-self {
+    .table-tool-btns {
       float: right;
 
-      .self-inline {
+      .btns-inline {
         display: inline-block;
 
         i {
