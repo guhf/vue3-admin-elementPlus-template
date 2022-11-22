@@ -33,7 +33,7 @@
         <el-col :span="12">
           <el-form-item label="菜单类型:" prop="menuType">
             <el-radio-group v-model="state.modelData.menuType">
-              <el-radio-button v-for="item in state.menuTypes" :key="item.value" :label="Number(item.value)">{{ item.label }}</el-radio-button>
+              <el-radio-button v-for="item in sysMenuType" :key="item.value" :label="Number(item.value)">{{ item.label }}</el-radio-button>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -79,9 +79,9 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import IconSelector from '@/components/IconSelector/index.vue'
 import { useRouterBackIndex } from '@/hooks/web/router'
 import { useValidate } from '@/hooks/event/validate'
+import { useDict } from '@/hooks/event/dict'
 import { Response } from '@/models/response'
 import { MenuTree, Menu } from '@/models/sys/menuModel'
-import { SelectOptions } from '@/models/common/selectModel'
 
 import { getMenu, getMenuTreeList, createMenu, updateMenu } from '@/apis/sys/menu'
 
@@ -89,12 +89,12 @@ defineOptions({
   name: 'SysMenuEdit'
 })
 
+const { sysMenuType } = useDict()
 const state = reactive({
   id: '',
   modelData: {
     menuType: 1,
   } as Menu,
-  menuTypes: [] as SelectOptions,
   menuTreeData: [] as MenuTree,
   showMenuSelect: false,
   modelRules: {
@@ -118,7 +118,6 @@ const getData = () => {
     if (res.data != null) {
       state.modelData = res.data
     }
-    state.menuTypes = res.enums.menuType
   })
 }
 

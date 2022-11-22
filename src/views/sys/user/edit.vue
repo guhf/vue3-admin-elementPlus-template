@@ -40,9 +40,7 @@
         <el-col :span="12">
           <el-form-item label="性别:" prop="sex">
             <el-radio-group v-model="state.modelData.sex">
-              <el-radio :label="1">男</el-radio>
-              <el-radio :label="0">女</el-radio>
-              <!-- <el-radio :label="-1">未知</el-radio> -->
+              <el-radio-button v-for="sex in commonSex" :label="Number(sex.value)" :key="sex.value">{{ sex.label }}</el-radio-button>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -72,26 +70,26 @@ import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
 import { useRouterBackIndex } from '@/hooks/web/router'
 import { useValidate } from '@/hooks/event/validate'
+import { useDict } from '@/hooks/event/dict'
 import { Response } from '@/models/response'
-import { User } from '@/models/sys/userModel'
-import { SelectOptions } from '@/models/common/selectModel'
+import { User, UserRole } from '@/models/sys/userModel'
+import { Options } from '@/models/common/optionModel'
 
 import { getUser, createUser, updateUser } from '@/apis/sys/user'
 import { getRoleSelectList } from '@/apis/sys/role'
-import { UserRole } from '@/models/sys/userModel'
 
 defineOptions({
   name: 'SysUserEdit'
 })
 
+const { commonSex } = useDict()
 const state = reactive({
   id: '',
   modelData: {
-    id: '',
     roleIds: [] as string[],
     sex: 1,
   } as User,
-  roleData: [] as SelectOptions,
+  roleData: [] as Options,
   showRoleSelect: false,
   userDialogVisible: false,
   modelRules: {
@@ -125,7 +123,7 @@ const getData = () => {
 }
 
 const getRoleData = () => {
-  getRoleSelectList().then((res: Response<SelectOptions>) => {
+  getRoleSelectList().then((res: Response<Options>) => {
     if (res.data != null) {
       state.roleData = res.data
       state.showRoleSelect = true

@@ -9,6 +9,12 @@
         <label>字典编号</label>
         <el-input v-model="state.pageQuery.dictCode" type="text" clearable placeholder="请输入字典编号" />
       </div>
+      <div class="filter-item">
+        <label>字典类型</label>
+        <el-select v-model="state.pageQuery.dictType" type="text" clearable placeholder="请选择字典类型">
+          <el-option v-for="item in sysDictType" :key="item.value" :label="item.label" :value="Number(item.value)" />
+        </el-select>
+      </div>
     </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">
@@ -17,14 +23,21 @@
       </div>
     </div>
     <ConstTable ref="dictTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
-      <el-table-column label="字典名称" prop="dictName" sortable="custom" min-width="200" align="center" fixed="left" show-overflow-tooltip />
+      <el-table-column label="字典名称" prop="dictName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="字典编号" prop="dictCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
-      <el-table-column label="字典类型" prop="dictType" sortable="custom" width="120" align="center" show-overflow-tooltip />
+      <el-table-column label="字典类型" prop="dictType" sortable="custom" min-width="200" align="center" show-overflow-tooltip>
+        <template #default="{ row }">
+          <el-tag size="small" effect="light">
+            {{ useValueToLabel(sysDictType, row.dictType) }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-tag v-if="row.status" type="success" size="small" effect="light">正常</el-tag>
-          <el-tag v-else type="danger" size="small" effect="light">禁用</el-tag>
+          <el-tag :type="row.status ? 'success' : 'danger'" size="small" effect="light">
+            {{ useValueToLabel(commonStatus, row.status) }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="80" align="center" fixed="right">
@@ -41,6 +54,7 @@ import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import { useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
 import { useRouterCreate, useRouterShow } from '@/hooks/web/router'
+import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
 import { Dict } from '@/models/sys/dictModel'
@@ -51,6 +65,7 @@ defineOptions({
   name: 'SysDict'
 })
 
+const { sysDictType, commonStatus } = useDict()
 const state = reactive({
   pageListData: [] as Dict[],
   modelData: {} as Dict,

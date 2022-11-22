@@ -1,7 +1,7 @@
 import http from '@/utils/http'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Role } from '@/models/sys/roleModel'
-import { SelectOptions } from '@/models/common/selectModel'
+import { Options } from '@/models/common/optionModel'
 
 /**
  * 创建角色
@@ -45,7 +45,7 @@ export const getRolePageList = (cond: PageQuery) => {
  * @returns 角色下拉框列表
  */
 export const getRoleSelectList = () => {
-  return http.get<SelectOptions>('sys/role/selectlist')
+  return http.get<Options>('sys/role/selectlist')
 }
 
 /**

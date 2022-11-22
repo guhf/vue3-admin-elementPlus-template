@@ -74,7 +74,7 @@ import { useRouterBackIndex } from '@/hooks/web/router'
 import { useValidate } from '@/hooks/event/validate'
 import { Response } from '@/models/response'
 import { User } from '@/models/sys/userModel'
-import { SelectOptions } from '@/models/common/selectModel'
+import { Options } from '@/models/common/optionModel'
 
 import { getUser, createUser, updateUser } from '@/apis/sys/user'
 import { getRoleSelectList } from '@/apis/sys/role'
@@ -91,7 +91,7 @@ const state = reactive({
     roleIds: [] as string[],
     sex: 1,
   } as User,
-  roleData: [] as SelectOptions,
+  roleData: [] as Options,
   showRoleSelect: false,
   userDialogVisible: false,
   modelRules: {
@@ -125,7 +125,7 @@ const getData = () => {
 }
 
 const getRoleData = () => {
-  getRoleSelectList().then((res: Response<SelectOptions>) => {
+  getRoleSelectList().then((res: Response<Options>) => {
     if (res.data != null) {
       state.roleData = res.data
       state.showRoleSelect = true

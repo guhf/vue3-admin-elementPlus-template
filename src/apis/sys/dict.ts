@@ -1,7 +1,6 @@
 import http from '@/utils/http'
-import { Dict, DictItem } from '@/models/sys/dictModel'
+import { Dict, DictData } from '@/models/sys/dictModel'
 import { PageQuery } from '@/models/common/pageQueryModel'
-import { User } from '@/models/sys/userModel'
 
 /**
  * 创建数据字典
@@ -36,7 +35,7 @@ export const getDict = (id : string) => {
  * @returns 数据字典列表
  */
 export const getDictPageList = (cond: PageQuery) => {
-  return http.get<User[]>('sys/dict/page', cond)
+  return http.get<Dict[]>('sys/dict/page', cond)
 }
 
 /**
@@ -44,8 +43,8 @@ export const getDictPageList = (cond: PageQuery) => {
  * @param cond 查询条件
  * @returns 数据字典列表
  */
-export const getDictList = (cond: PageQuery) => {
-  return http.get<User[]>('sys/dict/list', cond)
+export const getDictList = () => {
+  return http.get<DictData[]>('sys/dict/list')
 }
 
 /**

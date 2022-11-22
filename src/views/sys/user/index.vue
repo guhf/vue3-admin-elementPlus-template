@@ -21,8 +21,9 @@
       <el-table-column label="用户名称" prop="userName" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="性别" prop="sex" sortable="custom" width="80" align="center" show-overflow-tooltip>
         <template #default="{ row }">
-          <el-tag v-if="row.sex > 0" size="small" effect="light">男</el-tag>
-          <el-tag v-else type="danger" size="small" effect="light">女</el-tag>
+          <el-tag :type="row.sex === 1 ? '' : (row.sex === 0 ? 'danger' : 'info')" size="small" effect="light">
+            {{ useValueToLabel(commonSex, row.sex) }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="角色" prop="roles" sortable="custom" min-width="120" header-align="center" align="left" show-overflow-tooltip>
@@ -34,8 +35,9 @@
       </el-table-column>
       <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-tag v-if="row.status" type="success" size="small" effect="light">正常</el-tag>
-          <el-tag v-else type="danger" size="small" effect="light">禁用</el-tag>
+          <el-tag :type="row.status ? 'success' : 'danger'" size="small" effect="light">
+            {{ useValueToLabel(commonStatus, row.status) }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="180" align="center" fixed="right">
@@ -53,6 +55,7 @@ import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import { useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
 import { useRouterCreate, useRouterShow } from '@/hooks/web/router'
+import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
 import { User } from '@/models/sys/userModel'
@@ -63,6 +66,7 @@ defineOptions({
   name: 'SysUser'
 })
 
+const { commonSex, commonStatus } = useDict()
 const state = reactive({
   pageListData: [] as User[],
   total: 0,

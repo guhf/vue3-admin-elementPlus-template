@@ -14,7 +14,11 @@
         </el-space>
       </el-descriptions-item>
       <el-descriptions-item label="出生日期">{{ state.modelData.birthday }}</el-descriptions-item>
-      <el-descriptions-item label="性别">{{ state.modelData.sex === 1 ? '男' : '女' }}</el-descriptions-item>
+      <el-descriptions-item label="性别">
+        <el-tag :type="state.modelData.sex === 1 ? '' : (state.modelData.sex === 0 ? 'danger' : 'info')" size="small" effect="light">
+          {{ useValueToLabel(commonSex, state.modelData.sex) }}
+        </el-tag>
+      </el-descriptions-item>
       <el-descriptions-item label="手机号码" :span="2">{{ state.modelData.phone }}</el-descriptions-item>
       <!-- <el-descriptions-item label="省市区" :span="2">{{ state.modelData.Province + state.modelData.City + state.modelData.County + "" }}</el-descriptions-item> -->
     </el-descriptions>
@@ -26,6 +30,7 @@ import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
 import { useRouterUpdate, useRouterBackIndex } from '@/hooks/web/router'
+import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { Response } from '@/models/response'
 import { User } from '@/models/sys/userModel'
 
@@ -35,6 +40,7 @@ defineOptions({
   name: 'SysUserShow'
 })
 
+const { commonSex } = useDict()
 const state = reactive({
   id: '',
   modelData: {

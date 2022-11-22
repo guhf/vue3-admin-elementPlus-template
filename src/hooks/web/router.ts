@@ -27,6 +27,7 @@ export const useRouterReplace = (options: routerOptions = {}) => {
 
 /**
  * 路由跳转-添加
+ * @param options 路由参数
  */
 export const useRouterCreate = (options: routerOptions = {}) => {
   let currentPath = router.currentRoute.value.fullPath
@@ -37,6 +38,7 @@ export const useRouterCreate = (options: routerOptions = {}) => {
 
 /**
  * 路由跳转-查看
+ * @param options 路由参数
  */
 export const useRouterShow = (options: routerOptions = {}) => {
   let currentPath = router.currentRoute.value.fullPath
@@ -47,13 +49,11 @@ export const useRouterShow = (options: routerOptions = {}) => {
 
 /**
  * 路由跳转-编辑
- * @param query 参数
+ * @param options 路由参数
  */
 export const useRouterUpdate = (options: routerOptions = {}) => {
   let currentPath = router.currentRoute.value.fullPath
-  let prefixPath = currentPath.substring(0, currentPath.indexOf('show') - 1)
-  
-  options.path = options.path || `${prefixPath}/update/${options.path}`
+  options.path = currentPath.replace('show', 'update')
 
   return useRouterPush(options)
 }

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { usePermissionStore } from './permission'
+import { useDictStore } from './dict'
 import { getToken, setToken, removeToken } from '@/utils/cache'
 import { defaultAvatar } from '@/config/user.config'
 import { LoginInfo, Token, UserInfo } from '@/models/userModel'
@@ -8,6 +9,8 @@ import { login, getOnlineInfo, getMenuList } from '@/apis/user'
 import { Routes } from '@/models/route/routesModel'
 import { Response } from '@/models/response'
 import { useTagsViewStore } from './tagsView'
+import { getDictList } from '@/apis/sys/dict'
+import { DictData } from '@/models/sys/dictModel'
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -41,6 +44,9 @@ export const useUserStore = defineStore('user', {
         getOnlineInfo().then((res: Response<UserInfo>) => {
           this.userInfo = res.data
           this.userInfo.avatar = res.data.avatar || defaultAvatar
+
+          // 获取全部字典信息
+          this.getDictList()
           resolve(res.data)
         }).catch(error => {
           reject(error)
@@ -54,6 +60,13 @@ export const useUserStore = defineStore('user', {
           resolve(res.data)
         }).catch(error => {
           reject(error)
+        })
+      })
+    },
+    getDictList() {
+      return new Promise((resolve, reject) => {
+        getDictList().then((res: Response<DictData[]>) => {
+          useDictStore().setDictData(res.data)
         })
       })
     },

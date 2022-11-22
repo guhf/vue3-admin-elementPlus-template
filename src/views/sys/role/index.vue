@@ -22,8 +22,9 @@
       <el-table-column label="描述" prop="description" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-tag v-if="row.status" type="success" size="small" effect="light">正常</el-tag>
-          <el-tag v-else type="danger" size="small" effect="light">禁用</el-tag>
+          <el-tag :type="row.status ? 'success' : 'danger'" size="small" effect="light">
+            {{ useValueToLabel(commonStatus, row.status) }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="180" align="center" fixed="right">
@@ -43,6 +44,7 @@ import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import { useRouterCreate, useRouterShow } from '@/hooks/web/router'
 import { useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
+import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
 import { Role } from '@/models/sys/roleModel'
@@ -58,6 +60,7 @@ defineOptions({
   name: 'SysRole'
 })
 
+const { commonStatus } = useDict()
 const state = reactive({
   pageListData: [] as Role[],
   total: 0,

@@ -9,4 +9,4 @@ export interface Option {
 /**
  * 下拉框
  */
-export declare type SelectOptions = Option[]
+export declare type Options = Option[]

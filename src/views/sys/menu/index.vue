@@ -20,18 +20,18 @@
       <el-table-column label="权限标识" prop="authority" sortable="custom" min-width="150" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="菜单类型" prop="menuType" sortable="custom" width="100" align="center" show-overflow-tooltip>
         <template #default="{ row }">
-          <el-tag v-if="row.menuType === 1" size="small" effect="light">菜单</el-tag>
-          <el-tag v-if="row.menuType === 2" type="info" size="small" effect="light">按钮</el-tag>
+          <el-tag :type="row.menuType === 3 ? 'info' : ''" size="small" effect="light">
+            {{ useValueToLabel(sysMenuType, row.menuType) }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
         <template #default="{ row }">
           <el-switch v-permission="['sys.menu.enable']" v-model="row.status" @change="mEnableDisable(row)" />
-          <template v-permission:un="['sys.menu.enable']">
-            <el-tag v-if="row.status" type="success" size="small" effect="light">启用</el-tag>
-          <el-tag v-else type="danger" size="small" effect="light">禁用</el-tag>
-          </template>
+          <el-tag v-permission:un="['sys.menu.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
+            {{ useValueToLabel(commonStatus, row.status) }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="80" align="center" fixed="right">
@@ -48,6 +48,7 @@ import { reactive, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import { useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
 import { useRouterCreate, useRouterUpdate } from '@/hooks/web/router'
+import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { Response } from '@/models/response'
 import { MenuTree, Menu } from '@/models/sys/menuModel'
 
@@ -57,6 +58,7 @@ defineOptions({
   name: 'SysMenu'
 })
 
+const { sysMenuType, commonStatus } = useDict()
 const state = reactive({
   pageListData: [] as MenuTree,
   selectTableData: [] as Menu[],

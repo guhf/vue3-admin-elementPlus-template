@@ -20,7 +20,9 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="字典类型:" prop="dictType">
-            <el-input v-model="state.modelData.dictType" type="text" maxlength="50" show-word-limit clearable placeholder="请输入字典名称" />
+            <el-radio-group v-model="state.modelData.dictType">
+              <el-radio-button v-for="item in sysDictType" :key="item.value" :label="Number(item.value)">{{ item.label }}</el-radio-button>
+            </el-radio-group>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -78,26 +80,23 @@ import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
 import { useRouterBackIndex } from '@/hooks/web/router'
+import { useDict } from '@/hooks/event/dict'
 import { useValidate } from '@/hooks/event/validate'
 import { Response } from '@/models/response'
 import { Dict } from '@/models/sys/dictModel'
-import { SelectOptions } from '@/models/common/selectModel'
 
 import { getDict, createDict, updateDict } from '@/apis/sys/dict'
-import { getRoleSelectList } from '@/apis/sys/role'
 
 defineOptions({
   name: 'SysDictEdit'
 })
 
+const { sysDictType } = useDict()
 const state = reactive({
   id: '',
   modelData: {
-    id: '',
-    roleIds: [] as string[],
-    sex: 1,
+    dictType: 2
   } as Dict,
-  roleData: [] as SelectOptions,
   showRoleSelect: false,
   dictDialogVisible: false,
   modelRules: {
@@ -118,27 +117,12 @@ onMounted(() => {
   if (params.id) state.id = id
 
   getData()
-  getRoleData()
 })
 
 const getData = () => {
   getDict(state.id).then((res: Response<Dict>) => {
     if (res.data != null) {
       state.modelData = res.data
-
-      state.modelData.roleIds = [];
-      (state.modelData.dictRoles || []).forEach((dictRole: DictRole) => {
-        state.modelData.roleIds.push(dictRole.roleId)
-      })
-    }
-  })
-}
-
-const getRoleData = () => {
-  getRoleSelectList().then((res: Response<SelectOptions>) => {
-    if (res.data != null) {
-      state.roleData = res.data
-      state.showRoleSelect = true
     }
   })
 }

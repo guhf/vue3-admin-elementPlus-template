@@ -11,17 +11,15 @@
         <el-button v-if="stateData.clearShow" title="清空" size="small" :icon="Delete" @click="clear">清空</el-button>
       </div>
     </div>
-    <el-form ref="dynamicTable" :model="stateData" label-width="0">
-      <el-table ref="tableRef" :data="stateData.tableData" class="dynamic-table" 
-        border fit highlight-current-row :row-key="rowKey"
-        :row-class-name="rowClassName" 
-        @row-click="rowClick">
-        <slot />
-        <template #empty>
-          <el-empty description="暂无数据~~" />
-        </template>
-      </el-table>
-    </el-form>
+    <el-table ref="tableRef" :data="modelValue" class="dynamic-table" 
+      border fit highlight-current-row :row-key="rowKey"
+      :row-class-name="rowClassName" 
+      @row-click="rowClick">
+      <slot />
+      <template #empty>
+        <el-empty description="暂无数据~~" />
+      </template>
+    </el-table>
   </div>
 </template>
 
@@ -134,7 +132,7 @@ defineExpose({
     line-height: 40px;
     padding: 0 20px;
     display: block;
-    background: rgba(0, 132, 255, 0.1);
+    background: #f5f5f5;;
 
     .table-tool-title {
       font-size: 1.4rem;
@@ -168,9 +166,13 @@ defineExpose({
   .dynamic-table{
     // height: 400px;
 
-    .el-table__body-wrapper{
+    ::v-deep(.el-table__body-wrapper){
       height: 100%;
       overflow: auto;
+
+      .el-form-item__content{
+        margin-left: 0 !important;
+      }
     }
   }
 }

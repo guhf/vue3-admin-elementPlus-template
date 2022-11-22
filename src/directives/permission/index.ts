@@ -13,7 +13,7 @@ export const permission: Directive = {
         return permissions.includes(auth)
       })
 
-      if(!hasPermission && arg !== 'un'){
+      if((!hasPermission && arg !== 'un') || (hasPermission && arg === 'un')){
         el.parentNode && el.parentNode.removeChild(el)
       }
       return hasPermission

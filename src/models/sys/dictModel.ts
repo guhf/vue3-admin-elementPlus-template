@@ -1,4 +1,5 @@
 import { BaseModel } from '../baseModel'
+import { Options } from '@/models/common/optionModel'
 
 export declare interface Dict extends BaseModel {
   dictCode?: string
@@ -15,4 +16,10 @@ export declare interface DictItem extends BaseModel {
   dictItemValue: string
   sortNo?: number
   remark?: string
+}
+
+export declare interface DictData {
+  dictCode: string
+  dictName: string
+  dictItems: Options
 }
