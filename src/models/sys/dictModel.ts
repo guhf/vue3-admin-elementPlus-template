@@ -1,6 +1,7 @@
 import { BaseModel } from '../baseModel'
 import { Options } from '@/models/common/optionModel'
 
+/** 字典 */
 export declare interface Dict extends BaseModel {
   dictCode?: string
   dictName?: string
@@ -10,6 +11,7 @@ export declare interface Dict extends BaseModel {
   dictItems?: DictItem[]
 }
 
+/** 字典明细 */
 export declare interface DictItem extends BaseModel {
   dictId: string
   ditcItemName: string
@@ -18,6 +20,7 @@ export declare interface DictItem extends BaseModel {
   remark?: string
 }
 
+/** 全部字典数据 */
 export declare interface DictData {
   dictCode: string
   dictName: string

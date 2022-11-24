@@ -19,18 +19,6 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="菜单标识:" prop="menuCode">
-            <el-input v-model="state.modelData.menuCode" type="text" maxlength="100" show-word-limit clearable placeholder="请输入菜单标识" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="权限标识:" prop="authority">
-            <el-input v-model="state.modelData.authority" type="text" maxlength="50" show-word-limit clearable placeholder="请输入权限标识" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
           <el-form-item label="菜单类型:" prop="menuType">
             <el-radio-group v-model="state.modelData.menuType">
               <el-radio-button v-for="item in sysMenuType" :key="item.value" :label="Number(item.value)">{{ item.label }}</el-radio-button>
@@ -40,6 +28,18 @@
         <el-col :span="12">
           <el-form-item label="菜单图标:" prop="icon">
             <icon-selector v-model="state.modelData.icon" :icon-type="state.modelData.menuType" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="菜单标识:" prop="menuCode">
+            <el-input v-model="state.modelData.menuCode" type="text" maxlength="100" show-word-limit clearable placeholder="请输入菜单标识" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="权限标识:" prop="authority">
+            <el-input v-model="state.modelData.authority" type="text" maxlength="50" show-word-limit clearable placeholder="请输入权限标识" />
           </el-form-item>
         </el-col>
       </el-row>

@@ -8,23 +8,23 @@
     </div>
     <ConstTable :data="state.pageListData" height="calc(100vh - 206px)" :pagination="false" rowKey="id" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="菜单名称" prop="menuName" sortable="custom" width="200" header-align="center" align="left" fixed show-overflow-tooltip />
-      <el-table-column label="菜单标识" prop="menuCode" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
-      <el-table-column label="图标" prop="icon" sortable="custom" width="80" align="center" show-overflow-tooltip>
-        <template #default="{ row }">
-          <SvgIcon :icon-name="row.icon" />
-        </template>
-      </el-table-column>
-      <el-table-column label="菜单路由" prop="path" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
-      <el-table-column label="菜单地址" prop="component" sortable="custom" min-width="240" header-align="center" align="left" show-overflow-tooltip />
-      <el-table-column label="接口地址" prop="url" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
-      <el-table-column label="权限标识" prop="authority" sortable="custom" min-width="150" header-align="center" align="left" show-overflow-tooltip />
-      <el-table-column label="菜单类型" prop="menuType" sortable="custom" width="100" align="center" show-overflow-tooltip>
+      <el-table-column label="菜单类型" prop="menuType" sortable="custom" width="120" align="center" show-overflow-tooltip>
         <template #default="{ row }">
           <el-tag :type="row.menuType === 3 ? 'info' : ''" size="small" effect="light">
             {{ useValueToLabel(sysMenuType, row.menuType) }}
           </el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="图标" prop="icon" sortable="custom" width="80" align="center" show-overflow-tooltip>
+        <template #default="{ row }">
+          <SvgIcon :icon-name="row.icon" />
+        </template>
+      </el-table-column>
+      <el-table-column label="菜单标识" prop="menuCode" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
+      <el-table-column label="权限标识" prop="authority" sortable="custom" min-width="150" header-align="center" align="left" show-overflow-tooltip />
+      <el-table-column label="菜单路由" prop="path" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
+      <el-table-column label="菜单地址" prop="component" sortable="custom" min-width="240" header-align="center" align="left" show-overflow-tooltip />
+      <el-table-column label="接口地址" prop="url" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
         <template #default="{ row }">
@@ -47,7 +47,7 @@
 import { reactive, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import { useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
-import { useRouterCreate, useRouterUpdate } from '@/hooks/web/router'
+import { useRouterCreate, useRouterPush } from '@/hooks/web/router'
 import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { Response } from '@/models/response'
 import { MenuTree, Menu } from '@/models/sys/menuModel'
@@ -87,7 +87,7 @@ const mCreate = () => {
 }
 
 const mEdit = (id: string) => {
-  useRouterUpdate({ path: `menu/update/${id}` })
+  useRouterPush({ path: `menu/update/${id}` })
 }
 
 const mDel = () => {

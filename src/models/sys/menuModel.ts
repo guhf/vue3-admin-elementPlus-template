@@ -1,5 +1,6 @@
 import { BaseModel } from '../baseModel'
 
+/** 菜单 */
 export declare interface Menu extends BaseModel {
   menuCode?: string
   menuName?: string
@@ -13,10 +14,11 @@ export declare interface Menu extends BaseModel {
   sortNo?: number
 }
 
+/** 菜单树项 */
 export declare interface MenuTreeItem extends Menu {
   children: MenuTreeItem[]
-  btns: MenuTreeItem[]
 }
 
+/** 菜单树集合 */
 export declare type MenuTree = MenuTreeItem[]
 

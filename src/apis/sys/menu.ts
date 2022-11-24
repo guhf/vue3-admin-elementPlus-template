@@ -65,12 +65,3 @@ export const delMenu = (ids: string) => {
 export const enableDisableMenu = (id: string, enable: boolean) => {
   return http.patch<any>(`sys/menu/${id}/${ enable ? 'enable': 'disable' }`)
 }
-
-/**
- * 禁用菜单
- * @param id 菜单Id
- * @returns
- */
-export const disableMenu = (id: string) => {
-  return http.patch<any>(`sys/menu/${id}/disable`)
-}
