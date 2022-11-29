@@ -1,27 +1,27 @@
 <template>
   <div class="app-container">
     <div class="btn-container">
-      <el-button v-permission="['sys.dict.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
+      <el-button v-permission="['product.brand.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <el-form ref="modelRef" :model="state.modelData" :rules="state.modelRules" label-width="120px">
       <el-row>
         <el-col :span="12">
-          <el-form-item label="字典名称:" prop="dictName">
-            <el-input v-model="state.modelData.dictName" type="text" maxlength="50" show-word-limit clearable placeholder="请输入字典名称" />
+          <el-form-item label="品牌名称:" prop="brandName">
+            <el-input v-model="state.modelData.brandName" type="text" maxlength="50" show-word-limit clearable placeholder="请输入品牌名称" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="字典编号:" prop="dictCode">
-            <el-input v-model="state.modelData.dictCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入字典编号" />
+          <el-form-item label="品牌编号:" prop="brandCode">
+            <el-input v-model="state.modelData.brandCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入品牌编号" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="字典类型:" prop="dictType">
-            <el-radio-group v-model="state.modelData.dictType">
-              <el-radio-button v-for="item in sysDictType" :key="item.value" :label="Number(item.value)">{{ item.label }}</el-radio-button>
+          <el-form-item label="品牌类型:" prop="brandType">
+            <el-radio-group v-model="state.modelData.brandType">
+              <el-radio-button v-for="item in productBrandType" :key="item.value" :label="Number(item.value)">{{ item.label }}</el-radio-button>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -39,31 +39,31 @@
         </el-col>
       </el-row>
       <el-row>
-        <DynamicTable ref="contractNodeRef" v-model="state.modelData.dictItems" title="字典明细">
-          <el-table-column label="字典明细名称" prop="dictItemName" min-width="200" align="center">
+        <DynamicTable ref="contractNodeRef" v-model="state.modelData.brandItems" title="品牌明细">
+          <el-table-column label="品牌明细名称" prop="brandItemName" min-width="200" align="center">
             <template #default="{ row, $index }">
-              <el-form-item :prop="'dictItems.' + $index + '.dictItemName'" :rules="state.dictItemRules.dictItemName">
-                <el-input type="text" v-model="row.dictItemName" maxlength="50" show-word-limit clearable placeholder="请输入字典明细名称"></el-input>
+              <el-form-item :prop="'brandItems.' + $index + '.brandItemName'" :rules="state.brandItemRules.brandItemName">
+                <el-input type="text" v-model="row.brandItemName" maxlength="50" show-word-limit clearable placeholder="请输入品牌明细名称"></el-input>
               </el-form-item>
             </template>
           </el-table-column>
-          <el-table-column label="字典明细键值" prop="dictItemValue" min-width="200" align="center">
+          <el-table-column label="品牌明细键值" prop="brandItemValue" min-width="200" align="center">
             <template #default="{ row, $index }">
-              <el-form-item :prop="'dictItems.' + $index + '.dictItemValue'" :rules="state.dictItemRules.dictItemValue">
-                <el-input type="text" v-model="row.dictItemValue" maxlength="50" show-word-limit clearable placeholder="请输入字典明细键值"></el-input>
+              <el-form-item :prop="'brandItems.' + $index + '.brandItemValue'" :rules="state.brandItemRules.brandItemValue">
+                <el-input type="text" v-model="row.brandItemValue" maxlength="50" show-word-limit clearable placeholder="请输入品牌明细键值"></el-input>
               </el-form-item>
             </template>
           </el-table-column>
           <el-table-column label="排序号" prop="sortNo" width="150" align="center">
             <template #default="{ row, $index }">
-              <el-form-item :prop="'dictItems.' + $index + '.sortNo'">
+              <el-form-item :prop="'brandItems.' + $index + '.sortNo'">
                 <el-input type="text" v-model.number="row.sortNo" clearable placeholder="请输入排序号"></el-input>
               </el-form-item>
             </template>
           </el-table-column>
           <el-table-column label="备注" prop="remark" min-width="360" align="center">
             <template #default="{ row, $index }">
-              <el-form-item :prop="'dictItems.' + $index + '.remark'">
+              <el-form-item :prop="'brandItems.' + $index + '.remark'">
                 <el-input type="text" v-model="row.remark" maxlength="50" clearable placeholder="请输入备注"></el-input>
               </el-form-item>
             </template>
@@ -80,33 +80,33 @@ import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
 import { useRouterBackIndex } from '@/hooks/web/router'
-import { useDict } from '@/hooks/event/dict'
+import { useBrand } from '@/hooks/event/brand'
 import { useValidate } from '@/hooks/event/validate'
 import { Response } from '@/models/response'
-import { Dict } from '@/models/sys/dictModel'
+import { Brand } from '@/models/product/brandModel'
 
-import { getDict, createDict, updateDict } from '@/apis/sys/dict'
+import { getBrand, createBrand, updateBrand } from '@/apis/product/brand'
 
 defineOptions({
-  name: 'SysDictEdit'
+  name: 'ProductBrandEdit'
 })
 
-const { sysDictType } = useDict()
+const { productBrandType } = useBrand()
 const state = reactive({
   id: '',
   modelData: {
-    dictType: 2
-  } as Dict,
+    brandType: 2
+  } as Brand,
   showRoleSelect: false,
-  dictDialogVisible: false,
+  brandDialogVisible: false,
   modelRules: {
-    dictName: [{ required: true, message: '请输入字典名称', trigger: 'blur' }],
-    dictCode: [{ required: true, message: '请输入字典编号', trigger: 'blur' }],
-    dictType: [{ required: true, message: '请选择字典类型', trigger: 'blur' }],
+    brandName: [{ required: true, message: '请输入品牌名称', trigger: 'blur' }],
+    brandCode: [{ required: true, message: '请输入品牌编号', trigger: 'blur' }],
+    brandType: [{ required: true, message: '请选择品牌类型', trigger: 'blur' }],
   },
-  dictItemRules: {
-    dictItemName: [{ required: true, message: '请输入字典明细名称', trigger: 'blur' }],
-    dictItemValue: [{ required: true, message: '请输入字典明细键值', trigger: 'blur' }],
+  brandItemRules: {
+    brandItemName: [{ required: true, message: '请输入品牌明细名称', trigger: 'blur' }],
+    brandItemValue: [{ required: true, message: '请输入品牌明细键值', trigger: 'blur' }],
   }
 })
 const modelRef = ref<FormInstance>()
@@ -120,7 +120,7 @@ onMounted(() => {
 })
 
 const getData = () => {
-  getDict(state.id).then((res: Response<Dict>) => {
+  getBrand(state.id).then((res: Response<Brand>) => {
     if (res.data != null) {
       state.modelData = res.data
     }
@@ -131,11 +131,11 @@ const mSave = async () => {
   if (!(await useValidate(modelRef.value))) return
 
   if (state.id) {
-    updateDict(state.modelData).then((res: Response<any>) => {
+    updateBrand(state.modelData).then((res: Response<any>) => {
       useRouterBackIndex({ msg: res.msg })
     })
   } else {
-    createDict(state.modelData).then((res: Response<any>) => {
+    createBrand(state.modelData).then((res: Response<any>) => {
       useRouterBackIndex({ msg: res.msg })
     })
   }

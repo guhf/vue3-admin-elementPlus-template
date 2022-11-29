@@ -8,13 +8,13 @@
   <el-tree
     ref="treeRef" :data="data" :props="{...defaultProps, class: customerClassName}" 
     highlight-current :show-checkbox="showCheckbox" :check-strictly="radio" :default-checked-keys="defaultCheckedKeys"
-    node-key="id" :filter-node-method="filterTree"
-    @check-change="nodeChange"
+    node-key="id" :filter-node-method="filterTree" :expand-on-click-node="false"
+    @node-click="nodeClick" @check-change="nodeChange"
   />
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { ElTree } from 'element-plus';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 import { Search } from '@element-plus/icons-vue';
@@ -36,6 +36,11 @@ const props = withDefaults(defineProps<Props>(), {
   },
   showCheckbox: false
 })
+
+const emits = defineEmits<{
+  (e: 'node-click', val: any): void
+  (e: 'check-change', val: any): void
+}>()
 
 const keyWord = ref('')
 const treeRef = ref<InstanceType<typeof ElTree>>()
@@ -77,6 +82,10 @@ const getCheckedKeys = (data: Tree) => {
 const filterTree = (value: string, data: TreeItem) => {
   if (!value) return true
   return data.label.includes(value)
+}
+
+const nodeClick = (data: TreeItem) => {
+  emits('node-click', data)
 }
 
 const nodeChange = (data: Node, checked: boolean) => {

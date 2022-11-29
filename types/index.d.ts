@@ -1,5 +1,6 @@
 declare interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
   $el: T
+  [key: string]: any
 }
 
 declare type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElRef<T> | null

@@ -21,7 +21,7 @@ export const getOnlineInfo = () => {
 
 /**
  * 查询登录用户有权限菜单列表
- * @returns 菜单树状列表
+ * @returns 菜单树型列表
  */
 export const getMenuList = () => {
   // TODO 修改接口地址，后端修改成 user/menu，并分解出UserController

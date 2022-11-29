@@ -1,6 +1,6 @@
 
 /**
- * 树状数据节点
+ * 树型数据节点
  */
 export declare interface TreeItem {
   id: string
@@ -10,6 +10,6 @@ export declare interface TreeItem {
 }
 
 /**
- * 树状数据
+ * 树型数据
  */
 export declare type Tree = TreeItem[]

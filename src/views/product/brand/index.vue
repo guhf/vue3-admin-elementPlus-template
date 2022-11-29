@@ -2,36 +2,23 @@
   <div class="app-container">
     <ConstFilter @search="filterData" @reset="resetData">
       <div class="filter-item">
-        <label>字典名称</label>
-        <el-input v-model="state.pageQuery.dictName" type="text" clearable placeholder="请输入字典名称" />
+        <label>品牌名称</label>
+        <el-input v-model="state.pageQuery.brandName" type="text" clearable placeholder="请输入品牌名称" />
       </div>
       <div class="filter-item">
-        <label>字典编号</label>
-        <el-input v-model="state.pageQuery.dictCode" type="text" clearable placeholder="请输入字典编号" />
-      </div>
-      <div class="filter-item">
-        <label>字典类型</label>
-        <el-select v-model="state.pageQuery.dictType" type="text" clearable placeholder="请选择字典类型">
-          <el-option v-for="item in sysDictType" :key="item.value" :label="item.label" :value="Number(item.value)" />
-        </el-select>
+        <label>品牌编号</label>
+        <el-input v-model="state.pageQuery.brandCode" type="text" clearable placeholder="请输入品牌编号" />
       </div>
     </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">
-        <el-button v-permission="['sys.dict.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
-        <el-button v-permission="['sys.dict.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+        <el-button v-permission="['product.brand.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
+        <el-button v-permission="['product.brand.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <ConstTable ref="dictTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
-      <el-table-column label="字典名称" prop="dictName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
-      <el-table-column label="字典编号" prop="dictCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
-      <el-table-column label="字典类型" prop="dictType" sortable="custom" min-width="200" align="center" show-overflow-tooltip>
-        <template #default="{ row }">
-          <el-tag size="small" effect="light">
-            {{ useValueToLabel(sysDictType, row.dictType) }}
-          </el-tag>
-        </template>
-      </el-table-column>
+    <ConstTable ref="brandTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
+      <el-table-column label="品牌名称" prop="brandName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
+      <el-table-column label="品牌编号" prop="brandCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
         <template #default="{ row }">
@@ -42,7 +29,7 @@
       </el-table-column>
       <el-table-column label="操作" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button v-permission="['sys.dict.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
+          <el-button v-permission="['product.brand.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
         </template>
       </el-table-column>
     </ConstTable>
@@ -57,42 +44,42 @@ import { useRouterCreate, useRouterShow } from '@/hooks/web/router'
 import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
-import { Dict } from '@/models/sys/dictModel'
+import { Brand } from '@/models/product/brandModel'
 
-import { getDictPageList, delDict } from '@/apis/sys/dict'
+import { getBrandPageList, delBrand } from '@/apis/product/brand'
 
 defineOptions({
-  name: 'SysDict'
+  name: 'ProductBrand'
 })
 
-const { sysDictType, commonStatus } = useDict()
+const { commonStatus } = useDict()
 const state = reactive({
-  pageListData: [] as Dict[],
-  modelData: {} as Dict,
+  pageListData: [] as Brand[],
+  modelData: {} as Brand,
   total: 0,
   pageQuery: {} as PageQuery,
-  selectTableData: [] as Dict[],
+  selectTableData: [] as Brand[],
 })
-const dictTbRef = ref<ConstTable>()
+const brandTbRef = ref<ConstTable>()
 
 onMounted(() => {
   getPageData()
 })
 
 const getPageData = () => {
-  getDictPageList(state.pageQuery).then((res: Response<Dict[]>) => {
+  getBrandPageList(state.pageQuery).then((res: Response<Brand[]>) => {
     state.pageListData = res.data
     state.total = res.total ?? 0
   })
 }
 
 const filterData = () => {
-  dictTbRef.value?.reloadData(1)
+  brandTbRef.value?.reloadData(1)
 }
 
 const resetData = () => {
   state.pageQuery = { pageIndex: 1 }
-  dictTbRef.value?.reloadData(1, 20)
+  brandTbRef.value?.reloadData(1, 20)
 }
 
 const reloadTableData = (pageQuery: PageQuery) => {
@@ -100,7 +87,7 @@ const reloadTableData = (pageQuery: PageQuery) => {
   getPageData()
 }
 
-const selectedChange = (val: Dict[]) => {
+const selectedChange = (val: Brand[]) => {
   state.selectTableData = val ?? []
 }
 
@@ -114,7 +101,7 @@ const mShow = (id: string) => {
 
 const mDel = () => {
   const ids = [] as string[]
-  state.selectTableData.forEach((item: Dict) => {
+  state.selectTableData.forEach((item: Brand) => {
     ids.push(item.id)
   })
   if (ids.length < 1) {
@@ -123,7 +110,7 @@ const mDel = () => {
   }
 
   useConfirmDel().then(() => {
-    delDict(ids.join(',')).then((res: Response<any>) => {
+    delBrand(ids.join(',')).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       state.pageQuery.pageIndex = 1
       getPageData()

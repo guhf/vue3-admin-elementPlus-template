@@ -34,7 +34,7 @@
         </template>
       </el-table-column>
     </ConstTable>
-    <TreeDialog ref="roleAuthDialogRef" title="分配权限" :tree-data="state.treeData" :btns="['save']" @save="mSetAuth">
+    <TreeDialog ref="roleAuthDialogRef" title="分配权限" :data="state.treeData" :btns="['save']" @save="mSetAuth">
     </TreeDialog>
   </div>
 </template>

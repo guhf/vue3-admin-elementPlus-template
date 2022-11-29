@@ -47,7 +47,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{
   (e: 'update:modelValue', tableData: any[]): void
-  (e: 'batchAdd'): void
+  (e: 'batch-add'): void
   (e: 'add'): void
   (e: 'del'): void
   (e: 'clear'): void
@@ -84,7 +84,7 @@ const rowClick = (row: any) => {
 }
 
 const batchAdd = () => {
-  emits('batchAdd')
+  emits('batch-add')
   emits('update:modelValue', stateData.tableData)
 }
 

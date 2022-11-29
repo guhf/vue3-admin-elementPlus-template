@@ -30,18 +30,18 @@ export const getMenu = (id : string) => {
 }
 
 /**
- * 查询菜单树状列表
+ * 查询菜单树型列表
  * @param type 查询类型
- * @returns 菜单树状列表
+ * @returns 菜单树型列表
  */
 export const getMenuTreeList = (type: number | string = '') => {
   return http.get<MenuTree>(`sys/menu/tree/${type}`)
 }
 
 /**
- * 查询角色菜单树状列表
+ * 查询角色菜单树型列表
  * @param roleId 角色Id
- * @returns 菜单树状列表
+ * @returns 菜单树型列表
  */
 export const getRoleMenuTreeList = (roleId: string) => {
   return http.get<Tree>(`sys/menu/${roleId}/tree`)
