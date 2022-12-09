@@ -20,6 +20,13 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
+          <el-form-item label="分类图片:" prop="categoryPicture">
+            <UploadSingleImg ref="importUploadRef" v-model="state.modelData.categoryPicture" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
           <el-form-item label="排序号:" prop="sortNo">
             <el-input v-model="state.modelData.sortNo" type="text" maxlength="50" show-word-limit clearable placeholder="请输入排序号" />
           </el-form-item>
@@ -45,6 +52,7 @@ import { Category } from '@/models/product/categoryModel'
 
 import { getCategory, createCategory, updateCategory } from '@/apis/product/category'
 import { useMessageSuccess } from '@/hooks/web/message'
+import UploadSingleImg from '@/components/UploadSingleImg/index.vue'
 
 defineOptions({
   name: 'ProductCategoryEdit'

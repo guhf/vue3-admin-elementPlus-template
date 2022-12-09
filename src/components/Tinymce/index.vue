@@ -150,7 +150,7 @@ const initOptions = ref(
       xhr = new XMLHttpRequest()
       xhr.withCredentials = false
       xhr.open('POST', import.meta.env.VITE_API_URL + 'file/upload')
-      xhr.setRequestHeader('Authorization', 'Bearer ' + token)
+      xhr.setRequestHeader('Authorization', token)
       xhr.onload = function() {
         let json
         if (xhr.status != 200) {

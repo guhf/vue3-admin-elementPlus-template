@@ -1,4 +1,34 @@
 /**
+ * 文件类型
+ */
+ export enum FileType {
+  /** 全部 */
+  All,
+  /** 图片 */
+  Image,
+  /** word文件 */
+  Word,
+  /** excel文件 */
+  Excel,
+  /** ppt文件 */
+  PPT,
+  /** pdf文件 */
+  PDF,
+  /** word/excel/ppt/pdf */
+  Doc,
+  /** 音频 */
+  Audio,
+  /** 视频 */
+  Video,
+  /** txt文档 */
+  Txt,
+  /** 压缩文件 */
+  Zip,
+  /** 安装包 */
+  InstallPackage,
+}
+
+/**
  * 图片
  */
 export const ImageExt = [
@@ -27,6 +57,20 @@ export const PPTExt = [
 ]
 
 /**
+ * PDF
+ */
+export const PDFExt = [
+  'pdf'
+]
+
+/**
+* Word/Excel/PPT/PDF
+*/
+export const DocExt = [
+  ...WordExt, ...ExcelExt, ...PPTExt, ...PDFExt
+]
+
+/**
 * 音频
 */
 export const AudioExt = [
@@ -41,9 +85,9 @@ export const VideoExt = [
 ]
 
 /**
-* 文档
+* txt文档
 */
-export const DocExt = [
+export const TxtExt = [
   'txt'
 ]
 
@@ -64,4 +108,4 @@ export const InstallPackageExt = [
 /**
  * 全部
  */
-export const AllExt = [...ImageExt, ...WordExt, ...ExcelExt, ...PPTExt, ...AudioExt, ...VideoExt, ...DocExt, ...ZipExt, ...InstallPackageExt]
+export const AllExt = [...ImageExt, ...DocExt, ...AudioExt, ...VideoExt, ...TxtExt, ...ZipExt, ...InstallPackageExt]

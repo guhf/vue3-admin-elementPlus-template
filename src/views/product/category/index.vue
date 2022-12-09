@@ -3,9 +3,7 @@
     <div class="l-tree-r-table">
       <div class="l-container">
         <!-- 左侧树 -->
-        <ConstTree ref="authTree" :data="state.treeData" @node-click="getData">
-          
-        </ConstTree>
+        <ConstTree ref="authTree" :data="state.treeData" :default-expanded-keys="expandKeys" @node-click="getData"></ConstTree>
       </div>
       <div class="r-container">
         <div class="r-description">
@@ -91,9 +89,11 @@ onMounted(() => {
   getTreeData()
 })
 
+let expandKeys = ref<string[]>([])
 const getTreeData = () => {
   getCategoryTreeList().then((res: Response<Tree>) => {
-    state.treeData = res.data
+    state.treeData = res.data;
+    expandKeys.value.push(state.treeData[0]?.id)
   })
 }
 

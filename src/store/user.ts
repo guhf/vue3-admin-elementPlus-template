@@ -24,12 +24,16 @@ export const useUserStore = defineStore('user', {
     login(loginInfo: LoginInfo) {
       return new Promise((resolve, reject) => {
         login(loginInfo).then(async (res: Response<Token>) => {
-          this.token = res.data.accessToken
-          setToken(res.data.accessToken)
+          console.log(1111, (new Date()).toLocaleString(), new Date().getMilliseconds());
+          this.token = 'Bearer ' + res.data.accessToken
+          setToken(this.token)
           
+          console.log(2222, (new Date()).toLocaleString(), new Date().getMilliseconds());
           // 登录后先获取权限信息，否则跳转路由会出错
           await this.getUserInfo()
+          console.log(3333, (new Date()).toLocaleString(), new Date().getMilliseconds());
           await this.getMenuList()
+          console.log(4444, (new Date()).toLocaleString(), new Date().getMilliseconds());
           resolve(res.data)
         }).catch(error => {
           reject(error)

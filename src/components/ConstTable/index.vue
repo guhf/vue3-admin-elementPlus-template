@@ -5,7 +5,8 @@
     :size="size"
     :row-key="rowKey"
     :tree-props="treeProps"
-    default-expand-all
+    :default-expand-all="defaultExpandAll"
+    :expand-row-keys="expandRowKeys"
     border
     fit
     @sort-change="sortChange"
@@ -37,6 +38,8 @@ interface Props {
   size?: string
   rowKey?: string
   treeProps?: { hasChildren: string; children: string }
+  defaultExpandAll?: boolean
+  expandRowKeys?: []
   check?: boolean
   canCheck?: (row: any, index: number) => boolean
   pagination?: boolean
@@ -62,6 +65,7 @@ const props = withDefaults(defineProps<Props>(), {
   treeProps: () => {
     return { hasChildren: '', children: '' }
   },
+  defaultExpandAll: false,
   check: true,
   canCheck: () => true,
   pagination: true,

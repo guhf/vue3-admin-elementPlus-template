@@ -1,12 +1,12 @@
 <template>
-  <el-button type="primary" :icon="Upload" @click="show">{{ title }}</el-button>
+  <el-button type="primary" :icon="UploadIcon" @click="show">{{ title }}</el-button>
   <ConstDialog ref="importDialogRef" :title="dialogTitle" :btns="['import']" @import="handleImport">
     <el-form label-width="160px" :inline="false">
       <el-form-item label="下载模板：">
         <el-button type="text" @click="downloadTemplate">下载模板</el-button>
       </el-form-item>
       <el-form-item label="上传：" prop="file">
-        <upload ref="importUploadRef" btn-text="选取文件" :file-list="stateData.uploadList || []" />
+        <Upload ref="importUploadRef" btn-text="选取文件" :file-list="stateData.uploadList || []" />
       </el-form-item>
     </el-form>
   </ConstDialog>
@@ -15,10 +15,12 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { UploadInstance, UploadUserFile } from 'element-plus'
-import { Upload } from '@element-plus/icons-vue'
+import { Upload as UploadIcon } from '@element-plus/icons-vue'
 import { useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
 import http from '@/utils/http'
 import { ResponseCode } from '@/constant/responses'
+
+import Upload from '@/components/Upload/index.vue'
 
 interface Props {
   title?: string

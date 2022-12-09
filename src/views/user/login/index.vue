@@ -63,6 +63,8 @@ const handleLogin = () => {
       stateData.loading = true
 
       useUserStore().login(stateData.lgionInfo).then(() => {
+        console.log(9999, (new Date()).toLocaleString(), new Date().getMilliseconds());
+        
         const redirect = route.query.redirect?.toString() ?? '/'
         const otherQuery = getOtherQuery(route.query)
 

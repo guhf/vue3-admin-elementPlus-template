@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted, watch } from 'vue'
-import { ElTable, FormInstance } from 'element-plus'
+import { ElTable } from 'element-plus'
 import { ZoomIn, CirclePlus, Remove, Delete } from '@element-plus/icons-vue'
 import { useConfirm } from '@/hooks/web/message'
 
@@ -61,7 +61,6 @@ const stateData = reactive({
   delShow: false,
   clearShow: false
 }) as any
-const dynamicTable = ref<FormInstance>()
 const tableRef = ref<InstanceType<typeof ElTable>>()
 
 onMounted(() => {
@@ -117,8 +116,6 @@ const refreshData = (filed: string, val: number) => {
 }
 
 defineExpose({
-  stateData,
-  dynamicTable,
   refreshData
 })
 </script>

@@ -1,5 +1,4 @@
 <template>
-  <!-- <el-input type="text" v-model="keyWord" class="filter-input" placeholder="请输入关键字"></el-input> -->
   <el-input type="text" v-model="keyWord" class="filter-input" placeholder="请输入关键字" @keyup.enter="searchTree" @clear="searchTree">
     <template #append>
       <el-button :icon="Search" @click="searchTree" />
@@ -8,7 +7,7 @@
   <el-tree
     ref="treeRef" :data="data" :props="{...defaultProps, class: customerClassName}" 
     highlight-current :show-checkbox="showCheckbox" :check-strictly="radio" :default-checked-keys="defaultCheckedKeys"
-    node-key="id" :filter-node-method="filterTree" :expand-on-click-node="false"
+    node-key="id" :default-expanded-keys="defaultExpandedKeys" :expand-on-click-node="false" :filter-node-method="filterTree"
     @node-click="nodeClick" @check-change="nodeChange"
   />
 </template>
@@ -25,6 +24,7 @@ interface Props {
   radio?: boolean
   defaultProps?: any
   showCheckbox?: boolean
+  defaultExpandedKeys?: []
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -56,9 +56,6 @@ const customerClassName = (data: TreeItem) => {
   }
 }
 
-// watch(keyWord, (val: string) => {
-//   treeRef.value!.filter(val)
-// })
 const searchTree = () => {
   treeRef.value!.filter(keyWord.value)
 }

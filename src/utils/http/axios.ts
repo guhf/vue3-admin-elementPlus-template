@@ -48,7 +48,7 @@ const removePending = (config: AxiosRequestConfig) => {
 // 请求拦截器
 http.interceptors.request.use((request: any) => {
   const token = useUserStore().token
-  token ? request.headers['Authorization'] = `Bearer ${token}` : delete request.headers['Authorization']
+  token ? request.headers['Authorization'] = token : delete request.headers['Authorization']
 
   if (loadingCount === 0 && loadingBlackList.indexOf(request.url) === -1) {
     loadingInstance = ElLoading.service({

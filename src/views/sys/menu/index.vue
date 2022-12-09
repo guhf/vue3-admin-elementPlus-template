@@ -6,7 +6,8 @@
         <el-button v-permission="['sys.menu.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <ConstTable :data="state.pageListData" height="calc(100vh - 206px)" :pagination="false" rowKey="id" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable :data="state.pageListData" height="calc(100vh - 206px)" :pagination="false" rowKey="id" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" 
+      :expand-row-keys="expandRowKeys" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="菜单名称" prop="menuName" sortable="custom" width="200" header-align="center" align="left" fixed show-overflow-tooltip />
       <el-table-column label="菜单类型" prop="menuType" sortable="custom" width="120" align="center" show-overflow-tooltip>
         <template #default="{ row }">
@@ -20,9 +21,9 @@
           <SvgIcon :icon-name="row.icon" />
         </template>
       </el-table-column>
-      <el-table-column label="菜单标识" prop="menuCode" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
-      <el-table-column label="权限标识" prop="authority" sortable="custom" min-width="150" header-align="center" align="left" show-overflow-tooltip />
-      <el-table-column label="菜单路由" prop="path" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
+      <el-table-column label="菜单标识" prop="menuCode" sortable="custom" min-width="240" header-align="center" align="left" show-overflow-tooltip />
+      <el-table-column label="权限标识" prop="authority" sortable="custom" min-width="240" header-align="center" align="left" show-overflow-tooltip />
+      <el-table-column label="菜单路由" prop="path" sortable="custom" min-width="240" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="菜单地址" prop="component" sortable="custom" min-width="240" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="接口地址" prop="url" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
@@ -44,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import { useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
 import { useRouterCreate, useRouterPush } from '@/hooks/web/router'
@@ -68,9 +69,13 @@ onMounted(() => {
   getPageData()
 })
 
+let expandRowKeys = ref<string[]>([])
 const getPageData = () => {
   getMenuTreeList().then((res: Response<MenuTree>) => {
-    state.pageListData = res.data
+    state.pageListData = res.data;
+    (state.pageListData || []).forEach((item) => {
+      expandRowKeys.value.push(item.id)
+    })
   })
 }
 

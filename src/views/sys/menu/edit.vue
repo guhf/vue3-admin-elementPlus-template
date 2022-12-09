@@ -99,6 +99,7 @@ const state = reactive({
   showMenuSelect: false,
   modelRules: {
     menuName: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
+    menuType: [{ required: true, message: '请选择菜单类型', trigger: 'blur' }],
     menuCode: [{ required: true, message: '请输入菜单标识', trigger: 'blur' }],
   },
 })

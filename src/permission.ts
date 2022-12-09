@@ -14,6 +14,7 @@ router.beforeEach(async(to: RouteLocationNormalized, from: RouteLocationNormaliz
 
   const userStore = useUserStore()
   const permissionStore = usePermissionStore()
+  console.log(5555, (new Date()).toLocaleString(), new Date().getMilliseconds());
 
   if (userStore.token) {
     if (to.path === '/login') {
@@ -37,6 +38,7 @@ router.beforeEach(async(to: RouteLocationNormalized, from: RouteLocationNormaliz
           NProgress.done()
         }
       } else {
+        console.log(6666, (new Date()).toLocaleString(), new Date().getMilliseconds());
         next()
       }
     }
