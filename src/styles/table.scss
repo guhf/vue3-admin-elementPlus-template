@@ -1,7 +1,7 @@
 .el-table {
   .el-table__header-wrapper,
   .el-table__fixed-header-wrapper {
-    background: #f5f5f5; // #aed0ed; // #dcedff; //rgb(9, 96, 189, .1);
+    background: #f5f5f5;
 
     .el-table__header {
       thead {
@@ -10,7 +10,7 @@
         th {
           height: 40px;
           padding: 0;
-          background: #f5f5f5; // #aed0ed; // #dcedff;
+          background: #f5f5f5;
           // border-right: none;
         }
       }
@@ -19,6 +19,11 @@
   
   &.el-table--border .el-table__header thead th.el-table__cell{
     border-right: 1px solid #f5f5f5 !important;
+  }
+
+  // 解决表格内图片预览层级穿透问题
+  td.el-table__cell{
+    position: static;
   }
 
   a.table-attach {
@@ -35,11 +40,6 @@
   .el-form-item {
     margin-bottom: 0 !important;
   }
-}
-
-.el-table--border,
-.el-table--group {
-  border: 1px solid #e6e6e6;
 }
 
 .el-table__empty-block {

@@ -7,4 +7,4 @@ export declare interface Brand extends BaseModel{
   brandPicture?: string
   sortNo?: string
   description?: string
-} 
+}

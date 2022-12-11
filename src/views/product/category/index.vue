@@ -17,19 +17,27 @@
               <el-button v-if="state.checkData.categotyId" v-permission="['product.category.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
             </div>
           </div>
-          <el-descriptions title="" :column="2" border>
-            <el-descriptions-item label="上级分类" span="2">{{ state.modelData.parentName }}</el-descriptions-item>
+          <el-descriptions v-if="state.modelData.id" title="" :column="2" border>
+            <el-descriptions-item label="上级分类" :span="2">{{ state.modelData.parentName }}</el-descriptions-item>
             <el-descriptions-item label="分类编号">{{ state.modelData.categoryCode }}</el-descriptions-item>
             <el-descriptions-item label="分类名称">{{ state.modelData.categoryName }}</el-descriptions-item>
+            <el-descriptions-item label="分类图片">
+              <el-image v-if="state.modelData.categoryPicture" style="height: 50px" :src="state.modelData.categoryPicture" :preview-src-list="[state.modelData.categoryPicture || '']" fit="cover" />
+            </el-descriptions-item>
             <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
             <el-descriptions-item label="描述">{{ state.modelData.description }}</el-descriptions-item>
           </el-descriptions> 
         </div>
         <div class="r-table">
-          <ConstTable ref="categoryTbRef" :data="state.modelData.categoryItems">
+          <ConstTable ref="categoryTbRef" :data="state.modelData.categoryItems" :height="state.modelData.id ? 'calc(100vh - 452px)': 'calc(100vh - 258px)'">
             <el-table-column label="分类编号" prop="categoryCode" min-width="200" header-align="center" align="left" show-overflow-tooltip />
             <el-table-column label="分类名称" prop="categoryName" min-width="200" header-align="center" align="left" show-overflow-tooltip />
-            <el-table-column label="排序号" prop="sortNo" width="120" header-align="center" align="left" show-overflow-tooltip />
+            <el-table-column label="分类图片" prop="categoryPicture" min-width="200" align="center" show-overflow-tooltip>
+              <template #default="{ row }">
+                <el-image v-if="row.categoryPicture" style="height: 50px" :src="row.categoryPicture" :preview-src-list="[row.categoryPicture || '']" fit="cover" />
+              </template>
+            </el-table-column>
+            <el-table-column label="排序号" prop="sortNo" width="120" align="center" show-overflow-tooltip />
             <el-table-column label="描述" prop="description" min-width="200" header-align="center" align="left" show-overflow-tooltip />
             <el-table-column label="状态" prop="status" width="80" align="center" fixed="right">
               <template #default="{ row }">
@@ -141,7 +149,7 @@ const mSave = async () => {
 }
 
 const mDel = () => {
-  useConfirmDel().then(() => {
+  useConfirmDel({ message: '确定删除当前分类及其下级分类吗？' }).then(() => {
     delCategory(state.checkData.categotyId).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       getTreeData();

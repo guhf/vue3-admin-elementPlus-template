@@ -1,12 +1,15 @@
 <template>
   <el-upload
-    :action="url" :headers="stateData.headers" :file-list="modelValue" :list-type="stateData.listType" :auto-upload="true" :multiple="stateData.multiple" :limit="limit"
+    :action="url" :headers="stateData.headers" :file-list="modelValue" :list-type="listType" :auto-upload="true" :multiple="stateData.multiple" :limit="limit"
     :show-file-list="showFileList"
     :before-upload="beforeUpload" :on-change="fileChange" :on-progress="fileProgress" :on-success="fileSuccess" :on-preview="filePreview" :on-remove="fileRemove" :on-exceed="fileExceed"
   >
-    <el-icon v-if="stateData.listType === 'picture-card'"><Plus /></el-icon>
-    <el-button v-else size="small" type="primary">{{ btnText }}</el-button>
-    <el-icon><Plus /></el-icon>
+    <!-- <img v-if="listType === 'avatar'" :src="modelValue" class="avatar" /> -->
+    <template v-if="!avatar" name="trigger">
+      <el-icon v-if="listType === 'picture-card'"><Plus /></el-icon>
+      <el-button v-else size="small" type="primary">{{ btnText }}</el-button>
+    </template>
+    <slot />
   </el-upload>
 
   <el-image-viewer
@@ -18,6 +21,7 @@
 <script lang="ts" setup>
 import { reactive, onMounted, watch } from 'vue'
 import { UploadFile, UploadFiles, UploadProgressEvent, UploadRawFile } from 'element-plus'
+import { EpPropMergeType } from 'element-plus/es/utils'
 import { Plus } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
 import { useMessageWarning } from '@/hooks/web/message'
@@ -28,7 +32,7 @@ interface Props {
   /** 上传文件列表 */
   modelValue: any[]
   /** 上传文件类型; 0:全部,1:图片,2:word文件,3:excel文件,4:ppt文件,5:pdf文件,6:word/excel/ppt/pdf,7:音频,8:视频,9:文本,10:压缩文件,11:安装包 */
-  fileType?: FileType[]
+  fileType?: FileType[] 
   /** 上传URL */
   url?: string
   /** 最大允许上传个数 */
@@ -38,7 +42,11 @@ interface Props {
   /** 上传按钮文字 */
   btnText?: string
   /** 显示上传文件列表 */
-  showFileList: boolean
+  showFileList: boolean,
+  /** 上传文件列表类型 */
+  listType?: EpPropMergeType<StringConstructor, 'text' | 'picture' | 'picture-card', unknown>,
+  /** 头像模式 */
+  avatar?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -48,7 +56,9 @@ const props = withDefaults(defineProps<Props>(), {
   limit: 8,
   fileMaxSize: 10,
   btnText: '上传文件',
-  showFileList: true
+  showFileList: true,
+  listType: 'text',
+  avatar: false
 })
 
 const emits = defineEmits<{
@@ -108,11 +118,15 @@ const fileProgress = (event: UploadProgressEvent) => {
 }
 
 const fileSuccess = (response: any) => {
-  stateData.uploadFiles.push(response.data[0])
-  stateData.uploadFiles.sort()
+  if (props.avatar) {
+    stateData.uploadFiles = [response.data[0]]
+  } else {
+    stateData.uploadFiles.push(response.data[0])
+    stateData.uploadFiles.sort()
 
-  if (validateFileType(response.data[0], [FileType.Image])) {
-    stateData.previewFiles.push(response.data[0].url)
+    if (validateFileType(response.data[0], [FileType.Image])) {
+      stateData.previewFiles.push(response.data[0].url)
+    }
   }
   emits('update:modelValue', stateData.uploadFiles)
 }
@@ -204,8 +218,6 @@ const setFileList = () => {
   } else {
     stateData.listType = 'text'
   }
-  console.log(stateData.listType);
-  
 }
 
 const validateFileType = (uploadFile: UploadFile | UploadRawFile, fileTypes: FileType[]) => {
@@ -279,9 +291,17 @@ const validateFileSize = (rawFile: UploadRawFile) => {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 ::v-deep(.el-upload-list__item.is-success.focusing .el-icon--close-tip){
   display: none !important;
+}
+
+.img-uploader-icon{
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  text-align: center;
 }
 </style>

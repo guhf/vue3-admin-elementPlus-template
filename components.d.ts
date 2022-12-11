@@ -35,6 +35,7 @@ declare module '@vue/runtime-core' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElImage: typeof import('element-plus/es')['ElImage']
     ElImageViewer: typeof import('element-plus/es')['ElImageViewer']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
@@ -47,6 +48,7 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Export: typeof import('./src/components/Export/index.vue')['default']
     Hamburger: typeof import('./src/components/Hamburger/index.vue')['default']
@@ -66,7 +68,7 @@ declare module '@vue/runtime-core' {
     Tinymce: typeof import('./src/components/Tinymce/index.vue')['default']
     TinymceComponentsEditorImage: typeof import('./src/components/Tinymce/components/EditorImage.vue')['default']
     Upload: typeof import('./src/components/Upload/index.vue')['default']
-    UploadSingleImg: typeof import('./src/components/UploadSingleImg/index.vue')['default']
+    UploadAvatar: typeof import('./src/components/UploadAvatar/index.vue')['default']
   }
 }
 
