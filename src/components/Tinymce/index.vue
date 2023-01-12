@@ -16,7 +16,7 @@ import 'tinymce/themes/mobile'
 // Any plugins you want to use has to be imported
 import 'tinymce/plugins/advlist'
 import 'tinymce/plugins/anchor'
-import 'tinymce/plugins/autoresize'
+// import 'tinymce/plugins/autoresize'
 import 'tinymce/plugins/autolink'
 import 'tinymce/plugins/autosave'
 import 'tinymce/plugins/charmap'
@@ -108,10 +108,12 @@ const state = reactive({
     if (/^[\d]+(\.[\d]+)?$/.test(width.toString())) {
       return `${width}px`
     }
-    return width
+    return width + ''
   }
 })
 const token = userStore.token
+
+console.log(props.height);
 
 const initOptions = ref(
   {
@@ -124,12 +126,11 @@ const initOptions = ref(
     toolbar: props.toolbar.length > 0 ? props.toolbar : toolbar,
     menubar: props.menubar,
     plugins: plugins,
-    language_url: 'tinymce/langs/zh_CN.js',
-    skin_url: `tinymce/skins`,
-    content_css: 'tinymce/skins/content.min.css',
-    emoticons_database_url: `tinymce/emojis.min.js`,
+    language_url: '/tinymce/langs/zh_CN.js',
+    skin_url: `/tinymce/skins`,
+    content_css: '/tinymce/skins/content.min.css',
+    emoticons_database_url: `/tinymce/emojis.min.js`,
     end_container_on_empty_block: true,
-    powerpaste_word_import: 'merge',
     code_dialog_height: 450,
     code_dialog_width: 1000,
     advlist_bullet_styles: 'square',
@@ -137,6 +138,9 @@ const initOptions = ref(
     // imagetools_cors_hosts: ['ezhu.me','ezhu.com','ezhuchina.com'], //开启跨域白名单
     // imagetools_proxy: 'proxy.php', //配置图片代理，和上面一起才能使用图片编辑插件
     paste_data_images: true, // 粘贴图片
+    powerpaste_word_import: 'merge',
+    // 开启默认过滤器,设置为false可以保留word复制格式
+    paste_enable_default_filters: false,
     urlconverter_callback: (url: any, node: any, onSave: any, name: any) => {
       if (node === 'img' && url.startsWith('blob:')) {
         const tinymce = (window as any).tinymce.get(props.id)
@@ -202,6 +206,8 @@ watch(() => appStore.language, () => {
     tinymceInstance.destroy()
   }
   nextTick(() => {
+    console.log(initOptions);
+    
     tinymceManager.init(initOptions)
   })
 })
@@ -225,17 +231,26 @@ const imageSuccessCBK = (arr: UploadObject[]) => {
     z-index: 10000;
   }
 }
+
 .editor-custom-btn-container {
   position: absolute !important;
   right: 6px;
   top: 6px;
   z-index: 1002;
 }
+
 .editor-upload-btn {
   display: inline-block;
 }
+
 textarea {
   visibility: hidden;
   z-index: -1;
+}
+</style>
+
+<style lang="scss">
+.tox-fullscreen .tox.tox-tinymce-aux, .tox-fullscreen~.tox.tox-tinymce-aux, .tox.tox-silver-sink.tox-tinymce-aux{
+  z-index: 9527;
 }
 </style>
