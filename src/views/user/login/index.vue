@@ -1,5 +1,10 @@
 <template>
-  <div class="login-container">
+  <div v-loading="stateData.loading"
+    element-loading-text="正在登录..." 
+    :element-loading-svg="svg2"
+    element-loading-svg-view-box="0 0 100 100"
+    element-loading-background="rgba(122, 122, 122, 0.8)" 
+    class="login-container customer-loading">
     <el-form ref="loginFormRef" :model="stateData.lgionInfo" :rules="stateData.loginRules" class="login-form" autocomplete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">登录</h3>
@@ -9,7 +14,7 @@
       <el-form-item prop="username">
         <el-input ref="userNameRef" v-model="stateData.lgionInfo.username" placeholder="请输入账号" type="text" size="large" tabindex="1" autocomplete="on" :prefix-icon="User" />
       </el-form-item>
-      <el-tooltip v-model="stateData.capsTooltip" content="大小写锁定已打开" placement="right" manual>
+      <el-tooltip v-model:visible="stateData.capsTooltip" content="大写锁定已打开" placement="right" manual>
         <el-form-item prop="password">
           <el-input
             ref="passwordRef" v-model="stateData.lgionInfo.password" placeholder="请输入密码" size="large" tabindex="2" autocomplete="on"
@@ -27,13 +32,14 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import { FormInstance } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useRoute, LocationQuery, useRouter } from 'vue-router'
 // import LangSelect from '@/components/lang_select/index.vue'
 
 import { useUserStore } from '@/store/user'
 import { LoginInfo } from '@/models/userModel'
-import { FormInstance } from 'element-plus'
+import { svg2 } from '@/constant/loading'
 
 const loginFormRef = ref<FormInstance>()
 const router = useRouter()
@@ -63,17 +69,15 @@ const handleLogin = () => {
       stateData.loading = true
 
       useUserStore().login(stateData.lgionInfo).then(() => {
-        console.log(9999, (new Date()).toLocaleString(), new Date().getMilliseconds());
-        
         const redirect = route.query.redirect?.toString() ?? '/'
         const otherQuery = getOtherQuery(route.query)
 
         router.push({
           path: redirect,
           query: otherQuery
+        }).then(() => {
+          stateData.loading = false
         })
-
-        stateData.loading = false
       }).catch(() => {
         stateData.loading = false
       })

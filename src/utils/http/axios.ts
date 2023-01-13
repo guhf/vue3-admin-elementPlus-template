@@ -5,7 +5,7 @@ import { useUserStore } from '@/store/user'
 import networkConfig from '@/config/net.config'
 import loadingBlackList from '@/config/blacklist/loading'
 import { ResponseCode } from '@/constant/responses'
-import { svg7 } from '@/constant/loading'
+import { svg2 } from '@/constant/loading'
 
 const router = useRouter
 const route = useRouter.currentRoute.value
@@ -50,11 +50,11 @@ http.interceptors.request.use((request: any) => {
   const token = useUserStore().token
   token ? request.headers['Authorization'] = token : delete request.headers['Authorization']
 
-  if (loadingCount === 0 && loadingBlackList.indexOf(request.url) === -1) {
+  if (loadingCount === 0 && loadingBlackList.indexOf(request.url) === -1 && ((document.querySelector('.el-dialog') || document.querySelector('.app-container')))) {
     loadingInstance = ElLoading.service({
       text: '加载中...',
       background: 'rgba(0, 0, 0, 0.3)',
-      svg: svg7,
+      svg: svg2,
       svgViewBox: '0 0 100 100',
       customClass: 'customer-loading',
       target: (document.querySelector('.el-dialog') || document.querySelector('.app-container')) as HTMLInputElement

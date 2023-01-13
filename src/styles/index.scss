@@ -118,8 +118,8 @@ aside {
   color: $primary;
 
   .el-loading-spinner .circular{
-    width: 35px;
-    height: 35px;
+    width: 45px !important;
+    height: 45px !important;
     animation: none;
   }
 }

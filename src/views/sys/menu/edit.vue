@@ -34,24 +34,24 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="菜单标识:" prop="menuCode">
-            <el-input v-model="state.modelData.menuCode" type="text" maxlength="100" show-word-limit clearable placeholder="请输入菜单标识" />
+            <el-input v-model="state.modelData.menuCode" type="text" maxlength="100" show-word-limit clearable placeholder="SysMenuCreate" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="权限标识:" prop="authority">
-            <el-input v-model="state.modelData.authority" type="text" maxlength="50" show-word-limit clearable placeholder="请输入权限标识" />
+            <el-input v-model="state.modelData.authority" type="text" maxlength="50" show-word-limit clearable placeholder="sys.menu.create" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item label="菜单路由:" prop="path">
-            <el-input v-model="state.modelData.path" type="text" maxlength="200" show-word-limit clearable placeholder="请输入菜单路由" />
+            <el-input v-model="state.modelData.path" type="text" maxlength="200" show-word-limit clearable placeholder="sys/menu/create" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="菜单地址:" prop="component">
-            <el-input v-model="state.modelData.component" type="text" maxlength="200" show-word-limit clearable placeholder="请输入菜单文件地址" />
+            <el-input v-model="state.modelData.component" type="text" maxlength="200" show-word-limit clearable placeholder="sys/menu/edit.vue" />
           </el-form-item>
         </el-col>
       </el-row>

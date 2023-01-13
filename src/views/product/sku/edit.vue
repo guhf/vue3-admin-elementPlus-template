@@ -35,6 +35,7 @@
         <el-col :span="24">
           <el-form-item label="备注:" prop="remark">
             <el-input v-model="state.modelData.remark" type="textarea" maxlength="200" show-word-limit clearable placeholder="请输入备注" />
+            <Tinymce ref="editor" id="Content" tag="bbs" :value="state.modelData.remark" :height="600"></Tinymce>
           </el-form-item>
         </el-col>
       </el-row>
@@ -84,6 +85,7 @@ import { useDict } from '@/hooks/event/dict'
 import { useValidate } from '@/hooks/event/validate'
 import { Response } from '@/models/response'
 import { Dict } from '@/models/sys/dictModel'
+import Tinymce from '@/components/Tinymce/index.vue'
 
 import { getDict, createDict, updateDict } from '@/apis/sys/dict'
 

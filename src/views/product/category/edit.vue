@@ -49,12 +49,12 @@
 import { reactive, ref, onMounted } from 'vue'
 import { FormInstance } from 'element-plus'
 import { useValidate } from '@/hooks/event/validate'
+import { useMessageSuccess } from '@/hooks/web/message'
 import { Response } from '@/models/response'
 import { Category } from '@/models/product/categoryModel'
+import UploadAvatar from '@/components/UploadAvatar/index.vue'
 
 import { getCategory, createCategory, updateCategory } from '@/apis/product/category'
-import { useMessageSuccess } from '@/hooks/web/message'
-import UploadAvatar from '@/components/UploadAvatar/index.vue'
 
 defineOptions({
   name: 'ProductCategoryEdit'
