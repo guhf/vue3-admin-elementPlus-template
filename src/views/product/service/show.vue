@@ -1,16 +1,15 @@
 <template>
   <div class="app-container">
     <div class="btn-container">
-      <el-button v-permission="['sys.role.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
+      <el-button v-permission="['product.service.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
-    <el-card header="基本信息">
-      <el-descriptions title="" :column="2" border>
-        <el-descriptions-item label="角色名称">{{ state.modelData.roleName }}</el-descriptions-item>
-        <el-descriptions-item label="角色标识">{{ state.modelData.roleCode }}</el-descriptions-item>
-        <el-descriptions-item label="描述" :span="2">{{ state.modelData.description }}</el-descriptions-item>
-      </el-descriptions>
-    </el-card>
+    <el-descriptions title="" :column="2" border>
+      <el-descriptions-item label="服务名称">{{ state.modelData.serviceName }}</el-descriptions-item>
+      <el-descriptions-item label="服务编号">{{ state.modelData.serviceCode }}</el-descriptions-item>
+      <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
+      <el-descriptions-item label="描述">{{ state.modelData.description }}</el-descriptions-item>
+    </el-descriptions>
   </div>
 </template>
 
@@ -20,19 +19,19 @@ import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
 import { useRouterUpdate, useRouterBackIndex } from '@/hooks/web/router'
 import { Response } from '@/models/response'
-import { Role } from '@/models/sys/roleModel'
+import { Service } from '@/models/product/serviceModel'
 
-import { getRole } from '@/apis/sys/role'
+import { getService } from '@/apis/product/service'
 
 defineOptions({
-  name: 'SysRoleShow'
+  name: 'ProductServiceShow'
 })
 
 const state = reactive({
   id: '',
   modelData: {
     id: '',
-  } as Role,
+  } as Service,
 })
 
 onMounted(() => {
@@ -44,7 +43,7 @@ onMounted(() => {
 })
 
 const getData = () => {
-  getRole(state.id).then((res: Response<Role>) => {
+  getService(state.id).then((res: Response<Service>) => {
     if (res.data) {
       state.modelData = res.data
     }

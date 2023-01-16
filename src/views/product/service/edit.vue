@@ -1,26 +1,26 @@
 <template>
   <div class="app-container">
     <div class="btn-container">
-      <el-button v-permission="['product.brand.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
+      <el-button v-permission="['product.service.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <el-form ref="modelRef" :model="state.modelData" :rules="state.modelRules" label-width="120px">
       <el-row>
         <el-col :span="12">
-          <el-form-item label="品牌名称:" prop="brandName">
-            <el-input v-model="state.modelData.brandName" type="text" maxlength="50" show-word-limit clearable placeholder="请输入品牌名称" />
+          <el-form-item label="服务名称:" prop="serviceName">
+            <el-input v-model="state.modelData.serviceName" type="text" maxlength="50" show-word-limit clearable placeholder="请输入服务名称" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="品牌编号:" prop="brandCode">
-            <el-input v-model="state.modelData.brandCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入品牌编号" />
+          <el-form-item label="服务编号:" prop="serviceCode">
+            <el-input v-model="state.modelData.serviceCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入服务编号" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="品牌Logo:" prop="brandLogo">
-            <UploadAvatar ref="importUploadRef" v-model="state.modelData.brandLogo" />
+          <el-form-item label="状态:" prop="status">
+            <el-switch v-model="state.modelData.status" active-text="启用" inactive-text="禁用" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -48,21 +48,22 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import { useRouterBackIndex } from '@/hooks/web/router'
 import { useValidate } from '@/hooks/event/validate'
 import { Response } from '@/models/response'
-import { Brand } from '@/models/product/brandModel'
-import UploadAvatar from '@/components/Upload/UploadAvatar.vue'
+import { Service } from '@/models/product/serviceModel'
 
-import { getBrand, createBrand, updateBrand } from '@/apis/product/brand'
+import { getService, createService, updateService } from '@/apis/product/service'
 
 defineOptions({
-  name: 'ProductBrandEdit'
+  name: 'ProductServiceEdit'
 })
 
 const state = reactive({
   id: '',
-  modelData: {} as Brand,
+  modelData: {
+    status: true
+  } as Service,
   modelRules: {
-    brandName: [{ required: true, message: '请输入品牌名称', trigger: 'blur' }],
-    brandCode: [{ required: true, message: '请输入品牌编号', trigger: 'blur' }],
+    serviceName: [{ required: true, message: '请输入服务名称', trigger: 'blur' }],
+    serviceCode: [{ required: true, message: '请输入服务编号', trigger: 'blur' }],
   }
 })
 const modelRef = ref<FormInstance>()
@@ -76,7 +77,7 @@ onMounted(() => {
 })
 
 const getData = () => {
-  getBrand(state.id).then((res: Response<Brand>) => {
+  getService(state.id).then((res: Response<Service>) => {
     if (res.data) {
       state.modelData = res.data
     }
@@ -87,11 +88,11 @@ const mSave = async () => {
   if (!(await useValidate(modelRef.value))) return
 
   if (state.id) {
-    updateBrand(state.modelData).then((res: Response<any>) => {
+    updateService(state.modelData).then((res: Response<any>) => {
       useRouterBackIndex({ msg: res.msg })
     })
   } else {
-    createBrand(state.modelData).then((res: Response<any>) => {
+    createService(state.modelData).then((res: Response<any>) => {
       useRouterBackIndex({ msg: res.msg })
     })
   }

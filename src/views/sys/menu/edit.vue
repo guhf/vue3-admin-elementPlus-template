@@ -116,7 +116,7 @@ onMounted(() => {
 
 const getData = () => {
   getMenu(state.id).then((res: Response<Menu>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.modelData = res.data
     }
   })
@@ -124,7 +124,7 @@ const getData = () => {
 
 const getMenuTreeData = () => {
   getMenuTreeList(1).then((res: Response<MenuTree>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.menuTreeData = res.data
       state.showMenuSelect = true
     }

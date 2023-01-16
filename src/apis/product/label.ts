@@ -46,3 +46,13 @@ export const getLabelPageList = (cond: PageQuery) => {
 export const delLabel = (ids: string) => {
   return http.delete<any>(`product/label/${ids}`)
 }
+
+/**
+ * 启用/禁用商品标签
+ * @param id 商品标签Id
+ * @param enable 启用/禁用
+ * @returns
+ */
+export const enableDisableLabel = (id: string, enable: boolean) => {
+  return http.patch<any>(`product/label/${id}/${ enable ? 'enable': 'disable' }`)
+}

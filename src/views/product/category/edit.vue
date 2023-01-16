@@ -23,7 +23,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="分类图片:" prop="categoryPicture">
-            <UploadAvatar ref="importUploadRef" v-model="state.modelData.categoryPicture" />
+            <UploadAvatar v-model="state.modelData.categoryPicture" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -52,7 +52,7 @@ import { useValidate } from '@/hooks/event/validate'
 import { useMessageSuccess } from '@/hooks/web/message'
 import { Response } from '@/models/response'
 import { Category } from '@/models/product/categoryModel'
-import UploadAvatar from '@/components/UploadAvatar/index.vue'
+import UploadAvatar from '@/components/Upload/UploadAvatar.vue'
 
 import { getCategory, createCategory, updateCategory } from '@/apis/product/category'
 
@@ -86,7 +86,7 @@ onMounted(() => {
 const getData = () => {
   if (!props.params.id) return
   getCategory(props.params.id).then((res: Response<Category>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.modelData = res.data
     }
   })

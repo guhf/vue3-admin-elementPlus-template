@@ -4,7 +4,7 @@ import { BaseModel } from "../baseModel";
 export declare interface Brand extends BaseModel{
   brandCode?: string
   brandName?: string
-  brandPicture?: string
+  brandLogo?: string
   sortNo?: string
   description?: string
 }

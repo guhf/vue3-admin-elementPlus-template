@@ -111,7 +111,7 @@ onMounted(() => {
 
 const getData = () => {
   getUser(state.id).then((res: Response<User>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.modelData = res.data
 
       state.modelData.roleIds = [];
@@ -124,7 +124,7 @@ const getData = () => {
 
 const getRoleData = () => {
   getRoleSelectList().then((res: Response<Options>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.roleData = res.data
       state.showRoleSelect = true
     }

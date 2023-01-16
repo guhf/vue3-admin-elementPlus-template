@@ -2,40 +2,35 @@
   <div class="app-container">
     <ConstFilter @search="filterData" @reset="resetData">
       <div class="filter-item">
-        <label>品牌名称</label>
-        <el-input v-model="state.pageQuery.brandName" type="text" clearable placeholder="请输入品牌名称" />
+        <label>标签名称</label>
+        <el-input v-model="state.pageQuery.labelName" type="text" clearable placeholder="请输入标签名称" />
       </div>
       <div class="filter-item">
-        <label>品牌编号</label>
-        <el-input v-model="state.pageQuery.brandCode" type="text" clearable placeholder="请输入品牌编号" />
+        <label>标签编号</label>
+        <el-input v-model="state.pageQuery.labelCode" type="text" clearable placeholder="请输入标签编号" />
       </div>
     </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">
-        <el-button v-permission="['product.brand.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
-        <el-button v-permission="['product.brand.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+        <el-button v-permission="['product.label.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
+        <el-button v-permission="['product.label.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <ConstTable ref="brandTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
-      <el-table-column label="品牌名称" prop="brandName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
-      <el-table-column label="品牌编号" prop="brandCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
-      <el-table-column label="品牌Logo" prop="brandLogo" min-width="200" align="center" show-overflow-tooltip>
-        <template #default="{ row }">
-          <el-image v-if="row.brandLogo" style="height: 50px" :src="row.brandLogo" :preview-src-list="[row.brandLogo || '']" fit="cover" />
-        </template>
-      </el-table-column>
+    <ConstTable ref="labelTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
+      <el-table-column label="标签名称" prop="labelName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
+      <el-table-column label="标签编号" prop="labelCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-permission="['product.brand.enable']" v-model="row.status" @change="mEnableDisable(row)" />
-          <el-tag v-permission:un="['product.brand.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
+          <el-switch v-permission="['product.label.enable']" v-model="row.status" @change="mEnableDisable(row)" />
+          <el-tag v-permission:un="['product.label.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button v-permission="['product.brand.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
+          <el-button v-permission="['product.label.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
         </template>
       </el-table-column>
     </ConstTable>
@@ -50,42 +45,42 @@ import { useRouterCreate, useRouterShow } from '@/hooks/web/router'
 import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
-import { Brand } from '@/models/product/brandModel'
+import { Label } from '@/models/product/labelModel'
 
-import { getBrandPageList, delBrand, enableDisableBrand } from '@/apis/product/brand'
+import { getLabelPageList, delLabel, enableDisableLabel } from '@/apis/product/label'
 
 defineOptions({
-  name: 'ProductBrand'
+  name: 'ProductLabel'
 })
 
 const { commonStatus } = useDict()
 const state = reactive({
-  pageListData: [] as Brand[],
-  modelData: {} as Brand,
+  pageListData: [] as Label[],
+  modelData: {} as Label,
   total: 0,
   pageQuery: {} as PageQuery,
-  selectTableData: [] as Brand[],
+  selectTableData: [] as Label[],
 })
-const brandTbRef = ref<ConstTable>()
+const labelTbRef = ref<ConstTable>()
 
 onMounted(() => {
   getPageData()
 })
 
 const getPageData = () => {
-  getBrandPageList(state.pageQuery).then((res: Response<Brand[]>) => {
+  getLabelPageList(state.pageQuery).then((res: Response<Label[]>) => {
     state.pageListData = res.data
     state.total = res.total ?? 0
   })
 }
 
 const filterData = () => {
-  brandTbRef.value?.reloadData(1)
+  labelTbRef.value?.reloadData(1)
 }
 
 const resetData = () => {
   state.pageQuery = { pageIndex: 1 }
-  brandTbRef.value?.reloadData(1, 20)
+  labelTbRef.value?.reloadData(1, 20)
 }
 
 const reloadTableData = (pageQuery: PageQuery) => {
@@ -93,7 +88,7 @@ const reloadTableData = (pageQuery: PageQuery) => {
   getPageData()
 }
 
-const selectedChange = (val: Brand[]) => {
+const selectedChange = (val: Label[]) => {
   state.selectTableData = val ?? []
 }
 
@@ -107,7 +102,7 @@ const mShow = (id: string) => {
 
 const mDel = () => {
   const ids = [] as string[]
-  state.selectTableData.forEach((item: Brand) => {
+  state.selectTableData.forEach((item: Label) => {
     ids.push(item.id)
   })
   if (ids.length < 1) {
@@ -116,7 +111,7 @@ const mDel = () => {
   }
 
   useConfirmDel().then(() => {
-    delBrand(ids.join(',')).then((res: Response<any>) => {
+    delLabel(ids.join(',')).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       state.pageQuery.pageIndex = 1
       getPageData()
@@ -125,8 +120,8 @@ const mDel = () => {
 }
 
 const mEnableDisable = (row: Label) => {
-  useConfirm({ message: `确定${ row.status ? '启用' : '禁用' }该品牌吗?`, type: 'warning' }).then(() => {
-    enableDisableBrand(row.id, row.status || false).then((res: Response<any>) => {
+  useConfirm({ message: `确定${ row.status ? '启用' : '禁用' }该标签吗?`, type: 'warning' }).then(() => {
+    enableDisableLabel(row.id, row.status || false).then((res: Response<any>) => {
       getPageData()
       useMessageSuccess(res.msg)
     }).catch(() =>{

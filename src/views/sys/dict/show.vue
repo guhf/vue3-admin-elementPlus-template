@@ -53,7 +53,7 @@ onMounted(() => {
 
 const getData = () => {
   getDict(state.id).then((res: Response<Dict>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.modelData = res.data
     }
   })

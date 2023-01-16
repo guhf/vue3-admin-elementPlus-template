@@ -97,8 +97,6 @@ const state = reactive({
   modelData: {
     dictType: 2
   } as Dict,
-  showRoleSelect: false,
-  dictDialogVisible: false,
   modelRules: {
     dictName: [{ required: true, message: '请输入字典名称', trigger: 'blur' }],
     dictCode: [{ required: true, message: '请输入字典编号', trigger: 'blur' }],
@@ -121,7 +119,7 @@ onMounted(() => {
 
 const getData = () => {
   getDict(state.id).then((res: Response<Dict>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.modelData = res.data
     }
   })

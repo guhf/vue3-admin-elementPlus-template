@@ -52,7 +52,7 @@ onMounted(() => {
 
 const getData = () => {
   getUser(state.id).then((res: Response<User>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.modelData = res.data
     }
   })

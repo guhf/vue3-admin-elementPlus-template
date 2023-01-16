@@ -8,7 +8,7 @@ import { PageQuery } from '@/models/common/pageQueryModel'
  * @returns
  */
 export const createService = (data: Service) => {
-  return http.post<any>('product/Service', data)
+  return http.post<any>('product/service', data)
 }
 
 /**
@@ -17,7 +17,7 @@ export const createService = (data: Service) => {
  * @returns
  */
 export const updateService = (data: Service) => {
-  return http.put<any>('product/Service', data)
+  return http.put<any>('product/service', data)
 }
 
 /**
@@ -26,7 +26,7 @@ export const updateService = (data: Service) => {
  * @returns 商品服务
  */
 export const getService = (id : string) => {
-  return http.get<Service>(`product/Service/${id}`)
+  return http.get<Service>(`product/service/${id}`)
 }
 
 /**
@@ -35,7 +35,7 @@ export const getService = (id : string) => {
  * @returns 商品服务列表
  */
 export const getServicePageList = (cond: PageQuery) => {
-  return http.get<Service[]>('product/Service/page', cond)
+  return http.get<Service[]>('product/service/page', cond)
 }
 
 /**
@@ -44,5 +44,15 @@ export const getServicePageList = (cond: PageQuery) => {
  * @returns
  */
 export const delService = (ids: string) => {
-  return http.delete<any>(`product/Service/${ids}`)
+  return http.delete<any>(`product/service/${ids}`)
+}
+
+/**
+ * 启用/禁用商品服务
+ * @param id 商品服务Id
+ * @param enable 启用/禁用
+ * @returns
+ */
+export const enableDisableService = (id: string, enable: boolean) => {
+  return http.patch<any>(`product/service/${id}/${ enable ? 'enable': 'disable' }`)
 }

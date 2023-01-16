@@ -1,16 +1,15 @@
 <template>
   <div class="app-container">
     <div class="btn-container">
-      <el-button v-permission="['sys.role.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
+      <el-button v-permission="['product.label.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
-    <el-card header="基本信息">
-      <el-descriptions title="" :column="2" border>
-        <el-descriptions-item label="角色名称">{{ state.modelData.roleName }}</el-descriptions-item>
-        <el-descriptions-item label="角色标识">{{ state.modelData.roleCode }}</el-descriptions-item>
-        <el-descriptions-item label="描述" :span="2">{{ state.modelData.description }}</el-descriptions-item>
-      </el-descriptions>
-    </el-card>
+    <el-descriptions title="" :column="2" border>
+      <el-descriptions-item label="标签名称">{{ state.modelData.labelName }}</el-descriptions-item>
+      <el-descriptions-item label="标签编号">{{ state.modelData.labelCode }}</el-descriptions-item>
+      <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
+      <el-descriptions-item label="描述">{{ state.modelData.description }}</el-descriptions-item>
+    </el-descriptions>
   </div>
 </template>
 
@@ -20,19 +19,19 @@ import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
 import { useRouterUpdate, useRouterBackIndex } from '@/hooks/web/router'
 import { Response } from '@/models/response'
-import { Role } from '@/models/sys/roleModel'
+import { Label } from '@/models/product/labelModel'
 
-import { getRole } from '@/apis/sys/role'
+import { getLabel } from '@/apis/product/label'
 
 defineOptions({
-  name: 'SysRoleShow'
+  name: 'ProductLabelShow'
 })
 
 const state = reactive({
   id: '',
   modelData: {
     id: '',
-  } as Role,
+  } as Label,
 })
 
 onMounted(() => {
@@ -44,7 +43,7 @@ onMounted(() => {
 })
 
 const getData = () => {
-  getRole(state.id).then((res: Response<Role>) => {
+  getLabel(state.id).then((res: Response<Label>) => {
     if (res.data) {
       state.modelData = res.data
     }

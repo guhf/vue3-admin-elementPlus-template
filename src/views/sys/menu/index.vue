@@ -27,9 +27,9 @@
       <el-table-column label="菜单地址" prop="component" sortable="custom" min-width="240" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="接口地址" prop="url" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
-      <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
+      <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-permission="['sys.menu.enable']" v-model="row.status" @change="mEnableDisable(row)" />
+          <el-switch v-permission="['sys.menu.enable']" v-model="row.status" @change="mEnableDisable(row)" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
           <el-tag v-permission:un="['sys.menu.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>

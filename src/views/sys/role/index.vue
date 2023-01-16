@@ -159,7 +159,7 @@ const mGetAuth = (id: string) => {
   roleAuthDialogRef.value?.open()
   state.roleId = id
   getRoleMenuTreeList(id).then((res: Response<Tree>) => {
-    if (res.data != null) {
+    if (res.data) {
       state.treeData = res.data
     }
   })

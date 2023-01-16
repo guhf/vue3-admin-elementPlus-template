@@ -38,7 +38,7 @@ onMounted(() => {
 
 const getData = () => {
   getRole(state.id).then((res: any) => {
-    if (res.data != null) {
+    if (res.data) {
       state.modelData = res.data
     }
   })

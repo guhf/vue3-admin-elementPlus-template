@@ -75,7 +75,7 @@ const openDialog = () => {
 const open = () => {
   treeDialogRef.value?.open()
   props.load && props.load(props.loadParams).then((res: Response<Tree>) => {
-    if (res.data != null) {
+    if (res.data) {
       treeData.value = res.data
     }
   })
