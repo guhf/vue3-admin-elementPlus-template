@@ -22,7 +22,7 @@
             <el-descriptions-item label="分类编号">{{ state.modelData.categoryCode }}</el-descriptions-item>
             <el-descriptions-item label="分类名称">{{ state.modelData.categoryName }}</el-descriptions-item>
             <el-descriptions-item label="分类图片">
-              <el-image v-if="state.modelData.categoryPicture" style="height: 50px" :src="state.modelData.categoryPicture" :preview-src-list="[state.modelData.categoryPicture || '']" fit="cover" />
+              <el-image v-if="state.modelData.categoryImg" style="height: 50px" :src="state.modelData.categoryImg" :preview-src-list="[state.modelData.categoryImg || '']" fit="cover" />
             </el-descriptions-item>
             <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
             <el-descriptions-item label="描述">{{ state.modelData.description }}</el-descriptions-item>
@@ -32,9 +32,9 @@
           <ConstTable ref="categoryTbRef" :data="state.modelData.categoryItems" :height="state.modelData.id ? 'calc(100vh - 452px)': 'calc(100vh - 258px)'">
             <el-table-column label="分类编号" prop="categoryCode" min-width="200" header-align="center" align="left" show-overflow-tooltip />
             <el-table-column label="分类名称" prop="categoryName" min-width="200" header-align="center" align="left" show-overflow-tooltip />
-            <el-table-column label="分类图片" prop="categoryPicture" min-width="200" align="center" show-overflow-tooltip>
+            <el-table-column label="分类图片" prop="categoryImg" min-width="200" align="center" show-overflow-tooltip>
               <template #default="{ row }">
-                <el-image v-if="row.categoryPicture" style="height: 50px" :src="row.categoryPicture" :preview-src-list="[row.categoryPicture || '']" fit="cover" />
+                <el-image v-if="row.categoryImg" style="height: 50px" :src="row.categoryImg" :preview-src-list="[row.categoryImg || '']" fit="cover" />
               </template>
             </el-table-column>
             <el-table-column label="排序号" prop="sortNo" width="120" align="center" show-overflow-tooltip />

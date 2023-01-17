@@ -20,9 +20,9 @@
       <el-table-column label="服务名称" prop="serviceName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="服务编号" prop="serviceCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
-      <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
+      <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-permission="['product.service.enable']" v-model="row.status" @change="mEnableDisable(row)" />
+          <el-switch v-permission="['product.service.enable']" v-model="row.status" @change="mEnableDisable(row)" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
           <el-tag v-permission:un="['product.service.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>

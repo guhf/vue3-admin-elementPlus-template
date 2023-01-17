@@ -136,7 +136,7 @@ const openMenu = (tag: TagView, e: MouseEvent) => {
   } else {
     state.left = left
   }
-  state.top = e.clientY
+  state.top = e.clientY - 60 //减去顶部header固定高度
   state.visible = true
   state.selectedTag = tag
 }
@@ -327,6 +327,7 @@ onBeforeUpdate(() => {
     font-size: 12px;
     font-weight: 400;
     color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 
     li {
       margin: 0;

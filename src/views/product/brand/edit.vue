@@ -13,16 +13,24 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="品牌编号:" prop="brandCode">
+            <!-- <el-input v-model="state.modelData.brandCode" type="text" disabled placeholder="系统自动生成" /> -->
             <el-input v-model="state.modelData.brandCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入品牌编号" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="品牌Logo:" prop="brandLogo">
-            <UploadAvatar ref="importUploadRef" v-model="state.modelData.brandLogo" />
+          <el-form-item label="品牌Logo:" prop="brandImg">
+            <UploadAvatar ref="importUploadRef" v-model="state.modelData.brandImg" />
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="状态:" prop="status">
+            <el-switch v-model="state.modelData.status" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="12">
           <el-form-item label="排序号:" prop="sortNo">
             <el-input v-model="state.modelData.sortNo" type="text" maxlength="50" show-word-limit clearable placeholder="请输入排序号" />

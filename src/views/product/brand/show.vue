@@ -8,10 +8,13 @@
       <el-descriptions-item label="品牌名称">{{ state.modelData.brandName }}</el-descriptions-item>
       <el-descriptions-item label="品牌编号">{{ state.modelData.brandCode }}</el-descriptions-item>
       <el-descriptions-item label="品牌Logo">
-        <el-image v-if="state.modelData.brandLogo" style="height: 50px" :src="state.modelData.brandLogo" :preview-src-list="[state.modelData.brandLogo || '']" fit="cover" />
+        <el-image v-if="state.modelData.brandImg" style="height: 50px" :src="state.modelData.brandImg" :preview-src-list="[state.modelData.brandImg || '']" fit="cover" />
       </el-descriptions-item>
-      <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
-      <el-descriptions-item label="描述">{{ state.modelData.description }}</el-descriptions-item>
+      <el-descriptions-item label="状态">
+        <el-tag size="small" effect="light">{{ useValueToLabel(commonStatus, state.modelData.status) }}</el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="排序号" :span="2">{{ state.modelData.sortNo }}</el-descriptions-item>
+      <el-descriptions-item label="描述" :span="2">{{ state.modelData.description }}</el-descriptions-item>
     </el-descriptions>
   </div>
 </template>
@@ -21,6 +24,7 @@ import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
 import { useRouterUpdate, useRouterBackIndex } from '@/hooks/web/router'
+import { useDict, useValueToLabel } from '@/hooks/event/dict'
 import { Response } from '@/models/response'
 import { Brand } from '@/models/product/brandModel'
 
@@ -30,6 +34,7 @@ defineOptions({
   name: 'ProductBrandShow'
 })
 
+const { commonStatus } = useDict()
 const state = reactive({
   id: '',
   modelData: {

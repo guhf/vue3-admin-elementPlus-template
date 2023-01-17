@@ -6,7 +6,7 @@ export declare interface Category extends BaseModel{
   categoryName?: string
   parentId?: string
   parentName?: string
-  categoryPicture?: string
+  categoryImg?: string
   sortNo?: string
   description?: string
   categoryItems?: Category[]

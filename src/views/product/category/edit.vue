@@ -22,8 +22,8 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="分类图片:" prop="categoryPicture">
-            <UploadAvatar v-model="state.modelData.categoryPicture" />
+          <el-form-item label="分类图片:" prop="categoryImg">
+            <UploadAvatar v-model="state.modelData.categoryImg" />
           </el-form-item>
         </el-col>
         <el-col :span="12">

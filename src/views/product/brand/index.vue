@@ -19,15 +19,15 @@
     <ConstTable ref="brandTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="品牌名称" prop="brandName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="品牌编号" prop="brandCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
-      <el-table-column label="品牌Logo" prop="brandLogo" min-width="200" align="center" show-overflow-tooltip>
+      <el-table-column label="品牌Logo" prop="brandImg" min-width="200" align="center" show-overflow-tooltip>
         <template #default="{ row }">
-          <el-image v-if="row.brandLogo" style="height: 50px" :src="row.brandLogo" :preview-src-list="[row.brandLogo || '']" fit="cover" />
+          <el-image v-if="row.brandImg" style="height: 50px" :src="row.brandImg" :preview-src-list="[row.brandImg || '']" fit="cover" />
         </template>
       </el-table-column>
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
-      <el-table-column label="状态" prop="status" sortable="custom" width="80" align="center" fixed="right">
+      <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-permission="['product.brand.enable']" v-model="row.status" @change="mEnableDisable(row)" />
+          <el-switch v-permission="['product.brand.enable']" v-model="row.status" @change="mEnableDisable(row)" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
           <el-tag v-permission:un="['product.brand.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>
