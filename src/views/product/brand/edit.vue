@@ -13,8 +13,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="品牌编号:" prop="brandCode">
-            <!-- <el-input v-model="state.modelData.brandCode" type="text" disabled placeholder="系统自动生成" /> -->
-            <el-input v-model="state.modelData.brandCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入品牌编号" />
+            <el-input v-model="state.modelData.brandCode" type="text" disabled placeholder="系统自动生成" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -67,10 +66,11 @@ defineOptions({
 
 const state = reactive({
   id: '',
-  modelData: {} as Brand,
+  modelData: {
+    status: true
+  } as Brand,
   modelRules: {
     brandName: [{ required: true, message: '请输入品牌名称', trigger: 'blur' }],
-    brandCode: [{ required: true, message: '请输入品牌编号', trigger: 'blur' }],
   }
 })
 const modelRef = ref<FormInstance>()

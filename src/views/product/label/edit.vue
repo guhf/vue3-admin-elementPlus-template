@@ -13,7 +13,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="标签编号:" prop="labelCode">
-            <el-input v-model="state.modelData.labelCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入标签编号" />
+            <el-input v-model="state.modelData.labelCode" type="text" disabled placeholder="系统自动生成" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -63,7 +63,6 @@ const state = reactive({
   } as Label,
   modelRules: {
     labelName: [{ required: true, message: '请输入标签名称', trigger: 'blur' }],
-    labelCode: [{ required: true, message: '请输入标签编号', trigger: 'blur' }],
   }
 })
 const modelRef = ref<FormInstance>()

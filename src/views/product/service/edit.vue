@@ -13,7 +13,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="服务编号:" prop="serviceCode">
-            <el-input v-model="state.modelData.serviceCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入服务编号" />
+            <el-input v-model="state.modelData.serviceCode" type="text" disabled placeholder="系统自动生成" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -63,7 +63,6 @@ const state = reactive({
   } as Service,
   modelRules: {
     serviceName: [{ required: true, message: '请输入服务名称', trigger: 'blur' }],
-    serviceCode: [{ required: true, message: '请输入服务编号', trigger: 'blur' }],
   }
 })
 const modelRef = ref<FormInstance>()

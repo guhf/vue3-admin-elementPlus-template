@@ -24,6 +24,7 @@
           <el-image v-if="row.brandImg" style="height: 50px" :src="row.brandImg" :preview-src-list="[row.brandImg || '']" fit="cover" />
         </template>
       </el-table-column>
+      <el-table-column label="描述" prop="description" min-width="240" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
