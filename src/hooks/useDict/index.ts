@@ -1,14 +1,12 @@
 import { Options } from '@/models/common/optionModel'
 import { useDictStore } from '@/store/dict'
 
-const dictStore = useDictStore()
-
 /**
  * 字典信息
  * @param dictCode 字典编号
  */
 export const useDict = (dictCode: string = '') => {
-  let dicts = dictStore.getDictData(dictCode)
+  let dicts = useDictStore().getDictData(dictCode)
 
   return dicts
 }

@@ -4,7 +4,6 @@ import router from '@/router'
 import { RouteLocationNormalized } from 'vue-router'
 import { useUserStore } from '@/store/user'
 import { usePermissionStore } from '@/store/permission'
-import { ElMessage } from 'element-plus'
 import routeWhiteList from './config/whitelist/route'
 NProgress.configure({ showSpinner: false })
 
@@ -21,21 +20,16 @@ router.beforeEach(async(to: RouteLocationNormalized, from: RouteLocationNormaliz
       NProgress.done()
     } else {
       if (permissionStore.routes.length === 0) {
-        try {
-          await userStore.getUserInfo()
-          await userStore.getMenuList()
+        await userStore.getUserInfo()
+        await userStore.getMenuList()
 
-          if (permissionStore.routes.length === 0) {
-            // TODO 没有权限跳转至无权限页面
-            next({ path: '/403', replace: true })
-          } else {
-            next({ ...to, replace: true })
-          }
-        } catch (err) {
-          userStore.removeToken()
-          ElMessage.error(err as string || 'Has Error')
-          NProgress.done()
+        if (permissionStore.routes.length === 0) {
+          // TODO 没有权限跳转至无权限页面
+          next({ path: '/403', replace: true })
+        } else {
+          next({ ...to, replace: true })
         }
+        NProgress.done()
       } else {
         next()
       }

@@ -2,14 +2,13 @@ import * as signalR from '@microsoft/signalr'
 import { useUserStore } from '@/store/user'
 
 const hubUrl = (import.meta.env.VITE_SIGNALR_URL || '') as string
-const userStore = useUserStore()
 
 /**
  * 实例化SignalR连接器
  */
 const connection = new signalR.HubConnectionBuilder()
 // 配置通道路由
-.withUrl(hubUrl, { accessTokenFactory: () => userStore.token })
+.withUrl(hubUrl, { accessTokenFactory: () => useUserStore().token })
 .withAutomaticReconnect()
 // 日志信息
 .configureLogging(signalR.LogLevel.Information)
@@ -52,7 +51,7 @@ const startConnection = () => {
  const receiveClient = (methodName: string, callback?: Function) => {
   if (connection != null) {
     connection.on(methodName, (data: string) => {
-      userStore.notifyTotal = userStore.notifyTotal + 1
+      useUserStore().notifyTotal = useUserStore().notifyTotal + 1
       if(callback) callback(data)
     })
   }

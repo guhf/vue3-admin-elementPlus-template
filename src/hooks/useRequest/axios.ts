@@ -69,14 +69,14 @@ http.interceptors.request.use((request: any) => {
   return request
 },
 error => {
-  loadingCount--
+  loadingCount > 0 && loadingCount--
   return Promise.reject(error)
 })
 
 // 添加响应拦截器
 http.interceptors.response.use(response => {
-  loadingCount--
-  if (loadingInstance && loadingCount ===0){
+  loadingCount > 0 && loadingCount--
+  if (loadingInstance && loadingCount === 0){
     loadingInstance.close();
   }
 
@@ -89,13 +89,17 @@ http.interceptors.response.use(response => {
   }
 },
 error => {
-  loadingCount--
-  loadingInstance.close();
+  loadingCount > 0 && loadingCount--
+  loadingInstance && loadingInstance.close();
   const response = error.response
-  console.error('接口请求失败，返回错误信息', response);
+  
+  if(!response){
+    ElMessage.error('网络错误，请稍后重试！')
+    return Promise.reject('网络错误，请稍后重试！')
+  }
   
   // 根据返回的http状态码做不同的处理
-  switch (response?.status) {
+  switch (response.status) {
     case ResponseCode.Unauthorized:
     case ResponseCode.PreconditionFailed:
       useUserStore().logout()
@@ -116,8 +120,6 @@ error => {
     case ResponseCode.Unavailable:
       ElMessage.error(response.data.msg)
       return Promise.reject(response.data.msg)
-    default:
-      break
   }
 
   // // 超时重新请求
@@ -147,8 +149,6 @@ error => {
   // }
 
   // eslint-disable-next-line
-    return Promise.reject(response || {message: error.message});
-}
-)
+})
 
 export default http
