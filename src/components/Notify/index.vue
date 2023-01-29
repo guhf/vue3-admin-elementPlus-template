@@ -13,7 +13,7 @@ import { reactive, onMounted } from 'vue'
 import { ElNotification } from 'element-plus'
 import { Bell, BellFilled } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
-import { useSignalR } from '@/hooks/event/signalR'
+import { useSignalR } from '@/hooks'
 import { Notify } from '@/models/common/notifyModel'
 import Drawer from './Drawer.vue'
 

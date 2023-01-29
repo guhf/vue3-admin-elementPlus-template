@@ -21,7 +21,7 @@
 import { reactive, onMounted } from 'vue'
 import { CircleClose } from '@element-plus/icons-vue'
 import { useRoute } from 'vue-router'
-import { useRouterBackIndex } from '@/hooks/web/router'
+import { useRouterBackIndex } from '@/hooks'
 
 // import { getNotify, } from "@/apis/user/notify";
 

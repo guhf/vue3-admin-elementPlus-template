@@ -1,6 +1,6 @@
 import { FormInstance } from 'element-plus'
-import { useMessageWarning } from '../web/message'
 import { ValidateFieldsError } from 'async-validator'
+import { useMessageWarning } from '..'
 
 /**
  * 表单验证

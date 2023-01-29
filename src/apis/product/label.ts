@@ -1,6 +1,8 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
 import { Label } from '@/models/product/labelModel'
 import { PageQuery } from '@/models/common/pageQueryModel'
+
+const { get, post, put, patch, del } = useRequest()
 
 /**
  * 创建商品标签
@@ -8,7 +10,7 @@ import { PageQuery } from '@/models/common/pageQueryModel'
  * @returns
  */
 export const createLabel = (data: Label) => {
-  return http.post<any>('product/label', data)
+  return post<any>('product/label', data)
 }
 
 /**
@@ -17,7 +19,7 @@ export const createLabel = (data: Label) => {
  * @returns
  */
 export const updateLabel = (data: Label) => {
-  return http.put<any>('product/label', data)
+  return put<any>('product/label', data)
 }
 
 /**
@@ -26,7 +28,7 @@ export const updateLabel = (data: Label) => {
  * @returns 商品标签
  */
 export const getLabel = (id : string) => {
-  return http.get<Label>(`product/label/${id}`)
+  return get<Label>(`product/label/${id}`)
 }
 
 /**
@@ -35,7 +37,7 @@ export const getLabel = (id : string) => {
  * @returns 商品标签列表
  */
 export const getLabelPageList = (cond: PageQuery) => {
-  return http.get<Label[]>('product/label/page', cond)
+  return get<Label[]>('product/label/page', cond)
 }
 
 /**
@@ -44,7 +46,7 @@ export const getLabelPageList = (cond: PageQuery) => {
  * @returns
  */
 export const delLabel = (ids: string) => {
-  return http.delete<any>(`product/label/${ids}`)
+  return del<any>(`product/label/${ids}`)
 }
 
 /**
@@ -54,5 +56,5 @@ export const delLabel = (ids: string) => {
  * @returns
  */
 export const enableDisableLabel = (id: string, enable: boolean) => {
-  return http.patch<any>(`product/label/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/label/${id}/${ enable ? 'enable': 'disable' }`)
 }

@@ -1,6 +1,8 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
 import { Category } from '@/models/product/categoryModel'
 import { Tree } from '@/models/common/treeModel'
+
+const { get, post, put, patch, del } = useRequest()
 
 /**
  * 创建商品分类
@@ -8,7 +10,7 @@ import { Tree } from '@/models/common/treeModel'
  * @returns
  */
 export const createCategory = (data: Category) => {
-  return http.post<any>('product/category', data)
+  return post<any>('product/category', data)
 }
 
 /**
@@ -17,7 +19,7 @@ export const createCategory = (data: Category) => {
  * @returns
  */
 export const updateCategory = (data: Category) => {
-  return http.put<any>('product/category', data)
+  return put<any>('product/category', data)
 }
 
 /**
@@ -26,7 +28,7 @@ export const updateCategory = (data: Category) => {
  * @returns 商品分类
  */
 export const getCategory = (id : string) => {
-  return http.get<Category>(`product/category/${id}`)
+  return get<Category>(`product/category/${id}`)
 }
 
 /**
@@ -35,7 +37,7 @@ export const getCategory = (id : string) => {
  * @returns 商品分类列表
  */
 export const getCategoryTreeList = () => {
-  return http.get<Tree>('product/category/tree')
+  return get<Tree>('product/category/tree')
 }
 
 /**
@@ -44,7 +46,7 @@ export const getCategoryTreeList = () => {
  * @returns 商品分类列表
  */
 export const getCategoryExcludeTreeList = (id : string) => {
-  return http.get<Tree>(`product/category/exclude/${id}/tree`)
+  return get<Tree>(`product/category/exclude/${id}/tree`)
 }
 
 /**
@@ -53,7 +55,7 @@ export const getCategoryExcludeTreeList = (id : string) => {
  * @returns
  */
 export const delCategory = (ids: string) => {
-  return http.delete<any>(`product/category/${ids}`)
+  return del<any>(`product/category/${ids}`)
 }
 
 /**
@@ -63,7 +65,7 @@ export const delCategory = (ids: string) => {
  * @returns
  */
 export const enableDisableCategory = (id: string, enable: boolean) => {
-  return http.patch<any>(`product/category/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/category/${id}/${ enable ? 'enable': 'disable' }`)
 }
 
 /**
@@ -72,5 +74,5 @@ export const enableDisableCategory = (id: string, enable: boolean) => {
  * @returns
  */
 export const moveCategory = (id: string, newParentId: string) => {
-  return http.patch<any>(`product/category/${id}/moveto/${newParentId}`)
+  return patch<any>(`product/category/${id}/moveto/${newParentId}`)
 }

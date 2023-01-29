@@ -51,6 +51,7 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Export: typeof import('./src/components/Export/index.vue')['default']
@@ -59,6 +60,7 @@ declare module '@vue/runtime-core' {
     Import: typeof import('./src/components/Import/index.vue')['default']
     InfiniteScroll: typeof import('element-plus/es')['ElInfiniteScroll']
     LangSelect: typeof import('./src/components/LangSelect/index.vue')['default']
+    Loading: typeof import('element-plus/es')['ElLoadingDirective']
     MouseMenuMouseMenu: typeof import('./src/components/MouseMenu/MouseMenu.vue')['default']
     Notify: typeof import('./src/components/Notify/index.vue')['default']
     NotifyDrawer: typeof import('./src/components/Notify/Drawer.vue')['default']
@@ -71,8 +73,6 @@ declare module '@vue/runtime-core' {
     Tinymce: typeof import('./src/components/Tinymce/index.vue')['default']
     TinymceComponentsEditorImage: typeof import('./src/components/Tinymce/components/EditorImage.vue')['default']
     Upload: typeof import('./src/components/Upload/index.vue')['default']
-    UploadAvatar: typeof import('./src/components/UploadAvatar/index.vue')['default']
-    UploadAvatarUploadAvatar: typeof import('./src/components/UploadAvatar/UploadAvatar.vue')['default']
     UploadUploadAvatar: typeof import('./src/components/Upload/UploadAvatar.vue')['default']
   }
 }

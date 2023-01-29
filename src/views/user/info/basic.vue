@@ -63,8 +63,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Checked } from '@element-plus/icons-vue'
-import { useMessageSuccess } from '@/hooks/web/message'
-import { useValidate } from '@/hooks/event/validate'
+import { useMessageSuccess, useValidate } from '@/hooks'
 
 import { getOnlineInfo, updateInfo } from '@/apis/user'
 import { UserInfo } from '@/models/userModel'

@@ -1,4 +1,5 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
+const { get, post, patch, del } = useRequest()
 
 /**
  * 创建通知
@@ -6,7 +7,7 @@ import http from '@/utils/http'
  * @returns
  */
 export const createNotify = (data: any) => {
-  return http.post<any>('user/notify', data)
+  return post<any>('user/notify', data)
 }
 
 /**
@@ -15,7 +16,7 @@ export const createNotify = (data: any) => {
  * @returns 通知列表
  */
 export const getNotifyPageList = (cond: any) => {
-  return http.get<any>('user/notify', cond)
+  return get<any>('user/notify', cond)
 }
 
 /**
@@ -24,7 +25,7 @@ export const getNotifyPageList = (cond: any) => {
  * @returns
  */
 export const delNotify = (ids: string) => {
-  return http.delete<any>('user/notify/' + ids)
+  return del<any>('user/notify/' + ids)
 }
 
 /**
@@ -33,7 +34,7 @@ export const delNotify = (ids: string) => {
  * @returns 通知列表
  */
 export const getUnReadNotifyList = (cond: any) => {
-  return http.get<any>('user/notify/remind', cond)
+  return get<any>('user/notify/remind', cond)
 }
 
 /**
@@ -41,7 +42,7 @@ export const getUnReadNotifyList = (cond: any) => {
  * @returns
  */
 export const updateAllFlag = () => {
-  return http.patch<any>('user/notify/allread')
+  return patch<any>('user/notify/allread')
 }
 
 /**
@@ -49,5 +50,5 @@ export const updateAllFlag = () => {
  * @returns
  */
 export const updateFlag = (id: number) => {
-  return http.patch<any>(`user/notify/${id}/read`)
+  return patch<any>(`user/notify/${id}/read`)
 }

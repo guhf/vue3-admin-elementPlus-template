@@ -1,6 +1,8 @@
+import { useRequest } from '@/hooks'
 import { Routes } from '@/models/route/routesModel'
 import { LoginInfo, Token, UserInfo } from '@/models/userModel'
-import http from '@/utils/http'
+
+const { get, post, put } = useRequest()
 
 /**
  * 登录
@@ -8,7 +10,7 @@ import http from '@/utils/http'
  * @returns
  */
 export const login = (loginInfo: LoginInfo) => {
-  return http.post<Token>('sys/user/login', loginInfo)
+  return post<Token>('sys/user/login', loginInfo)
 }
 
 /**
@@ -16,7 +18,7 @@ export const login = (loginInfo: LoginInfo) => {
 * @returns
 */
 export const getOnlineInfo = () => {
-  return http.get<UserInfo>('sys/user/online')
+  return get<UserInfo>('sys/user/online')
 }
 
 /**
@@ -25,7 +27,7 @@ export const getOnlineInfo = () => {
  */
 export const getMenuList = () => {
   // TODO 修改接口地址，后端修改成 user/menu，并分解出UserController
-  return http.get<Routes>(`sys/menu/current/auth`)
+  return get<Routes>(`sys/menu/current/auth`)
 }
 
 /**
@@ -34,7 +36,7 @@ export const getMenuList = () => {
 * @returns
 */
 export const updateInfo = (data: UserInfo) => {
-  return http.put<object>('sys/user/info/update', data)
+  return put<object>('sys/user/info/update', data)
 }
 
 /**
@@ -43,5 +45,5 @@ export const updateInfo = (data: UserInfo) => {
 * @returns
 */
 export const updatePwd = (data: { oldPwd: string, pwd: string}) => {
-  return http.put<object>('sys/user/pwd/update', data)
+  return put<object>('sys/user/pwd/update', data)
 }

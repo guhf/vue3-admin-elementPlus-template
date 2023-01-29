@@ -24,8 +24,7 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex } from '@/hooks/web/router'
-import { useDict, useValueToLabel } from '@/hooks/event/dict'
+import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '@/hooks'
 import { Response } from '@/models/response'
 import { Dict } from '@/models/sys/dictModel'
 

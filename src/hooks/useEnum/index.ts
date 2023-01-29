@@ -1,11 +1,10 @@
-
 /**
  * 枚举值转枚举描述
  * @param enums 枚举集合
  * @param value 枚举值
  * @returns
  */
-export const enumToDescription = (enums: any[], value : number) => {
+export const useEnumToDescription = (enums: any[], value : number) => {
   if (!enums) {
     return ''
   }
@@ -16,3 +15,5 @@ export const enumToDescription = (enums: any[], value : number) => {
     }
   }).label
 }
+
+

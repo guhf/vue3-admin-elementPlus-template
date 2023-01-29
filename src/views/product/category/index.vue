@@ -60,8 +60,7 @@
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Rank, Delete } from '@element-plus/icons-vue'
 import { TreeData } from 'element-plus/es/components/tree/src/tree.type'; 
-import { useConfirm, useConfirmDel, useMessageSuccess } from '@/hooks/web/message'
-import { useDict, useValueToLabel } from '@/hooks/event/dict'
+import { useConfirm, useConfirmDel, useMessageSuccess, useDict, useValueToLabel } from '@/hooks'
 import { Tree, TreeItem } from '@/models/common/treeModel'
 import { Response } from '@/models/response'
 import { Category } from '@/models/product/categoryModel'

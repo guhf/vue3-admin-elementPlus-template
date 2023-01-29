@@ -1,6 +1,8 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { User } from '@/models/sys/userModel'
+
+const { get, post, put, del } = useRequest()
 
 /**
  * 创建用户
@@ -8,7 +10,7 @@ import { User } from '@/models/sys/userModel'
  * @returns
  */
 export const createUser = (data: User) => {
-  return http.post<any>('sys/user', data)
+  return post<any>('sys/user', data)
 }
 
 /**
@@ -17,7 +19,7 @@ export const createUser = (data: User) => {
  * @returns
  */
 export const updateUser = (data: User) => {
-  return http.put<any>('sys/user', data)
+  return put<any>('sys/user', data)
 }
 
 /**
@@ -26,7 +28,7 @@ export const updateUser = (data: User) => {
  * @returns 用户
  */
 export const getUser = (id : string) => {
-  return http.get<User>(`sys/user/${id}`)
+  return get<User>(`sys/user/${id}`)
 }
 
 /**
@@ -35,7 +37,7 @@ export const getUser = (id : string) => {
  * @returns 用户列表
  */
 export const getUserPageList = (cond: PageQuery) => {
-  return http.get<User[]>('sys/user/page', cond)
+  return get<User[]>('sys/user/page', cond)
 }
 
 /**
@@ -44,7 +46,7 @@ export const getUserPageList = (cond: PageQuery) => {
  * @returns 用户列表
  */
 export const getUserSelectList = (cond: PageQuery) => {
-  return http.get<User[]>('sys/user/selectlist', cond)
+  return get<User[]>('sys/user/selectlist', cond)
 }
 
 /**
@@ -53,7 +55,7 @@ export const getUserSelectList = (cond: PageQuery) => {
  * @returns
  */
 export const delUser = (ids: string) => {
-  return http.delete<any>(`sys/user/${ids}`)
+  return del<any>(`sys/user/${ids}`)
 }
 
 /**
@@ -62,5 +64,5 @@ export const delUser = (ids: string) => {
 * @returns
 */
 export const resetPwd = (id: string) => {
-  return http.put<any>(`sys/user/${id}/pwd/reset`)
+  return put<any>(`sys/user/${id}/pwd/reset`)
 }

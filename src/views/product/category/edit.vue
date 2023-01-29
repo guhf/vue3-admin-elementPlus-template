@@ -48,8 +48,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { FormInstance } from 'element-plus'
-import { useValidate } from '@/hooks/event/validate'
-import { useMessageSuccess } from '@/hooks/web/message'
+import { useMessageSuccess, useValidate } from '@/hooks'
 import { Response } from '@/models/response'
 import { Category } from '@/models/product/categoryModel'
 import UploadAvatar from '@/components/Upload/UploadAvatar.vue'

@@ -1,4 +1,5 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
+const { get, post, put, del } = useRequest()
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Role } from '@/models/sys/roleModel'
 import { Options } from '@/models/common/optionModel'
@@ -9,7 +10,7 @@ import { Options } from '@/models/common/optionModel'
  * @returns
  */
 export const createRole = (data: Role) => {
-  return http.post<any>('sys/role', data)
+  return post<any>('sys/role', data)
 }
 
 /**
@@ -18,7 +19,7 @@ export const createRole = (data: Role) => {
  * @returns
  */
 export const updateRole = (data: Role) => {
-  return http.put<any>('sys/role', data)
+  return put<any>('sys/role', data)
 }
 
 /**
@@ -27,7 +28,7 @@ export const updateRole = (data: Role) => {
  * @returns 角色
  */
 export const getRole = (id : string) => {
-  return http.get<Role>(`sys/role/${id}`)
+  return get<Role>(`sys/role/${id}`)
 }
 
 /**
@@ -36,7 +37,7 @@ export const getRole = (id : string) => {
  * @returns 角色列表
  */
 export const getRolePageList = (cond: PageQuery) => {
-  return http.get<Role[]>('sys/role/page', cond)
+  return get<Role[]>('sys/role/page', cond)
 }
 
 /**
@@ -45,7 +46,7 @@ export const getRolePageList = (cond: PageQuery) => {
  * @returns 角色下拉框列表
  */
 export const getRoleSelectList = () => {
-  return http.get<Options>('sys/role/selectlist')
+  return get<Options>('sys/role/selectlist')
 }
 
 /**
@@ -54,7 +55,7 @@ export const getRoleSelectList = () => {
  * @returns
  */
 export const delRole = (ids: string) => {
-  return http.delete<any>('sys/role/' + ids)
+  return del<any>('sys/role/' + ids)
 }
 
 /**
@@ -64,5 +65,5 @@ export const delRole = (ids: string) => {
  * @returns
  */
 export const setAuth = (id: string, menuIds: string[]) => {
-  return http.post<any>(`sys/role/${id}/setauth`, menuIds)
+  return post<any>(`sys/role/${id}/setauth`, menuIds)
 }

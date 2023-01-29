@@ -42,9 +42,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow } from '@/hooks/web/router'
-import { useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
-import { useDict, useValueToLabel } from '@/hooks/event/dict'
+import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
 import { Role } from '@/models/sys/roleModel'

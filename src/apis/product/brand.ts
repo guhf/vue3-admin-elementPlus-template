@@ -1,6 +1,8 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
 import { Brand } from '@/models/product/brandModel'
 import { PageQuery } from '@/models/common/pageQueryModel'
+
+const { get, post, put, patch, del } = useRequest()
 
 /**
  * 创建商品品牌
@@ -8,7 +10,7 @@ import { PageQuery } from '@/models/common/pageQueryModel'
  * @returns
  */
 export const createBrand = (data: Brand) => {
-  return http.post<any>('product/brand', data)
+  return post<any>('product/brand', data)
 }
 
 /**
@@ -17,7 +19,7 @@ export const createBrand = (data: Brand) => {
  * @returns
  */
 export const updateBrand = (data: Brand) => {
-  return http.put<any>('product/brand', data)
+  return put<any>('product/brand', data)
 }
 
 /**
@@ -26,7 +28,7 @@ export const updateBrand = (data: Brand) => {
  * @returns 商品品牌
  */
 export const getBrand = (id : string) => {
-  return http.get<Brand>(`product/brand/${id}`)
+  return get<Brand>(`product/brand/${id}`)
 }
 
 /**
@@ -35,7 +37,7 @@ export const getBrand = (id : string) => {
  * @returns 商品品牌列表
  */
 export const getBrandPageList = (cond: PageQuery) => {
-  return http.get<Brand[]>('product/brand/page', cond)
+  return get<Brand[]>('product/brand/page', cond)
 }
 
 /**
@@ -44,7 +46,7 @@ export const getBrandPageList = (cond: PageQuery) => {
  * @returns
  */
 export const delBrand = (ids: string) => {
-  return http.delete<any>(`product/brand/${ids}`)
+  return del<any>(`product/brand/${ids}`)
 }
 
 /**
@@ -54,5 +56,5 @@ export const delBrand = (ids: string) => {
  * @returns
  */
 export const enableDisableBrand = (id: string, enable: boolean) => {
-  return http.patch<any>(`product/brand/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/brand/${id}/${ enable ? 'enable': 'disable' }`)
 }

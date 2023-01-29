@@ -18,7 +18,7 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex } from '@/hooks/web/router'
+import { useRouterUpdate, useRouterBackIndex } from '@/hooks'
 import { Response } from '@/models/response'
 import { Role } from '@/models/sys/roleModel'
 

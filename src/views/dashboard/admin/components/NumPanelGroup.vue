@@ -58,6 +58,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue'
+import { useRouterPush } from '@/hooks'
 import { CountTo } from 'vue3-count-to'
 import messages from '@/assets/images/home/messages.png'
 import purchases from '@/assets/images/home/purchases.png'
@@ -65,7 +66,6 @@ import shoppings from '@/assets/images/home/shoppings.png'
 import visits from '@/assets/images/home/visits.png'
 
 import { getStatisticalNumChart } from '@/apis/statistical/index'
-import { useRouterPush } from '@/hooks/web/router'
 
 const data = reactive({
   customerTotal: 0,

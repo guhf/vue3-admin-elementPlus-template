@@ -47,9 +47,7 @@
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
-import { useRouterCreate, useRouterPush } from '@/hooks/web/router'
-import { useDict, useValueToLabel } from '@/hooks/event/dict'
+import { useRouterCreate, useRouterPush, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
 import { Response } from '@/models/response'
 import { MenuTree, Menu } from '@/models/sys/menuModel'
 

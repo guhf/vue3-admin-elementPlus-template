@@ -1,4 +1,5 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
+const { get } = useRequest()
 
 /**
  * 查询用户登录日志
@@ -6,7 +7,7 @@ import http from '@/utils/http'
  * @returns 用户登录日志
  */
 export const getUserLoginLog = (id : number) => {
-  return http.get<any>(`sys/userloginlog/${id}`)
+  return get<any>(`sys/userloginlog/${id}`)
 }
 
 /**
@@ -15,5 +16,5 @@ export const getUserLoginLog = (id : number) => {
  * @returns 用户登录日志列表
  */
 export const getUserLoginLogPageList = (cond: any) => {
-  return http.get<any>('sys/userloginlog/page', cond)
+  return get<any>('sys/userloginlog/page', cond)
 }

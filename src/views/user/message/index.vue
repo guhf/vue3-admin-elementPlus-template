@@ -32,8 +32,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import { useRouterShow } from '@/hooks/web/router'
-import { useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
+import { useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks'
 
 import { getNotifyPageList, delNotify } from '@/apis/user/notify'
 

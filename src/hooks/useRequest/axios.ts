@@ -38,7 +38,7 @@ const removePending = (config: AxiosRequestConfig) => {
     // 当前请求在数组中存在时执行函数体
     if (list.url === config.url && list.method === config.method && JSON.stringify(list.params) === JSON.stringify(config.params) && JSON.stringify(list.data) === JSON.stringify(config.data)) {
       // 执行取消操作
-      list.cancel('操作太频繁，请稍后再试')
+      list.cancel('操作频繁，请稍后重试！')
       // 从数组中移除记录
       pending.splice(item, 1)
     }
@@ -84,6 +84,7 @@ http.interceptors.response.use(response => {
   if (response.data.code === ResponseCode.OK) {
     return Promise.resolve(response)
   } else {
+    console.log('接口请求成功，返回错误信息', response);
     return Promise.reject(ElMessage.error(response.data.msg))
   }
 },
@@ -91,7 +92,8 @@ error => {
   loadingCount--
   loadingInstance.close();
   const response = error.response
-
+  console.error('接口请求失败，返回错误信息', response);
+  
   // 根据返回的http状态码做不同的处理
   switch (response?.status) {
     case ResponseCode.Unauthorized:

@@ -16,8 +16,7 @@
 import { reactive, ref } from 'vue'
 import { UploadInstance, UploadUserFile } from 'element-plus'
 import { Upload as UploadIcon } from '@element-plus/icons-vue'
-import { useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
-import http from '@/utils/http'
+import { useRequest, useMessageSuccess, useMessageWarning } from '@/hooks'
 import { ResponseCode } from '@/constant/responses'
 
 import Upload from '@/components/Upload/index.vue'
@@ -30,6 +29,7 @@ interface Props {
   fileSize: number
 }
 
+const { post } = useRequest()
 const props = withDefaults(defineProps<Props>(), {
   title: '导入',
   dialogTitle: '导入',
@@ -62,7 +62,7 @@ const downloadTemplate = () => {
 const handleImport = () => {
   const files = importUploadRef.value?.fileList || []
   if (files.length > 0) {
-    http.post<any>(props.url, files).then((res) => {
+    post<any>(props.url, files).then((res) => {
       if (res.code === ResponseCode.OK) {
         emits('importSuccess')
         useMessageSuccess(res.msg)

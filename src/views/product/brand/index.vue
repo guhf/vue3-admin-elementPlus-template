@@ -46,9 +46,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks/web/message'
-import { useRouterCreate, useRouterShow } from '@/hooks/web/router'
-import { useDict, useValueToLabel } from '@/hooks/event/dict'
+import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
 import { Brand } from '@/models/product/brandModel'
@@ -125,7 +123,7 @@ const mDel = () => {
   })
 }
 
-const mEnableDisable = (row: Label) => {
+const mEnableDisable = (row: Brand) => {
   useConfirm({ message: `确定${ row.status ? '启用' : '禁用' }该品牌吗?`, type: 'warning' }).then(() => {
     enableDisableBrand(row.id, row.status || false).then((res: Response<any>) => {
       getPageData()

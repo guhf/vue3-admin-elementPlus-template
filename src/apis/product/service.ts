@@ -1,6 +1,8 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
 import { Service } from '@/models/product/ServiceModel'
 import { PageQuery } from '@/models/common/pageQueryModel'
+
+const { get, post, put, patch, del } = useRequest()
 
 /**
  * 创建商品服务
@@ -8,7 +10,7 @@ import { PageQuery } from '@/models/common/pageQueryModel'
  * @returns
  */
 export const createService = (data: Service) => {
-  return http.post<any>('product/service', data)
+  return post<any>('product/service', data)
 }
 
 /**
@@ -17,7 +19,7 @@ export const createService = (data: Service) => {
  * @returns
  */
 export const updateService = (data: Service) => {
-  return http.put<any>('product/service', data)
+  return put<any>('product/service', data)
 }
 
 /**
@@ -26,7 +28,7 @@ export const updateService = (data: Service) => {
  * @returns 商品服务
  */
 export const getService = (id : string) => {
-  return http.get<Service>(`product/service/${id}`)
+  return get<Service>(`product/service/${id}`)
 }
 
 /**
@@ -35,7 +37,7 @@ export const getService = (id : string) => {
  * @returns 商品服务列表
  */
 export const getServicePageList = (cond: PageQuery) => {
-  return http.get<Service[]>('product/service/page', cond)
+  return get<Service[]>('product/service/page', cond)
 }
 
 /**
@@ -44,7 +46,7 @@ export const getServicePageList = (cond: PageQuery) => {
  * @returns
  */
 export const delService = (ids: string) => {
-  return http.delete<any>(`product/service/${ids}`)
+  return del<any>(`product/service/${ids}`)
 }
 
 /**
@@ -54,5 +56,5 @@ export const delService = (ids: string) => {
  * @returns
  */
 export const enableDisableService = (id: string, enable: boolean) => {
-  return http.patch<any>(`product/service/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/service/${id}/${ enable ? 'enable': 'disable' }`)
 }

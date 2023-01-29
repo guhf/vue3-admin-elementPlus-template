@@ -1,6 +1,8 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
 import { Product } from '@/models/product/productModel'
 import { PageQuery } from '@/models/common/pageQueryModel'
+
+const { get, post, put, patch, del } = useRequest()
 
 /**
  * 创建商品
@@ -8,7 +10,7 @@ import { PageQuery } from '@/models/common/pageQueryModel'
  * @returns
  */
 export const createProduct = (data: Product) => {
-  return http.post<any>('product', data)
+  return post<any>('product', data)
 }
 
 /**
@@ -17,7 +19,7 @@ export const createProduct = (data: Product) => {
  * @returns
  */
 export const updateProduct = (data: Product) => {
-  return http.put<any>('product', data)
+  return put<any>('product', data)
 }
 
 /**
@@ -26,7 +28,7 @@ export const updateProduct = (data: Product) => {
  * @returns 商品
  */
 export const getProduct = (id : string) => {
-  return http.get<Product>(`product/${id}`)
+  return get<Product>(`product/${id}`)
 }
 
 /**
@@ -35,7 +37,7 @@ export const getProduct = (id : string) => {
  * @returns 商品列表
  */
 export const getProductPageList = (cond: PageQuery) => {
-  return http.get<Product[]>('product/page', cond)
+  return get<Product[]>('product/page', cond)
 }
 
 /**
@@ -44,7 +46,7 @@ export const getProductPageList = (cond: PageQuery) => {
  * @returns
  */
 export const delProduct = (ids: string) => {
-  return http.delete<any>(`product/${ids}`)
+  return del<any>(`product/${ids}`)
 }
 
 /**
@@ -54,7 +56,7 @@ export const delProduct = (ids: string) => {
  * @returns
  */
 export const shelvesProduct = (id: string, enable: boolean) => {
-  return http.patch<any>(`product/${id}/${ enable ? 'on': 'the' }shelves`)
+  return patch<any>(`product/${id}/${ enable ? 'on': 'the' }shelves`)
 }
 
 /**
@@ -64,5 +66,5 @@ export const shelvesProduct = (id: string, enable: boolean) => {
  * @returns
  */
 export const enableDisableProduct = (id: string, enable: boolean) => {
-  return http.patch<any>(`product/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/${id}/${ enable ? 'enable': 'disable' }`)
 }

@@ -30,8 +30,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-// import { useRouterShow } from '@/hooks/web/useRouter'
-import { useDict, useValueToLabel } from '@/hooks/event/dict'
+import { useRouterShow, useDict, useValueToLabel } from '@/hooks'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
 import { userLogin } from '@/models/log/userLoginModel'

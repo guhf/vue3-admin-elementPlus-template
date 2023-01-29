@@ -1,4 +1,5 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
+const { post } = useRequest()
 
 /**
  * 上传文件
@@ -6,5 +7,5 @@ import http from '@/utils/http'
  * @returns
  */
 export const uploadFile = (data: any) => {
-  return http.post<any>('file', data)
+  return post<any>('file', data)
 }

@@ -33,8 +33,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { useMessageSuccess } from '@/hooks/web/message'
-import { useValidate } from '@/hooks/event/validate'
+import { useMessageSuccess, useValidate } from '@/hooks'
 import { Response } from '@/models/response'
 import { FormInstance } from 'element-plus'
 import { Checked } from '@element-plus/icons-vue'

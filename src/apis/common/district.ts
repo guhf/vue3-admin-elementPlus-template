@@ -1,4 +1,5 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
+const { get, put, del } = useRequest()
 
 /**
  * 创建区域
@@ -6,7 +7,7 @@ import http from '@/utils/http'
  * @returns
  */
 export const createDistrict = (data: any) => {
-  return http.post<any>('district', data)
+  return get<any>('district', data)
 }
 
 /**
@@ -15,7 +16,7 @@ export const createDistrict = (data: any) => {
 * @returns
 */
 export const updateDistrict = (data: any) => {
-  return http.put<any>('district', data)
+  return put<any>('district', data)
 }
 
 /**
@@ -24,7 +25,7 @@ export const updateDistrict = (data: any) => {
 * @returns 区域
 */
 export const getDistrict = (id : number) => {
-  return http.get<any>(`district/${id}`)
+  return get<any>(`district/${id}`)
 }
 
 /**
@@ -33,7 +34,7 @@ export const getDistrict = (id : number) => {
 * @returns 区域列表
 */
 export const getDistrictPageList = (cond: any) => {
-  return http.get<any>('district', cond)
+  return get<any>('district', cond)
 }
 
 /**
@@ -42,7 +43,7 @@ export const getDistrictPageList = (cond: any) => {
 * @returns
 */
 export const delDistrict = (ids: string) => {
-  return http.delete<any>('district/' + ids)
+  return del<any>('district/' + ids)
 }
 
 // #region 下拉框
@@ -52,7 +53,7 @@ export const delDistrict = (ids: string) => {
 * @returns 国家下拉框列表
 */
 export const getCountryList = () => {
-  return http.get<any>('district/country')
+  return get<any>('district/country')
 }
 
 /**
@@ -60,7 +61,7 @@ export const getCountryList = () => {
 * @returns 省份下拉框列表
 */
 export const getProvinceList = () => {
-  return http.get<any>('district/province')
+  return get<any>('district/province')
 }
 
 /**
@@ -69,7 +70,7 @@ export const getProvinceList = () => {
 * @returns 城市下拉框列表
 */
 export const getCityList = (parentId : number) => {
-  return http.get<any>(`district/${parentId}/city`)
+  return get<any>(`district/${parentId}/city`)
 }
 
 /**
@@ -78,7 +79,7 @@ export const getCityList = (parentId : number) => {
  * @returns 区/县下拉框列表
  */
 export const getDistrictList = (parentId : number) => {
-  return http.get<any>(`district/${parentId}/district`)
+  return get<any>(`district/${parentId}/district`)
 }
 
 /**
@@ -87,7 +88,7 @@ export const getDistrictList = (parentId : number) => {
 * @returns 街道下拉框列表
 */
 export const getStreetList = (parentId : number) => {
-  return http.get<any>(`district/${parentId}/street`)
+  return get<any>(`district/${parentId}/street`)
 }
 
 // #region

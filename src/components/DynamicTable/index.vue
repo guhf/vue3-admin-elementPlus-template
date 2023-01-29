@@ -27,7 +27,7 @@
 import { reactive, ref, onMounted, watch } from 'vue'
 import { ElTable } from 'element-plus'
 import { ZoomIn, CirclePlus, Remove, Delete } from '@element-plus/icons-vue'
-import { useConfirm } from '@/hooks/web/message'
+import { useConfirm } from '@/hooks'
 
 interface Props {
   title?: string

@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import { computed, onBeforeMount, onUnmounted, ref } from 'vue'
 import { useUserStore } from '@/store/user'
-import { useSignalR } from '@/hooks/event/signalR'
+import { useSignalR } from '@/hooks'
 import { UserRole } from '@/models/userModel'
 import AdminDashboard from './admin/index.vue'
 import UserDashboard from './user/index.vue'

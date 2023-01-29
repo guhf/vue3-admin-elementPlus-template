@@ -1,6 +1,8 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
 import { Dict, DictData } from '@/models/sys/dictModel'
 import { PageQuery } from '@/models/common/pageQueryModel'
+
+const { get, post, put, del } = useRequest()
 
 /**
  * 创建数据字典
@@ -8,7 +10,7 @@ import { PageQuery } from '@/models/common/pageQueryModel'
  * @returns
  */
 export const createDict = (data: Dict) => {
-  return http.post<any>('sys/dict', data)
+  return post<any>('sys/dict', data)
 }
 
 /**
@@ -17,7 +19,7 @@ export const createDict = (data: Dict) => {
  * @returns
  */
 export const updateDict = (data: Dict) => {
-  return http.put<any>('sys/dict', data)
+  return put<any>('sys/dict', data)
 }
 
 /**
@@ -26,7 +28,7 @@ export const updateDict = (data: Dict) => {
  * @returns 数据字典
  */
 export const getDict = (id : string) => {
-  return http.get<Dict>(`sys/dict/${id}`)
+  return get<Dict>(`sys/dict/${id}`)
 }
 
 /**
@@ -35,7 +37,7 @@ export const getDict = (id : string) => {
  * @returns 数据字典列表
  */
 export const getDictPageList = (cond: PageQuery) => {
-  return http.get<Dict[]>('sys/dict/page', cond)
+  return get<Dict[]>('sys/dict/page', cond)
 }
 
 /**
@@ -44,7 +46,7 @@ export const getDictPageList = (cond: PageQuery) => {
  * @returns 数据字典列表
  */
 export const getDictList = () => {
-  return http.get<DictData[]>('sys/dict/list')
+  return get<DictData[]>('sys/dict/list')
 }
 
 /**
@@ -53,5 +55,5 @@ export const getDictList = () => {
  * @returns
  */
 export const delDict = (ids: string) => {
-  return http.delete<any>(`sys/dict/${ids}`)
+  return del<any>(`sys/dict/${ids}`)
 }

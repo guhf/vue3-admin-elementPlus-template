@@ -1,6 +1,8 @@
-import http from '@/utils/http'
+import { useRequest } from '@/hooks'
 import { MenuTree, Menu } from '@/models/sys/menuModel'
 import { Tree } from '@/models/common/treeModel'
+
+const { get, post, put, patch } = useRequest()
 
 /**
  * 创建菜单
@@ -8,7 +10,7 @@ import { Tree } from '@/models/common/treeModel'
  * @returns
  */
 export const createMenu = (data: Menu) => {
-  return http.post<any>('sys/menu', data)
+  return post<any>('sys/menu', data)
 }
 
 /**
@@ -17,7 +19,7 @@ export const createMenu = (data: Menu) => {
  * @returns
  */
 export const updateMenu = (data: Menu) => {
-  return http.put<any>('sys/menu', data)
+  return put<any>('sys/menu', data)
 }
 
 /**
@@ -26,7 +28,7 @@ export const updateMenu = (data: Menu) => {
  * @returns 菜单
  */
 export const getMenu = (id : string) => {
-  return http.get<Menu>(`sys/menu/${id}`)
+  return get<Menu>(`sys/menu/${id}`)
 }
 
 /**
@@ -35,7 +37,7 @@ export const getMenu = (id : string) => {
  * @returns 菜单树型列表
  */
 export const getMenuTreeList = (type: number | string = '') => {
-  return http.get<MenuTree>(`sys/menu/tree/${type}`)
+  return get<MenuTree>(`sys/menu/tree/${type}`)
 }
 
 /**
@@ -44,7 +46,7 @@ export const getMenuTreeList = (type: number | string = '') => {
  * @returns 菜单树型列表
  */
 export const getRoleMenuTreeList = (roleId: string) => {
-  return http.get<Tree>(`sys/menu/${roleId}/tree`)
+  return get<Tree>(`sys/menu/${roleId}/tree`)
 }
 
 /**
@@ -53,7 +55,7 @@ export const getRoleMenuTreeList = (roleId: string) => {
  * @returns
  */
 export const delMenu = (ids: string) => {
-  return http.delete<any>('sys/menu/' + ids)
+  return del<any>('sys/menu/' + ids)
 }
 
 /**
@@ -63,5 +65,5 @@ export const delMenu = (ids: string) => {
  * @returns
  */
 export const enableDisableMenu = (id: string, enable: boolean) => {
-  return http.patch<any>(`sys/menu/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`sys/menu/${id}/${ enable ? 'enable': 'disable' }`)
 }
