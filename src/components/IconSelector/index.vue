@@ -8,7 +8,7 @@
     </template>
   </el-input>
 
-  <ConstDialog ref="selectIconDialogRef" title="选择图标" :btns="['check']" @check="checkIcon">
+  <ConstDialog ref="selectIconDialogRef" v-model="state.iconDialogVisible" title="选择图标" :btns="['check']" @check="checkIcon">
     <ConstFilter @search="filterData" @reset="resetData">
       <div class="filter-item">
         <label>图标名称</label>
@@ -45,7 +45,6 @@ const props = withDefaults(defineProps<Props>(), {
   iconType: 1,
   placeholder: '请选择图标'
 })
-// const value = computed(() => props.modelValue)
 
 const emits = defineEmits<{(e: 'update:modelValue', newValue: string): void}>()
 
@@ -56,10 +55,9 @@ const state = reactive({
   icons: [] as Glyphs[],
   iconData: [] as Glyphs[],
   iconPrefix: '' as string,
-  checkIcon: {} as Glyphs
+  checkIcon: {} as Glyphs,
+  iconDialogVisible: false
 })
-
-const selectIconDialogRef = ref<ConstDialog>()
 
 onMounted(() => {
   if (props.iconType === 1) {
@@ -75,12 +73,14 @@ onMounted(() => {
       state.iconData = res.glyphs
     })
   }
+  
 })
 
 const openIconPopup = () => {
-  console.log(props.iconType)
+  let selectedIcon = state.iconData.filter(icon => { return icon.font_class === (props.modelValue ? String(props.modelValue).replace(state.iconPrefix, '') : '') })
+  state.checkIcon = selectedIcon[0] || {}
 
-  selectIconDialogRef.value?.open()
+  state.iconDialogVisible = true
 }
 
 const filterData = () => {
@@ -112,7 +112,7 @@ const iconClick = (glyphs: Glyphs) => {
 
 const checkIcon = () => {
   emits('update:modelValue', state.iconPrefix + state.checkIcon.font_class)
-  selectIconDialogRef.value?.close()
+  state.iconDialogVisible = false
 }
 </script>
 

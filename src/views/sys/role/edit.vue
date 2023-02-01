@@ -64,10 +64,10 @@ const modelRef = ref<FormInstance>()
 
 onMounted(() => {
   const { params } = useRoute()
-  const id = params.id as string
-  if (params.id) state.id = id
-
-  getData()
+  if (params.id) {
+    state.id = params.id as string
+    getData()
+  }
 })
 
 const getData = () => {

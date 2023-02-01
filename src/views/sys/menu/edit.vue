@@ -99,6 +99,7 @@ const state = reactive({
   id: '',
   modelData: {
     menuType: 1,
+    status: true
   } as Menu,
   menuTreeData: [] as MenuTree,
   showMenuSelect: false,
@@ -112,10 +113,10 @@ const modelRef = ref<FormInstance>()
 
 onMounted(() => {
   const { params } = useRoute()
-  const id = params.id as string
-  if (params.id) state.id = id
-
-  getData()
+  if (params.id) {
+    state.id = params.id as string
+    getData()
+  }
   getMenuTreeData()
 })
 

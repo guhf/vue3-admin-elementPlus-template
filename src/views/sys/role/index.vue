@@ -30,18 +30,19 @@
       <el-table-column label="操作" width="180" align="center" fixed="right">
         <template #default="{ row }">
           <el-button v-permission="['sys.role.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
-          <el-button v-permission="['sys.role.auth']" type="primary" size="small" @click="mGetAuth(row.id)">分配权限</el-button>
+          <TreeDialog v-permission="['sys.role.auth']" ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" button btn-text="分配权限" title="分配权限" :btns="['save']" 
+            :load="getRoleMenuTreeList" :load-params="row.id" @open="setRoleId(row.id)" @save="mSetAuth">
+          </TreeDialog>
         </template>
       </el-table-column>
     </ConstTable>
-    <TreeDialog ref="roleAuthDialogRef" title="分配权限" :data="state.treeData" :btns="['save']" @save="mSetAuth">
-    </TreeDialog>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
+import { TreeData } from 'element-plus/es/components/tree/src/tree.type'
 import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
 import { PageQuery } from '@/models/common/pageQueryModel'
 import { Response } from '@/models/response'
@@ -52,13 +53,14 @@ import TreeDialog from '@/components/ConstDialog/TreeDialog/index.vue'
 import { getRolePageList, delRole } from '@/apis/sys/role'
 import { getRoleMenuTreeList } from '@/apis/sys/menu'
 import { setAuth } from '@/apis/sys/role'
-import { TreeData } from 'element-plus/es/components/tree/src/tree.type'
 
 defineOptions({
   name: 'SysRole'
 })
 
 const { commonStatus } = useDict()
+const roleTbRef = ref<ConstTable>()
+let roleAuthDialogVisible = ref(false)
 const state = reactive({
   pageListData: [] as Role[],
   total: 0,
@@ -72,8 +74,6 @@ const state = reactive({
   treeData: [] as Tree,
 })
 
-const roleTbRef = ref<ConstTable>()
-const roleAuthDialogRef = ref<ConstDialog>()
 
 onMounted(() => {
   getPageData()
@@ -135,32 +135,8 @@ const mDel = () => {
   })
 }
 
-// const mEnable = (id: number) => {
-//   confirm({ message: "确定启用该角色吗？", type: "warning" }).then(()=> {
-//     enableMenu(id).then((res: any) => {
-//       getPageData();
-//       messageSuccess(res.msg);
-//     }).catch(() => {});
-//   }).catch(() => {});
-// };
-
-// const mDisable = (id: number) => {
-//   confirm({ message: "确定禁用该角色吗？", type: "warning" }).then(()=> {
-//     disableMenu(id).then((res: any) => {
-//       getPageData();
-//       messageSuccess(res.msg);
-//     }).catch(() => {});
-//   }).catch(() => {});
-// };
-
-const mGetAuth = (id: string) => {
-  roleAuthDialogRef.value?.open()
+const setRoleId = (id: string) => {
   state.roleId = id
-  getRoleMenuTreeList(id).then((res: Response<Tree>) => {
-    if (res.data) {
-      state.treeData = res.data
-    }
-  })
 }
 
 const mSetAuth = (checkData: TreeData) => {
@@ -177,7 +153,7 @@ const mSetAuth = (checkData: TreeData) => {
   setAuth(state.roleId, authData)
     .then((res: Response<any>) => {
       useMessageSuccess(res.msg)
-      roleAuthDialogRef.value?.close()
+      roleAuthDialogVisible.value = false
     })
     .catch((error) => {
     })

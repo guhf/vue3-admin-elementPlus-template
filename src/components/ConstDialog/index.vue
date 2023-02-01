@@ -1,6 +1,5 @@
 <template>
-  <el-dialog v-model="state.dialogVisible" :title="title" :width="width" draggable append-to-body destroy-on-close
-    @close="mClose">
+  <el-dialog v-model="modelValue" :title="title" :width="width" draggable append-to-body destroy-on-close @close="mClose">
     <slot />
 
     <template #footer>
@@ -18,18 +17,21 @@ import { reactive, onMounted } from 'vue'
 import { Checked, CircleCheck, CircleClose } from '@element-plus/icons-vue'
 
 interface Props {
+  modelValue: boolean
   title?: string
   width?: string | number
   btns?: string[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  modelValue: false,
   title: '',
   width: '50%',
   btns: () => ['confirm'],
 })
 
 const emits = defineEmits<{
+  (e: 'update:modelValue', newValue: boolean): void
   (e: 'confirm', val: any): void
   (e: 'check', val: any): void
   (e: 'save', val: any): void
@@ -38,7 +40,6 @@ const emits = defineEmits<{
 }>()
 
 const state = reactive({
-  dialogVisible: false as boolean,
   confirmShow: false as boolean,
   checkShow: false as boolean,
   saveShow: false as boolean,
@@ -50,14 +51,6 @@ onMounted(() => {
     state[(item + 'Show') as keyof typeof state] = true
   })
 })
-
-const open = () => {
-  state.dialogVisible = true
-}
-
-const close = () => {
-  state.dialogVisible = false
-}
 
 const mConfirm = (val: any) => {
   emits('confirm', val)
@@ -77,20 +70,8 @@ const mImport = (val: any) => {
 
 const mClose = () => {
   emits('close')
-  close()
+  emits('update:modelValue', false)
 }
-
-// watch(
-//   () => props.modelValue,
-//   (val: boolean) => {
-//     state.dialogVisible = val
-//   }
-// )
-
-defineExpose({
-  open,
-  close,
-})
 </script>
 
 <style lang="scss">

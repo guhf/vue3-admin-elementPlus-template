@@ -1,18 +1,21 @@
 <template>
   <div class="app-container">
     <div class="btn-container">
-      <el-button v-permission="['product.service.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
+      <el-button v-permission="['product.attribute.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <el-descriptions title="" :column="2" border>
-      <el-descriptions-item label="服务名称">{{ state.modelData.serviceName }}</el-descriptions-item>
-      <el-descriptions-item label="服务编号">{{ state.modelData.serviceCode }}</el-descriptions-item>
+      <el-descriptions-item label="规格名称">{{ state.modelData.attributeName }}</el-descriptions-item>
+      <el-descriptions-item label="规格编号">{{ state.modelData.attributeCode }}</el-descriptions-item>
       <el-descriptions-item label="状态">
         <el-tag size="small" effect="light">{{ useValueToLabel(commonStatus, state.modelData.status) }}</el-tag>
       </el-descriptions-item>
-      <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
       <el-descriptions-item label="描述" :span="2">{{ state.modelData.description }}</el-descriptions-item>
     </el-descriptions>
+    <ConstTable ref="attributeTbRef" :data="state.modelData.attributeItems">
+      <el-table-column label="规格属性值" prop="value" min-width="200" align="center" show-overflow-tooltip />
+      <el-table-column label="排序号" prop="sortNo" width="150" align="center" show-overflow-tooltip />
+    </ConstTable>
   </div>
 </template>
 
@@ -22,12 +25,12 @@ import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
 import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '@/hooks'
 import { Response } from '@/models/response'
-import { Service } from '@/models/product/serviceModel'
+import { Attribute } from '@/models/product/attributeModel'
 
-import { getService } from '@/apis/product/service'
+import { getAttribute } from '@/apis/product/attribute'
 
 defineOptions({
-  name: 'ProductServiceShow'
+  name: 'ProductAttributeShow'
 })
 
 const { commonStatus } = useDict()
@@ -35,7 +38,7 @@ const state = reactive({
   id: '',
   modelData: {
     id: '',
-  } as Service,
+  } as Attribute,
 })
 
 onMounted(() => {
@@ -47,7 +50,7 @@ onMounted(() => {
 })
 
 const getData = () => {
-  getService(state.id).then((res: Response<Service>) => {
+  getAttribute(state.id).then((res: Response<Attribute>) => {
     if (res.data) {
       state.modelData = res.data
     }

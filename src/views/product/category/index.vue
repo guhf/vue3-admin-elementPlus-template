@@ -11,8 +11,8 @@
             <div class="btn-container">
               <el-button v-if="state.checkData.categotyId" v-permission="['product.category.update']" class="btn-item" type="primary" :icon="Edit" @click="mUpdate">编辑</el-button>
               <el-button v-permission="['product.category.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加下级</el-button>
-              <TreeDialog v-if="state.checkData.categotyId" v-permission="['product.category.update']" ref="categoryDialogRef" button btn-text="移动" :btn-icon="Rank" radio title="商品分类" 
-                :load-params="state.checkData.categotyId" :load="getCategoryExcludeTreeList"  @confirm="mMove">
+              <TreeDialog v-if="state.checkData.categotyId" v-permission="['product.category.update']" ref="categoryDialogRef" v-model="categoryDialogVisible" button btn-text="移动" btn-size="" :btn-icon="Rank" radio title="商品分类" 
+                :load="getCategoryExcludeTreeList" :load-params="state.checkData.categotyId" @confirm="mMove">
               </TreeDialog>
               <el-button v-if="state.checkData.categotyId" v-permission="['product.category.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
             </div>
@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <ConstDialog ref="editDialogRef" :title="'添加商品分类'" :btns="['save']" @save="mSave">
+    <ConstDialog ref="editDialogRef" v-model="categoryEditDialogVisible" :title="'添加商品分类'" :btns="['save']" @save="mSave">
       <CategoryEdit ref="categoryEditRef" :params="state.editParams"></CategoryEdit>
     </ConstDialog>
   </div>
@@ -74,6 +74,10 @@ defineOptions({
 })
 
 const { commonStatus } = useDict()
+const categoryTbRef = ref<ConstTable>()
+const categoryEditRef = ref<ComponentRef>()
+let categoryDialogVisible = ref(false)
+let categoryEditDialogVisible = ref(false)
 const state = reactive({
   treeData: [] as Tree,
   modelData: {} as Category,
@@ -85,12 +89,8 @@ const state = reactive({
     id: '',
     parentId: '',
     parentName: ''
-  }
+  },
 })
-const categoryTbRef = ref<ConstTable>()
-const editDialogRef = ref<ConstDialog>()
-const categoryEditRef = ref<ComponentRef>()
-const categoryDialogRef = ref<ConstDialog>()
 
 onMounted(() => {
   getTreeData()
@@ -120,14 +120,14 @@ const mUpdate = () => {
   state.editParams.id = state.checkData.categotyId
   state.editParams.parentId = ''
   state.editParams.parentName = ''
-  editDialogRef.value?.open()
+  categoryEditDialogVisible.value = true
 }
 
 const mCreate = () => {
   state.editParams.id = ''
   state.editParams.parentId = state.checkData.categotyId
   state.editParams.parentName = state.checkData.categoryName
-  editDialogRef.value?.open()
+  categoryEditDialogVisible.value = true
 }
 
 const mMove = (data: TreeData) => {
@@ -135,7 +135,7 @@ const mMove = (data: TreeData) => {
     moveCategory(state.checkData.categotyId, data[0].id).then((res: Response<any>) => {
       getTreeData();
       useMessageSuccess(res.msg)
-      categoryDialogRef.value?.close()
+      categoryDialogVisible.value = false
     })
   })
 }
@@ -143,7 +143,7 @@ const mMove = (data: TreeData) => {
 const mSave = async () => {
   categoryEditRef.value?.save().then((res: any) => {
     getTreeData();
-    editDialogRef.value?.close();
+    categoryEditDialogVisible.value = false
   })
 }
 

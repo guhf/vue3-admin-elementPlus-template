@@ -1,0 +1,70 @@
+[
+  {
+    "authority": "product.list",
+    "component": "product/list/index.vue",
+    "icon": "icon-jiekoufangwenrizhijiankong",
+    "menuCode": "ProductList",
+    "menuName": "商品列表",
+    "menuType": 2,
+    "parentId": "637e5140-31e7-906c-00c9-dce176104d17",
+    "path": "product/list",
+    "sortNo": "1",
+    "status": true
+  },
+  {
+    "authority": "product.list.create",
+    "component": "product/list/edit.vue",
+    "menuCode": "ProductListCreate",
+    "menuName": "添加",
+    "menuType": 3,
+    "parentId": "63d8ffbf-a0be-b18c-0069-9cf00524517b",
+    "path": "product/list/create",
+    "sortNo": 1,
+    "status": true,
+    "version": 0
+  },
+  {
+    "authority": "product.list.update",
+    "component": "product/list/edit.vue",
+    "menuCode": "ProductListUpdate",
+    "menuName": "编辑",
+    "menuType": 3,
+    "parentId": "63d8ffbf-a0be-b18c-0069-9cf00524517b",
+    "path": "product/list/update/:id",
+    "sortNo": 2,
+    "status": true,
+    "version": 0
+  },
+  {
+    "authority": "product.list.show",
+    "component": "product/list/show.vue",
+    "menuCode": "ProductListShow",
+    "menuName": "查看",
+    "menuType": 3,
+    "parentId": "63d8ffbf-a0be-b18c-0069-9cf00524517b",
+    "path": "product/list/show/:id",
+    "sortNo": 3,
+    "status": true,
+    "version": 0
+  },
+  {
+    "authority": "product.list.del",
+    "menuCode": "ProductListDel",
+    "menuName": "删除",
+    "menuType": 3,
+    "parentId": "63d8ffbf-a0be-b18c-0069-9cf00524517b",
+    "sortNo": 4,
+    "status": true,
+    "version": 0
+  },
+  {
+    "authority": "product.list.enable",
+    "menuCode": "ProductListEnable",
+    "menuName": "启用/禁用",
+    "menuType": 3,
+    "parentId": "63d8ffbf-a0be-b18c-0069-9cf00524517b",
+    "sortNo": 5,
+    "status": true,
+    "version": 0
+  }
+]

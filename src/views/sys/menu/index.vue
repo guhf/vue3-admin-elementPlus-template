@@ -16,7 +16,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="图标" prop="icon" sortable="custom" width="80" align="center" show-overflow-tooltip>
+      <el-table-column label="图标" prop="icon" width="80" align="center" show-overflow-tooltip>
         <template #default="{ row }">
           <SvgIcon :icon-name="row.icon" />
         </template>

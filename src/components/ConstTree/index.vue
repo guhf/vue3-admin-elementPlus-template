@@ -13,11 +13,16 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { ElTree } from 'element-plus';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 import { Search } from '@element-plus/icons-vue';
 import { Tree, TreeItem } from '@/models/common/treeModel';
+
+watch(() => props.data, () => {
+  console.log(11111, props.data);
+  
+})
 
 interface Props {
   data?: Tree

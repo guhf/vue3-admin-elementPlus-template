@@ -52,19 +52,9 @@ export const delProduct = (ids: string) => {
 /**
  * 上架/下架商品
  * @param id 商品Id
- * @param enable 上架/下架
+ * @param shelves 上架/下架
  * @returns
  */
-export const shelvesProduct = (id: string, enable: boolean) => {
-  return patch<any>(`product/${id}/${ enable ? 'on': 'the' }shelves`)
-}
-
-/**
- * 启用/禁用商品
- * @param id 商品Id
- * @param enable 启用/禁用
- * @returns
- */
-export const enableDisableProduct = (id: string, enable: boolean) => {
-  return patch<any>(`product/${id}/${ enable ? 'enable': 'disable' }`)
+export const shelvesProduct = (id: string, shelves: boolean) => {
+  return patch<any>(`product/${id}/${ shelves ? 'shelves': 'offshelves' }`)
 }

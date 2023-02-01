@@ -1,13 +1,13 @@
 <template>
   <div class="operation-element">
-    <el-input v-if="input" v-model="modelValue" type="text" class="icon-input" :placeholder="placeholder" disabled>
+    <el-input v-if="input" v-model="inputValue" type="text" class="icon-input" :placeholder="placeholder" disabled>
       <template #append>
         <el-button :icon="Search" @click="openDialog" />
       </template>
     </el-input>
     <el-button v-else-if="button" type="primary" :icon="btnIcon" :size="btnSize" @click="openDialog">{{ btnText }}</el-button>
     
-    <ConstDialog ref="treeDialogRef" :title="title" :width="width" :btns="btns"
+    <ConstDialog ref="treeDialogRef" v-model="modelValue" :title="title" :width="width" :btns="btns"
       @confirm="mConfirm" @check="mCheck" @save="mSave" @close="mClose">
       <ConstTree ref="constTreeRef" :data="treeData" :default-props="defaultProps" show-checkbox :radio="radio"></ConstTree>
     </ConstDialog>
@@ -24,13 +24,14 @@ import { Response } from '@/models/response'
 import ConstTree from '@/components/ConstTree/index.vue'
 
 interface Props {
-  modelValue?: string | number | null
+  modelValue?: boolean
   placeholder?: string
   input?: boolean
+  inputValue?: string
   button?: boolean
   btnText?: string
-  btnIcon?: DefineComponent | null
-  btnSize?: string
+  btnIcon?: DefineComponent
+  btnSize?: "" | "default" | "small" | "large"
   title?: string
   width?: string | number
   btns?: string[]
@@ -45,9 +46,9 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: '',
+  modelValue: false,
   placeholder: '请输入',
-  btnIcon: null,
+  btnSize: 'small',
   title: '',
   width: '50%',
   btns: () => ['confirm'],
@@ -56,6 +57,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emits = defineEmits<{
+  (e: 'update:modelValue', newValue: boolean): void
   (e: 'confirm', data: TreeData): void
   (e: 'check', data: TreeData): void
   (e: 'save', data: TreeData): void
@@ -64,25 +66,24 @@ const emits = defineEmits<{
 }>()
 
 const constTreeRef = ref<ConstTree>()
-const treeDialogRef = ref<ConstDialog>()
-let treeData = ref<Tree>()
+let treeData = ref<Tree>([])
+let showTree = ref(false)
 
 const openDialog = () => {
-  open()
   emits('open')
+  open()
 }
 
 const open = () => {
-  treeDialogRef.value?.open()
+  emits('update:modelValue', true)
   props.load && props.load(props.loadParams).then((res: Response<Tree>) => {
     if (res.data) {
       treeData.value = res.data
+      showTree.value = true
+      console.log(treeData.value);
+      console.log(showTree.value);
     }
   })
-}
-
-const close = () => {
-  treeDialogRef.value?.close()
 }
 
 const mConfirm = () => {
@@ -102,15 +103,11 @@ const mSave = () => {
 
 const mClose = () => {
   emits('close')
+  emits('update:modelValue', false)
 }
 
 watch(() => props.data, (newVal: Tree) => {
   treeData.value = newVal
-})
-
-defineExpose({
-  open,
-  close
 })
 </script>
 
