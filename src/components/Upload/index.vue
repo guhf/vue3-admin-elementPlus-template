@@ -1,6 +1,6 @@
 <template>
   <el-upload
-    :action="url" :headers="stateData.headers" :file-list="modelValue" :list-type="listType" :auto-upload="true" :multiple="stateData.multiple" :limit="limit"
+    :action="url" :headers="stateData.headers" :file-list="modelValue" :list-type="listType" auto-upload :multiple="stateData.multiple" :limit="limit"
     :show-file-list="showFileList"
     :before-upload="beforeUpload" :on-change="fileChange" :on-progress="fileProgress" :on-success="fileSuccess" :on-preview="filePreview" :on-remove="fileRemove" :on-exceed="fileExceed"
   >
