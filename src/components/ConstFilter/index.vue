@@ -1,31 +1,44 @@
 <template>
   <div ref="filterRef" class="filter-warp" tabindex="180429">
-    <div v-if="state.showMore !== true" class="filter-tool">
+    <div class="filter-tool">
       <div ref="containerRef" class="filter-container">
         <slot />
       </div>
       <div class="filter-btns">
         <el-button class="btn-item" type="primary" :icon="Search" @click="filter">搜索</el-button>
         <el-button class="btn-item" :icon="RefreshRight" @click="reset">重置</el-button>
-        <el-button v-show="state.showMoreIcon === true" class="btn-item" type="warning" :icon="ArrowDownBold" title="展开" @click="showMore(true)" />
-      </div>
-    </div>
-    <div v-if="state.showMore" class="filter-tool-more">
-      <div ref="containerRef" class="filter-container">
-        <slot />
-      </div>
-      <div class="filter-btns">
-        <el-button class="btn-item" type="primary" :icon="Search" @click="filter">搜索</el-button>
-        <el-button class="btn-item" :icon="RefreshRight" @click="reset">重置</el-button>
-        <el-button class="btn-item" type="info" :icon="ArrowUpBold" title="收起" @click="showMore(false)" />
+        <el-button v-show="more" class="btn-item" type="warning" @click="openMore">更多筛选</el-button>
       </div>
     </div>
   </div>
+  
+  <el-drawer ref="drawerRef" v-model="drawerVisible" direction="rtl" :size="400" destroy-on-close>
+    <template #header>
+      <span>{{ props.moreTitle }}</span>
+    </template>
+    <div class="body">
+    <slot name="more" />
+    </div>
+    <template #footer>
+      <el-button class="btn-item" :icon="CircleClose" @click="closeMore">取消</el-button>
+      <el-button class="btn-item" type="primary" :icon="Search" @click="filter">搜索</el-button>
+    </template>
+  </el-drawer>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watch, onUpdated } from 'vue'
-import { Search, RefreshRight, ArrowDownBold, ArrowUpBold } from '@element-plus/icons-vue'
+import { ref } from 'vue'
+import { Search, RefreshRight, MoreFilled, CircleClose } from '@element-plus/icons-vue'
+
+interface Props {
+  more: boolean
+  moreTitle: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  more: false,
+  moreTitle: '更多筛选',
+})
 
 const emits = defineEmits<{
   (e: 'search', pageQuery: object): void
@@ -34,51 +47,45 @@ const emits = defineEmits<{
 
 const filterRef = ref<ElRef>()
 const containerRef = ref<ElRef>()
+const drawerVisible = ref(false)
 
-const state = reactive({
-  showMore: false as boolean,
-  showMoreIcon: false as boolean,
-})
-
-onMounted(() => {
-  if (!containerRef.value) return
-  state.showMoreIcon = containerRef.value.clientHeight > 34
-})
-
-onUpdated(() => {
-  if (!containerRef.value) return
-  state.showMoreIcon = containerRef.value.clientHeight > 34
-})
-
-watch(
-  () => containerRef.value,
-  () => {
-    if (containerRef.value) {
-      state.showMoreIcon = containerRef.value.clientHeight > 34
-    }
-  },
-  {
-    deep: true,
-  }
-)
-
-const showMore = (show: boolean) => {
-  state.showMore = show
+const openMore = () => {
+  drawerVisible.value = true
   // if(show) filterRef.value.focus();
 }
 
+const closeMore = () => {
+  drawerVisible.value = false
+}
+
 const filter = (val: object) => {
-  state.showMore = false
+  drawerVisible.value = false
   emits('search', val)
 }
 
 const reset = (val: object) => {
-  state.showMore = false
   emits('reset', val)
 }
+
 </script>
 
 <style lang="scss" scoped>
+.el-drawer__body .body{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  *{
+    margin-top: 20px;
+  }
+
+  *:not(:first-child){
+    margin-top: 20px;
+  }
+}
+
+
 .filter-warp {
   height: 34px;
   margin-bottom: 10px;

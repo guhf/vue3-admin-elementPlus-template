@@ -1,5 +1,5 @@
 <template>
-  <el-drawer ref="drawerRef" v-model="modelValue" direction="rtl" size="360px" :show-close="false" :destroy-on-close="true" @close="closeNotifyDrawer">
+  <el-drawer ref="drawerRef" v-model="modelValue" direction="rtl" :size="360" :show-close="false" destroy-on-close @close="closeNotifyDrawer">
     <template #header>
       <span>通知中心</span>
       <el-dropdown trigger="click">
