@@ -7,10 +7,10 @@
     <el-descriptions title="" :column="2" border>
       <el-descriptions-item label="标签名称">{{ state.modelData.labelName }}</el-descriptions-item>
       <el-descriptions-item label="标签编号">{{ state.modelData.labelCode }}</el-descriptions-item>
+      <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
       <el-descriptions-item label="状态">
         <el-tag size="small" effect="light">{{ useValueToLabel(commonStatus, state.modelData.status) }}</el-tag>
       </el-descriptions-item>
-      <el-descriptions-item label="排序号">{{ state.modelData.sortNo }}</el-descriptions-item>
       <el-descriptions-item label="描述" :span="2">{{ state.modelData.description }}</el-descriptions-item>
     </el-descriptions>
   </div>

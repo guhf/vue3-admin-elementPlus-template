@@ -7,13 +7,14 @@
     <el-descriptions title="" :column="2" border>
       <el-descriptions-item label="规格名称">{{ state.modelData.attributeName }}</el-descriptions-item>
       <el-descriptions-item label="规格编号">{{ state.modelData.attributeCode }}</el-descriptions-item>
-      <el-descriptions-item label="状态">
+      <el-descriptions-item label="状态" :span="2">
         <el-tag size="small" effect="light">{{ useValueToLabel(commonStatus, state.modelData.status) }}</el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="描述" :span="2">{{ state.modelData.description }}</el-descriptions-item>
     </el-descriptions>
-    <ConstTable ref="attributeTbRef" :data="state.modelData.attributeItems">
-      <el-table-column label="规格属性值" prop="value" min-width="200" align="center" show-overflow-tooltip />
+    <ConstTable ref="attributeItemTbRef" :data="state.modelData.attributeItems" :check="false">
+      <el-table-column label="规格属名称" prop="name" min-width="200" align="center" show-overflow-tooltip />
+      <el-table-column label="规格属值" prop="value" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" width="150" align="center" show-overflow-tooltip />
     </ConstTable>
   </div>

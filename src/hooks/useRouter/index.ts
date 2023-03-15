@@ -53,10 +53,7 @@ export const useRouterShow = (options: routerOptions = {}) => {
  */
 export const useRouterUpdate = (options: routerOptions = {}) => {
   let currentPath = router.currentRoute.value.fullPath
-  console.log(111, options.path);
   options.path = currentPath.replace('show', 'update')
-  console.log(options.path);
-  
 
   return useRouterPush(options)
 }

@@ -102,8 +102,9 @@ error => {
   switch (response.status) {
     case ResponseCode.Unauthorized:
     case ResponseCode.PreconditionFailed:
+      ElMessage.error(response.data.msg)
       useUserStore().logout()
-      window.location.href = `/#/login?redirect=${route.fullPath}`
+      window.location.href = `/login?redirect=${route.fullPath}`
       break
     case ResponseCode.Forbidden:
       router.push({

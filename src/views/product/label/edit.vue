@@ -19,13 +19,13 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="状态:" prop="status">
-            <el-switch v-model="state.modelData.status" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
+          <el-form-item label="排序号:" prop="sortNo">
+            <el-input v-model="state.modelData.sortNo" type="text" maxlength="50" show-word-limit clearable placeholder="请输入排序号" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="排序号:" prop="sortNo">
-            <el-input v-model="state.modelData.sortNo" type="text" maxlength="50" show-word-limit clearable placeholder="请输入排序号" />
+          <el-form-item label="状态:" prop="status">
+            <el-switch v-model="state.modelData.status" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
           </el-form-item>
         </el-col>
       </el-row>

@@ -22,11 +22,10 @@ const props = withDefaults(defineProps<Props>(), {
 const router = useRouter()
 
 const push = () => {
-  console.log(props)
   router.push({
     path: props.to
   }).catch((error) => {
-    console.error('当前路由不存在页面', error)
+    console.error('当前路由页面不存在', error)
     // router.push({
     //   path: '404'
     // })

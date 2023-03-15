@@ -23,11 +23,6 @@
             <el-switch v-model="state.modelData.status" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
           </el-form-item>
         </el-col>
-        <el-col :span="12">
-          <el-form-item label="排序号:" prop="sortNo">
-            <el-input v-model="state.modelData.sortNo" type="text" maxlength="50" show-word-limit clearable placeholder="请输入排序号" />
-          </el-form-item>
-        </el-col>
       </el-row>
       <el-row>
         <el-col :span="24">
@@ -38,17 +33,17 @@
       </el-row>
       <el-row>
         <DynamicTable ref="contractNodeRef" v-model="state.modelData.attributeItems" title="规格属性">
-          <el-table-column label="规格属性名称" prop="attributeItemName" min-width="200" align="center">
+          <el-table-column label="规格属性名称" prop="name" min-width="200" align="center">
             <template #default="{ row, $index }">
-              <el-form-item :prop="'attributeItems.' + $index + '.attributeItemName'" :rules="state.attributeItemRules.attributeItemName">
-                <el-input type="text" v-model="row.attributeItemName" maxlength="50" show-word-limit clearable placeholder="请输入规格属性名称"></el-input>
+              <el-form-item :prop="'attributeItems.' + $index + '.name'" :rules="state.attributeItemRules.name">
+                <el-input type="text" v-model="row.name" maxlength="50" show-word-limit clearable placeholder="请输入规格属性名称"></el-input>
               </el-form-item>
             </template>
           </el-table-column>
-          <el-table-column label="规格属性键值" prop="attributeItemValue" min-width="200" align="center">
+          <el-table-column label="规格属性值" prop="value" min-width="200" align="center">
             <template #default="{ row, $index }">
-              <el-form-item :prop="'attributeItems.' + $index + '.attributeItemValue'" :rules="state.attributeItemRules.attributeItemValue">
-                <el-input type="text" v-model="row.attributeItemValue" maxlength="50" show-word-limit clearable placeholder="请输入规格属性键值"></el-input>
+              <el-form-item :prop="'attributeItems.' + $index + '.value'" :rules="state.attributeItemRules.value">
+                <el-input type="text" v-model="row.value" maxlength="50" show-word-limit clearable placeholder="请输入规格属性键值"></el-input>
               </el-form-item>
             </template>
           </el-table-column>
@@ -89,8 +84,8 @@ const state = reactive({
     attributeName: [{ required: true, message: '请输入规格名称', trigger: 'blur' }],
   },
   attributeItemRules: {
-    attributeItemName: [{ required: true, message: '请输入规格属性名称', trigger: 'blur' }],
-    attributeItemValue: [{ required: true, message: '请输入规格属性键值', trigger: 'blur' }],
+    name: [{ required: true, message: '请输入规格属性名称', trigger: 'blur' }],
+    value: [{ required: true, message: '请输入规格属性键值', trigger: 'blur' }],
   }
 })
 const modelRef = ref<FormInstance>()

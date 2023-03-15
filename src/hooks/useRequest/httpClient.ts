@@ -38,13 +38,17 @@ class HttpClient {
       requestConfig.data = JSON.stringify(params)
     }
 
-    return this.httpClient.request<Response<T>>(requestConfig).then((res) => {
-      const data = res.data as Response<T>
+    return this.httpClient.request<Response<T>>(requestConfig).then((res: any) => {
+      if (res && res.data) {
+        const data = res.data as Response<T>
 
-      if (res.status === ResponseCode.OK && data.code === ResponseCode.OK) {
-        return data
+        if (res.status === ResponseCode.OK && data.code === ResponseCode.OK) {
+          return data
+        } else {
+          return Promise.reject(res?.msg)
+        }
       } else {
-        return Promise.reject(data)
+        return Promise.reject('请求出错')
       }
     }).catch(async error => {
       return Promise.reject(error)
