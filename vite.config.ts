@@ -89,13 +89,14 @@ export default defineConfig(({ mode } : ConfigEnv) => {
         imports: ['vue'],
         // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
         resolvers: [ElementPlusResolver({
-          //添加后更改主题色才会生效
-          importStyle: 'sass'
-        }),
-        // 自动导入图标组件
-        IconsResolver({
-          prefix: 'Icon',
-        })],
+            //添加后更改主题色才会生效
+            importStyle: 'sass'
+          }),
+          // 自动导入图标组件
+          IconsResolver({
+            prefix: 'Icon',
+          })
+        ],
         dts: path.resolve(resolve(''), 'auto-imports.d.ts'),
       }),
       Components({

@@ -23,12 +23,12 @@
       <el-empty description="暂无数据~~" />
     </template>
   </el-table>
-  <TablePagination :hidden="!pagination" :total="total" :page-index="pageQuery.pageIndex" :page-size="pageQuery.pageSize" :page-sizes="pageSizes" :layout="layout" :background="background" :auto-scroll="autoScroll" @current-change="currentChange" @size-change="sizeChange" />
+  <CosntPagination :hidden="!pagination" :total="total" :page-index="pageQuery.pageIndex" :page-size="pageQuery.pageSize" :page-sizes="pageSizes" :layout="layout" :background="background" :auto-scroll="autoScroll" @current-change="currentChange" @size-change="sizeChange" />
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from 'vue'
-import TablePagination from '@/components/pagination/index.vue'
+import { reactive, ref, nextTick, onMounted } from 'vue'
+import CosntPagination from '@/components/CosntPagination/index.vue'
 // import { MouseMenuDirective as vMouseMenuDirective } from '@howdyjs/mouse-menu'
 import { useSettingsStore } from '@/store/settings'
 
@@ -91,15 +91,30 @@ const emits = defineEmits<{
 
 const settingsStore = useSettingsStore()
 
-const tableHeight = computed(() => {
-  return `calc(${props.height} - ${settingsStore.showTagsView ? '34px' : '0px'})`
-})
-
+let tableHeight = ref('600px')
 const pageQuery = reactive({
   pageIndex: props.pageIndex as number,
   pageSize: props.pageSize as number,
   orderBy: '' as string | undefined | null,
 })
+
+onMounted(() => {
+  setHeight()
+})
+
+window.onresize = () => {
+  setHeight()
+}
+
+const setHeight = () => {
+  nextTick(() => {
+    let filter = document.querySelector('.table-filter') as HTMLElement
+    let tool = document.querySelector('.table-tool') as HTMLElement
+    let filterHeight = (filter?.offsetHeight || '0') + 'px'
+    let toolHeight = (tool?.offsetHeight || '0') + 'px'
+    tableHeight.value = `calc(${props.height} - ${settingsStore.showTagsView ? '34px' : '0px'} - ${filterHeight} - ${toolHeight})`
+  });
+}
 
 const reloadData = (pageIndex: number = 1, pageSize: number = pageQuery.pageSize) => {
   pageQuery.pageIndex = pageIndex

@@ -58,7 +58,7 @@ import { useSettingsStore } from '@/store/settings'
 
 interface Props {
   /** 初始内容 */
-  value?: string
+  modelValue?: string
   /** id */
   id?: string
   /** 上传文件列表 */
@@ -74,16 +74,16 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  value: '',
+  modelValue: '',
   id: 'vue-tinymce-' + new Date() + ((Math.random() * 1000).toFixed(0) + ''),
   toolbar: () => { return [] },
   menubar: 'file edit insert view format table',
   height: '360',
-  width: 'auto',
+  width: '100%',
   tag: ''
 })
 
-const emits = defineEmits<{(e: 'input', content: string): void
+const emits = defineEmits<{(e: 'update:modelValue', content: string): void
 }>()
 
 const userStore = useUserStore()
@@ -100,7 +100,7 @@ const state = reactive({
     return settingsStore.theme
   },
   tinymceContent: computed(() => {
-    return props.value
+    return props.modelValue
   }),
   containerWidth: () => {
     const width = props.width
@@ -137,10 +137,12 @@ const initOptions = ref(
     advlist_number_styles: 'default',
     // imagetools_cors_hosts: ['ezhu.me','ezhu.com','ezhuchina.com'], //开启跨域白名单
     // imagetools_proxy: 'proxy.php', //配置图片代理，和上面一起才能使用图片编辑插件
+    link_title: false,
     paste_data_images: true, // 粘贴图片
     powerpaste_word_import: 'merge',
     // 开启默认过滤器,设置为false可以保留word复制格式
     paste_enable_default_filters: false,
+    nonbreaking_force_tab: true, // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
     urlconverter_callback: (url: any, node: any, onSave: any, name: any) => {
       if (node === 'img' && url.startsWith('blob:')) {
         const tinymce = (window as any).tinymce.get(props.id)
@@ -175,16 +177,14 @@ const initOptions = ref(
       xhr.send(formData)
     },
     default_link_target: '_blank',
-    link_title: false,
-    nonbreaking_force_tab: true,
     init_instance_callback: (editor: any) => {
-      if (props.value) {
-        editor.setContent(props.value)
+      if (props.modelValue) {
+        editor.setContent(props.modelValue)
       }
       state.hasInit = true
       editor.on('NodeChange Change KeyUp SetContent', () => {
         state.hasChange = true
-        emits('input', editor.getContent())
+        emits('update:modelValue', editor.getContent())
       })
     },
     setup: (editor: any) => {

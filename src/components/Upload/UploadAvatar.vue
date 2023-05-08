@@ -30,7 +30,9 @@ const state = reactive({
 })
 
 onMounted(() => {
-  state.fileList = [{ url: props.modelValue}]
+  if (props.modelValue) {
+    state.fileList = [{ url: props.modelValue}]
+  }
 })
 
 watch(() => state.fileList, () => {

@@ -53,7 +53,7 @@
     <el-row>
       <el-col>
         <el-form-item label="">
-          <el-button size="small" type="primary" :icon="Checked" @click="mSave">保存</el-button>
+          <el-button type="primary" size="small" :icon="Checked" @click="mSave">保存</el-button>
         </el-form-item>
       </el-col>
     </el-row>

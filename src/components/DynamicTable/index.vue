@@ -167,6 +167,10 @@ defineExpose({
       height: 100%;
       overflow: auto;
 
+      .el-form-item {
+        margin-bottom: 0 !important;
+      }
+      
       .el-form-item__content{
         margin-left: 0 !important;
       }
