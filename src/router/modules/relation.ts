@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { LAYOUT } from '@/router/const'
+import { LAYOUT } from '~/router/const'
 
 const relationRouter: Array<RouteRecordRaw> = [
   {
@@ -15,7 +15,7 @@ const relationRouter: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'customer',
-        component: () => import('@/views/relation/customer/index.vue'),
+        component: () => import('~/views/relation/customer/index.vue'),
         name: 'relationCustomer',
         meta: {
           tagName: 'relationCustomer',
@@ -25,7 +25,7 @@ const relationRouter: Array<RouteRecordRaw> = [
       },
       {
         path: '/relation/customer/create',
-        component: () => import('@/views/relation/customer/edit.vue'),
+        component: () => import('~/views/relation/customer/edit.vue'),
         name: 'relationCustomerCreate',
         meta: {
           tagName: 'relationCustomer',
@@ -36,7 +36,7 @@ const relationRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'customer/update',
-        component: () => import('@/views/relation/customer/edit.vue'),
+        component: () => import('~/views/relation/customer/edit.vue'),
         name: 'relationCustomerUpdate',
         meta: {
           tagName: 'relationCustomer',
@@ -47,7 +47,7 @@ const relationRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'customer/show',
-        component: () => import('@/views/relation/customer/show.vue'),
+        component: () => import('~/views/relation/customer/show.vue'),
         name: 'relationCustomerShow',
         meta: {
           tagName: 'relationCustomer',

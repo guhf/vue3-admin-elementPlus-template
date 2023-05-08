@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IconModel } from '@/models/common/iconModel'
+import { IconModel } from '~/models/common/iconModel'
 
 /**
 * 查询菜单图标

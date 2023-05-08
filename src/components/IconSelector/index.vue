@@ -30,9 +30,9 @@
 <script lang="ts" setup>
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import { Search } from '@element-plus/icons-vue'
-import { getMenuIcons, getOperateIcons } from '@/apis/common/icon'
-import { IconModel, Glyphs } from '@/models/common/iconModel'
-import variables from '@/styles/variables.module.scss'
+import { getMenuIcons, getOperateIcons } from '~/apis/common/icon'
+import { IconModel, Glyphs } from '~/models/common/iconModel'
+import variables from '~/styles/variables.module.scss'
 
 interface Props{
   modelValue: string | number | null

@@ -17,7 +17,7 @@
 import { defineComponent, onBeforeMount, reactive, watch, toRefs } from 'vue'
 import { useRoute, RouteLocationMatched } from 'vue-router'
 import { compile } from 'path-to-regexp'
-import router from '@/router'
+import router from '~/router'
 export default defineComponent({
   setup() {
     const currentRoute = useRoute()

@@ -1,8 +1,8 @@
 import { RequestParams, Method, ContentType } from './type'
 import http from './axios'
 import lodash from 'lodash'
-import { Response } from '@/models/response'
-import { ResponseCode } from '@/constant/responses'
+import { Response } from '~/models/response'
+import { ResponseCode } from '~/constant/responses'
 
 class HttpClient {
   public httpClient

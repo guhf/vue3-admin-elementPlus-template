@@ -7,10 +7,10 @@
 
 <script  lang="ts" setup>
 import { computed } from 'vue'
-import { useAppStore } from '@/store/app'
+import { useAppStore } from '~/store/app'
 
-import BreadCrumb from '@/components/BreadCrumb/index.vue'
-import Hamburger from '@/components/Hamburger/index.vue'
+import BreadCrumb from '~/components/BreadCrumb/index.vue'
+import Hamburger from '~/components/Hamburger/index.vue'
 
 const appStore = useAppStore()
 

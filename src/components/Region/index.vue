@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import { reactive, onMounted, watch } from 'vue'
 
-import { getProvinceList, getCityList, getDistrictList } from '@/apis/common/district'
+import { getProvinceList, getCityList, getDistrictList } from '~/apis/common/district'
 import { ComponentSize } from 'element-plus/es/constants'
 
 interface Props {

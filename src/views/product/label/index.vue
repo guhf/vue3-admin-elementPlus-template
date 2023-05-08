@@ -40,12 +40,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Response } from '@/models/response'
-import { Label } from '@/models/product/labelModel'
+import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Response } from '~/models/response'
+import { Label } from '~/models/product/labelModel'
 
-import { getLabelPageList, delLabel, enableDisableLabel } from '@/apis/product/label'
+import { getLabelPageList, delLabel, enableDisableLabel } from '~/apis/product/label'
 
 defineOptions({
   name: 'ProductLabel'

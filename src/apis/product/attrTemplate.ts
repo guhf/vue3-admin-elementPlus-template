@@ -1,6 +1,6 @@
-import { useRequest } from '@/hooks'
-import { AttrTemplate } from '@/models/product/attrTemplateModel'
-import { PageQuery } from '@/models/common/pageQueryModel'
+import { useRequest } from '~/hooks'
+import { AttrTemplate } from '~/models/product/attrTemplateModel'
+import { PageQuery } from '~/models/common/pageQueryModel'
 
 const { get, post, put, del } = useRequest()
 

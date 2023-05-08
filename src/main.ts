@@ -1,22 +1,22 @@
 import { createApp, Directive } from 'vue'
 import { createPinia } from 'pinia'
-import { router } from '@/router'
+import { router } from '~/router'
 import App from './App.vue'
 import { loadAllPlugins } from './plugins'
 import currency from 'currency.js'
 // import { MouseMenuDirective } from '@howdyjs/mouse-menu'
 
-import '@/styles/index.scss'
-import * as directives from '@/directives'
-import '@/permission'
-import '@/utils/extension/floatextension'
-import '@/assets/icons/menu/iconfont.js'
-import '@/assets/icons/operate/iconfont.js'
+import '~/styles/index.scss'
+import * as directives from '~/directives'
+import '~/permission'
+import '~/utils/extension/floatextension'
+import '~/assets/icons/menu/iconfont.js'
+import '~/assets/icons/operate/iconfont.js'
 
-import ConstTable from '@/components/ConstTable/index.vue'
-import ConstDialog from '@/components/ConstDialog/index.vue'
-import ConstFilter from '@/components/ConstFilter/index.vue'
-import SvgIcon from '@/components/SvgIcon/index.vue'
+import ConstTable from '~/components/ConstTable/index.vue'
+import ConstDialog from '~/components/ConstDialog/index.vue'
+import ConstFilter from '~/components/ConstFilter/index.vue'
+import SvgIcon from '~/components/SvgIcon/index.vue'
 
 const app = createApp(App)
 const pinia = createPinia()

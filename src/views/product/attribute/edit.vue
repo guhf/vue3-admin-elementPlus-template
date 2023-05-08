@@ -65,11 +65,11 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
-import { Attribute } from '@/models/product/attributeModel'
+import { useRouterBackIndex, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
+import { Attribute } from '~/models/product/attributeModel'
 
-import { getAttribute, createAttribute, updateAttribute } from '@/apis/product/attribute'
+import { getAttribute, createAttribute, updateAttribute } from '~/apis/product/attribute'
 
 defineOptions({
   name: 'ProductAttributeEdit'

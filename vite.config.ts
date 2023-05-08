@@ -37,7 +37,7 @@ export default defineConfig(({ mode } : ConfigEnv) => {
     root,
     resolve:{
       alias:{
-        '@': resolve('src'),
+        '~/': `${resolve('src')}/`,
         // '*': resolve(''),
         // components: resolve('src/components'),
         // apis: resolve('src/apis'),
@@ -97,7 +97,7 @@ export default defineConfig(({ mode } : ConfigEnv) => {
             prefix: 'Icon',
           })
         ],
-        dts: path.resolve(resolve(''), 'auto-imports.d.ts'),
+        dts: false,
       }),
       Components({
         resolvers: [
@@ -111,7 +111,7 @@ export default defineConfig(({ mode } : ConfigEnv) => {
             importStyle: 'sass'
           })
         ],
-        dts: path.resolve(resolve(''), 'components.d.ts'),
+        dts: false,
 
         //防止组件命名重复警告
         directoryAsNamespace: true,

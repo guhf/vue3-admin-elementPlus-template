@@ -83,12 +83,12 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import IconSelector from '@/components/IconSelector/index.vue'
-import { useRouterBackIndex, useDict, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
-import { MenuTree, Menu } from '@/models/sys/menuModel'
+import IconSelector from '~/components/IconSelector/index.vue'
+import { useRouterBackIndex, useDict, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
+import { MenuTree, Menu } from '~/models/sys/menuModel'
 
-import { getMenu, getMenuTreeList, createMenu, updateMenu } from '@/apis/sys/menu'
+import { getMenu, getMenuTreeList, createMenu, updateMenu } from '~/apis/sys/menu'
 
 defineOptions({
   name: 'SysMenuEdit'

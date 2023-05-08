@@ -1,6 +1,6 @@
-import Keys from '@/constant/keys'
-import { settingConfig } from '@/config'
-import { StorageLocation } from '@/constant/settings'
+import Keys from '~/constant/keys'
+import { settingConfig } from '~/config'
+import { StorageLocation } from '~/constant/settings'
 
 // 暂时未想到更好方法
 const createStorage = () => {

@@ -4,10 +4,10 @@
 
 <script lang="ts" setup>
 import { onActivated, onBeforeUnmount, onDeactivated, onMounted, nextTick, reactive } from 'vue'
-import resize from '@/components/charts/mixins/resize'
+import resize from '~/components/charts/mixins/resize'
 import { init, EChartsOption } from 'echarts'
 
-import { getFollowUpRecordNumChart } from '@/apis/relation/followuprecord'
+import { getFollowUpRecordNumChart } from '~/apis/relation/followuprecord'
 
 interface Props {
   className?: string

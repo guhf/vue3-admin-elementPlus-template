@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { PageQuery } from '@/models/common/pageQueryModel'
+import { PageQuery } from '~/models/common/pageQueryModel'
 
 interface Props {
   title?: string

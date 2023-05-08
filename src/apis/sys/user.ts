@@ -1,6 +1,6 @@
-import { useRequest } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { User } from '@/models/sys/userModel'
+import { useRequest } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { User } from '~/models/sys/userModel'
 
 const { get, post, put, del } = useRequest()
 

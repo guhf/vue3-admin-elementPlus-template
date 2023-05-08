@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { computed, reactive } from 'vue'
-import { useAppStore } from '@/store/app'
+import { useAppStore } from '~/store/app'
 import { useI18n } from 'vue-i18n/index'
 import { ElMessage } from 'element-plus'
 

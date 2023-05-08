@@ -1,6 +1,6 @@
-import { useRequest } from '@/hooks'
-import { Category } from '@/models/product/categoryModel'
-import { Tree } from '@/models/common/treeModel'
+import { useRequest } from '~/hooks'
+import { Category } from '~/models/product/categoryModel'
+import { Tree } from '~/models/common/treeModel'
 
 const { get, post, put, patch, del } = useRequest()
 

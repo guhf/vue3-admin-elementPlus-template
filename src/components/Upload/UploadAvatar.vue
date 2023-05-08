@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, watch } from 'vue'
-import Upload from '@/components/Upload/index.vue'
+import Upload from '~/components/Upload/index.vue'
 
 interface Props {
   /** 上传文件列表 */

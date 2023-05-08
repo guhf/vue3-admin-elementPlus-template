@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { useSettingsStore } from '@/store/settings'
+import { useSettingsStore } from '~/store/settings'
 import { Direction } from 'element-plus'
 
 interface Props {

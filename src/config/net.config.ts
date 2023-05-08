@@ -1,4 +1,4 @@
-import { ContentType, Device } from '@/constant/headers'
+import { ContentType, Device } from '~/constant/headers'
 import settings from "./setting.config";
 type Headers = {
     'Content-Type': string

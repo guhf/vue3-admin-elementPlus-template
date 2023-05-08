@@ -7,7 +7,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, onActivated, onBeforeUnmount, onDeactivated, onMounted, nextTick } from 'vue'
-import resize from '@/components/charts/mixins/resize'
+import resize from '~/components/charts/mixins/resize'
 import { init } from 'echarts'
 
 const animationDuration = 3000

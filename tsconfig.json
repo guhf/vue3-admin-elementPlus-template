@@ -17,7 +17,7 @@
     "types": ["vite/client", "node", "element-plus/global", "jest", "unplugin-vue-define-options/macros-global"],
     "lib": ["esnext", "dom"],
     "paths": {
-      "@/*": ["src/*"]
+      "~/*": ["src/*"]
     },
     "suppressImplicitAnyIndexErrors": true
   },

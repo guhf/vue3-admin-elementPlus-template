@@ -1,5 +1,5 @@
-import { Options } from '@/models/common/optionModel'
-import { useDictStore } from '@/store/dict'
+import { Options } from '~/models/common/optionModel'
+import { useDictStore } from '~/store/dict'
 
 /**
  * 字典信息

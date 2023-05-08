@@ -52,9 +52,9 @@ import TinymceEditor from '@tinymce/tinymce-vue' // TinyMCE vue wrapper
 import EditorImageUpload, { UploadObject } from './components/EditorImage.vue'
 import { plugins, toolbar } from './config'
 import { reactive, watch, nextTick, ref, computed } from 'vue'
-import { useUserStore } from '@/store/user'
-import { useAppStore } from '@/store/app'
-import { useSettingsStore } from '@/store/settings'
+import { useUserStore } from '~/store/user'
+import { useAppStore } from '~/store/app'
+import { useSettingsStore } from '~/store/settings'
 
 interface Props {
   /** 初始内容 */

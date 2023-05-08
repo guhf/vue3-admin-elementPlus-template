@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import variables from '@/styles/variables.module.scss'
-import layoutSettings from '@/config/layout.config'
+import variables from '~/styles/variables.module.scss'
+import layoutSettings from '~/config/layout.config'
 
 export const useSettingsStore = defineStore('settings', {
   state: () => {

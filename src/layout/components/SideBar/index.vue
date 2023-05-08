@@ -25,10 +25,10 @@
 import { computed } from 'vue'
 import SidebarItem from './Item.vue'
 // import Logo from '../Logo/index.vue'
-import { usePermissionStore } from '@/store/permission'
-import { useAppStore } from '@/store/app'
+import { usePermissionStore } from '~/store/permission'
+import { useAppStore } from '~/store/app'
 import { useRoute } from 'vue-router'
-import sidebarVariables from '@/styles/sidebar.module.scss'
+import sidebarVariables from '~/styles/sidebar.module.scss'
 
 const permissionStore = usePermissionStore()
 const appStore = useAppStore()

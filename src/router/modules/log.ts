@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { LAYOUT } from '@/router/const'
+import { LAYOUT } from '~/router/const'
 
 const logRouter: Array<RouteRecordRaw> = [
   {
@@ -15,7 +15,7 @@ const logRouter: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'userlogin/index',
-        component: () => import('@/views/log/userlogin/index.vue'),
+        component: () => import('~/views/log/userlogin/index.vue'),
         name: 'logUserLogin',
         meta: {
           tagName: 'logUserLogin',
@@ -25,7 +25,7 @@ const logRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'userlogin/show',
-        component: () => import('@/views/log/userlogin/show.vue'),
+        component: () => import('~/views/log/userlogin/show.vue'),
         name: 'logUserLoginShow',
         meta: {
           tagName: 'logUserLogin',

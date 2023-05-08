@@ -18,11 +18,11 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex } from '@/hooks'
-import { Response } from '@/models/response'
-import { Role } from '@/models/sys/roleModel'
+import { useRouterUpdate, useRouterBackIndex } from '~/hooks'
+import { Response } from '~/models/response'
+import { Role } from '~/models/sys/roleModel'
 
-import { getRole } from '@/apis/sys/role'
+import { getRole } from '~/apis/sys/role'
 
 defineOptions({
   name: 'SysRoleShow'

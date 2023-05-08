@@ -39,12 +39,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Response } from '@/models/response'
-import { Attribute } from '@/models/product/attributeModel'
+import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Response } from '~/models/response'
+import { Attribute } from '~/models/product/attributeModel'
 
-import { getAttributePageList, delAttribute } from '@/apis/product/attribute'
+import { getAttributePageList, delAttribute } from '~/apis/product/attribute'
 
 defineOptions({
   name: 'ProductAttribute'

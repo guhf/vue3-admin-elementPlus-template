@@ -53,12 +53,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Response } from '@/models/response'
-import { User } from '@/models/sys/userModel'
+import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Response } from '~/models/response'
+import { User } from '~/models/sys/userModel'
 
-import { getUserPageList, delUser, resetPwd } from '@/apis/sys/user'
+import { getUserPageList, delUser, resetPwd } from '~/apis/sys/user'
 
 defineOptions({
   name: 'SysUser'

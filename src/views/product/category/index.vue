@@ -60,13 +60,13 @@
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Rank, Delete } from '@element-plus/icons-vue'
 import { TreeData } from 'element-plus/es/components/tree/src/tree.type'; 
-import { useConfirm, useConfirmDel, useMessageSuccess, useDict, useValueToLabel } from '@/hooks'
-import { Tree, TreeItem } from '@/models/common/treeModel'
-import { Response } from '@/models/response'
-import { Category } from '@/models/product/categoryModel'
+import { useConfirm, useConfirmDel, useMessageSuccess, useDict, useValueToLabel } from '~/hooks'
+import { Tree, TreeItem } from '~/models/common/treeModel'
+import { Response } from '~/models/response'
+import { Category } from '~/models/product/categoryModel'
 
-import { getCategoryTreeList, getCategoryExcludeTreeList, getCategory, moveCategory, delCategory } from '@/apis/product/category'
-import TreeDialog from '@/components/ConstDialog/TreeDialog/index.vue'
+import { getCategoryTreeList, getCategoryExcludeTreeList, getCategory, moveCategory, delCategory } from '~/apis/product/category'
+import TreeDialog from '~/components/ConstDialog/TreeDialog/index.vue'
 import CategoryEdit from './edit.vue'
 
 defineOptions({

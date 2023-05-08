@@ -1,6 +1,6 @@
-import { useRequest } from '@/hooks'
-import { Routes } from '@/models/route/routesModel'
-import { LoginInfo, Token, UserInfo } from '@/models/userModel'
+import { useRequest } from '~/hooks'
+import { Routes } from '~/models/route/routesModel'
+import { LoginInfo, Token, UserInfo } from '~/models/userModel'
 
 const { get, post, put } = useRequest()
 

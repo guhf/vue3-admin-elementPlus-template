@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { LAYOUT } from '@/router/const'
+import { LAYOUT } from '~/router/const'
 
 const sysRouter: Array<RouteRecordRaw> = [
   {
@@ -16,7 +16,7 @@ const sysRouter: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'role/',
-        component: () => import('@/views/sys/role/index.vue'),
+        component: () => import('~/views/sys/role/index.vue'),
         name: 'sysRole',
         meta: {
           tagName: 'sysRole',
@@ -27,7 +27,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'role/create',
-        component: () => import('@/views/sys/role/edit.vue'),
+        component: () => import('~/views/sys/role/edit.vue'),
         name: 'sysRoleCreate',
         meta: {
           tagName: 'sysRole',
@@ -39,7 +39,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'role/update',
-        component: () => import('@/views/sys/role/edit.vue'),
+        component: () => import('~/views/sys/role/edit.vue'),
         name: 'sysRoleUpdate',
         meta: {
           tagName: 'sysRole',
@@ -51,7 +51,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'role/show',
-        component: () => import('@/views/sys/role/show.vue'),
+        component: () => import('~/views/sys/role/show.vue'),
         name: 'sysRoleShow',
         meta: {
           tagName: 'sysRole',
@@ -64,7 +64,7 @@ const sysRouter: Array<RouteRecordRaw> = [
 
       {
         path: 'user/',
-        component: () => import('@/views/sys/user/index.vue'),
+        component: () => import('~/views/sys/user/index.vue'),
         name: 'sysUser',
         meta: {
           tagName: 'sysUser',
@@ -75,7 +75,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'user/create',
-        component: () => import('@/views/sys/user/edit.vue'),
+        component: () => import('~/views/sys/user/edit.vue'),
         name: 'sysUserCreate',
         meta: {
           tagName: 'sysUser',
@@ -87,7 +87,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'user/update',
-        component: () => import('@/views/sys/user/edit.vue'),
+        component: () => import('~/views/sys/user/edit.vue'),
         name: 'sysUserUpdate',
         meta: {
           tagName: 'sysUser',
@@ -99,7 +99,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'user/show',
-        component: () => import('@/views/sys/user/show.vue'),
+        component: () => import('~/views/sys/user/show.vue'),
         name: 'sysUserShow',
         meta: {
           tagName: 'sysUser',
@@ -111,7 +111,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'menu/',
-        component: () => import('@/views/sys/menu/index.vue'),
+        component: () => import('~/views/sys/menu/index.vue'),
         name: 'sysMenu',
         meta: {
           tagName: 'sysMenu',
@@ -122,7 +122,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'menu/create',
-        component: () => import('@/views/sys/menu/edit.vue'),
+        component: () => import('~/views/sys/menu/edit.vue'),
         name: 'sysMenuCreate',
         meta: {
           tagName: 'sysMenu',
@@ -134,7 +134,7 @@ const sysRouter: Array<RouteRecordRaw> = [
       },
       {
         path: 'menu/update',
-        component: () => import('@/views/sys/menu/edit.vue'),
+        component: () => import('~/views/sys/menu/edit.vue'),
         name: 'sysMenuUpdate',
         meta: {
           tagName: 'sysMenu',

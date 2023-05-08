@@ -1,6 +1,6 @@
 
 import { Directive } from 'vue'
-import { usePermissionStore } from '@/store/permission'
+import { usePermissionStore } from '~/store/permission'
 
 export const permission: Directive = {
   mounted(el, binding) {

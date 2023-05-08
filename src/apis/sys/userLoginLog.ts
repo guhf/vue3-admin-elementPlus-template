@@ -1,4 +1,4 @@
-import { useRequest } from '@/hooks'
+import { useRequest } from '~/hooks'
 const { get } = useRequest()
 
 /**

@@ -7,7 +7,7 @@
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useAppStore } from '@/store/app'
+import { useAppStore } from '~/store/app'
 import Logo from '../Logo/index.vue'
 import Tools from '../Tools/index.vue'
 

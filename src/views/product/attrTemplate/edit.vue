@@ -65,11 +65,11 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
-import { AttrTemplate } from '@/models/product/attrTemplateModel'
+import { useRouterBackIndex, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
+import { AttrTemplate } from '~/models/product/attrTemplateModel'
 
-import { getAttrTemplate, createAttrTemplate, updateAttrTemplate } from '@/apis/product/attrTemplate'
+import { getAttrTemplate, createAttrTemplate, updateAttrTemplate } from '~/apis/product/attrTemplate'
 
 defineOptions({
   name: 'ProductAttrTemplateEdit'

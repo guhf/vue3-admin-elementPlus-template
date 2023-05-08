@@ -32,9 +32,9 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import { useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning } from '@/hooks'
+import { useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning } from '~/hooks'
 
-import { getNotifyPageList, delNotify } from '@/apis/user/notify'
+import { getNotifyPageList, delNotify } from '~/apis/user/notify'
 
 const state = reactive({
   pageListData: [],

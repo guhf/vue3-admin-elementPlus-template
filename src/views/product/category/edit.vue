@@ -48,12 +48,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { FormInstance } from 'element-plus'
-import { useMessageSuccess, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
-import { Category } from '@/models/product/categoryModel'
-import UploadAvatar from '@/components/Upload/UploadAvatar.vue'
+import { useMessageSuccess, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
+import { Category } from '~/models/product/categoryModel'
+import UploadAvatar from '~/components/Upload/UploadAvatar.vue'
 
-import { getCategory, createCategory, updateCategory } from '@/apis/product/category'
+import { getCategory, createCategory, updateCategory } from '~/apis/product/category'
 
 defineOptions({
   name: 'ProductCategoryEdit'

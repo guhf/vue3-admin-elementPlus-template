@@ -46,12 +46,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Response } from '@/models/response'
-import { Brand } from '@/models/product/brandModel'
+import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Response } from '~/models/response'
+import { Brand } from '~/models/product/brandModel'
 
-import { getBrandPageList, delBrand, enableDisableBrand } from '@/apis/product/brand'
+import { getBrandPageList, delBrand, enableDisableBrand } from '~/apis/product/brand'
 
 defineOptions({
   name: 'ProductBrand'

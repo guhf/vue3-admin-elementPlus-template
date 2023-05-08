@@ -68,12 +68,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Response } from '@/models/response'
-import { Dict } from '@/models/sys/dictModel'
+import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Response } from '~/models/response'
+import { Dict } from '~/models/sys/dictModel'
 
-import { getDictPageList, delDict } from '@/apis/sys/dict'
+import { getDictPageList, delDict } from '~/apis/sys/dict'
 
 defineOptions({
   name: 'SysDict'

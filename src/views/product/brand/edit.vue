@@ -52,12 +52,12 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
-import { Brand } from '@/models/product/brandModel'
-import UploadAvatar from '@/components/Upload/UploadAvatar.vue'
+import { useRouterBackIndex, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
+import { Brand } from '~/models/product/brandModel'
+import UploadAvatar from '~/components/Upload/UploadAvatar.vue'
 
-import { getBrand, createBrand, updateBrand } from '@/apis/product/brand'
+import { getBrand, createBrand, updateBrand } from '~/apis/product/brand'
 
 defineOptions({
   name: 'ProductBrandEdit'

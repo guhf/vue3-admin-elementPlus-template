@@ -47,11 +47,11 @@
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterPush, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
-import { Response } from '@/models/response'
-import { MenuTree, Menu } from '@/models/sys/menuModel'
+import { useRouterCreate, useRouterPush, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
+import { Response } from '~/models/response'
+import { MenuTree, Menu } from '~/models/sys/menuModel'
 
-import { getMenuTreeList, delMenu, enableDisableMenu } from '@/apis/sys/menu'
+import { getMenuTreeList, delMenu, enableDisableMenu } from '~/apis/sys/menu'
 
 defineOptions({
   name: 'SysMenu'

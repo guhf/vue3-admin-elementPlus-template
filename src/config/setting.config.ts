@@ -1,4 +1,4 @@
-import { Language, Environment, RouterSource, RouterMode, StorageLocation } from '@/constant/settings'
+import { Language, Environment, RouterSource, RouterMode, StorageLocation } from '~/constant/settings'
 
 export interface Settings{
   // 项目中页面显示的名称

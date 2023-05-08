@@ -1,5 +1,5 @@
 import { AES, mode, pad, enc } from 'crypto-ts'
-import Keys from '@/constant/keys'
+import Keys from '~/constant/keys'
 
 export default class VAES {
   static encrypt(text: string | null): string | null {

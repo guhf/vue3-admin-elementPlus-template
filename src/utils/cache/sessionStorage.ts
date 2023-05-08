@@ -1,4 +1,4 @@
-import Keys from '@/constant/keys'
+import Keys from '~/constant/keys'
 
 export const clearCache = () => sessionStorage.clear()
 

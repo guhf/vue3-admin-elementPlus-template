@@ -1,8 +1,8 @@
-import { useRequest } from '@/hooks'
+import { useRequest } from '~/hooks'
 const { get, post, put, del } = useRequest()
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Role } from '@/models/sys/roleModel'
-import { Options } from '@/models/common/optionModel'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Role } from '~/models/sys/roleModel'
+import { Options } from '~/models/common/optionModel'
 
 /**
  * 创建角色

@@ -35,11 +35,11 @@ import { reactive, ref } from 'vue'
 import { FormInstance } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useRoute, LocationQuery, useRouter } from 'vue-router'
-// import LangSelect from '@/components/lang_select/index.vue'
+// import LangSelect from '~/components/lang_select/index.vue'
 
-import { useUserStore } from '@/store/user'
-import { LoginInfo } from '@/models/userModel'
-import { svg2 } from '@/constant/loading'
+import { useUserStore } from '~/store/user'
+import { LoginInfo } from '~/models/userModel'
+import { svg2 } from '~/constant/loading'
 
 const loginFormRef = ref<FormInstance>()
 const router = useRouter()

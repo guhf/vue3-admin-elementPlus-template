@@ -27,8 +27,8 @@
 import { computed } from 'vue'
 import { CaretBottom } from '@element-plus/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAppStore, DeviceType } from '@/store/app'
-import { useUserStore } from '@/store/user'
+import { useAppStore, DeviceType } from '~/store/app'
+import { useUserStore } from '~/store/user'
 
 const userStore = useUserStore()
 const appStore = useAppStore()

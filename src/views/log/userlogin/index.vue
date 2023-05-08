@@ -30,12 +30,12 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import { useRouterShow, useDict, useValueToLabel } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Response } from '@/models/response'
-import { userLogin } from '@/models/log/userLoginModel'
+import { useRouterShow, useDict, useValueToLabel } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Response } from '~/models/response'
+import { userLogin } from '~/models/log/userLoginModel'
 
-import { getUserLoginLogPageList } from '@/apis/sys/userLoginLog'
+import { getUserLoginLogPageList } from '~/apis/sys/userLoginLog'
 
 onMounted(() => {
   getPageData()

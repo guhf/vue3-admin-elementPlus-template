@@ -33,12 +33,12 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { useMessageSuccess, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
+import { useMessageSuccess, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
 import { FormInstance } from 'element-plus'
 import { Checked } from '@element-plus/icons-vue'
 
-import { updatePwd } from '@/apis/user'
+import { updatePwd } from '~/apis/user'
 
 const validatePass = (rule: any, value: any, callback: any) => {
   if (value === '') {

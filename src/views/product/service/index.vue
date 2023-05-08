@@ -40,12 +40,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Response } from '@/models/response'
-import { Service } from '@/models/product/serviceModel'
+import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Response } from '~/models/response'
+import { Service } from '~/models/product/serviceModel'
 
-import { getServicePageList, delService, enableDisableService } from '@/apis/product/service'
+import { getServicePageList, delService, enableDisableService } from '~/apis/product/service'
 
 defineOptions({
   name: 'ProductService'

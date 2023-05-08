@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useTagsViewStore } from '@/store/tagsView'
+import { useTagsViewStore } from '~/store/tagsView'
 
 const tagsViewStore = useTagsViewStore()
 

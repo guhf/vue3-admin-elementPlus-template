@@ -26,11 +26,11 @@
 </template>
 
 <script lang="ts" setup>
-import { isExternal } from '@/utils/validate'
+import { isExternal } from '~/utils/validate'
 import SidebarItem from './Item.vue'
 import SidebarItemLink from './ItemLink.vue'
 
-import { Route } from '@/models/route/routesModel'
+import { Route } from '~/models/route/routesModel'
 
 interface Props {
   item: Route

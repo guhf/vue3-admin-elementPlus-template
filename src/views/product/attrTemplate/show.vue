@@ -24,11 +24,11 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '@/hooks'
-import { Response } from '@/models/response'
-import { AttrTemplate } from '@/models/product/attrTemplateModel'
+import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '~/hooks'
+import { Response } from '~/models/response'
+import { AttrTemplate } from '~/models/product/attrTemplateModel'
 
-import { getAttrTemplate } from '@/apis/product/attrTemplate'
+import { getAttrTemplate } from '~/apis/product/attrTemplate'
 
 defineOptions({
   name: 'ProductAttrTemplateShow'

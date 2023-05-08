@@ -17,10 +17,10 @@
 import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex } from '@/hooks'
-import { userLogin } from '@/models/log/userLoginModel'
+import { useRouterBackIndex } from '~/hooks'
+import { userLogin } from '~/models/log/userLoginModel'
 
-import { getRole } from '@/apis/sys/role'
+import { getRole } from '~/apis/sys/role'
 
 const state = reactive({
   id: '',

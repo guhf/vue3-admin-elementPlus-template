@@ -28,9 +28,9 @@
 
 <script lang="ts" setup>
 import { reactive, ref, nextTick, onMounted } from 'vue'
-import CosntPagination from '@/components/CosntPagination/index.vue'
+import CosntPagination from '~/components/ConstPagination/index.vue'
 // import { MouseMenuDirective as vMouseMenuDirective } from '@howdyjs/mouse-menu'
-import { useSettingsStore } from '@/store/settings'
+import { useSettingsStore } from '~/store/settings'
 
 interface Props {
   data?: string[]

@@ -23,10 +23,10 @@ import { reactive, onMounted, watch } from 'vue'
 import { UploadFile, UploadFiles, UploadProgressEvent, UploadRawFile } from 'element-plus'
 import { EpPropMergeType } from 'element-plus/es/utils'
 import { Plus } from '@element-plus/icons-vue'
-import { useUserStore } from '@/store/user'
-import { useMessageWarning } from '@/hooks'
-import networkConfig from '@/config/net.config'
-import { FileType, AllExt, ImageExt, WordExt, ExcelExt, PPTExt, AudioExt, VideoExt, DocExt, ZipExt, InstallPackageExt, PDFExt, TxtExt } from '@/constant/file'
+import { useUserStore } from '~/store/user'
+import { useMessageWarning } from '~/hooks'
+import networkConfig from '~/config/net.config'
+import { FileType, AllExt, ImageExt, WordExt, ExcelExt, PPTExt, AudioExt, VideoExt, DocExt, ZipExt, InstallPackageExt, PDFExt, TxtExt } from '~/constant/file'
 
 interface Props {
   /** 上传文件列表 */

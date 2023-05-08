@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-// import openWindow from '@/utils/openWindow'
+// import openWindow from '~/utils/openWindow'
 import { defineComponent, reactive, toRefs } from 'vue'
 
 export default defineComponent({

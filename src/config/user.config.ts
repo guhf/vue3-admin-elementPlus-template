@@ -1,5 +1,5 @@
 
-import Avatar from '@/assets/images/user/avatar-default.png'
+import Avatar from '~/assets/images/user/avatar-default.png'
 
 /**
  * 默认头像

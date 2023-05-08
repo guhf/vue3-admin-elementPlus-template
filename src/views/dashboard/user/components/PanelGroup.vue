@@ -122,10 +122,10 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { CountTo } from 'vue3-count-to'
-import messages from '@/assets/images/home/messages.png'
-import purchases from '@/assets/images/home/purchases.png'
-import shoppings from '@/assets/images/home/shoppings.png'
-import visits from '@/assets/images/home/visits.png'
+import messages from '~/assets/images/home/messages.png'
+import purchases from '~/assets/images/home/purchases.png'
+import shoppings from '~/assets/images/home/shoppings.png'
+import visits from '~/assets/images/home/visits.png'
 export default defineComponent({
   components: {
     CountTo

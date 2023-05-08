@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { LAYOUT } from '@/router/const'
+import { LAYOUT } from '~/router/const'
 
 const userRoutes: Array<RouteRecordRaw> = [
   {
@@ -12,7 +12,7 @@ const userRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/user/message/',
-        component: () => import('@/views/user/message/index.vue'),
+        component: () => import('~/views/user/message/index.vue'),
         name: 'UserMessage',
         meta: {
           tagName: 'UserMessage',
@@ -22,7 +22,7 @@ const userRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: '/user/message/show/:id',
-        component: () => import('@/views/user/message/show.vue'),
+        component: () => import('~/views/user/message/show.vue'),
         name: 'UserMessageShow',
         meta: {
           tagName: 'UserMessage',
@@ -32,7 +32,7 @@ const userRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: '/user/info/',
-        component: () => import('@/views/user/info/index.vue'),
+        component: () => import('~/views/user/info/index.vue'),
         name: 'UserInfo',
         meta: {
           tagName: 'UserInfo',

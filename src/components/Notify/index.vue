@@ -12,13 +12,13 @@
 import { reactive, onMounted } from 'vue'
 import { ElNotification } from 'element-plus'
 import { Bell, BellFilled } from '@element-plus/icons-vue'
-import { useUserStore } from '@/store/user'
-import { useSignalR } from '@/hooks'
-import { Notify } from '@/models/common/notifyModel'
+import { useUserStore } from '~/store/user'
+import { useSignalR } from '~/hooks'
+import { Notify } from '~/models/common/notifyModel'
 import Drawer from './Drawer.vue'
 
-import { getUnReadNotifyList } from '@/apis/user/notify'
-import { Response } from '@/models/response'
+import { getUnReadNotifyList } from '~/apis/user/notify'
+import { Response } from '~/models/response'
 
 const userStore = useUserStore()
 const { receiveClient } = useSignalR()

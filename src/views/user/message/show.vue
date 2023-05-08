@@ -21,9 +21,9 @@
 import { reactive, onMounted } from 'vue'
 import { CircleClose } from '@element-plus/icons-vue'
 import { useRoute } from 'vue-router'
-import { useRouterBackIndex } from '@/hooks'
+import { useRouterBackIndex } from '~/hooks'
 
-// import { getNotify, } from "@/apis/user/notify";
+// import { getNotify, } from "~/apis/user/notify";
 
 const state = reactive({
   id: '',

@@ -16,10 +16,10 @@
 import { reactive, ref } from 'vue'
 import { UploadInstance, UploadUserFile } from 'element-plus'
 import { Upload as UploadIcon } from '@element-plus/icons-vue'
-import { useRequest, useMessageSuccess, useMessageWarning } from '@/hooks'
-import { ResponseCode } from '@/constant/responses'
+import { useRequest, useMessageSuccess, useMessageWarning } from '~/hooks'
+import { ResponseCode } from '~/constant/responses'
 
-import Upload from '@/components/Upload/index.vue'
+import Upload from '~/components/Upload/index.vue'
 
 interface Props {
   title?: string

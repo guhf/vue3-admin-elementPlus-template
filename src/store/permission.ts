@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import router, { constantRoutes } from '@/router'
-import { Route, Routes } from '@/models/route/routesModel'
+import router, { constantRoutes } from '~/router'
+import { Route, Routes } from '~/models/route/routesModel'
 import lodash from 'lodash'
 
 const modules = import.meta.glob('../views/**/*.vue')

@@ -1,9 +1,9 @@
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import router from '@/router'
+import router from '~/router'
 import { RouteLocationNormalized } from 'vue-router'
-import { useUserStore } from '@/store/user'
-import { usePermissionStore } from '@/store/permission'
+import { useUserStore } from '~/store/user'
+import { usePermissionStore } from '~/store/permission'
 import routeWhiteList from './config/whitelist/route'
 NProgress.configure({ showSpinner: false })
 

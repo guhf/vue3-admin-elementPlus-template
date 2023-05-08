@@ -1,4 +1,4 @@
-import { Routes } from '@/models/route/routesModel'
+import { Routes } from '~/models/route/routesModel'
 import { defineStore } from 'pinia'
 import { RouteLocationNormalized } from 'vue-router'
 import { usePermissionStore } from './permission'

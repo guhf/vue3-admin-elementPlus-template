@@ -1,7 +1,7 @@
 
 import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useAppStore, DeviceType } from '@/store/app'
+import { useAppStore, DeviceType } from '~/store/app'
 
 const WIDTH = 992 // refer to Bootstrap's responsive design\
 const appStore = useAppStore()

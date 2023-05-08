@@ -29,11 +29,11 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '@/hooks'
-import { Response } from '@/models/response'
-import { User } from '@/models/sys/userModel'
+import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '~/hooks'
+import { Response } from '~/models/response'
+import { User } from '~/models/sys/userModel'
 
-import { getUser } from '@/apis/sys/user'
+import { getUser } from '~/apis/sys/user'
 
 defineOptions({
   name: 'SysUserShow'

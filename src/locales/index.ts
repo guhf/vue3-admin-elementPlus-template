@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n'
 
-import { getLanguage } from '@/utils/cache'
+import { getLanguage } from '~/utils/cache'
 
 // import elementEnLocale from 'element-plus/lib/locale/lang/en'
 // import elementZhLocale from 'element-plus/lib/locale/lang/zh-cn'

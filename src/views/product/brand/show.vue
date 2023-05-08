@@ -23,11 +23,11 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '@/hooks'
-import { Response } from '@/models/response'
-import { Brand } from '@/models/product/brandModel'
+import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '~/hooks'
+import { Response } from '~/models/response'
+import { Brand } from '~/models/product/brandModel'
 
-import { getBrand } from '@/apis/product/brand'
+import { getBrand } from '~/apis/product/brand'
 
 defineOptions({
   name: 'ProductBrandShow'

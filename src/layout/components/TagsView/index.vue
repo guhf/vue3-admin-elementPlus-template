@@ -37,9 +37,9 @@
 import { computed, nextTick, onBeforeMount, onBeforeUpdate, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Close } from '@element-plus/icons-vue'
-import { useTagsViewStore, TagView } from '@/store/tagsView'
-import { usePermissionStore } from '@/store/permission'
-import { Routes } from '@/models/route/routesModel'
+import { useTagsViewStore, TagView } from '~/store/tagsView'
+import { usePermissionStore } from '~/store/permission'
+import { Routes } from '~/models/route/routesModel'
 import ScrollPane from './ScrollPane.vue'
 
 const tagsViewStore = useTagsViewStore()

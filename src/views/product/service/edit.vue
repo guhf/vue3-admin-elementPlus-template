@@ -45,11 +45,11 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
-import { Service } from '@/models/product/serviceModel'
+import { useRouterBackIndex, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
+import { Service } from '~/models/product/serviceModel'
 
-import { getService, createService, updateService } from '@/apis/product/service'
+import { getService, createService, updateService } from '~/apis/product/service'
 
 defineOptions({
   name: 'ProductServiceEdit'

@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import { isExternal } from '@/utils/validate'
+import { isExternal } from '~/utils/validate'
 import { useRouter } from 'vue-router'
 
 interface Props {

@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { nextTick, defineComponent, onActivated, onBeforeUnmount, onDeactivated, onMounted, PropType, watchEffect } from 'vue'
-import resize from '@/components/charts/mixins/resize'
+import resize from '~/components/charts/mixins/resize'
 import { init, EChartsOption } from 'echarts'
 
 export interface LineChartData {

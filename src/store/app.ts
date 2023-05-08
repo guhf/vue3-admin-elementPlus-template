@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { getSidebarStatus } from '@/utils/cache'
-import { getLocale } from '@/locales'
-import { setSidebarStatus, setLanguage } from '@/utils/cache'
+import { getSidebarStatus } from '~/utils/cache'
+import { getLocale } from '~/locales'
+import { setSidebarStatus, setLanguage } from '~/utils/cache'
 
 export enum DeviceType {
   Web = 1,

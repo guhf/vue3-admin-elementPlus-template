@@ -24,11 +24,11 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '@/hooks'
-import { Response } from '@/models/response'
-import { Dict } from '@/models/sys/dictModel'
+import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '~/hooks'
+import { Response } from '~/models/response'
+import { Dict } from '~/models/sys/dictModel'
 
-import { getDict } from '@/apis/sys/dict'
+import { getDict } from '~/apis/sys/dict'
 
 defineOptions({
   name: 'SysDictShow'

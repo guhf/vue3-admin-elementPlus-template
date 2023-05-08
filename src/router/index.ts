@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router'
-import { LAYOUT } from '@/router/const'
+import { LAYOUT } from '~/router/const'
 import userRoutes from './modules/user'
 
 export const mainRoutes: Array<RouteRecordRaw> = [
@@ -10,7 +10,7 @@ export const mainRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index.vue')
+        component: () => import('~/views/redirect/index.vue')
       }
     ]
   },
@@ -21,7 +21,7 @@ export const mainRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
+        component: () => import('~/views/dashboard/index.vue'),
         name: 'Dashboard',
         meta: {
           title: '首页',
@@ -32,7 +32,7 @@ export const mainRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: '/login',
-    component: () => import('@/views/user/login/index.vue'),
+    component: () => import('~/views/user/login/index.vue'),
     name: 'Login',
     meta: {
       title: '登录',
@@ -41,7 +41,7 @@ export const mainRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: '/403',
-    component: () => import('@/views/error/403.vue'),
+    component: () => import('~/views/error/403.vue'),
     name: '403',
     meta: {
       tagName: '403',
@@ -51,7 +51,7 @@ export const mainRoutes: Array<RouteRecordRaw> = [
   }
   // {
   //   path: '/404',
-  //   component: () => import('@/views/error/404.vue'),
+  //   component: () => import('~/views/error/404.vue'),
   //   name: '404'
   //   // meta: {
   //   //   tagName: '404',

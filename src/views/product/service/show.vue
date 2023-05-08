@@ -20,11 +20,11 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '@/hooks'
-import { Response } from '@/models/response'
-import { Service } from '@/models/product/serviceModel'
+import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '~/hooks'
+import { Response } from '~/models/response'
+import { Service } from '~/models/product/serviceModel'
 
-import { getService } from '@/apis/product/service'
+import { getService } from '~/apis/product/service'
 
 defineOptions({
   name: 'ProductServiceShow'

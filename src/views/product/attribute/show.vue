@@ -24,11 +24,11 @@
 import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '@/hooks'
-import { Response } from '@/models/response'
-import { Attribute } from '@/models/product/attributeModel'
+import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '~/hooks'
+import { Response } from '~/models/response'
+import { Attribute } from '~/models/product/attributeModel'
 
-import { getAttribute } from '@/apis/product/attribute'
+import { getAttribute } from '~/apis/product/attribute'
 
 defineOptions({
   name: 'ProductAttributeShow'

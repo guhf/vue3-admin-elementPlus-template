@@ -29,10 +29,10 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { isExternal } from '@/utils/validate'
+import { isExternal } from '~/utils/validate'
 import SidebarItemLink from './SidebarItemLink.vue'
 
-import { Route } from '@/models/route/routesModel'
+import { Route } from '~/models/route/routesModel'
 
 interface Props {
   item: Route

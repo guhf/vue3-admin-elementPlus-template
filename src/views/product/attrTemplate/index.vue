@@ -38,12 +38,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '@/hooks'
-import { PageQuery } from '@/models/common/pageQueryModel'
-import { Response } from '@/models/response'
-import { AttrTemplate } from '@/models/product/attrTemplateModel'
+import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
+import { PageQuery } from '~/models/common/pageQueryModel'
+import { Response } from '~/models/response'
+import { AttrTemplate } from '~/models/product/attrTemplateModel'
 
-import { getAttrTemplatePageList, delAttrTemplate } from '@/apis/product/attrTemplate'
+import { getAttrTemplatePageList, delAttrTemplate } from '~/apis/product/attrTemplate'
 
 defineOptions({
   name: 'ProductAttrTemplate'

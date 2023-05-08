@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { DictData } from "@/models/sys/dictModel";
-import { Options } from "@/models/common/optionModel";
+import { DictData } from "~/models/sys/dictModel";
+import { Options } from "~/models/common/optionModel";
 
 export const useDictStore = defineStore('dict', {
   state: () => {

@@ -80,12 +80,12 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex, useDict, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
-import { Dict } from '@/models/sys/dictModel'
-import Tinymce from '@/components/Tinymce/index.vue'
+import { useRouterBackIndex, useDict, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
+import { Dict } from '~/models/sys/dictModel'
+import Tinymce from '~/components/Tinymce/index.vue'
 
-import { getDict, createDict, updateDict } from '@/apis/sys/dict'
+import { getDict, createDict, updateDict } from '~/apis/sys/dict'
 
 defineOptions({
   name: 'SysDictEdit'

@@ -1,11 +1,11 @@
 import axios, { AxiosRequestConfig, Method } from 'axios'
 import { ElLoading, ElMessage } from 'element-plus'
-import useRouter from '@/router'
-import { useUserStore } from '@/store/user'
-import networkConfig from '@/config/net.config'
-import loadingBlackList from '@/config/blacklist/loading'
-import { ResponseCode } from '@/constant/responses'
-import { svg2 } from '@/constant/loading'
+import useRouter from '~/router'
+import { useUserStore } from '~/store/user'
+import networkConfig from '~/config/net.config'
+import loadingBlackList from '~/config/blacklist/loading'
+import { ResponseCode } from '~/constant/responses'
+import { svg2 } from '~/constant/loading'
 
 const router = useRouter
 const route = useRouter.currentRoute.value

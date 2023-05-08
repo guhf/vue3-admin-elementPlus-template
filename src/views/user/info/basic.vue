@@ -63,11 +63,11 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { Checked } from '@element-plus/icons-vue'
-import { useMessageSuccess, useValidate } from '@/hooks'
+import { useMessageSuccess, useValidate } from '~/hooks'
 
-import { getOnlineInfo, updateInfo } from '@/apis/user'
-import { UserInfo } from '@/models/userModel'
-import { Response } from '@/models/response'
+import { getOnlineInfo, updateInfo } from '~/apis/user'
+import { UserInfo } from '~/models/userModel'
+import { Response } from '~/models/response'
 import { FormInstance } from 'element-plus'
 
 const state = reactive({

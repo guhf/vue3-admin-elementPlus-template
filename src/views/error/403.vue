@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
-import errGif from '@/assets/images/401/401.gif'
+import errGif from '~/assets/images/401/401.gif'
 
 const state = reactive({
   errGif: errGif + '?' + +new Date()

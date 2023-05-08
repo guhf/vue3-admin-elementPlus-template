@@ -34,11 +34,11 @@
 import { reactive, computed, onMounted, onUnmounted, ref } from 'vue'
 import { ElDrawer } from 'element-plus'
 import { ArrowDown, BellFilled, Bell, Checked } from '@element-plus/icons-vue'
-import { useUserStore } from '@/store/user'
-import { useRouterPush } from '@/hooks'
-import { Notify } from '@/models/common/notifyModel'
+import { useUserStore } from '~/store/user'
+import { useRouterPush } from '~/hooks'
+import { Notify } from '~/models/common/notifyModel'
 
-import { getUnReadNotifyList, getNotifyPageList, updateAllFlag, updateFlag } from '@/apis/user/notify'
+import { getUnReadNotifyList, getNotifyPageList, updateAllFlag, updateFlag } from '~/apis/user/notify'
 
 interface Props {
   modelValue?: boolean

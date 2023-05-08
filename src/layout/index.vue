@@ -22,15 +22,15 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, onBeforeUnmount, onMounted, reactive } from 'vue'
-import { useAppStore, DeviceType } from '@/store/app'
-import { useSettingsStore } from '@/store/settings'
+import { useAppStore, DeviceType } from '~/store/app'
+import { useSettingsStore } from '~/store/settings'
 
 import AppMain from './components/AppMain.vue'
 import TopBar from './components/TopBar/index.vue'
 import Navbar from './components/NavigationBar/index.vue'
 import Sidebar from './components/SideBar/index.vue'
 import TagsView from './components/TagsView/index.vue'
-// import RightPanel from '@/components/rightPanel/index.vue'
+// import RightPanel from '~/components/rightPanel/index.vue'
 // import Settings from './Settings/index.vue'
 import resize from './resize'
 

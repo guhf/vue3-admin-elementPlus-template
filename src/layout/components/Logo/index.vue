@@ -15,8 +15,8 @@
 </template>
 
 <script lang="ts" setup>
-import settings from '@/config/setting.config'
-import Logo from '@/assets/images/logo.png'
+import settings from '~/config/setting.config'
+import Logo from '~/assets/images/logo.png'
 
 interface Props {
   collapse: boolean

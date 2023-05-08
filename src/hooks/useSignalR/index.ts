@@ -1,5 +1,5 @@
 import * as signalR from '@microsoft/signalr'
-import { useUserStore } from '@/store/user'
+import { useUserStore } from '~/store/user'
 
 const hubUrl = (import.meta.env.VITE_SIGNALR_URL || '') as string
 

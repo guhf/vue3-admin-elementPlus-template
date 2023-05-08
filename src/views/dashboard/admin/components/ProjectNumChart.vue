@@ -4,10 +4,10 @@
 
 <script lang="ts" setup>
 import { onActivated, onBeforeUnmount, onDeactivated, onMounted, nextTick } from 'vue'
-import resize from '@/components/charts/mixins/resize'
+import resize from '~/components/charts/mixins/resize'
 import { init, EChartsOption } from 'echarts'
 
-import { getProjectNumChart } from '@/apis/project/info'
+import { getProjectNumChart } from '~/apis/project/info'
 
 interface Props {
   className?: string

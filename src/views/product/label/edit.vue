@@ -45,11 +45,11 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex, useValidate } from '@/hooks'
-import { Response } from '@/models/response'
-import { Label } from '@/models/product/labelModel'
+import { useRouterBackIndex, useValidate } from '~/hooks'
+import { Response } from '~/models/response'
+import { Label } from '~/models/product/labelModel'
 
-import { getLabel, createLabel, updateLabel } from '@/apis/product/label'
+import { getLabel, createLabel, updateLabel } from '~/apis/product/label'
 
 defineOptions({
   name: 'ProductLabelEdit'
