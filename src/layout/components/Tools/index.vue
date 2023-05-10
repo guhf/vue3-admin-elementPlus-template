@@ -64,7 +64,7 @@ const logout = () => {
     }
 
     .tools-item {
-      color: #5a5e66;
+      color: #666666;
       padding: 0 5px;
       margin-right: 15px;
 
@@ -79,7 +79,7 @@ const logout = () => {
     }
 
     .avatar-container {
-      color: #fff;
+      color: #666666;
 
       .avatar-wrapper {
         display: flex;

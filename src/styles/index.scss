@@ -1,6 +1,6 @@
 @import './transition.scss';
 
-@import './sidebar.module.scss';
+@import './sidebar.scss';
 @import './form.scss';
 @import './table.scss';
 @import './btn.scss';
@@ -14,6 +14,7 @@ html {
 
 body {
   height: 100%;
+  background-color: #eff5fd;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;

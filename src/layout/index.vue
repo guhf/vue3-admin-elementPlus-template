@@ -1,16 +1,13 @@
 <template>
   <el-container class="app-wrapper">
-    <el-header :class="classObj">
-      <TopBar />
-    </el-header>
+    <el-aside class="aside-wapper" :width="sidebar.opened ? '240px' : '54px'">
+      <Sidebar class="sidebar-container" />
+    </el-aside>
     <el-main :class="classObj" class="app-main-wapper">
       <div v-if="classObj.mobile && sidebar.opened" class="drawer-bg" @click="state.handleClickOutside" />
-      <Sidebar class="sidebar-container" />
       <div :class="{hasTagsView: showTagsView}" class="main-container">
-        <div>
-          <Navbar />
-          <TagsView v-if="showTagsView" />
-        </div>
+        <TopBar />
+        <TagsView v-if="showTagsView" />
         <AppMain />
         <!-- <RightPanel v-if="showSettings">
           <Settings />
@@ -27,7 +24,6 @@ import { useSettingsStore } from '~/store/settings'
 
 import AppMain from './components/AppMain.vue'
 import TopBar from './components/TopBar/index.vue'
-import Navbar from './components/NavigationBar/index.vue'
 import Sidebar from './components/SideBar/index.vue'
 import TagsView from './components/TagsView/index.vue'
 // import RightPanel from '~/components/rightPanel/index.vue'
@@ -90,12 +86,26 @@ onBeforeUnmount(() => {
     padding: 0;
   }
 
+  .aside-wapper{
+    padding: 0;
+    background-color: #ffffff;
+  }
+
   .app-main-wapper{
-    width: 100%;
-    height: calc(100vh - 60px);
+    width: 0;
+    height: 100%;
+    flex: 1;
+    transition: margin-left .5s;
+    position: relative;
+
     display: flex;
     flex-direction: row;
     padding: 0;
+
+    .main-container {
+      width: 100%;
+      height: calc(100vh - 60px);
+    }
   }
 }
 

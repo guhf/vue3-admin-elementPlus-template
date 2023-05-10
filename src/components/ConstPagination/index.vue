@@ -62,7 +62,7 @@ const sizeChange = (size: number) => {
 <style scoped>
 .pagination-container {
   background: #fff;
-  padding: 10px 0;
+  padding-top: 10px;
 }
 
 .pagination-container.hidden {

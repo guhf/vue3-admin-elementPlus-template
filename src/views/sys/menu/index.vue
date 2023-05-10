@@ -6,7 +6,7 @@
         <el-button v-permission="['sys.menu.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <ConstTable :data="state.pageListData" height="calc(100vh - 206px)" :pagination="false" rowKey="id" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" 
+    <ConstTable :data="state.pageListData" height="calc(100vh - 105px)" :pagination="false" rowKey="id" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" 
       :expand-row-keys="expandRowKeys" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="菜单名称" prop="menuName" sortable="custom" width="200" header-align="center" align="left" fixed show-overflow-tooltip />
       <el-table-column label="菜单类型" prop="menuType" sortable="custom" width="120" align="center" show-overflow-tooltip>

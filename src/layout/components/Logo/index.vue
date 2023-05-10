@@ -43,7 +43,7 @@ const title = settings.title
 
 .logo-container {
   position: relative;
-  width: 240px;
+  width: 100%;
   height: 60px;
   line-height: 60px;
   text-align: center;
@@ -65,7 +65,7 @@ const title = settings.title
     & .sidebar-title {
       display: inline-block;
       margin: 0;
-      color: #FFF;
+      color: $primary;
       font-weight: 600;
       font-size: 22px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
@@ -82,11 +82,5 @@ const title = settings.title
 
 .top-logo{
   padding: 15px 0;
-}
-
-.hideSidebar {
-  .logo-container {
-    width: 54px !important;
-  }
 }
 </style>

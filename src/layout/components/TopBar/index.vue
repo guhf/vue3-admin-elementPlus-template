@@ -1,29 +1,48 @@
 <template>
   <div class="top-bar-wrap">
-    <Logo :collapse="isCollapse" />
+    <Hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @click="toggleSideBar" />
     <Tools />
   </div>
-
 </template>
+
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useAppStore } from '~/store/app'
-import Logo from '../Logo/index.vue'
+import Hamburger from '~/components/Hamburger/index.vue'
 import Tools from '../Tools/index.vue'
 
 const appStore = useAppStore()
 
-const isCollapse = computed(() => {
-  return !appStore.sidebar.opened
+const sidebar = computed(() => {
+  return appStore.sidebar
 })
+
+const toggleSideBar = () => {
+  appStore.toggleSidebar(false)
+}
 
 </script>
 
 <style lang="scss" scoped>
   .top-bar-wrap{
-    height: 100%;
+    height: 60px;
+    background-color: #ffffff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    .hamburger-container {
+      height: 100%;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+      -webkit-tap-highlight-color: transparent;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.025);
+      }
+    }
   }
 </style>

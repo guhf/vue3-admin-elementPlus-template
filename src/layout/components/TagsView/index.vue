@@ -256,6 +256,7 @@ onBeforeUpdate(() => {
   height: 34px;
   width: 100%;
   background: #fff;
+  border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
 
   .tags-view-wrapper {

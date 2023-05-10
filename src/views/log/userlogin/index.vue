@@ -6,7 +6,7 @@
         <el-input v-model="state.pageQuery.userName" type="text" clearable placeholder="请输入用户/账号名称" />
       </div>
     </ConstFilter>
-    <ConstTable ref="userloginTbRef" :data="state.pageListData" :total="state.total" height="calc(100vh - 254px)" :check="false" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable ref="userloginTbRef" :data="state.pageListData" :total="state.total" height="calc(100vh - 190px)" :check="false" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="用户名称" prop="userName" sortable="custom" width="120" align="center" fixed="left" show-overflow-tooltip />
       <el-table-column label="账号名称" prop="accountName" sortable="custom" width="120" align="center" show-overflow-tooltip />
       <el-table-column label="登录IP" prop="ip" sortable="custom" width="120" align="center" show-overflow-tooltip />

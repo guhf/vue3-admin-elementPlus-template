@@ -1,5 +1,6 @@
 <template>
   <el-table
+    ref="elTbRef"
     :data="data"
     :height="tableHeight"
     :size="size"
@@ -27,7 +28,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, nextTick, onMounted } from 'vue'
+import { reactive, ref, nextTick, onMounted, onUpdated } from 'vue'
+import { ElTable } from 'element-plus'
 import CosntPagination from '~/components/ConstPagination/index.vue'
 // import { MouseMenuDirective as vMouseMenuDirective } from '@howdyjs/mouse-menu'
 import { useSettingsStore } from '~/store/settings'
@@ -59,7 +61,7 @@ const props = withDefaults(defineProps<Props>(), {
   data: () => {
     return []
   },
-  height: 'calc(100vh - 301px)',
+  height: 'calc(100vh - 190px)',
   size: '',
   rowKey: 'id',
   treeProps: () => {
@@ -92,6 +94,7 @@ const emits = defineEmits<{
 const settingsStore = useSettingsStore()
 
 let tableHeight = ref('600px')
+let elTbRef = ref<InstanceType<typeof ElTable>>()
 const pageQuery = reactive({
   pageIndex: props.pageIndex as number,
   pageSize: props.pageSize as number,
@@ -99,7 +102,15 @@ const pageQuery = reactive({
 })
 
 onMounted(() => {
+  // pageQuery.pageIndex = props.pageIndex
+  // pageQuery.pageSize = props.pageSize
+
   setHeight()
+})
+
+onUpdated(() => {
+  setHeight()
+  elTbRef.value?.doLayout()
 })
 
 window.onresize = () => {

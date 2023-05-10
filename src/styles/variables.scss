@@ -10,15 +10,17 @@ $yellow:#FEC171;
 $panGreen: #30B08F;
 
 // Sidebar
-$sideBarWidth:240px;
-$menuBg:#ffffff;
-$menuHover:#e8e8e8;
-$menuText: #333333;
-$menuActiveText:#ffffff;
-$menuActiveBg: $primary;
+$subMenuBg: white;
+$subMenuText:  #333333;
+$subMenuHoverBg: $primary;
+$subMenuHoverText: white;
+$subMenuActiveBg: $primary;
+$subMenuActiveText: white;
 
-$subMenuBg:#e8e8e8;
-$subMenuHover:#e1e1e1;
-$subMenuHoverText:#ffffff;
-$subMenuActiveText: $primary;
+$menuItemBg: white;
+$menuItemText:  #666666;
+$menuItemHoverBg: var(--el-color-primary-light-5);
+$menuItemHoverText: $primary;
+$menuItemActiveBg: var(--el-color-primary-light-5);
+$menuItemActiveText: $primary;
 

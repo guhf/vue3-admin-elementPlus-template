@@ -29,7 +29,7 @@
           </el-descriptions> 
         </div>
         <div class="r-table">
-          <ConstTable ref="categoryTbRef" :data="state.modelData.categoryItems" :height="state.modelData.id ? 'calc(100vh - 452px)': 'calc(100vh - 258px)'">
+          <ConstTable ref="categoryTbRef" :data="state.modelData.categoryItems" :height="state.modelData.id ? 'calc(100vh - 349px)': 'calc(100vh - 155px)'">
             <el-table-column label="分类编号" prop="categoryCode" min-width="200" header-align="center" align="left" show-overflow-tooltip />
             <el-table-column label="分类名称" prop="categoryName" min-width="200" header-align="center" align="left" show-overflow-tooltip />
             <el-table-column label="分类图片" prop="categoryImg" min-width="200" align="center" show-overflow-tooltip>

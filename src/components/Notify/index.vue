@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-badge :value="userStore.notifyTotal > 0 ? userStore.notifyTotal : ''" :max="99" class="item" title="通知中心" @click="clickHandle">
-      <el-icon v-if="userStore.notifyTotal > 0" :size="20" color="#ffffff"><BellFilled /></el-icon>
-      <el-icon v-else :size="20" color="#ffffff"><Bell /></el-icon>
+      <el-icon v-if="userStore.notifyTotal > 0" :size="20"><BellFilled /></el-icon>
+      <el-icon v-else :size="20"><Bell /></el-icon>
     </el-badge>
     <Drawer v-model="stateData.drawer" :data="stateData.notifyData" />
   </div>
