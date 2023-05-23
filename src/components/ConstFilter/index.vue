@@ -228,14 +228,4 @@ const reset = (val: object) => {
     }
   }
 }
-
-// 解决筛选条件没有布满一行时，输入框输入内容后，有焦点时长度会变化
-::v-deep(.el-input__wrapper){
-  padding-right: 30px;
-
-  .el-input__suffix{
-    position: absolute;
-    right: 10px;
-  }
-}
 </style>

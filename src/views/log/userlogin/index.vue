@@ -1,10 +1,9 @@
 <template>
   <div class="app-container">
     <ConstFilter @search="filterData" @reset="resetData">
-      <div class="filter-item">
-        <label>用户名称</label>
+      <ConstFilterItem label="用户名称">
         <el-input v-model="state.pageQuery.userName" type="text" clearable placeholder="请输入用户/账号名称" />
-      </div>
+      </ConstFilterItem>
     </ConstFilter>
     <ConstTable ref="userloginTbRef" :data="state.pageListData" :total="state.total" height="calc(100vh - 190px)" :check="false" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="用户名称" prop="userName" sortable="custom" width="120" align="center" fixed="left" show-overflow-tooltip />

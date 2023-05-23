@@ -1,7 +1,7 @@
 <template>
   <el-container class="app-wrapper">
-    <el-aside class="aside-wapper" :width="sidebar.opened ? '240px' : '54px'">
-      <Sidebar class="sidebar-container" />
+    <el-aside class="aside-wapper" :width="sidebar.opened ? '240px' : '60px'">
+      <Sidebar class="sidebar-container" :class="{hideSidebar: !sidebar.opened}" />
     </el-aside>
     <el-main :class="classObj" class="app-main-wapper">
       <div v-if="classObj.mobile && sidebar.opened" class="drawer-bg" @click="state.handleClickOutside" />
@@ -42,7 +42,7 @@ const state = reactive({
 
 const classObj = computed(() => {
   return {
-    hideSidebar: !sidebar.value.opened,
+    // hideSidebar: !sidebar.value.opened,
     openSidebar: sidebar.value.opened,
     withoutAnimation: sidebar.value.withoutAnimation,
     mobile: device.value === DeviceType.Mobile
@@ -88,6 +88,7 @@ onBeforeUnmount(() => {
 
   .aside-wapper{
     padding: 0;
+    margin-bottom: 0;
     background-color: #ffffff;
   }
 

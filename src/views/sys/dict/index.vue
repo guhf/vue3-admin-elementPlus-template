@@ -1,20 +1,17 @@
 <template>
   <div class="app-container">
     <ConstFilter more @search="filterData" @reset="resetData">
-      <div class="filter-item">
-        <label>字典名称</label>
+      <ConstFilterItem label="字典名称">
         <el-input v-model="state.pageQuery.dictName" type="text" clearable placeholder="请输入字典名称" />
-      </div>
-      <div class="filter-item">
-        <label>字典编号</label>
+      </ConstFilterItem>
+      <ConstFilterItem label="字典编号">
         <el-input v-model="state.pageQuery.dictCode" type="text" clearable placeholder="请输入字典编号" />
-      </div>
-      <div class="filter-item">
-        <label>字典类型</label>
+      </ConstFilterItem>
+      <ConstFilterItem label="字典类型">
         <el-select v-model="state.pageQuery.dictType" type="text" clearable placeholder="请选择字典类型">
           <el-option v-for="item in sysDictType" :key="item.value" :label="item.label" :value="Number(item.value)" />
         </el-select>
-      </div>
+      </ConstFilterItem>
       <template #more>
         <div class="filter-item">
           <label>字典名称</label>

@@ -1,14 +1,12 @@
 <template>
   <div class="app-container">
     <ConstFilter @search="filterData" @reset="resetData">
-      <div class="filter-item">
-        <label>角色名称</label>
+      <ConstFilterItem label="角色名称">
         <el-input v-model="state.pageQuery.roleName" type="text" clearable placeholder="请输入角色名称" />
-      </div>
-      <div class="filter-item">
-        <label>角色标识</label>
+      </ConstFilterItem>
+      <ConstFilterItem label="角色标识">
         <el-input v-model="state.pageQuery.roleCode" type="text" clearable placeholder="请输入角色标识" />
-      </div>
+      </ConstFilterItem>
     </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">

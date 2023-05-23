@@ -16,6 +16,7 @@ import '~/assets/icons/operate/iconfont.js'
 import ConstTable from '~/components/ConstTable/index.vue'
 import ConstDialog from '~/components/ConstDialog/index.vue'
 import ConstFilter from '~/components/ConstFilter/index.vue'
+import ConstFilterItem from '~/components/ConstFilter/item.vue'
 import SvgIcon from '~/components/SvgIcon/index.vue'
 
 const app = createApp(App)
@@ -40,6 +41,7 @@ app.config.globalProperties.fmtMoney = (v: string | number) => app.config.global
 app.component('ConstTable', ConstTable)
 app.component('ConstDialog', ConstDialog)
 app.component('ConstFilter', ConstFilter)
+app.component('ConstFilterItem', ConstFilterItem)
 app.component('SvgIcon', SvgIcon)
 
 // 自定义指令

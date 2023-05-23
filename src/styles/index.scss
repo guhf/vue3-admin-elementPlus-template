@@ -1,6 +1,5 @@
 @import './transition.scss';
 
-@import './sidebar.scss';
 @import './form.scss';
 @import './table.scss';
 @import './btn.scss';
@@ -224,38 +223,6 @@ input[type="number"]{
   padding: 0 !important;
   cursor: initial !important;
 }
-
-
-// ----------------------------------------------------------------- Filter-Item -----------------------------------------------------------------
-.filter-item{
-  line-height: normal;
-  display: inline-table;
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-
-  label{
-    padding: 0 10px;
-    background-color: var(--el-bg-color);
-    color: var(--el-color-info);
-    vertical-align: middle;
-    display: table-cell;
-    position: relative;
-    border: 1px solid #dcdfe6;
-    border-radius: 4px;
-    width: 1px;
-    white-space: nowrap;
-    font-size: 13px;
-    border-right: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .el-input__inner{
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-} 
 
 // ----------------------------------------------------------------- 左树右表格 -----------------------------------------------------------------
 .l-tree-r-table{

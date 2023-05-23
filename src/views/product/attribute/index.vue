@@ -1,14 +1,12 @@
 <template>
   <div class="app-container">
     <ConstFilter @search="filterData" @reset="resetData">
-      <div class="filter-item">
-        <label>规格名称</label>
+      <ConstFilterItem label="规格名称">
         <el-input v-model="state.pageQuery.attributeName" type="text" clearable placeholder="请输入规格名称" />
-      </div>
-      <div class="filter-item">
-        <label>规格编号</label>
+      </ConstFilterItem>
+      <ConstFilterItem label="规格编号">
         <el-input v-model="state.pageQuery.attributeCode" type="text" clearable placeholder="请输入规格编号" />
-      </div>
+      </ConstFilterItem>
     </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">
