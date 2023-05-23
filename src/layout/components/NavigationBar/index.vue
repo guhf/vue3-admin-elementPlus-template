@@ -8,8 +8,6 @@
 import { computed } from 'vue'
 import { useAppStore } from '~/store/app'
 
-import BreadCrumb from '~/components/BreadCrumb/index.vue'
-
 const appStore = useAppStore()
 
 const sidebar = computed(() => {

@@ -66,7 +66,7 @@ import { Response } from '~/models/response'
 import { Category } from '~/models/product/categoryModel'
 
 import { getCategoryTreeList, getCategoryExcludeTreeList, getCategory, moveCategory, delCategory } from '~/apis/product/category'
-import TreeDialog from '~/components/ConstDialog/TreeDialog/index.vue'
+import TreeDialog from '~/components/dialog/TreeDialog.vue'
 import CategoryEdit from './edit.vue'
 
 defineOptions({

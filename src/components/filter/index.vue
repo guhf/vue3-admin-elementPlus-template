@@ -1,5 +1,5 @@
 <template>
-  <div ref="filterRef" class="filter-warp" tabindex="180429">
+  <div ref="filterRef" class="filter-wrapper" tabindex="180429">
     <div class="filter-tool">
       <div ref="containerRef" class="filter-container">
         <slot />
@@ -86,7 +86,7 @@ const reset = (val: object) => {
 }
 
 
-.filter-warp {
+.filter-wrapper {
   height: 34px;
   margin-bottom: 10px;
 }
@@ -109,7 +109,7 @@ const reset = (val: object) => {
     align-items: center;
     flex-wrap: wrap;
 
-    ::v-deep(.el-input-group__prepend) {
+    :deep(.el-input-group__prepend) {
       padding: 0 10px;
     }
   }
@@ -157,7 +157,7 @@ const reset = (val: object) => {
 //>=1900的设备
 @media (min-width: 2801px) {
   .filter-container {
-    > ::v-deep(*) {
+    > :deep(*) {
       margin-right: 10px;
       flex: 1 1 15%;
     }
@@ -168,7 +168,7 @@ const reset = (val: object) => {
   }
 
   .filter-tool-more .filter-container {
-    > ::v-deep(*) {
+    > :deep(*) {
       flex: 1 1 16.5%;
       max-width: calc(16.5% - 6px);
     }
@@ -182,7 +182,7 @@ const reset = (val: object) => {
 //>=1800的设备
 @media (min-width: 1801px) {
   .filter-container {
-    > ::v-deep(*) {
+    > :deep(*) {
       margin-right: 10px;
       flex: 1 1 19%;
     }
@@ -193,7 +193,7 @@ const reset = (val: object) => {
   }
 
   .filter-tool-more .filter-container {
-    > ::v-deep(*) {
+    > :deep(*) {
       flex: 1 1 20%;
       max-width: calc(20% - 8px);
     }
@@ -207,7 +207,7 @@ const reset = (val: object) => {
 //<=1400的设备
 @media (max-width: 1800px) {
   .filter-container {
-    > ::v-deep(*) {
+    > :deep(*) {
       margin-right: 10px;
       flex: 1 1 23%;
     }
@@ -218,7 +218,7 @@ const reset = (val: object) => {
   }
 
   .filter-tool-more .filter-container {
-    > ::v-deep(*) {
+    > :deep(*) {
       flex: 1 1 25%;
       max-width: calc(25% - 8px);
     }

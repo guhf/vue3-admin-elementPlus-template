@@ -21,7 +21,7 @@ import { TreeData } from 'element-plus/es/components/tree/src/tree.type';
 import { Tree } from '~/models/common/treeModel';
 import { Response } from '~/models/response'
 
-import ConstTree from '~/components/ConstTree/index.vue'
+import ConstTree from '~/components/tree/index.vue'
 
 interface Props {
   modelValue?: boolean

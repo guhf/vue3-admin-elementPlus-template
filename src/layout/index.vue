@@ -26,7 +26,7 @@ import AppMain from './components/AppMain.vue'
 import TopBar from './components/TopBar/index.vue'
 import Sidebar from './components/SideBar/index.vue'
 import TagsView from './components/TagsView/index.vue'
-// import RightPanel from '~/components/rightPanel/index.vue'
+// import RightPanel from '~/components/right-panel/index.vue'
 // import Settings from './Settings/index.vue'
 import resize from './resize'
 

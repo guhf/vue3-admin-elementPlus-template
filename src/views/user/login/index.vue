@@ -35,7 +35,7 @@ import { reactive, ref } from 'vue'
 import { FormInstance } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useRoute, LocationQuery, useRouter } from 'vue-router'
-// import LangSelect from '~/components/lang_select/index.vue'
+// import LangSelect from '~/components/lang-select/index.vue'
 
 import { useUserStore } from '~/store/user'
 import { LoginInfo } from '~/models/userModel'
@@ -139,7 +139,7 @@ const getOtherQuery = (query: LocationQuery) => {
     display: inline-block;
   }
 
-  ::v-deep(.el-input__icon.el-icon){
+  :deep(.el-input__icon.el-icon){
     height: inherit;
   }
 

@@ -147,7 +147,7 @@ const mClose = () => {
   }
 }
   
-.tag-warp {
+.tag-wrapper {
   display: flex;
   flex-direction: row;
   flex: 1;

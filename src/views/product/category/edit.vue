@@ -23,7 +23,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="分类图片:" prop="categoryImg">
-            <UploadAvatar v-model="state.modelData.categoryImg" />
+            <UploadImage v-model="state.modelData.categoryImg" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -51,7 +51,7 @@ import { FormInstance } from 'element-plus'
 import { useMessageSuccess, useValidate } from '~/hooks'
 import { Response } from '~/models/response'
 import { Category } from '~/models/product/categoryModel'
-import UploadAvatar from '~/components/Upload/UploadAvatar.vue'
+import UploadImage from '~/components/upload/UploadImage.vue'
 
 import { getCategory, createCategory, updateCategory } from '~/apis/product/category'
 

@@ -1,6 +1,6 @@
 import { App, DirectiveBinding, h, render, ComponentPublicInstance, ObjectDirective } from 'vue'
 import { CustomMouseMenuOptions } from './types'
-import MouseMenu from './MouseMenu.vue'
+import MouseMenu from './index.vue'
 import { createClassDom } from '../shared'
 
 MouseMenu.install = (app: App): void => {

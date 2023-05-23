@@ -13,11 +13,11 @@ import '~/utils/extension/floatextension'
 import '~/assets/icons/menu/iconfont.js'
 import '~/assets/icons/operate/iconfont.js'
 
-import ConstTable from '~/components/ConstTable/index.vue'
-import ConstDialog from '~/components/ConstDialog/index.vue'
-import ConstFilter from '~/components/ConstFilter/index.vue'
-import ConstFilterItem from '~/components/ConstFilter/item.vue'
-import SvgIcon from '~/components/SvgIcon/index.vue'
+import ConstTable from '~/components/table/index.vue'
+import ConstDialog from '~/components/dialog/index.vue'
+import ConstFilter from '~/components/filter/index.vue'
+import ConstFilterItem from '~/components/filter/Item.vue'
+import SvgIcon from '~/components/svg-icon/index.vue'
 
 const app = createApp(App)
 const pinia = createPinia()

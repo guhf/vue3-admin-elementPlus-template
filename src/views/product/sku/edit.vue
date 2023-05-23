@@ -83,7 +83,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import { useRouterBackIndex, useDict, useValidate } from '~/hooks'
 import { Response } from '~/models/response'
 import { Dict } from '~/models/sys/dictModel'
-import Tinymce from '~/components/Tinymce/index.vue'
+import Tinymce from '~/components/tinymce/index.vue'
 
 import { getDict, createDict, updateDict } from '~/apis/sys/dict'
 

@@ -111,7 +111,7 @@ defineExpose({
   margin-bottom: 5px;
 }
 
-::v-deep(.no-checkbox-node) {
+:deep(.no-checkbox-node) {
   & > .el-tree-node__content {
     .el-checkbox {
       // display: none;
@@ -119,7 +119,7 @@ defineExpose({
   }
 }
 
-::v-deep(.radio-node) {
+:deep(.radio-node) {
   .el-checkbox__inner {
     border-radius: 50%;
   }

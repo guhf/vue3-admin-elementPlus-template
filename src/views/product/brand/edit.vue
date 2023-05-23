@@ -20,7 +20,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="品牌Logo:" prop="brandImg">
-            <UploadAvatar ref="importUploadRef" v-model="state.modelData.brandImg" />
+            <UploadImage ref="importUploadRef" v-model="state.modelData.brandImg" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -55,7 +55,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import { useRouterBackIndex, useValidate } from '~/hooks'
 import { Response } from '~/models/response'
 import { Brand } from '~/models/product/brandModel'
-import UploadAvatar from '~/components/Upload/UploadAvatar.vue'
+import UploadImage from '~/components/upload/UploadImage.vue'
 
 import { getBrand, createBrand, updateBrand } from '~/apis/product/brand'
 

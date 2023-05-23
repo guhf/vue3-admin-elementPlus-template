@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import { reactive, ref, nextTick, onMounted, onUpdated } from 'vue'
 import { ElTable } from 'element-plus'
-import CosntPagination from '~/components/ConstPagination/index.vue'
+import CosntPagination from '~/components/pagination/index.vue'
 // import { MouseMenuDirective as vMouseMenuDirective } from '@howdyjs/mouse-menu'
 import { useSettingsStore } from '~/store/settings'
 

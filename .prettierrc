@@ -1,0 +1,16 @@
+{
+  "printWidth": 300,
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "htmlWhitespaceSensitivity": "strict",
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": ".prettierrc",
+      "options": {
+        "parser": "json"
+      }
+    }
+  ]
+}

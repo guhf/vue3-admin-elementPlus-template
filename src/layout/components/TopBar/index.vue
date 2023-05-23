@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useAppStore } from '~/store/app'
-import Hamburger from '~/components/Hamburger/index.vue'
+import Hamburger from '~/components/hamburger/index.vue'
 import Tools from '../Tools/index.vue'
 
 const appStore = useAppStore()

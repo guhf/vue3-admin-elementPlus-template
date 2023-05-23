@@ -7,6 +7,13 @@
       </el-form-item>
       <el-form-item label="上传：" prop="file">
         <Upload ref="importUploadRef" btn-text="选取文件" :file-list="stateData.uploadList || []" />
+        <!-- <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip text-center" style="color: red" slot="tip">
+          {{ 
+            `提示：仅允许导入${ fileTypes.length > 0 ? `'${fileTypes.join("、")}'格式且` : "" }大小不允许超过${fileMaxSize}M文件！` 
+          }}
+          <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="downloadTemplate">下载模板</el-link> -->
       </el-form-item>
     </el-form>
   </ConstDialog>
@@ -19,7 +26,7 @@ import { Upload as UploadIcon } from '@element-plus/icons-vue'
 import { useRequest, useMessageSuccess, useMessageWarning } from '~/hooks'
 import { ResponseCode } from '~/constant/responses'
 
-import Upload from '~/components/Upload/index.vue'
+import Upload from '~/components/upload/index.vue'
 
 interface Props {
   title?: string

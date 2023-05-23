@@ -46,7 +46,7 @@ import { PageQuery } from '~/models/common/pageQueryModel'
 import { Response } from '~/models/response'
 import { Role } from '~/models/sys/roleModel'
 import { Tree } from '~/models/common/treeModel'
-import TreeDialog from '~/components/ConstDialog/TreeDialog/index.vue'
+import TreeDialog from '~/components/dialog/TreeDialog.vue'
 
 import { getRolePageList, delRole } from '~/apis/sys/role'
 import { getRoleMenuTreeList } from '~/apis/sys/menu'
