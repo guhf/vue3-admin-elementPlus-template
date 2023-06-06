@@ -57,6 +57,24 @@ ul, li{
   list-style: none;
 }
 
+// ----------------- input type=number 隐藏上下箭头 -----------------
+// chrome浏览器
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+}
+
+// 火狐浏览器
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+// ----------------- 去除浏览器自动填充背景色 -----------------
+input:-webkit-autofill{
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+  // -webkit-text-fill-color: #ff0000;
+}
+
 .app-container {
   height: 100%;
   padding: 10px;
@@ -132,19 +150,6 @@ aside {
 // 解决el-input类型为number时，中文输入法光标上移
 .el-input__inner{
   line-height: 1px !important;
-}
-
-// ----------------------------------------------------------------- input type=number 隐藏上下箭头 -----------------------------------------------------------------
-
-// chrome浏览器
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none !important;
-}
-
-// 火狐浏览器
-input[type="number"]{
-  -moz-appearance: textfield;
 }
 
 

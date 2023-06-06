@@ -1,27 +1,27 @@
 <template>
-  <div v-loading="stateData.loading" element-loading-text="正在登录..." :element-loading-svg="svg2" element-loading-svg-view-box="0 0 100 100" element-loading-background="rgba(122, 122, 122, 0.8)" class="login-container customer-loading">
-    <el-form ref="loginFormRef" :model="stateData.lgionInfo" :rules="stateData.loginRules" class="login-form" autocomplete="on" label-position="left">
+  <div v-loading="state.loading" :element-loading-text="state.loadingText" :element-loading-svg="svg2" element-loading-svg-view-box="0 0 100 100" element-loading-background="rgba(122, 122, 122, 0.8)" class="login-container customer-loading">
+    <el-form ref="loginFormRef" :model="state.lgionInfo" :rules="state.loginRules" class="login-form" autocomplete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">登录</h3>
         <!-- <LangSelect class="set-language" /> -->
       </div>
 
       <el-form-item prop="username">
-        <el-input ref="userNameRef" v-model="stateData.lgionInfo.username" placeholder="请输入账号" type="text" size="large" tabindex="1" autocomplete="on" :prefix-icon="User" />
+        <el-input ref="userNameRef" v-model="state.lgionInfo.username" placeholder="请输入账号" type="text" size="large" tabindex="1" autocomplete="on" :prefix-icon="User" />
       </el-form-item>
-      <el-tooltip v-model:visible="stateData.capsTooltip" content="大写锁定已打开" placement="right" manual>
+      <el-tooltip v-model:visible="state.capsTooltip" content="大写锁定已打开" placement="right" manual>
         <el-form-item prop="password">
-          <el-input ref="passwordRef" v-model="stateData.lgionInfo.password" placeholder="请输入密码" size="large" tabindex="2" autocomplete="on" :prefix-icon="Lock" show-password @keyup="checkCapslock" @blur="stateData.capsTooltip = false" @keyup.enter="handleLogin" />
+          <el-input ref="passwordRef" v-model="state.lgionInfo.password" placeholder="请输入密码" size="large" tabindex="2" autocomplete="on" :prefix-icon="Lock" show-password @keyup="checkCapslock" @blur="state.capsTooltip = false" @keyup.enter="handleLogin" />
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="stateData.loading" type="primary" style="width: 100%; margin-bottom: 30px" @click.prevent="handleLogin"> 登录 </el-button>
+      <el-button :loading="state.loading" type="primary" style="width: 100%; margin-bottom: 30px" @click.prevent="handleLogin"> 登录 </el-button>
     </el-form>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Lock, User } from '@element-plus/icons-vue'
 import type { LocationQuery } from 'vue-router'
@@ -36,13 +36,14 @@ const loginFormRef = ref<FormInstance>()
 const router = useRouter()
 const route = useRoute()
 
-const stateData = reactive({
+const state = reactive({
   lgionInfo: {} as LoginInfo,
   loginRules: {
     userName: [{ required: true, message: '请输入账号', trigger: 'blur' }],
     password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
   },
   loading: false,
+  loadingText: '正在登录...',
   capsTooltip: false,
   redirect: '',
   otherQuery: {},
@@ -53,11 +54,18 @@ const handleLogin = () => {
 
   loginFormRef.value.validate(async (valid: boolean) => {
     if (valid) {
-      stateData.loading = true
+      state.loading = true
 
       useUserStore()
-        .login(stateData.lgionInfo)
+        .login(state.lgionInfo)
         .then(() => {
+          state.loading = false
+
+          nextTick(() => {
+            state.loadingText = '正在加载资源...'
+            state.loading = true
+          })
+
           const redirect = route.query.redirect?.toString() ?? '/'
           const otherQuery = getOtherQuery(route.query)
 
@@ -67,11 +75,11 @@ const handleLogin = () => {
               query: otherQuery,
             })
             .then(() => {
-              stateData.loading = false
+              state.loading = false
             })
         })
         .catch(() => {
-          stateData.loading = false
+          state.loading = false
         })
     } else {
       return false
@@ -82,7 +90,7 @@ const handleLogin = () => {
 const checkCapslock = (e: KeyboardEvent) => {
   const { key } = e
   if (key) {
-    stateData.capsTooltip = key !== null && key.length === 1 && key >= 'A' && key <= 'Z'
+    state.capsTooltip = key !== null && key.length === 1 && key >= 'A' && key <= 'Z'
   }
 }
 

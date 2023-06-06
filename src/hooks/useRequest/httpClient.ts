@@ -1,7 +1,8 @@
-import { RequestParams, Method, ContentType } from './type'
-import http from './axios'
 import lodash from 'lodash'
-import { Response } from '~/models/response'
+import { ContentType, Method } from './type'
+import http from './axios'
+import type { RequestParams } from './type'
+import type { Response } from '~/models/response'
 import { ResponseCode } from '~/constant/responses'
 
 class HttpClient {
@@ -19,9 +20,9 @@ class HttpClient {
    * @param contentType http配置
    * @return
    */
-  request<T>(path = '', method: Method = Method.GET, params?: RequestParams, contentType: ContentType = ContentType.json) {
+  request<T>(path = '', method: Method = Method.GET, params?: RequestParams, contentType: ContentType = ContentType.json, extra: any = {}) {
     const headers = {
-      'content-type': contentType
+      'content-type': contentType,
     }
 
     const requestConfig = {
@@ -29,7 +30,8 @@ class HttpClient {
       method,
       headers,
       params: {} as RequestParams,
-      data: {}
+      data: {},
+      extra,
     }
 
     if (contentType === ContentType.form) {
@@ -38,21 +40,24 @@ class HttpClient {
       requestConfig.data = JSON.stringify(params)
     }
 
-    return this.httpClient.request<Response<T>>(requestConfig).then((res: any) => {
-      if (res && res.data) {
-        const data = res.data as Response<T>
+    return this.httpClient
+      .request<Response<T>>(requestConfig)
+      .then((res: any) => {
+        if (res && res.data) {
+          const data = res.data as Response<T>
 
-        if (res.status === ResponseCode.OK && data.code === ResponseCode.OK) {
-          return data
+          if (res.status === ResponseCode.OK && data.code === ResponseCode.OK) {
+            return data
+          } else {
+            return Promise.reject(res?.msg)
+          }
         } else {
-          return Promise.reject(res?.msg)
+          return Promise.reject('请求出错')
         }
-      } else {
-        return Promise.reject('请求出错')
-      }
-    }).catch(async error => {
-      return Promise.reject(error)
-    })
+      })
+      .catch(async (error) => {
+        return Promise.reject(error)
+      })
   }
 }
 

@@ -1,66 +1,73 @@
 import { defineStore } from 'pinia'
 import { usePermissionStore } from './permission'
 import { useDictStore } from './dict'
-import { getToken, setToken, removeToken } from '~/utils/cache'
-import { defaultAvatar } from '~/config/user.config'
-import { LoginInfo, Token, UserInfo } from '~/models/userModel'
-
-import { login, getOnlineInfo, getMenuList } from '~/apis/user'
-import { Routes } from '~/models/route/routesModel'
-import { Response } from '~/models/response'
 import { useTagsViewStore } from './tagsView'
+import type { DictData } from '~/models/sys/dictModel'
+import type { LoginInfo, Token, UserInfo } from '~/models/userModel'
+import type { Routes } from '~/models/route/routesModel'
+import type { Response } from '~/models/response'
+import { getToken, removeToken, setToken } from '~/utils/cache'
+import { defaultAvatar } from '~/config/user.config'
+
+import { getMenuList, getOnlineInfo, login } from '~/apis/user'
 import { getDictList } from '~/apis/sys/dict'
-import { DictData } from '~/models/sys/dictModel'
 
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
       token: getToken() || '',
       userInfo: {} as UserInfo,
-      notifyTotal: 0 as number
+      notifyTotal: 0 as number,
     }
   },
   actions: {
     login(loginInfo: LoginInfo) {
       return new Promise((resolve, reject) => {
-        login(loginInfo).then(async (res: Response<Token>) => {
-          this.token = 'Bearer ' + res.data.accessToken
-          setToken(this.token)
-          
-          // 登录后先获取权限信息，否则跳转路由会出错
-          await this.getUserInfo()
-          await this.getMenuList()
-          resolve(res.data)
-        }).catch(error => {
-          reject(error)
-        })
+        login(loginInfo)
+          .then(async (res: Response<Token>) => {
+            this.token = `Bearer ${res.data.accessToken}`
+            setToken(this.token)
+
+            // 登录后先获取权限信息，否则跳转路由会出错
+            await this.getUserInfo()
+            await this.getMenuList()
+
+            resolve(res.data)
+          })
+          .catch((error) => {
+            reject(error)
+          })
       })
     },
     logout() {
       this.removeToken()
     },
     getUserInfo() {
-      return new Promise((resolve, reject) =>{
-        getOnlineInfo().then((res: Response<UserInfo>) => {
-          this.userInfo = res.data
-          this.userInfo.avatar = res.data.avatar || defaultAvatar
+      return new Promise((resolve, reject) => {
+        getOnlineInfo()
+          .then((res: Response<UserInfo>) => {
+            this.userInfo = res.data
+            this.userInfo.avatar = res.data.avatar || defaultAvatar
 
-          // 获取全部字典信息
-          this.getDictList()
-          resolve(res.data)
-        }).catch(error => {
-          reject(error)
-        })
+            // 获取全部字典信息
+            this.getDictList()
+            resolve(res.data)
+          })
+          .catch((error) => {
+            reject(error)
+          })
       })
     },
     getMenuList() {
-      return new Promise((resolve, reject) =>{
-        getMenuList().then((res: Response<Routes>) => {
-          usePermissionStore().setRoutes(res.data)
-          resolve(res.data)
-        }).catch(error => {
-          reject(error)
-        })
+      return new Promise((resolve, reject) => {
+        getMenuList()
+          .then((res: Response<Routes>) => {
+            usePermissionStore().setRoutes(res.data)
+            resolve(res.data)
+          })
+          .catch((error) => {
+            reject(error)
+          })
       })
     },
     getDictList() {
@@ -78,6 +85,6 @@ export const useUserStore = defineStore('user', {
       this.userInfo = {} as UserInfo
       useTagsViewStore().cachedViews = []
       removeToken()
-    }
-  }
+    },
+  },
 })

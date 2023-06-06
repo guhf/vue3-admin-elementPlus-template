@@ -1,62 +1,63 @@
 import HttpClient from './httpClient'
-import { RequestParams, Method, ContentType } from './type'
+import { ContentType, Method } from './type'
+import type { RequestParams } from './type'
 
 export const useRequest = () => {
   /**
    * GET请求
    * @param path 请求地址
    * @param params 请求参数
-   * @param contentType ContentType
+   * @param extra 额外参数
    */
-  const get = <T>(path = '', params?: RequestParams, contentType: ContentType = ContentType.form) => {
-    return HttpClient.request<T>(path, Method.GET, params, contentType)
+  const get = <T>(path = '', params?: RequestParams, extra: any = {}) => {
+    return HttpClient.request<T>(path, Method.GET, params, ContentType.form, extra)
   }
 
   /**
    * POST请求
    * @param path 请求地址
    * @param params 请求参数
-   * @param contentType ContentType
+   * @param extra 额外参数
    */
-  const post = <T>(path = '', params?: RequestParams, contentType: ContentType = ContentType.json) => {
-    return HttpClient.request<T>(path, Method.POST, params, contentType)
+  const post = <T>(path = '', params?: RequestParams, extra: any = {}) => {
+    return HttpClient.request<T>(path, Method.POST, params, ContentType.json, extra)
   }
-  
+
   /**
    * PUT请求
    * @param path 请求地址
    * @param params 请求参数
-   * @param contentType ContentType
+   * @param extra 额外参数
    */
-  const put = <T>(path = '', params?: RequestParams, contentType: ContentType = ContentType.json) => {
-    return HttpClient.request<T>(path, Method.PUT, params, contentType)
+  const put = <T>(path = '', params?: RequestParams, extra: any = {}) => {
+    return HttpClient.request<T>(path, Method.PUT, params, ContentType.json, extra)
   }
-  
+
   /**
    * PATCH请求
    * @param path 请求地址
    * @param params 请求参数
-   * @param contentType ContentType
+   * @param extra 额外参数
    */
-  const patch = <T>(path = '', params?: RequestParams, contentType: ContentType = ContentType.json) => {
-    return HttpClient.request<T>(path, Method.PATCH, params, contentType)
+  const patch = <T>(path = '', params?: RequestParams, extra: any = {}) => {
+    return HttpClient.request<T>(path, Method.PATCH, params, ContentType.json, extra)
   }
-  
+
   /**
    * DELETE请求
    * @param path 请求地址
    * @param params 请求参数
-   * @param contentType ContentType
+   * @param extra 额外参数
    */
-  const del = <T>(path = '', params?: RequestParams, contentType: ContentType = ContentType.json) => {
-    return HttpClient.request<T>(path, Method.DELETE, params, contentType)
+  const del = <T>(path = '', params?: RequestParams, extra: any = {}) => {
+    return HttpClient.request<T>(path, Method.DELETE, params, ContentType.json, extra)
   }
 
-  return{
+  return {
     get,
     post,
     put,
     patch,
-    del
+    del,
   }
 }

@@ -1,6 +1,6 @@
+import type { Routes } from '~/models/route/routesModel'
+import type { LoginInfo, Token, UserInfo } from '~/models/userModel'
 import { useRequest } from '~/hooks'
-import { Routes } from '~/models/route/routesModel'
-import { LoginInfo, Token, UserInfo } from '~/models/userModel'
 
 const { get, post, put } = useRequest()
 
@@ -14,9 +14,9 @@ export const login = (loginInfo: LoginInfo) => {
 }
 
 /**
-* 当前登录用户信息
-* @returns
-*/
+ * 当前登录用户信息
+ * @returns
+ */
 export const getOnlineInfo = () => {
   return get<UserInfo>('sys/user/online')
 }
@@ -31,19 +31,19 @@ export const getMenuList = () => {
 }
 
 /**
-* 修改基本信息
+ * 修改基本信息
  * @param data 用户信息
-* @returns
-*/
+ * @returns
+ */
 export const updateInfo = (data: UserInfo) => {
   return put<object>('sys/user/info/update', data)
 }
 
 /**
-* 修改密码
+ * 修改密码
  * @param data 密码信息
-* @returns
-*/
-export const updatePwd = (data: { oldPwd: string, pwd: string}) => {
+ * @returns
+ */
+export const updatePwd = (data: { oldPwd: string; pwd: string }) => {
   return put<object>('sys/user/pwd/update', data)
 }
