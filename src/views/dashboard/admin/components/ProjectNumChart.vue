@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div id="projectNumChart" :class="className" :style="{height: height, width: width}"/>
 </template>
 
@@ -86,4 +86,4 @@ const props = withDefaults(defineProps<Props>(), {
     } as EChartsOption)
     chart.value = pieChart
   }
-</script>
+</script> -->

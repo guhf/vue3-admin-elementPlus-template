@@ -1,4 +1,4 @@
-
+<!-- 
 <template>
   <el-row :gutter="24" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
@@ -187,4 +187,4 @@ const clickCardPanel = (path: string) => {
     }
   }
 }
-</style>
+</style> -->

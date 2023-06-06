@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div
     id="homeRadarCharts"
     :class="className"
@@ -133,4 +133,4 @@ export default defineComponent({
     }
   }
 })
-</script>
+</script> -->

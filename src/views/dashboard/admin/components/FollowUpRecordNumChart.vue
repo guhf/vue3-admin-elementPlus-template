@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div id="followUpRecordNumChart" :class="className" :style="{height: height, width: width}"/>
 </template>
 
@@ -106,4 +106,4 @@ const props = withDefaults(defineProps<Props>(), {
     } as EChartsOption)
     chart.value = barChart
   }
-</script>
+</script> -->

@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 import { LAYOUT } from '~/router/const'
 
 const userRoutes: Array<RouteRecordRaw> = [
@@ -7,7 +7,8 @@ const userRoutes: Array<RouteRecordRaw> = [
     component: LAYOUT,
     name: 'User',
     meta: {
-      title: '用户管理'
+      title: '用户管理',
+      hidden: true,
     },
     children: [
       {
@@ -17,8 +18,8 @@ const userRoutes: Array<RouteRecordRaw> = [
         meta: {
           tagName: 'UserMessage',
           title: '通知列表',
-          hidden: true
-        }
+          hidden: true,
+        },
       },
       {
         path: '/user/message/show/:id',
@@ -27,8 +28,8 @@ const userRoutes: Array<RouteRecordRaw> = [
         meta: {
           tagName: 'UserMessage',
           title: '通知列表',
-          hidden: true
-        }
+          hidden: true,
+        },
       },
       {
         path: '/user/info/',
@@ -37,10 +38,10 @@ const userRoutes: Array<RouteRecordRaw> = [
         meta: {
           tagName: 'UserInfo',
           title: '用户中心',
-          hidden: true
-        }
-      }
-    ]
-  }
+          hidden: true,
+        },
+      },
+    ],
+  },
 ]
 export default userRoutes

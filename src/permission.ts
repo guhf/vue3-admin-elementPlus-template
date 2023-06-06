@@ -1,15 +1,15 @@
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import routeWhiteList from './config/whitelist/route'
+import type { RouteLocationNormalized } from 'vue-router'
 import router from '~/router'
-import { RouteLocationNormalized } from 'vue-router'
 import { useUserStore } from '~/store/user'
 import { usePermissionStore } from '~/store/permission'
-import routeWhiteList from './config/whitelist/route'
 NProgress.configure({ showSpinner: false })
 
-router.beforeEach(async(to: RouteLocationNormalized, from: RouteLocationNormalized, next: Function) => {
+router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: Function) => {
   NProgress.start()
-  document.title = '管理系统'// to.meta.title
+  document.title = '管理系统' // to.meta.title
 
   const userStore = useUserStore()
   const permissionStore = usePermissionStore()
@@ -35,7 +35,7 @@ router.beforeEach(async(to: RouteLocationNormalized, from: RouteLocationNormaliz
       }
     }
   } else {
-    if (routeWhiteList.indexOf(to.path) !== -1) {
+    if (routeWhiteList.includes(to.path)) {
       next()
     } else {
       next(`/login?redirect=${to.path}`)

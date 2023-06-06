@@ -1,11 +1,11 @@
 <template>
   <el-container class="app-wrapper">
     <el-aside class="aside-wapper" :width="sidebar.opened ? '240px' : '60px'">
-      <Sidebar class="sidebar-container" :class="{hideSidebar: !sidebar.opened}" />
+      <Sidebar class="sidebar-container" :class="{ hideSidebar: !sidebar.opened }" />
     </el-aside>
     <el-main :class="classObj" class="app-main-wapper">
       <div v-if="classObj.mobile && sidebar.opened" class="drawer-bg" @click="state.handleClickOutside" />
-      <div :class="{hasTagsView: showTagsView}" class="main-container">
+      <div :class="{ hasTagsView: showTagsView }" class="main-container">
         <TopBar />
         <TagsView v-if="showTagsView" />
         <AppMain />
@@ -19,8 +19,6 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, onBeforeUnmount, onMounted, reactive } from 'vue'
-import { useAppStore, DeviceType } from '~/store/app'
-import { useSettingsStore } from '~/store/settings'
 
 import AppMain from './components/AppMain.vue'
 import TopBar from './components/TopBar/index.vue'
@@ -29,6 +27,8 @@ import TagsView from './components/TagsView/index.vue'
 // import RightPanel from '~/components/right-panel/index.vue'
 // import Settings from './Settings/index.vue'
 import resize from './resize'
+import { useSettingsStore } from '~/store/settings'
+import { DeviceType, useAppStore } from '~/store/app'
 
 const appStore = useAppStore()
 const settingsStore = useSettingsStore()
@@ -37,7 +37,7 @@ const { sidebar, addEventListenerOnResize, resizeMounted, removeEventListenerRes
 const state = reactive({
   handleClickOutside: () => {
     appStore.closeSidebar(false)
-  }
+  },
 })
 
 const classObj = computed(() => {
@@ -45,7 +45,7 @@ const classObj = computed(() => {
     // hideSidebar: !sidebar.value.opened,
     openSidebar: sidebar.value.opened,
     withoutAnimation: sidebar.value.withoutAnimation,
-    mobile: device.value === DeviceType.Mobile
+    mobile: device.value === DeviceType.Mobile,
   }
 })
 
@@ -81,22 +81,21 @@ onBeforeUnmount(() => {
   height: 100%;
   width: 100%;
 
-  header{
+  header {
     background-color: $primary;
     padding: 0;
   }
 
-  .aside-wapper{
+  .aside-wapper {
     padding: 0;
     margin-bottom: 0;
-    background-color: #ffffff;
   }
 
-  .app-main-wapper{
+  .app-main-wapper {
     width: 0;
     height: 100%;
     flex: 1;
-    transition: margin-left .5s;
+    transition: margin-left 0.5s;
     position: relative;
 
     display: flex;
@@ -119,6 +118,4 @@ onBeforeUnmount(() => {
   position: absolute;
   z-index: 999;
 }
-
-
 </style>

@@ -11,16 +11,16 @@ $panGreen: #30B08F;
 
 // Sidebar
 $subMenuBg: white;
-$subMenuText:  #333333;
-$subMenuHoverBg: $primary;
-$subMenuHoverText: white;
-$subMenuActiveBg: $primary;
-$subMenuActiveText: white;
+$subMenuText:  white;
+$subMenuHoverBg: var(--el-color-primary-light-7);
+$subMenuHoverText: $primary;
+$subMenuActiveBg: var(--el-color-primary-light-7);
+$subMenuActiveText: $primary;
 
 $menuItemBg: white;
-$menuItemText:  #666666;
-$menuItemHoverBg: var(--el-color-primary-light-8);
-$menuItemHoverText: $primary;
-$menuItemActiveBg: var(--el-color-primary-light-7);
+$menuItemText:  white;
+$menuItemHoverBg: var(--el-color-primary-light-9);
+$menuItemHoverText: white;
+$menuItemActiveBg: var(--el-color-primary-light-9);
 $menuItemActiveText: $primary;
 

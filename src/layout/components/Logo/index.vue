@@ -1,11 +1,11 @@
 <template>
-  <div class="logo-container top-logo" :class="{'expand': !collapse}">
+  <div class="logo-container top-logo" :class="{ expand: !collapse }">
     <transition name="logo-fade">
       <router-link v-if="collapse" key="collapse" class="logo-link" to="/">
-        <img class="logo" :src="Logo">
+        <img class="logo" :src="Logo" />
       </router-link>
       <router-link v-else key="expand" class="logo-link" to="/">
-        <img class="logo" :src="Logo">
+        <img class="logo" :src="Logo" />
         <h1 class="sidebar-title">
           {{ title }}
         </h1>
@@ -23,15 +23,13 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  collapse: true
+  collapse: true,
 })
 
 const title = settings.title
-
 </script>
 
 <style lang="scss" scoped>
-
 .logo-fade-enter-active {
   transition: opacity 1s;
 }
@@ -44,8 +42,8 @@ const title = settings.title
 .logo-container {
   position: relative;
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: 86px;
+  line-height: 120px;
   text-align: center;
   overflow: hidden;
 
@@ -58,8 +56,8 @@ const title = settings.title
     overflow: hidden;
 
     & .logo {
+      width: 30px;
       display: inline-block;
-      height: 100%;
     }
 
     & .sidebar-title {
@@ -68,19 +66,18 @@ const title = settings.title
       color: $primary;
       font-weight: 600;
       font-size: 22px;
-      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }
   }
 
   &.expand {
     .logo {
-      margin-right: 20px;
+      margin-right: 10px;
     }
   }
 }
 
-.top-logo{
+.top-logo {
   padding: 15px 0;
 }
 </style>

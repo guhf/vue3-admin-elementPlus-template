@@ -11,7 +11,7 @@ module.exports = defineConfig({
   settings: {
     'import/resolver': {
       node: { extensions: ['.js', '.mjs', '.ts', '.d.ts', '.tsx'] },
-    }
+    },
   },
   overrides: [
     {
@@ -22,14 +22,14 @@ module.exports = defineConfig({
       files: ['*.ts', '*.vue'],
       rules: {
         'no-undef': 'off',
-      }
+      },
     },
     {
       files: ['**/__tests__/**'],
       rules: {
         'no-console': 'off',
         'vue/one-component-per-file': 'off',
-      }
+      },
     },
     {
       files: ['package.json'],
@@ -78,26 +78,26 @@ module.exports = defineConfig({
               'husky',
               'lint-staged',
               'eslintConfig',
-            ]
+            ],
           },
           {
             pathPattern: '^(?:dev|peer|optional|bundled)?[Dd]ependencies$',
             order: { type: 'asc' },
-          }
-        ]
+          },
+        ],
       },
     },
     {
       files: ['*.d.ts'],
       rules: {
         'import/no-duplicates': 'off',
-      }
+      },
     },
     {
       files: ['*.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
-      }
+      },
     },
     {
       files: ['*.vue'],
@@ -108,11 +108,11 @@ module.exports = defineConfig({
         ecmaVersion: 'latest',
         ecmaFeatures: {
           jsx: true,
-        }
+        },
       },
       rules: {
         'no-undef': 'off',
-      }
+      },
     },
 
     {
@@ -121,8 +121,8 @@ module.exports = defineConfig({
         'no-console': 'off',
         'import/no-unresolved': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
-      }
-    }
+      },
+    },
   ],
   rules: {
     // js/ts
@@ -161,7 +161,7 @@ module.exports = defineConfig({
         ignoreMemberSort: false,
         memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
         allowSeparatedGroups: false,
-      }
+      },
     ],
 
     // stylistic-issues
@@ -192,7 +192,7 @@ module.exports = defineConfig({
         },
         svg: 'always',
         math: 'always',
-      }
+      },
     ],
 
     // prettier
@@ -220,10 +220,10 @@ module.exports = defineConfig({
           {
             pattern: '@element-plus/**',
             group: 'internal',
-          }
+          },
         ],
         pathGroupsExcludedImportTypes: ['type'],
-      }
+      },
     ],
     'import/no-unresolved': 'off',
     'import/namespace': 'off',
@@ -248,7 +248,7 @@ module.exports = defineConfig({
     'unicorn/no-hex-escape': 'error',
     'unicorn/no-instanceof-array': 'error',
     'unicorn/no-invalid-remove-event-listener': 'error',
-    'unicorn/no-new-array': 'error',
+    'unicorn/no-new-array': 'off',
     'unicorn/no-new-buffer': 'error',
     'unicorn/no-unsafe-regex': 'off',
     'unicorn/number-literal-case': 'error',
@@ -273,5 +273,5 @@ module.exports = defineConfig({
     'unicorn/prefer-string-trim-start-end': 'error',
     'unicorn/prefer-type-error': 'error',
     'unicorn/throw-new-error': 'error',
-  }
+  },
 })

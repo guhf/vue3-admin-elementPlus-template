@@ -1,21 +1,14 @@
 <template>
   <div ref="tagsViewRef" class="tags-view-container">
-    <ScrollPane ref="scrollPaneRef" class="tags-view-wrapper" :tagList="state.itemRefs" @scroll="handleScroll">
-      <router-link
-        v-for="tag in visitedViews" :ref="setItemRef" :key="tag.path"
-        :class="isActive(tag) ? 'active' : ''"
-        :to="{path: tag.path || '', query: tag.query}"
-        class="tags-view-item"
-        @click.middle="!isAffix(tag) ? closeSelectedTag(tag) : ''"
-        @contextmenu.prevent="openMenu(tag, $event)"
-      >
+    <ScrollPane ref="scrollPaneRef" class="tags-view-wrapper" :tag-list="state.itemRefs" @scroll="handleScroll">
+      <router-link v-for="tag in visitedViews" :ref="setItemRef" :key="tag.path" :class="isActive(tag) ? 'active' : ''" :to="{ path: tag.path || '', query: tag.query }" class="tags-view-item" @click.middle="!isAffix(tag) ? closeSelectedTag(tag) : ''" @contextmenu.prevent="openMenu(tag, $event)">
         {{ tag.title }}
         <el-icon v-show="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)">
           <close />
         </el-icon>
       </router-link>
     </ScrollPane>
-    <ul v-show="state.visible" :style="{left: state.left+'px', top: state.top+'px'}" class="contextmenu">
+    <ul v-show="state.visible" :style="{ left: state.left + 'px', top: state.top + 'px' }" class="contextmenu">
       <li @click="refreshSelectedTag(state.selectedTag)">
         {{ '刷新' }}
       </li>
@@ -37,10 +30,11 @@
 import { computed, nextTick, onBeforeMount, onBeforeUpdate, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Close } from '@element-plus/icons-vue'
-import { useTagsViewStore, TagView } from '~/store/tagsView'
-import { usePermissionStore } from '~/store/permission'
-import { Routes } from '~/models/route/routesModel'
 import ScrollPane from './ScrollPane.vue'
+import type { TagView } from '~/store/tagsView'
+import type { Routes } from '~/models/route/routesModel'
+import { useTagsViewStore } from '~/store/tagsView'
+import { usePermissionStore } from '~/store/permission'
 
 const tagsViewStore = useTagsViewStore()
 const permissionStore = usePermissionStore()
@@ -52,16 +46,16 @@ const scrollPaneRef = ref<ScrollPane>()
 const toLastView = (visitedViews: TagView[], view: TagView) => {
   const latestView = visitedViews.slice(-1)[0]
   if (latestView !== undefined && latestView.fullPath !== undefined) {
-    router.push(latestView.fullPath).catch(err => {
+    router.push(latestView.fullPath).catch((err) => {
       console.warn(err)
     })
   } else {
     if (view.name === 'Dashboard') {
-      router.push({ path: '/redirect' + view.fullPath }).catch(err => {
+      router.push({ path: `/redirect${view.fullPath}` }).catch((err) => {
         console.warn(err)
       })
     } else {
-      router.push('/').catch(err => {
+      router.push('/').catch((err) => {
         console.warn(err)
       })
     }
@@ -75,7 +69,7 @@ const state = reactive({
   selectedTag: {} as TagView,
   affixTags: [] as TagView[],
   lastRouteName: '',
-  itemRefs: [] as any[]
+  itemRefs: [] as any[],
 })
 
 const isActive = (route: TagView) => {
@@ -88,11 +82,11 @@ const isAffix = (tag: TagView) => {
 }
 
 const refreshSelectedTag = (view: TagView) => {
-  tagsViewStore.delCachedView(view.meta?.tagName + '')
+  tagsViewStore.delCachedView(`${view.meta?.tagName}`)
   const { fullPath } = view
 
   nextTick(() => {
-    router.replace('/redirect' + fullPath).catch(err => {
+    router.replace(`/redirect${fullPath}`).catch((err) => {
       console.warn(err)
     })
   })
@@ -108,7 +102,7 @@ const closeSelectedTag = (view: TagView) => {
 
 const closeOthersTags = () => {
   if (state.selectedTag.fullPath !== currentRoute.path && state.selectedTag.fullPath !== undefined) {
-    router.push(state.selectedTag.fullPath).catch(err => {
+    router.push(state.selectedTag.fullPath).catch((err) => {
       console.log(err)
     })
   }
@@ -117,7 +111,7 @@ const closeOthersTags = () => {
 
 const closeAllTags = (view: TagView) => {
   tagsViewStore.delAllViews()
-  if (state.affixTags.some(tag => tag.path === currentRoute.path)) {
+  if (state.affixTags.some((tag) => tag.path === currentRoute.path)) {
     return
   }
   toLastView(tagsViewStore.visitedViews, view)
@@ -150,7 +144,7 @@ const handleScroll = () => {
 }
 
 const setItemRef = (el: any) => {
-  if (el && state.itemRefs.indexOf(el) === -1) {
+  if (el && !state.itemRefs.includes(el)) {
     state.itemRefs.push(el)
   }
 }
@@ -164,14 +158,15 @@ const routes = computed(() => permissionStore.routes)
 const filterAffixTags = (routes: Routes, basePath = '/') => {
   let tags: TagView[] = []
 
-  routes.forEach(route => {
-    if (route.meta && route.meta.affix) { // Record<string | number | symbol, unknown>
-      const tagPath = (basePath + '/' + route.path).replaceAll('//', '/') // basePath + route.path//path.resolve(basePath, route.path)
+  routes.forEach((route) => {
+    if (route.meta && route.meta.affix) {
+      // Record<string | number | symbol, unknown>
+      const tagPath = `${basePath}/${route.path}`.replaceAll('//', '/') // basePath + route.path//path.resolve(basePath, route.path)
       tags.push({
         fullPath: tagPath,
         path: tagPath,
         name: route.name,
-        meta: { ...route.meta }
+        meta: { ...route.meta },
       })
     }
 
@@ -211,7 +206,9 @@ const moveToCurrentTag = () => {
   const tags = state.itemRefs as any[]
 
   nextTick(() => {
-    if (tags === null || tags === undefined || !Array.isArray(tags)) { return }
+    if (tags === null || tags === undefined || !Array.isArray(tags)) {
+      return
+    }
     for (const tag of tags) {
       if (tag.to.tagName === currentRoute.meta.tagName) {
         scrollPaneRef.value?.moveToCurrentTag(tag)
@@ -224,20 +221,26 @@ const moveToCurrentTag = () => {
   })
 }
 
-watch(() => currentRoute.name, () => {
-  if (currentRoute.name !== 'Login') {
-    addTags()
-    moveToCurrentTag()
+watch(
+  () => currentRoute.name,
+  () => {
+    if (currentRoute.name !== 'Login') {
+      addTags()
+      moveToCurrentTag()
+    }
   }
-})
+)
 
-watch(() => state.visible, (value) => {
-  if (value) {
-    document.body.addEventListener('click', closeMenu)
-  } else {
-    document.body.removeEventListener('click', closeMenu)
+watch(
+  () => state.visible,
+  (value) => {
+    if (value) {
+      document.body.addEventListener('click', closeMenu)
+    } else {
+      document.body.removeEventListener('click', closeMenu)
+    }
   }
-})
+)
 
 onBeforeMount(() => {
   initTags()
@@ -247,50 +250,43 @@ onBeforeMount(() => {
 onBeforeUpdate(() => {
   state.itemRefs = []
 })
-
 </script>
 
 <style lang="scss" scoped>
-
 .tags-view-container {
-  height: 34px;
   width: 100%;
+  padding: 5px 10px;
   background: #fff;
   border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
 
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;
       position: relative;
       cursor: pointer;
-      height: 26px;
-      line-height: 25px;
-      border: 1px solid rgba(124,141,181,.3);
+      height: 25px;
+      line-height: 23px;
+      border: 1px solid rgba(124, 141, 181, 0.3);
       border-radius: 4px;
       color: #495060;
       background: #fff;
       padding: 0 8px;
       font-size: 12px;
       margin-left: 5px;
-      margin-top: 4px;
       box-sizing: border-box;
 
       &:first-of-type {
-        margin-left: 15px;
+        margin-left: 0;
       }
 
-      &:last-of-type {
-        margin-right: 15px;
-      }
-
-      &.active, &:hover {
+      &.active,
+      &:hover {
         background-color: $primary;
         color: #fff;
         transition: width 0.3s;
       }
 
-      &:hover .el-icon-close{
+      &:hover .el-icon-close {
         font-size: 14px;
         padding: 2px;
       }
@@ -328,7 +324,7 @@ onBeforeUpdate(() => {
     font-size: 12px;
     font-weight: 400;
     color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 
     li {
       margin: 0;

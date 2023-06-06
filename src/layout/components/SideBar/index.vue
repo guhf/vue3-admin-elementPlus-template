@@ -2,15 +2,8 @@
   <div class="sideWrap">
     <Logo :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        :collapse="isCollapse"
-        :unique-opened="false"
-        :default-active="activeMenu"
-        mode="vertical">
-        <SidebarItem
-          v-for="menu in menus" :key="menu.path" :item="menu"
-          :base-path="menu.path" :is-collapse="isCollapse"
-        />
+      <el-menu :collapse="isCollapse" :unique-opened="false" :default-active="activeMenu" mode="vertical">
+        <SidebarItem v-for="menu in menus" :key="menu.path" :item="menu" :base-path="menu.path" :is-collapse="isCollapse" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -18,11 +11,11 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import SidebarItem from './Item.vue'
+import { useRoute } from 'vue-router'
 import Logo from '../Logo/index.vue'
+import SidebarItem from './Item.vue'
 import { usePermissionStore } from '~/store/permission'
 import { useAppStore } from '~/store/app'
-import { useRoute } from 'vue-router'
 
 const permissionStore = usePermissionStore()
 const appStore = useAppStore()
@@ -37,7 +30,7 @@ const activeMenu = computed(() => {
   const { meta, path } = useRoute()
   if (meta !== null || meta !== undefined) {
     if (meta.activeMenu) {
-      return meta.activeMenu + ''
+      return `${meta.activeMenu}`
     }
   }
 
@@ -55,7 +48,7 @@ const isCollapse = computed(() => {
   width: 100%;
   background-color: $subMenuBg !important;
   overflow: hidden;
-  transition: width .5s;
+  transition: width 0.5s;
 
   // reset element css
   .horizontal-collapse-transition {
@@ -64,7 +57,8 @@ const isCollapse = computed(() => {
 
   .el-scrollbar {
     height: 100%;
-    padding: 0 10px;
+    // padding: 0 10px;
+    // padding-left: 10px;
   }
 
   &.has-logo {
@@ -72,7 +66,7 @@ const isCollapse = computed(() => {
       height: calc(100% - 50px);
     }
   }
-  
+
   .scrollbar-wrapper {
     overflow-x: hidden !important;
   }
@@ -97,9 +91,12 @@ const isCollapse = computed(() => {
   }
 
   .el-menu {
-    border: none;
     height: 100%;
     width: 100% !important;
+    border: none;
+    --el-menu-bg-color: white;
+    --el-menu-text-color: #333333;
+    --el-menu-active-color: $primary;
   }
 
   // menu hover
@@ -109,24 +106,29 @@ const isCollapse = computed(() => {
   //   }
   // }
 
-  .el-sub-menu__title, .el-sub-menu .el-menu-item{
+  .el-sub-menu__title,
+  .el-sub-menu .el-menu-item {
     height: 40px;
-    border-radius: 8px;
+    // border-radius: 8px;
+    // border-top-left-radius: 20px;
+    // border-bottom-left-radius: 20px;
   }
 
-  .is-active>.el-sub-menu__title {
-    background-color: $subMenuActiveBg !important;
-    color: $subMenuActiveText !important;
+  .is-active > .el-sub-menu__title {
+    // background-color: $subMenuActiveBg !important;
+    // color: $subMenuActiveText !important;
   }
 
-  & .nest-menu .el-sub-menu>.el-sub-menu__title, & .el-sub-menu .el-menu-item {
+  & .nest-menu .el-sub-menu > .el-sub-menu__title,
+  & .el-sub-menu .el-menu-item {
     background-color: $menuItemBg !important;
+    padding-left: calc(var(--el-menu-base-level-padding) + var(--el-menu-level) * var(--el-menu-level-padding) + 20px) !important;
 
     &:hover {
       background-color: $menuItemHoverBg !important;
     }
 
-    &.is-active{
+    &.is-active {
       background-color: $menuItemActiveBg !important;
     }
   }
@@ -136,11 +138,11 @@ const isCollapse = computed(() => {
   .el-sub-menu {
     overflow: hidden;
 
-    &>.el-sub-menu__title {
+    & > .el-sub-menu__title {
       padding: 0 !important;
 
       .svg-icon {
-        margin-left: 10px;
+        margin-left: 20px;
       }
 
       .el-sub-menu__icon-arrow {
@@ -151,8 +153,8 @@ const isCollapse = computed(() => {
 
   .el-menu--collapse {
     .el-sub-menu {
-      &>.el-sub-menu__title {
-        &>span {
+      & > .el-sub-menu__title {
+        & > span {
           height: 0;
           width: 0;
           overflow: hidden;
@@ -166,7 +168,7 @@ const isCollapse = computed(() => {
 
 // when menu collapsed
 .el-menu--vertical {
-  &>.el-menu {
+  & > .el-menu {
     .svg-icon {
       margin-right: 10px;
     }
@@ -176,20 +178,21 @@ const isCollapse = computed(() => {
     }
   }
 
-  .nest-menu .el-sub-menu>.el-sub-menu__title, .el-menu-item {
+  .nest-menu .el-sub-menu > .el-sub-menu__title,
+  .el-menu-item {
     height: 40px;
 
     &:hover {
       background-color: $menuItemHoverBg !important;
     }
 
-    &.is-active{
+    &.is-active {
       color: $menuItemActiveText;
       background-color: $menuItemActiveBg !important;
     }
   }
 
-  >.el-menu--popup {
+  > .el-menu--popup {
     max-height: 100vh;
     // 暂时屏蔽，否则会出现滚动条
     // overflow-y: auto;

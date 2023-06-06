@@ -8,27 +8,29 @@
 </template>
 
 <script lang="ts" setup>
-import { isExternal } from '~/utils/validate'
 import { useRouter } from 'vue-router'
+import { isExternal } from '~/utils/validate'
 
 interface Props {
   to: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  to: ''
+  to: '',
 })
 
 const router = useRouter()
 
 const push = () => {
-  router.push({
-    path: props.to
-  }).catch((error) => {
-    console.error('当前路由页面不存在', error)
-    // router.push({
-    //   path: '404'
-    // })
-  })
+  router
+    .push({
+      path: props.to,
+    })
+    .catch((error) => {
+      console.error('当前路由页面不存在', error)
+      // router.push({
+      //   path: '404'
+      // })
+    })
 }
 </script>

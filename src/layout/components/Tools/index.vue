@@ -16,7 +16,7 @@
             <el-dropdown-item>个人中心</el-dropdown-item>
           </router-link>
           <el-dropdown-item @click="logout">
-            <span style="display:block;">退出登录</span>
+            <span style="display: block">退出登录</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -25,9 +25,9 @@
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { CaretBottom } from '@element-plus/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAppStore, DeviceType } from '~/store/app'
+import { CaretBottom } from '@element-plus/icons-vue'
+import { DeviceType, useAppStore } from '~/store/app'
 import { useUserStore } from '~/store/user'
 
 const userStore = useUserStore()
@@ -45,60 +45,55 @@ const userInfo = computed(() => {
 
 const logout = () => {
   userStore.logout()
-  router.push(`/login?redirect=${route.fullPath}`).catch(err => {
+  router.push(`/login?redirect=${route.fullPath}`).catch((err) => {
     console.warn(err)
   })
 }
-
 </script>
 
 <style lang="scss" scoped>
 .tools-wrap {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    &:focus {
-      outline: none;
+  &:focus {
+    outline: none;
+  }
+
+  .tools-item {
+    color: #666666;
+    padding: 0 5px;
+    margin-right: 15px;
+
+    &.hover-effect {
+      cursor: pointer;
+      transition: background 0.3s;
     }
+  }
 
-    .tools-item {
-      color: #666666;
-      padding: 0 5px;
-      margin-right: 15px;
+  .avatar-container {
+    color: #666666;
 
-      &.hover-effect {
-        cursor: pointer;
-        transition: background 0.3s;
+    .avatar-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
 
-        &:hover {
-          background: rgba(0, 0, 0, 0.025);
-        }
+      * {
+        margin-right: 8px;
       }
-    }
 
-    .avatar-container {
-      color: #666666;
-
-      .avatar-wrapper {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        position: relative;
-
-        * {
-          margin-right: 8px;
-        }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -25px;
-          top: 1px;
-          font-size: 20px;
-        }
+      .el-icon-caret-bottom {
+        cursor: pointer;
+        position: absolute;
+        right: -25px;
+        top: 1px;
+        font-size: 20px;
       }
     }
   }
+}
 </style>

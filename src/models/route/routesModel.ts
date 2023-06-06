@@ -2,6 +2,7 @@ export interface Meta {
   affix?: boolean // 固定
   title: string
   icon?: string
+  menuType?: number
   tagName: string
   activeMenu?: string
   hidden?: boolean

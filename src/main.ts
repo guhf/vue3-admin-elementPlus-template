@@ -17,6 +17,7 @@ import ConstTable from '~/components/table/index.vue'
 import ConstDialog from '~/components/dialog/index.vue'
 import ConstFilter from '~/components/filter/index.vue'
 import ConstFilterItem from '~/components/filter/Item.vue'
+import ConstUpload from '~/components/upload/index.vue'
 import SvgIcon from '~/components/svg-icon/index.vue'
 
 const app = createApp(App)
@@ -42,6 +43,7 @@ app.component('ConstTable', ConstTable)
 app.component('ConstDialog', ConstDialog)
 app.component('ConstFilter', ConstFilter)
 app.component('ConstFilterItem', ConstFilterItem)
+app.component('ConstUpload', ConstUpload)
 app.component('SvgIcon', SvgIcon)
 
 // 自定义指令

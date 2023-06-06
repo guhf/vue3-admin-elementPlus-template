@@ -41,6 +41,13 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="附件:" prop="attrs">
+            <ConstUpload ref="attrsRef" v-model="state.modelData.attrs"></ConstUpload>
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
   </div>
 </template>

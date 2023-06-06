@@ -20,7 +20,7 @@ import { Search } from '@element-plus/icons-vue';
 import { Tree, TreeItem } from '~/models/common/treeModel';
 
 watch(() => props.data, () => {
-  console.log(11111, props.data);
+  // console.log(11111, props.data);
   
 })
 

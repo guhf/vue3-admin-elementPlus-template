@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div
     id="homeLineCharts"
     :class="className"
@@ -155,4 +155,4 @@ export default defineComponent({
     }
   }
 })
-</script>
+</script> -->

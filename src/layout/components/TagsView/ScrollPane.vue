@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { ElScrollbar } from 'element-plus';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { ElScrollbar } from 'element-plus'
 
 interface Props {
   tagList: any[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  tagList: () => []
+  tagList: () => [],
 })
 
 const emits = defineEmits(['scroll'])
@@ -44,25 +44,19 @@ const moveToCurrentTag = (currentTag: HTMLElement) => {
   if (fristTag === currentTag) {
     scrollWrapper.value.scrollLeft = 0
   } else if (lastTag === currentTag) {
-    scrollWrapper.value.scrollLeft =
-        scrollWrapper.value.scrollWidth - containerWidth
+    scrollWrapper.value.scrollLeft = scrollWrapper.value.scrollWidth - containerWidth
   } else {
     // find preTag and nextTag
-    const currentIndex = props.tagList.findIndex((item) => item === currentTag)
+    const currentIndex = props.tagList.indexOf(currentTag)
     const prevTag = props.tagList[currentIndex - 1]
     const nextTag = props.tagList[currentIndex + 1]
     // the tag's offsetLeft after of nextTag
-    const afterNextTagOffsetLeft =
-        nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagSpacing
+    const afterNextTagOffsetLeft = nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagSpacing
     // the tag's offsetLeft before of prevTag
     const beforePrevTagOffsetLeft = prevTag.$el.offsetLeft - tagSpacing
 
-    if (
-      afterNextTagOffsetLeft >
-        scrollWrapper.value.scrollLeft + containerWidth
-    ) {
-      scrollWrapper.value.scrollLeft =
-          afterNextTagOffsetLeft - containerWidth
+    if (afterNextTagOffsetLeft > scrollWrapper.value.scrollLeft + containerWidth) {
+      scrollWrapper.value.scrollLeft = afterNextTagOffsetLeft - containerWidth
     } else if (beforePrevTagOffsetLeft < scrollWrapper.value.scrollLeft) {
       scrollWrapper.value.scrollLeft = beforePrevTagOffsetLeft
     }
@@ -82,21 +76,9 @@ onBeforeUnmount(() => {
 })
 
 defineExpose({
-  moveToCurrentTag
+  moveToCurrentTag,
 })
 </script>
-
-<style lang="scss" scoped>
-.scroll-container {
-  .el-scrollbar__bar {
-    bottom: 0px;
-  }
-
-  .el-scrollbar__wrap {
-    height: 49px;
-  }
-}
-</style>
 
 <style lang="scss" scoped>
 .scroll-container {
@@ -104,5 +86,9 @@ defineExpose({
   position: relative;
   overflow: hidden;
   width: 100%;
+
+  :deep(.el-scrollbar__bar.is-horizontal) {
+    display: none;
+  }
 }
 </style>
