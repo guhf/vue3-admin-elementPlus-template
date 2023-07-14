@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-export default function() {
+export default function () {
   const chart = ref<any>()
   const sidebarElm = ref<Element>()
 
@@ -24,7 +24,7 @@ export default function() {
   }
 
   const initSidebarResizeEvent = () => {
-    sidebarElm.value = document.getElementsByClassName('sidebar-container')[0]
+    sidebarElm.value = document.querySelectorAll('sidebar-wrapper')[0]
     if (sidebarElm.value) {
       sidebarElm.value.addEventListener('transitionend', sidebarResizeHandler as EventListener)
     }
@@ -61,6 +61,6 @@ export default function() {
     mounted,
     beforeDestroy,
     activated,
-    deactivated
+    deactivated,
   }
 }

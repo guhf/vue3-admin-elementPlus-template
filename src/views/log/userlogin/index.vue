@@ -1,11 +1,11 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <ConstFilter @search="filterData" @reset="resetData">
       <ConstFilterItem label="用户名称">
         <el-input v-model="state.pageQuery.userName" type="text" clearable placeholder="请输入用户/账号名称" />
       </ConstFilterItem>
     </ConstFilter>
-    <ConstTable ref="userloginTbRef" :data="state.pageListData" :total="state.total" height="calc(100vh - 190px)" :check="false" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable ref="userloginTbRef" :data="state.pageListData" :total="state.total" :check="false" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="用户名称" prop="userName" sortable="custom" width="120" align="center" fixed="left" show-overflow-tooltip />
       <el-table-column label="账号名称" prop="accountName" sortable="custom" width="120" align="center" show-overflow-tooltip />
       <el-table-column label="登录IP" prop="ip" sortable="custom" width="120" align="center" show-overflow-tooltip />
@@ -14,25 +14,25 @@
       <el-table-column label="登录状态说明" prop="loginDesc" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="登陆时间" prop="loginDateTime" sortable="custom" width="180" align="center" fixed="right" show-overflow-tooltip />
       <el-table-column label="登录状态" prop="loginType" sortable="custom" width="120" align="center" fixed="right">
-          <template #default="{ row }">
-            <el-tag :type="row.loginType === 1 ? 'success' : (row.loginType === 3 ? 'danger' : 'warning')" size="small" effect="light">
-              {{ useValueToLabel(loginStatus, row.loginType) }}
-            </el-tag>
-            <!-- <el-tag v-if="row.loginType === 1" type="success" size="small" effect="light">登录成功</el-tag>
+        <template #default="{ row }">
+          <el-tag :type="row.loginType === 1 ? 'success' : row.loginType === 3 ? 'danger' : 'warning'" size="small" effect="light">
+            {{ useValueToLabel(loginStatus, row.loginType) }}
+          </el-tag>
+          <!-- <el-tag v-if="row.loginType === 1" type="success" size="small" effect="light">登录成功</el-tag>
             <el-tag v-else-if="row.loginType === 2" type="success" size="small" effect="light">刷新Token</el-tag>
             <el-tag v-else-if="row.loginType === 3" type="danger" size="small" effect="light">登录失败</el-tag> -->
-          </template>
+        </template>
       </el-table-column>
     </ConstTable>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { useRouterShow, useDict, useValueToLabel } from '~/hooks'
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { Response } from '~/models/response'
-import { userLogin } from '~/models/log/userLoginModel'
+import { onMounted, reactive, ref } from 'vue'
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { Response } from '~/models/response'
+import type { userLogin } from '~/models/log/userLoginModel'
+import { useDict, useRouterShow, useValueToLabel } from '~/hooks'
 
 import { getUserLoginLogPageList } from '~/apis/sys/userLoginLog'
 
@@ -45,18 +45,17 @@ const state = reactive({
   pageListData: [] as userLogin[],
   total: 0,
   pageQuery: {
-    pageIndex: 1
+    pageIndex: 1,
   } as PageQuery,
-  selectTableData: [] as userLogin[]
+  selectTableData: [] as userLogin[],
 })
 const userloginTbRef = ref<ConstTable>()
 
 const getPageData = () => {
-  getUserLoginLogPageList(state.pageQuery)
-    .then((res: Response<userLogin[]>) => {
-      state.pageListData = res.data
-      state.total = res.total || 0
-    })
+  getUserLoginLogPageList(state.pageQuery).then((res: Response<userLogin[]>) => {
+    state.pageListData = res.data
+    state.total = res.total || 0
+  })
 }
 
 const filterData = () => {
@@ -64,7 +63,7 @@ const filterData = () => {
 }
 
 const resetData = () => {
-  state.pageQuery = { pageIndex: 1};
+  state.pageQuery = { pageIndex: 1 }
   userloginTbRef.value?.reloadData(1, 20)
 }
 

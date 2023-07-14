@@ -53,14 +53,14 @@ http.interceptors.request.use(
     const token = useUserStore().token
     token ? (request.headers['Authorization'] = token) : delete request.headers['Authorization']
 
-    if (loadingCount === 0 && !loadingBlackList.includes(request.url) && (document.querySelector('.el-dialog') || document.querySelector('.app-container'))) {
+    if (loadingCount === 0 && !loadingBlackList.includes(request.url) && (document.querySelector('.el-dialog') || document.querySelector('.app-main-wrapper'))) {
       loadingInstance = ElLoading.service({
         text: request.extra.loadingText || '加载中...',
         background: 'rgba(0, 0, 0, 0.3)',
         svg: svg2,
         svgViewBox: '0 0 100 100',
         customClass: 'customer-loading',
-        target: (document.querySelector('.el-dialog') || document.querySelector('.app-container')) as HTMLInputElement,
+        target: (document.querySelector('.el-dialog') || document.querySelector('.app-main-wrapper')) as HTMLInputElement,
       })
     }
     loadingCount++

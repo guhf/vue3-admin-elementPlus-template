@@ -1,11 +1,11 @@
 <template>
-  <el-container class="app-wrapper">
-    <el-aside class="aside-wapper" :width="sidebar.opened ? '240px' : '60px'">
-      <Sidebar class="sidebar-container" :class="{ hideSidebar: !sidebar.opened }" />
+  <el-container class="app-container">
+    <el-aside class="aside-container" :width="sidebar.opened ? '240px' : '60px'">
+      <Sidebar :class="{ 'hide-sidebar': !sidebar.opened }" />
     </el-aside>
-    <el-main :class="classObj" class="app-main-wapper">
+    <el-main :class="classObj" class="main-container">
       <div v-if="classObj.mobile && sidebar.opened" class="drawer-bg" @click="state.handleClickOutside" />
-      <div :class="{ hasTagsView: showTagsView }" class="main-container">
+      <div class="main-wrapper">
         <TopBar />
         <TagsView v-if="showTagsView" />
         <AppMain />
@@ -42,9 +42,7 @@ const state = reactive({
 
 const classObj = computed(() => {
   return {
-    // hideSidebar: !sidebar.value.opened,
-    openSidebar: sidebar.value.opened,
-    withoutAnimation: sidebar.value.withoutAnimation,
+    'without-animation': sidebar.value.withoutAnimation,
     mobile: device.value === DeviceType.Mobile,
   }
 })
@@ -76,7 +74,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-.app-wrapper {
+.app-container {
   position: relative;
   height: 100%;
   width: 100%;
@@ -86,12 +84,12 @@ onBeforeUnmount(() => {
     padding: 0;
   }
 
-  .aside-wapper {
+  .aside-container {
     padding: 0;
     margin-bottom: 0;
   }
 
-  .app-main-wapper {
+  .main-container {
     width: 0;
     height: 100%;
     flex: 1;
@@ -102,9 +100,11 @@ onBeforeUnmount(() => {
     flex-direction: row;
     padding: 0;
 
-    .main-container {
+    .main-wrapper {
+      display: flex;
+      flex-direction: column;
       width: 100%;
-      height: calc(100vh - 60px);
+      height: 100%;
     }
   }
 }

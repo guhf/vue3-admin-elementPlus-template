@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <ConstFilter @search="filterData" @reset="resetData">
       <el-input v-model="state.pageQuery.code" type="text" clearable placeholder="请输入通知编号">
         <template #prepend>通知编号</template>
@@ -8,7 +8,7 @@
         <template #prepend>通知名称</template>
       </el-input>
     </ConstFilter>
-    <ConstTable ref="messageTbRef" :data="state.pageListData" :total="state.total" height="calc(100vh - 188px)" :pageSize="state.pageQuery.pageSize" size="small" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable ref="messageTbRef" :data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" size="small" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="通知编号" prop="code" sortable="custom" width="150" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="通知名称" prop="title" sortable="custom" width="240" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="通知内容" prop="content" sortable="custom" min-width="400" header-align="center" align="left" show-overflow-tooltip />
@@ -16,13 +16,13 @@
       <el-table-column label="接收人" prop="receiverName" sortable="custom" width="150" align="center" show-overflow-tooltip />
       <el-table-column label="发送时间" prop="sendTime" sortable="custom" width="150" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="isRead" sortable="custom" width="80" align="center" fixed="right">
-        <template #default="{row}">
+        <template #default="{ row }">
           <el-tag v-if="row.isRead" type="success" size="small" effect="light">已读</el-tag>
           <el-tag v-else type="danger" size="small" effect="light">未读</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="90" align="center" fixed="right">
-        <template #default="{row}">
+        <template #default="{ row }">
           <el-button type="primary" size="small" @click="mShow(row.id)">查看</el-button>
         </template>
       </el-table-column>
@@ -31,10 +31,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning } from '~/hooks'
+import { onMounted, reactive, ref } from 'vue'
+import { useConfirmDel, useMessageSuccess, useMessageWarning, useRouterShow } from '~/hooks'
 
-import { getNotifyPageList, delNotify } from '~/apis/user/notify'
+import { delNotify, getNotifyPageList } from '~/apis/user/notify'
 
 const state = reactive({
   pageListData: [],
@@ -42,10 +42,10 @@ const state = reactive({
   pageQuery: {
     pageIndex: 1,
     title: '' as string,
-    code: ''
+    code: '',
   } as any,
   selectTableData: [] as Array<any>,
-  enums: {} as any
+  enums: {} as any,
 })
 const messageTbRef = ref<ConstTable>()
 
@@ -66,7 +66,7 @@ const filterData = () => {
 }
 
 const resetData = () => {
-  state.pageQuery = {};
+  state.pageQuery = {}
   messageTbRef.value?.reloadData(1, 20)
 }
 
@@ -103,5 +103,4 @@ const mDel = () => {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

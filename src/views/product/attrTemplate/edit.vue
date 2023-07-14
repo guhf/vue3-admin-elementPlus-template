@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['product.attrtemplate.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -36,21 +36,21 @@
           <el-table-column label="规格名称" prop="attributeName" min-width="200" align="center">
             <template #default="{ row, $index }">
               <el-form-item :prop="'attrTemplateItems.' + $index + '.attributeName'" :rules="state.attrTemplateItemRules.attributeName">
-                <el-input type="text" v-model="row.attributeName" maxlength="50" show-word-limit clearable placeholder="请输入规格名称"></el-input>
+                <el-input v-model="row.attributeName" type="text" maxlength="50" show-word-limit clearable placeholder="请输入规格名称" />
               </el-form-item>
             </template>
           </el-table-column>
           <el-table-column label="规格编号" prop="attributeCode" min-width="200" align="center">
             <template #default="{ row, $index }">
               <el-form-item :prop="'attrTemplateItems.' + $index + '.attributeCode'" :rules="state.attrTemplateItemRules.attributeCode">
-                <el-input type="text" v-model="row.attributeCode" maxlength="50" show-word-limit clearable placeholder="请输入规格编号"></el-input>
+                <el-input v-model="row.attributeCode" type="text" maxlength="50" show-word-limit clearable placeholder="请输入规格编号" />
               </el-form-item>
             </template>
           </el-table-column>
           <el-table-column label="排序号" prop="sortNo" width="150" align="center">
             <template #default="{ row, $index }">
               <el-form-item :prop="'attrTemplateItems.' + $index + '.sortNo'">
-                <el-input type="text" v-model.number="row.sortNo" clearable placeholder="请输入排序号"></el-input>
+                <el-input v-model.number="row.sortNo" type="text" clearable placeholder="请输入排序号" />
               </el-form-item>
             </template>
           </el-table-column>
@@ -61,24 +61,24 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
+import type { FormInstance } from 'element-plus'
+import type { Response } from '~/models/response'
+import type { AttrTemplate } from '~/models/product/attrTemplateModel'
 import { useRouterBackIndex, useValidate } from '~/hooks'
-import { Response } from '~/models/response'
-import { AttrTemplate } from '~/models/product/attrTemplateModel'
 
-import { getAttrTemplate, createAttrTemplate, updateAttrTemplate } from '~/apis/product/attrTemplate'
+import { createAttrTemplate, getAttrTemplate, updateAttrTemplate } from '~/apis/product/attrTemplate'
 
 defineOptions({
-  name: 'ProductAttrTemplateEdit'
+  name: 'ProductAttrTemplateEdit',
 })
 
 const state = reactive({
   id: '',
   modelData: {
-    status: true
+    status: true,
   } as AttrTemplate,
   modelRules: {
     attrTemplateName: [{ required: true, message: '请输入规格模板名称', trigger: 'blur' }],
@@ -86,7 +86,7 @@ const state = reactive({
   attrTemplateItemRules: {
     attributeName: [{ required: true, message: '请选择规格名称', trigger: 'blur' }],
     attributeCode: [{ required: true, message: '请输入规格编号', trigger: 'blur' }],
-  }
+  },
 })
 const modelRef = ref<FormInstance>()
 

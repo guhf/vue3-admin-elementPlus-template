@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['sys.user.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -40,7 +40,7 @@
         <el-col :span="12">
           <el-form-item label="性别:" prop="sex">
             <el-radio-group v-model="state.modelData.sex">
-              <el-radio-button v-for="sex in commonSex" :label="Number(sex.value)" :key="sex.value">{{ sex.label }}</el-radio-button>
+              <el-radio-button v-for="sex in commonSex" :key="sex.value" :label="Number(sex.value)">{{ sex.label }}</el-radio-button>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -64,20 +64,20 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex, useDict, useValidate } from '~/hooks'
-import { Response } from '~/models/response'
-import { User, UserRole } from '~/models/sys/userModel'
-import { Options } from '~/models/common/optionModel'
+import type { FormInstance } from 'element-plus'
+import type { Response } from '~/models/response'
+import type { User, UserRole } from '~/models/sys/userModel'
+import type { Options } from '~/models/common/optionModel'
+import { useDict, useRouterBackIndex, useValidate } from '~/hooks'
 
-import { getUser, createUser, updateUser } from '~/apis/sys/user'
+import { createUser, getUser, updateUser } from '~/apis/sys/user'
 import { getRoleSelectList } from '~/apis/sys/role'
 
 defineOptions({
-  name: 'SysUserEdit'
+  name: 'SysUserEdit',
 })
 
 const { commonSex } = useDict()
@@ -112,8 +112,8 @@ const getData = () => {
     if (res.data) {
       state.modelData = res.data
 
-      state.modelData.roleIds = [];
-      (state.modelData.userRoles || []).forEach((userRole: UserRole) => {
+      state.modelData.roleIds = []
+      ;(state.modelData.userRoles || []).forEach((userRole: UserRole) => {
         state.modelData.roleIds.push(userRole.roleId)
       })
     }

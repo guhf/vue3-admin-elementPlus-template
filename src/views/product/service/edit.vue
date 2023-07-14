@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['product.service.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -41,28 +41,28 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
+import type { FormInstance } from 'element-plus'
+import type { Response } from '~/models/response'
+import type { Service } from '~/models/product/serviceModel'
 import { useRouterBackIndex, useValidate } from '~/hooks'
-import { Response } from '~/models/response'
-import { Service } from '~/models/product/serviceModel'
 
-import { getService, createService, updateService } from '~/apis/product/service'
+import { createService, getService, updateService } from '~/apis/product/service'
 
 defineOptions({
-  name: 'ProductServiceEdit'
+  name: 'ProductServiceEdit',
 })
 
 const state = reactive({
   id: '',
   modelData: {
-    status: true
+    status: true,
   } as Service,
   modelRules: {
     serviceName: [{ required: true, message: '请输入服务名称', trigger: 'blur' }],
-  }
+  },
 })
 const modelRef = ref<FormInstance>()
 

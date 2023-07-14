@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['sys.dict.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -43,28 +43,28 @@
           <el-table-column label="字典明细名称" prop="dictItemName" min-width="200" align="center">
             <template #default="{ row, $index }">
               <el-form-item :prop="'dictItems.' + $index + '.dictItemName'" :rules="state.dictItemRules.dictItemName">
-                <el-input type="text" v-model="row.dictItemName" maxlength="50" show-word-limit clearable placeholder="请输入字典明细名称"></el-input>
+                <el-input v-model="row.dictItemName" type="text" maxlength="50" show-word-limit clearable placeholder="请输入字典明细名称" />
               </el-form-item>
             </template>
           </el-table-column>
           <el-table-column label="字典明细键值" prop="dictItemValue" min-width="200" align="center">
             <template #default="{ row, $index }">
               <el-form-item :prop="'dictItems.' + $index + '.dictItemValue'" :rules="state.dictItemRules.dictItemValue">
-                <el-input type="text" v-model="row.dictItemValue" maxlength="50" show-word-limit clearable placeholder="请输入字典明细键值"></el-input>
+                <el-input v-model="row.dictItemValue" type="text" maxlength="50" show-word-limit clearable placeholder="请输入字典明细键值" />
               </el-form-item>
             </template>
           </el-table-column>
           <el-table-column label="排序号" prop="sortNo" width="150" align="center">
             <template #default="{ row, $index }">
               <el-form-item :prop="'dictItems.' + $index + '.sortNo'">
-                <el-input type="text" v-model.number="row.sortNo" clearable placeholder="请输入排序号"></el-input>
+                <el-input v-model.number="row.sortNo" type="text" clearable placeholder="请输入排序号" />
               </el-form-item>
             </template>
           </el-table-column>
           <el-table-column label="备注" prop="remark" min-width="360" align="center">
             <template #default="{ row, $index }">
               <el-form-item :prop="'dictItems.' + $index + '.remark'">
-                <el-input type="text" v-model="row.remark" maxlength="50" clearable placeholder="请输入备注"></el-input>
+                <el-input v-model="row.remark" type="text" maxlength="50" clearable placeholder="请输入备注" />
               </el-form-item>
             </template>
           </el-table-column>
@@ -75,25 +75,25 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
-import { useRouterBackIndex, useDict, useValidate } from '~/hooks'
-import { Response } from '~/models/response'
-import { Dict } from '~/models/sys/dictModel'
+import type { FormInstance } from 'element-plus'
+import type { Response } from '~/models/response'
+import type { Dict } from '~/models/sys/dictModel'
+import { useDict, useRouterBackIndex, useValidate } from '~/hooks'
 
-import { getDict, createDict, updateDict } from '~/apis/sys/dict'
+import { createDict, getDict, updateDict } from '~/apis/sys/dict'
 
 defineOptions({
-  name: 'SysDictEdit'
+  name: 'SysDictEdit',
 })
 
 const { sysDictType } = useDict()
 const state = reactive({
   id: '',
   modelData: {
-    dictType: 2
+    dictType: 2,
   } as Dict,
   modelRules: {
     dictName: [{ required: true, message: '请输入字典名称', trigger: 'blur' }],
@@ -103,7 +103,7 @@ const state = reactive({
   dictItemRules: {
     dictItemName: [{ required: true, message: '请输入字典明细名称', trigger: 'blur' }],
     dictItemValue: [{ required: true, message: '请输入字典明细键值', trigger: 'blur' }],
-  }
+  },
 })
 const modelRef = ref<FormInstance>()
 

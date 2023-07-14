@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['sys.user.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -22,17 +22,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex } from '~/hooks'
-import { Response } from '~/models/response'
-import { User } from '~/models/sys/userModel'
+import { CircleClose, Edit } from '@element-plus/icons-vue'
+import type { Response } from '~/models/response'
+import type { User } from '~/models/sys/userModel'
+import { useRouterBackIndex, useRouterUpdate } from '~/hooks'
 
 import { getUser } from '~/apis/sys/user'
 
 defineOptions({
-  name: 'SysDictShow'
+  name: 'SysDictShow',
 })
 
 const state = reactive({

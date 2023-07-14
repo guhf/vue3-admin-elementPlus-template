@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <ConstFilter @search="filterData" @reset="resetData">
       <ConstFilterItem label="规格名称">
         <el-input v-model="state.pageQuery.attributeName" type="text" clearable placeholder="请输入规格名称" />
@@ -35,17 +35,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { Response } from '~/models/response'
-import { Attribute } from '~/models/product/attributeModel'
+import { onMounted, reactive, ref } from 'vue'
+import { Delete, Edit } from '@element-plus/icons-vue'
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { Response } from '~/models/response'
+import type { Attribute } from '~/models/product/attributeModel'
+import { useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
 
-import { getAttributePageList, delAttribute } from '~/apis/product/attribute'
+import { delAttribute, getAttributePageList } from '~/apis/product/attribute'
 
 defineOptions({
-  name: 'ProductAttribute'
+  name: 'ProductAttribute',
 })
 
 const { commonStatus } = useDict()
@@ -92,7 +92,7 @@ const mCreate = () => {
 }
 
 const mShow = (id: string) => {
-  useRouterShow({ path:  id })
+  useRouterShow({ path: id })
 }
 
 const mDel = () => {

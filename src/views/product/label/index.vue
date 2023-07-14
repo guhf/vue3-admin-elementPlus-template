@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <ConstFilter @search="filterData" @reset="resetData">
       <ConstFilterItem label="标签名称">
         <el-input v-model="state.pageQuery.labelName" type="text" clearable placeholder="请输入标签名称" />
@@ -20,7 +20,7 @@
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-permission="['product.label.enable']" v-model="row.status" @change="mEnableDisable(row)" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
+          <el-switch v-model="row.status" v-permission="['product.label.enable']" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" @change="mEnableDisable(row)" />
           <el-tag v-permission:un="['product.label.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>
@@ -36,17 +36,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { Response } from '~/models/response'
-import { Label } from '~/models/product/labelModel'
+import { onMounted, reactive, ref } from 'vue'
+import { Delete, Edit } from '@element-plus/icons-vue'
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { Response } from '~/models/response'
+import type { Label } from '~/models/product/labelModel'
+import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
 
-import { getLabelPageList, delLabel, enableDisableLabel } from '~/apis/product/label'
+import { delLabel, enableDisableLabel, getLabelPageList } from '~/apis/product/label'
 
 defineOptions({
-  name: 'ProductLabel'
+  name: 'ProductLabel',
 })
 
 const { commonStatus } = useDict()
@@ -93,7 +93,7 @@ const mCreate = () => {
 }
 
 const mShow = (id: string) => {
-  useRouterShow({ path:  id })
+  useRouterShow({ path: id })
 }
 
 const mDel = () => {
@@ -116,15 +116,19 @@ const mDel = () => {
 }
 
 const mEnableDisable = (row: Label) => {
-  useConfirm({ message: `确定${ row.status ? '启用' : '禁用' }该标签吗?`, type: 'warning' }).then(() => {
-    enableDisableLabel(row.id, row.status || false).then((res: Response<any>) => {
-      getPageData()
-      useMessageSuccess(res.msg)
-    }).catch(() =>{
+  useConfirm({ message: `确定${row.status ? '启用' : '禁用'}该标签吗?`, type: 'warning' })
+    .then(() => {
+      enableDisableLabel(row.id, row.status || false)
+        .then((res: Response<any>) => {
+          getPageData()
+          useMessageSuccess(res.msg)
+        })
+        .catch(() => {
+          row.status = !row.status
+        })
+    })
+    .catch(() => {
       row.status = !row.status
     })
-  }).catch(() =>{
-    row.status = !row.status
-  })
 }
 </script>

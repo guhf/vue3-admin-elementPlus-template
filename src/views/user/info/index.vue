@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <el-tabs tab-position="left">
       <el-tab-pane label="基本信息">
         <div class="info-title">
@@ -22,16 +22,15 @@ import Basic from './basic.vue'
 import Password from './password.vue'
 
 defineOptions({
-  name: 'UserInfo'
+  name: 'UserInfo',
 })
-
 </script>
 <style>
-.info-title{
-    line-height: 40px;
-    border-bottom: 1px solid #d1d1d1;
-    margin-bottom: 15px;
-    font-size: 1.4rem;
-    padding: 0 10px;
+.info-title {
+  line-height: 40px;
+  border-bottom: 1px solid #d1d1d1;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  padding: 0 10px;
 }
 </style>

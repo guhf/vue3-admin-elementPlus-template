@@ -61,28 +61,36 @@ const handleImagePreview = (uploadFile: UploadFile) => {
 watch(
   () => props.modelValue,
   () => {
-    console.log(222221, props.modelValue)
-
     if (props.limit === 1) {
-      state.fileList = props.modelValue ? [{ fileName: props.modelValue, url: import.meta.env.VITE_APP_BASE_API + String(props.modelValue) }] : []
+      state.fileList = props.modelValue
+        ? [
+            {
+              fileName: props.modelValue,
+              url: import.meta.env.VITE_APP_BASE_API + String(props.modelValue),
+            },
+          ]
+        : []
     } else {
-      state.fileList = new Array(props.modelValue).map((item) => {
-        return { ...new Object(item), url: import.meta.env.VITE_APP_BASE_API + new Object(item).fileName }
+      state.fileList = new Array(props.modelValue).map((item: any) => {
+        return {
+          ...item,
+          url: import.meta.env.VITE_APP_BASE_API + item.fileName,
+        }
       })
     }
   }
 )
 
-watch(
-  () => state.fileList,
-  () => {
-    if (props.limit === 1) {
-      emit('update:modelValue', state.fileList[0] ? state.fileList[0].fileName : '')
-    } else {
-      emit('update:modelValue', state.fileList)
-    }
-  }
-)
+// watch(
+//   () => state.fileList,
+//   () => {
+//     if (props.limit === 1) {
+//       emit('update:modelValue', state.fileList[0] ? state.fileList[0].fileName : '')
+//     } else {
+//       emit('update:modelValue', state.fileList)
+//     }
+//   }
+// )
 
 const uploadAllSuccess = () => {
   if (props.limit === 1) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['sys.role.create', 'sys.role.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -31,18 +31,18 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
+import type { FormInstance } from 'element-plus'
+import type { Response } from '~/models/response'
+import type { Role } from '~/models/sys/roleModel'
 import { useRouterBackIndex, useValidate } from '~/hooks'
-import { Response } from '~/models/response'
-import { Role } from '~/models/sys/roleModel'
 
-import { getRole, createRole, updateRole } from '~/apis/sys/role'
+import { createRole, getRole, updateRole } from '~/apis/sys/role'
 
 defineOptions({
-  name: 'SysRoleEdit'
+  name: 'SysRoleEdit',
 })
 
 const state = reactive({

@@ -1,5 +1,5 @@
 <template>
-  <div class="sideWrap">
+  <div class="sidebar-wrapper">
     <Logo :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu :collapse="isCollapse" :unique-opened="false" :default-active="activeMenu" mode="vertical">
@@ -43,7 +43,7 @@ const isCollapse = computed(() => {
 </script>
 
 <style lang="scss">
-.sidebar-container {
+.sidebar-wrapper {
   height: 100%;
   width: 100%;
   background-color: $subMenuBg !important;
@@ -134,7 +134,7 @@ const isCollapse = computed(() => {
   }
 }
 
-.hideSidebar {
+.hide-sidebar {
   .el-sub-menu {
     overflow: hidden;
 
@@ -163,6 +163,14 @@ const isCollapse = computed(() => {
         }
       }
     }
+  }
+
+  .el-menu-item > span {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    visibility: hidden;
+    display: inline-block;
   }
 }
 

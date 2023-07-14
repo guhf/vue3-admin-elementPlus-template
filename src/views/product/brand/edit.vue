@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['product.brand.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -48,29 +48,29 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { FormInstance } from 'element-plus'
 import { Checked, CircleClose } from '@element-plus/icons-vue'
+import type { FormInstance } from 'element-plus'
+import type { Response } from '~/models/response'
+import type { Brand } from '~/models/product/brandModel'
 import { useRouterBackIndex, useValidate } from '~/hooks'
-import { Response } from '~/models/response'
-import { Brand } from '~/models/product/brandModel'
 import UploadImage from '~/components/upload/UploadImage.vue'
 
-import { getBrand, createBrand, updateBrand } from '~/apis/product/brand'
+import { createBrand, getBrand, updateBrand } from '~/apis/product/brand'
 
 defineOptions({
-  name: 'ProductBrandEdit'
+  name: 'ProductBrandEdit',
 })
 
 const state = reactive({
   id: '',
   modelData: {
-    status: true
+    status: true,
   } as Brand,
   modelRules: {
     brandName: [{ required: true, message: '请输入品牌名称', trigger: 'blur' }],
-  }
+  },
 })
 const modelRef = ref<FormInstance>()
 

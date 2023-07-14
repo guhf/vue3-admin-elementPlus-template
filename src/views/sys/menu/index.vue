@@ -1,13 +1,12 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="table-tool">
       <div class="btn-container">
         <el-button v-permission="['sys.menu.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
         <el-button v-permission="['sys.menu.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <ConstTable :data="state.pageListData" height="calc(100vh - 105px)" :pagination="false" rowKey="id" :treeProps="{ children: 'children', hasChildren: 'hasChildren' }" 
-      :expand-row-keys="expandRowKeys" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable :data="state.pageListData" :pagination="false" row-key="id" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" :expand-row-keys="expandRowKeys" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="菜单名称" prop="menuName" sortable="custom" width="200" header-align="center" align="left" fixed show-overflow-tooltip />
       <el-table-column label="菜单类型" prop="menuType" sortable="custom" width="120" align="center" show-overflow-tooltip>
         <template #default="{ row }">
@@ -29,7 +28,7 @@
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-permission="['sys.menu.enable']" v-model="row.status" @change="mEnableDisable(row)" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" />
+          <el-switch v-model="row.status" v-permission="['sys.menu.enable']" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" @change="mEnableDisable(row)" />
           <el-tag v-permission:un="['sys.menu.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>
@@ -45,16 +44,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, onMounted } from 'vue'
-import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterPush, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
-import { Response } from '~/models/response'
-import { MenuTree, Menu } from '~/models/sys/menuModel'
+import { onMounted, reactive, ref } from 'vue'
+import { Delete, Edit } from '@element-plus/icons-vue'
+import type { Response } from '~/models/response'
+import type { Menu, MenuTree } from '~/models/sys/menuModel'
+import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterPush, useValueToLabel } from '~/hooks'
 
-import { getMenuTreeList, delMenu, enableDisableMenu } from '~/apis/sys/menu'
+import { delMenu, enableDisableMenu, getMenuTreeList } from '~/apis/sys/menu'
 
 defineOptions({
-  name: 'SysMenu'
+  name: 'SysMenu',
 })
 
 const { sysMenuType, commonStatus } = useDict()
@@ -67,11 +66,11 @@ onMounted(() => {
   getPageData()
 })
 
-let expandRowKeys = ref<string[]>([])
+const expandRowKeys = ref<string[]>([])
 const getPageData = () => {
   getMenuTreeList().then((res: Response<MenuTree>) => {
-    state.pageListData = res.data;
-    (state.pageListData || []).forEach((item) => {
+    state.pageListData = res.data
+    ;(state.pageListData || []).forEach((item) => {
       expandRowKeys.value.push(item.id)
     })
   })
@@ -103,25 +102,30 @@ const mDel = () => {
     return
   }
 
-  useConfirmDel().then(() => {
-    delMenu(ids.join(',')).then((res: Response<any>) => {
-      useMessageSuccess(res.msg)
-      getPageData()
+  useConfirmDel()
+    .then(() => {
+      delMenu(ids.join(',')).then((res: Response<any>) => {
+        useMessageSuccess(res.msg)
+        getPageData()
+      })
     })
-  }).catch(() =>{
-  })
+    .catch(() => {})
 }
 
 const mEnableDisable = (row: Menu) => {
-  useConfirm({ message: `确定${ row.status ? '启用' : '禁用' }该菜单吗?`, type: 'warning' }).then(() => {
-    enableDisableMenu(row.id, row.status || false).then((res: Response<any>) => {
-      getPageData()
-      useMessageSuccess(res.msg)
-    }).catch(() =>{
+  useConfirm({ message: `确定${row.status ? '启用' : '禁用'}该菜单吗?`, type: 'warning' })
+    .then(() => {
+      enableDisableMenu(row.id, row.status || false)
+        .then((res: Response<any>) => {
+          getPageData()
+          useMessageSuccess(res.msg)
+        })
+        .catch(() => {
+          row.status = !row.status
+        })
+    })
+    .catch(() => {
       row.status = !row.status
     })
-  }).catch(() =>{
-    row.status = !row.status
-  })
 }
 </script>

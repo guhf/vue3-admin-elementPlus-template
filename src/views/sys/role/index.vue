@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <ConstFilter @search="filterData" @reset="resetData">
       <ConstFilterItem label="角色名称">
         <el-input v-model="state.pageQuery.roleName" type="text" clearable placeholder="请输入角色名称" />
@@ -14,7 +14,7 @@
         <el-button v-permission="['sys.role.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
       </div>
     </div>
-    <ConstTable ref="roleTbRef" :data="state.pageListData" :total="state.total" :pageSize="state.pageQuery.pageSize" :canCheck="canCheck" @reload="reloadTableData" @selection-change="selectedChange">
+    <ConstTable ref="roleTbRef" :data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" :can-check="canCheck" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="角色名称" prop="roleName" sortable="custom" width="120" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="角色标识" prop="roleCode" sortable="custom" width="120" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="描述" prop="description" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
@@ -28,9 +28,7 @@
       <el-table-column label="操作" width="180" align="center" fixed="right">
         <template #default="{ row }">
           <el-button v-permission="['sys.role.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
-          <TreeDialog v-permission="['sys.role.auth']" ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" button btn-text="分配权限" title="分配权限" :btns="['save']" 
-            :load="getRoleMenuTreeList" :load-params="row.id" @open="setRoleId(row.id)" @save="mSetAuth">
-          </TreeDialog>
+          <TreeDialog ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" v-permission="['sys.role.auth']" button btn-text="分配权限" title="分配权限" :btns="['save']" :load="getRoleMenuTreeList" :load-params="row.id" @open="setRoleId(row.id)" @save="mSetAuth" />
         </template>
       </el-table-column>
     </ConstTable>
@@ -38,27 +36,26 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { Edit, Delete } from '@element-plus/icons-vue'
-import { TreeData } from 'element-plus/es/components/tree/src/tree.type'
-import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { Response } from '~/models/response'
-import { Role } from '~/models/sys/roleModel'
-import { Tree } from '~/models/common/treeModel'
+import { onMounted, reactive, ref } from 'vue'
+import { Delete, Edit } from '@element-plus/icons-vue'
+import type { TreeData } from 'element-plus/es/components/tree/src/tree.type'
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { Response } from '~/models/response'
+import type { Role } from '~/models/sys/roleModel'
+import type { Tree } from '~/models/common/treeModel'
+import { useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
 import TreeDialog from '~/components/dialog/TreeDialog.vue'
 
-import { getRolePageList, delRole } from '~/apis/sys/role'
+import { delRole, getRolePageList, setAuth } from '~/apis/sys/role'
 import { getRoleMenuTreeList } from '~/apis/sys/menu'
-import { setAuth } from '~/apis/sys/role'
 
 defineOptions({
-  name: 'SysRole'
+  name: 'SysRole',
 })
 
 const { commonStatus } = useDict()
 const roleTbRef = ref<ConstTable>()
-let roleAuthDialogVisible = ref(false)
+const roleAuthDialogVisible = ref(false)
 const state = reactive({
   pageListData: [] as Role[],
   total: 0,
@@ -71,7 +68,6 @@ const state = reactive({
   roleId: '',
   treeData: [] as Tree,
 })
-
 
 onMounted(() => {
   getPageData()
@@ -153,7 +149,6 @@ const mSetAuth = (checkData: TreeData) => {
       useMessageSuccess(res.msg)
       roleAuthDialogVisible.value = false
     })
-    .catch((error) => {
-    })
+    .catch((error) => {})
 }
 </script>

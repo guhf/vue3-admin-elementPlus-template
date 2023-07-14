@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['product.brand.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -20,17 +20,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '~/hooks'
-import { Response } from '~/models/response'
-import { Brand } from '~/models/product/brandModel'
+import { CircleClose, Edit } from '@element-plus/icons-vue'
+import type { Response } from '~/models/response'
+import type { Brand } from '~/models/product/brandModel'
+import { useDict, useRouterBackIndex, useRouterUpdate, useValueToLabel } from '~/hooks'
 
 import { getBrand } from '~/apis/product/brand'
 
 defineOptions({
-  name: 'ProductBrandShow'
+  name: 'ProductBrandShow',
 })
 
 const { commonStatus } = useDict()

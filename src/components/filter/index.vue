@@ -11,13 +11,13 @@
       </div>
     </div>
   </div>
-  
+
   <el-drawer ref="drawerRef" v-model="drawerVisible" direction="rtl" :size="400" destroy-on-close>
     <template #header>
       <span>{{ props.moreTitle }}</span>
     </template>
     <div class="body">
-    <slot name="more" />
+      <slot name="more" />
     </div>
     <template #footer>
       <el-button class="btn-item" :icon="CircleClose" @click="closeMore">取消</el-button>
@@ -28,11 +28,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { Search, RefreshRight, MoreFilled, CircleClose } from '@element-plus/icons-vue'
+import { CircleClose, MoreFilled, RefreshRight, Search } from '@element-plus/icons-vue'
 
 interface Props {
-  more: boolean
-  moreTitle: string
+  more?: boolean
+  moreTitle?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -66,25 +66,23 @@ const filter = (val: object) => {
 const reset = (val: object) => {
   emits('reset', val)
 }
-
 </script>
 
 <style lang="scss" scoped>
-.el-drawer__body .body{
+.el-drawer__body .body {
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  *{
+  * {
     margin-top: 20px;
   }
 
-  *:not(:first-child){
+  *:not(:first-child) {
     margin-top: 20px;
   }
 }
-
 
 .filter-wrapper {
   height: 34px;
@@ -107,7 +105,7 @@ const reset = (val: object) => {
     display: flex;
     flex-direction: row;
     align-items: center;
-    flex-wrap: wrap;
+    overflow: hidden;
 
     :deep(.el-input-group__prepend) {
       padding: 0 10px;
@@ -140,7 +138,7 @@ const reset = (val: object) => {
   transition: var(--el-transition-duration);
   z-index: 99;
   // flex-direction: column;
-  box-shadow: 0px 0px 12px rgba(0, 0, 0, .12);
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
 
   .filter-container {
     max-height: none;
@@ -154,78 +152,78 @@ const reset = (val: object) => {
   }
 }
 
-//>=1900的设备
-@media (min-width: 2801px) {
-  .filter-container {
-    > :deep(*) {
-      margin-right: 10px;
-      flex: 1 1 15%;
-    }
+// //>=1900的设备
+// @media (min-width: 2801px) {
+//   .filter-container {
+//     > :deep(*) {
+//       margin-right: 10px;
+//       flex: 1 1 15%;
+//     }
 
-    > :nth-child(n + 7) {
-      margin-top: 15px;
-    }
-  }
+//     > :nth-child(n + 7) {
+//       margin-top: 15px;
+//     }
+//   }
 
-  .filter-tool-more .filter-container {
-    > :deep(*) {
-      flex: 1 1 16.5%;
-      max-width: calc(16.5% - 6px);
-    }
+//   .filter-tool-more .filter-container {
+//     > :deep(*) {
+//       flex: 1 1 16.5%;
+//       max-width: calc(16.5% - 6px);
+//     }
 
-    > :nth-child(6n) {
-      margin-right: 0;
-    }
-  }
-}
+//     > :nth-child(6n) {
+//       margin-right: 0;
+//     }
+//   }
+// }
 
-//>=1800的设备
-@media (min-width: 1801px) {
-  .filter-container {
-    > :deep(*) {
-      margin-right: 10px;
-      flex: 1 1 19%;
-    }
+// //>=1800的设备
+// @media (min-width: 1801px) {
+//   .filter-container {
+//     > :deep(*) {
+//       margin-right: 10px;
+//       flex: 1 1 19%;
+//     }
 
-    > :nth-child(n + 6) {
-      margin-top: 15px;
-    }
-  }
+//     > :nth-child(n + 6) {
+//       margin-top: 15px;
+//     }
+//   }
 
-  .filter-tool-more .filter-container {
-    > :deep(*) {
-      flex: 1 1 20%;
-      max-width: calc(20% - 8px);
-    }
+//   .filter-tool-more .filter-container {
+//     > :deep(*) {
+//       flex: 1 1 20%;
+//       max-width: calc(20% - 8px);
+//     }
 
-    > :nth-child(5n) {
-      margin-right: 0;
-    }
-  }
-}
+//     > :nth-child(5n) {
+//       margin-right: 0;
+//     }
+//   }
+// }
 
-//<=1400的设备
-@media (max-width: 1800px) {
-  .filter-container {
-    > :deep(*) {
-      margin-right: 10px;
-      flex: 1 1 23%;
-    }
+// //<=1400的设备
+// @media (max-width: 1400px) {
+//   .filter-container {
+//     > :deep(*) {
+//       margin-right: 10px;
+//       flex: 1 1 23%;
+//     }
 
-    > :nth-child(n + 5) {
-      margin-top: 15px;
-    }
-  }
+//     > :nth-child(n + 5) {
+//       margin-top: 15px;
+//     }
+//   }
 
-  .filter-tool-more .filter-container {
-    > :deep(*) {
-      flex: 1 1 25%;
-      max-width: calc(25% - 8px);
-    }
+//   .filter-tool-more .filter-container {
+//     > :deep(*) {
+//       flex: 1 1 25%;
+//       max-width: calc(25% - 8px);
+//     }
 
-    > :nth-child(4n) {
-      margin-right: 0;
-    }
-  }
-}
+//     > :nth-child(4n) {
+//       margin-right: 0;
+//     }
+//   }
+// }
 </style>

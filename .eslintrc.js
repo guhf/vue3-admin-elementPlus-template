@@ -134,7 +134,7 @@ module.exports = defineConfig({
     'no-return-await': 'error',
     'no-var': 'error',
     'no-empty': ['error', { allowEmptyCatch: true }],
-    'prefer-const': ['warn', { destructuring: 'all', ignoreReadBeforeAssign: true }],
+    'prefer-const': 0,
     'prefer-arrow-callback': ['error', { allowNamedFunctions: false, allowUnboundThis: true }],
     'object-shorthand': ['error', 'always', { ignoreConstructors: false, avoidQuotes: true }],
     'prefer-rest-params': 'error',

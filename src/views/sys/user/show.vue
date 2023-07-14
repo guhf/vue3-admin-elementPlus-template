@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['sys.user.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -15,7 +15,7 @@
       </el-descriptions-item>
       <el-descriptions-item label="出生日期">{{ state.modelData.birthday }}</el-descriptions-item>
       <el-descriptions-item label="性别">
-        <el-tag :type="state.modelData.sex === 1 ? '' : (state.modelData.sex === 0 ? 'danger' : 'info')" size="small" effect="light">
+        <el-tag :type="state.modelData.sex === 1 ? '' : state.modelData.sex === 0 ? 'danger' : 'info'" size="small" effect="light">
           {{ useValueToLabel(commonSex, state.modelData.sex) }}
         </el-tag>
       </el-descriptions-item>
@@ -26,17 +26,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex, useDict, useValueToLabel } from '~/hooks'
-import { Response } from '~/models/response'
-import { User } from '~/models/sys/userModel'
+import { CircleClose, Edit } from '@element-plus/icons-vue'
+import type { Response } from '~/models/response'
+import type { User } from '~/models/sys/userModel'
+import { useDict, useRouterBackIndex, useRouterUpdate, useValueToLabel } from '~/hooks'
 
 import { getUser } from '~/apis/sys/user'
 
 defineOptions({
-  name: 'SysUserShow'
+  name: 'SysUserShow',
 })
 
 const { commonSex } = useDict()

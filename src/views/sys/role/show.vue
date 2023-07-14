@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button v-permission="['sys.role.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
@@ -15,17 +15,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { Edit, CircleClose } from '@element-plus/icons-vue'
-import { useRouterUpdate, useRouterBackIndex } from '~/hooks'
-import { Response } from '~/models/response'
-import { Role } from '~/models/sys/roleModel'
+import { CircleClose, Edit } from '@element-plus/icons-vue'
+import type { Response } from '~/models/response'
+import type { Role } from '~/models/sys/roleModel'
+import { useRouterBackIndex, useRouterUpdate } from '~/hooks'
 
 import { getRole } from '~/apis/sys/role'
 
 defineOptions({
-  name: 'SysRoleShow'
+  name: 'SysRoleShow',
 })
 
 const state = reactive({

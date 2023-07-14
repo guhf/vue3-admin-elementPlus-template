@@ -1,11 +1,10 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <ConstFilter @search="filterData" @reset="resetData">
       <ConstFilterItem label="字典名称">
         <el-input v-model="state.pageQuery.dictName" type="text" clearable placeholder="请输入字典名称" />
       </ConstFilterItem>
-      <ConstFilterItem label="字典名称">
-      </ConstFilterItem>
+      <ConstFilterItem label="字典名称" />
     </ConstFilter>
     <div class="table-tool">
       <div class="btn-container">
@@ -41,17 +40,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { Response } from '~/models/response'
-import { Dict } from '~/models/sys/dictModel'
+import { onMounted, reactive, ref } from 'vue'
+import { Delete, Edit } from '@element-plus/icons-vue'
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { Response } from '~/models/response'
+import type { Dict } from '~/models/sys/dictModel'
+import { useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
 
-import { getDictPageList, delDict } from '~/apis/sys/dict'
+import { delDict, getDictPageList } from '~/apis/sys/dict'
 
 defineOptions({
-  name: 'SysDict'
+  name: 'SysDict',
 })
 
 const { sysDictType, commonStatus } = useDict()
@@ -98,7 +97,7 @@ const mCreate = () => {
 }
 
 const mShow = (id: string) => {
-  useRouterShow({ path:  id })
+  useRouterShow({ path: id })
 }
 
 const mDel = () => {

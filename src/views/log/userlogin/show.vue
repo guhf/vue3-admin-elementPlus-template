@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
@@ -17,8 +17,8 @@
 import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { CircleClose } from '@element-plus/icons-vue'
+import type { userLogin } from '~/models/log/userLoginModel'
 import { useRouterBackIndex } from '~/hooks'
-import { userLogin } from '~/models/log/userLoginModel'
 
 import { getRole } from '~/apis/sys/role'
 

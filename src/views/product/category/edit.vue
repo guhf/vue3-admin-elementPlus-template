@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <el-form ref="modelRef" :model="state.modelData" :rules="state.modelRules" label-width="120px">
       <el-row>
         <el-col :span="12">
@@ -32,8 +32,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
-      </el-row>
+      <el-row />
       <el-row>
         <el-col :span="24">
           <el-form-item label="描述:" prop="description">
@@ -44,7 +43,7 @@
       <el-row>
         <el-col>
           <el-form-item label="附件:" prop="attrs">
-            <ConstUpload ref="attrsRef" v-model="state.modelData.attrs"></ConstUpload>
+            <ConstUpload ref="attrsRef" v-model="state.modelData.attrs" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -53,17 +52,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { FormInstance } from 'element-plus'
+import { onMounted, reactive, ref } from 'vue'
+import type { FormInstance } from 'element-plus'
+import type { Response } from '~/models/response'
+import type { Category } from '~/models/product/categoryModel'
 import { useMessageSuccess, useValidate } from '~/hooks'
-import { Response } from '~/models/response'
-import { Category } from '~/models/product/categoryModel'
 import UploadImage from '~/components/upload/UploadImage.vue'
 
-import { getCategory, createCategory, updateCategory } from '~/apis/product/category'
+import { createCategory, getCategory, updateCategory } from '~/apis/product/category'
 
 defineOptions({
-  name: 'ProductCategoryEdit'
+  name: 'ProductCategoryEdit',
 })
 
 const props = defineProps<{
@@ -103,24 +102,28 @@ const save = async () => {
     if (!(await useValidate(modelRef.value))) return
 
     if (props.params.id) {
-      updateCategory(state.modelData).then((res: Response<any>) => {
-        useMessageSuccess(res.msg)
-        resolve(res)
-      }).catch(error => {
-        reject(error)
-      })
+      updateCategory(state.modelData)
+        .then((res: Response<any>) => {
+          useMessageSuccess(res.msg)
+          resolve(res)
+        })
+        .catch((error) => {
+          reject(error)
+        })
     } else {
-      createCategory(state.modelData).then((res: Response<any>) => {
-        useMessageSuccess(res.msg)
-        resolve(res)
-      }).catch(error => {
-        reject(error)
-      })
+      createCategory(state.modelData)
+        .then((res: Response<any>) => {
+          useMessageSuccess(res.msg)
+          resolve(res)
+        })
+        .catch((error) => {
+          reject(error)
+        })
     }
   })
 }
 
 defineExpose({
-  save
+  save,
 })
 </script>

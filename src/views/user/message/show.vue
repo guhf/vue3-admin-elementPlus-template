@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <div class="btn-container">
       <el-button :icon="CircleClose" @click="mBack">关闭</el-button>
     </div>
@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
-import { CircleClose } from '@element-plus/icons-vue'
+import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
+import { CircleClose } from '@element-plus/icons-vue'
 import { useRouterBackIndex } from '~/hooks'
 
 // import { getNotify, } from "~/apis/user/notify";
@@ -28,9 +28,9 @@ import { useRouterBackIndex } from '~/hooks'
 const state = reactive({
   id: '',
   modelData: {
-    id: ''
+    id: '',
   } as any,
-  enums: {} as any
+  enums: {} as any,
 })
 
 onMounted(() => {
@@ -46,7 +46,6 @@ const getData = () => {
   //   .then((res: any) => {
   //     if (res?.data != null)
   //       state.modelData = res?.data;
-
   //     state.enums = res.enums;
   //     if(state.modelData.isRead === false){
   //       store.dispatch(UserActionTypes.ACTION_GET_NOTICE_TOTAL, store.state.user.notifyTotal > 1 ? store.state.user.notifyTotal - 1 : "")
@@ -60,5 +59,4 @@ const mBack = () => {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

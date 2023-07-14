@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <ConstFilter @search="filterData" @reset="resetData">
       <ConstFilterItem label="规格模板名称">
         <el-input v-model="state.pageQuery.attrTemplateName" type="text" clearable placeholder="请输入规格模板名称" />
@@ -34,17 +34,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { Response } from '~/models/response'
-import { AttrTemplate } from '~/models/product/attrTemplateModel'
+import { onMounted, reactive, ref } from 'vue'
+import { Delete, Edit } from '@element-plus/icons-vue'
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { Response } from '~/models/response'
+import type { AttrTemplate } from '~/models/product/attrTemplateModel'
+import { useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
 
-import { getAttrTemplatePageList, delAttrTemplate } from '~/apis/product/attrTemplate'
+import { delAttrTemplate, getAttrTemplatePageList } from '~/apis/product/attrTemplate'
 
 defineOptions({
-  name: 'ProductAttrTemplate'
+  name: 'ProductAttrTemplate',
 })
 
 const { commonStatus } = useDict()
@@ -91,7 +91,7 @@ const mCreate = () => {
 }
 
 const mShow = (id: string) => {
-  useRouterShow({ path:  id })
+  useRouterShow({ path: id })
 }
 
 const mDel = () => {

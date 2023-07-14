@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-main-wrapper">
     <ConstFilter @search="filterData" @reset="resetData">
       <ConstFilterItem label="用户编号">
         <el-input v-model="state.pageQuery.userCode" type="text" clearable placeholder="请输入用户编号" />
@@ -19,7 +19,7 @@
       <el-table-column label="用户名称" prop="userName" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="性别" prop="sex" sortable="custom" width="80" align="center" show-overflow-tooltip>
         <template #default="{ row }">
-          <el-tag :type="row.sex === 1 ? '' : (row.sex === 0 ? 'danger' : 'info')" size="small" effect="light">
+          <el-tag :type="row.sex === 1 ? '' : row.sex === 0 ? 'danger' : 'info'" size="small" effect="light">
             {{ useValueToLabel(commonSex, row.sex) }}
           </el-tag>
         </template>
@@ -49,17 +49,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from 'vue'
-import { Edit, Delete } from '@element-plus/icons-vue'
-import { useRouterCreate, useRouterShow, useConfirm, useConfirmDel, useMessageSuccess, useMessageWarning, useDict, useValueToLabel } from '~/hooks'
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { Response } from '~/models/response'
-import { User } from '~/models/sys/userModel'
+import { onMounted, reactive, ref } from 'vue'
+import { Delete, Edit } from '@element-plus/icons-vue'
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { Response } from '~/models/response'
+import type { User } from '~/models/sys/userModel'
+import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
 
-import { getUserPageList, delUser, resetPwd } from '~/apis/sys/user'
+import { delUser, getUserPageList, resetPwd } from '~/apis/sys/user'
 
 defineOptions({
-  name: 'SysUser'
+  name: 'SysUser',
 })
 
 const { commonSex, commonStatus } = useDict()
