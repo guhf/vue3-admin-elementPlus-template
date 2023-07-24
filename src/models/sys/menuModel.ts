@@ -1,4 +1,4 @@
-import { BaseModel } from '../baseModel'
+import type { BaseModel } from '../baseModel'
 
 /** 菜单 */
 export declare interface Menu extends BaseModel {
@@ -21,4 +21,3 @@ export declare interface MenuTreeItem extends Menu {
 
 /** 菜单树集合 */
 export declare type MenuTree = MenuTreeItem[]
-

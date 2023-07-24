@@ -1,5 +1,5 @@
 <template>
-  <el-drawer ref="drawerRef" v-model="modelValue" direction="rtl" :size="360" :show-close="false" destroy-on-close @close="closeNotifyDrawer">
+  <el-drawer ref="drawerRef" v-model="drawerVisible" direction="rtl" :size="360" :show-close="false" destroy-on-close @close="closeNotifyDrawer">
     <template #header>
       <span>通知中心</span>
       <el-dropdown trigger="click">
@@ -18,10 +18,15 @@
         </template>
       </el-dropdown>
     </template>
-    <ul v-infinite-scroll="loadData" class="notify-list" :infinite-scroll-disabled="disabled" style="height:calc(100vh - 60px); overflow: auto">
+    <ul v-infinite-scroll="loadData" class="notify-list" :infinite-scroll-disabled="disabled" style="height: calc(100vh - 60px); overflow: auto">
       <li v-for="(item, index) in stateData.notifyData" :key="index" class="notify-list-item">
-        <a><p>{{ item.pName }}</p></a>
-        <span @click="jumpTarget(item.id, item.target)"><a>{{ `${item.refCode}  ${item.refTitle}  ` }}</a>{{ `${item.senderName}${item.content}` }}</span>
+        <a
+          ><p>{{ item.pName }}</p></a
+        >
+        <span @click="jumpTarget(item.id, item.target)"
+          ><a>{{ `${item.refCode}  ${item.refTitle}  ` }}</a
+          >{{ `${item.senderName}${item.content}` }}</span
+        >
         <span class="datetime">{{ item.sendTime }}</span>
       </li>
       <p v-if="stateData.loading">正在加载中...</p>
@@ -31,14 +36,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { ElDrawer } from 'element-plus'
-import { ArrowDown, BellFilled, Bell, Checked } from '@element-plus/icons-vue'
+import { ArrowDown, Bell, BellFilled, Checked } from '@element-plus/icons-vue'
+import type { Notify } from '~/models/common/notifyModel'
 import { useUserStore } from '~/store/user'
 import { useRouterPush } from '~/hooks'
-import { Notify } from '~/models/common/notifyModel'
 
-import { getUnReadNotifyList, getNotifyPageList, updateAllFlag, updateFlag } from '~/apis/user/notify'
+import { getNotifyPageList, getUnReadNotifyList, updateAllFlag, updateFlag } from '~/apis/user/notify'
 
 interface Props {
   modelValue?: boolean
@@ -47,10 +52,10 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: false,
-  data: () => []
+  data: () => [],
 })
 
-const emits = defineEmits<{(e: 'update:modelValue', value: boolean): void}>()
+const emits = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>()
 
 const userStore = useUserStore()
 const stateData = reactive({
@@ -59,14 +64,23 @@ const stateData = reactive({
   noMore: false,
   pageQuery: {
     pageIndex: 0 as number,
-    pageSize: 20 as number
+    pageSize: 20 as number,
   } as any,
   notifyClassNum: 1,
-  notifyClass: '未读通知'
+  notifyClass: '未读通知',
 })
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 
 const disabled = computed(() => stateData.loading || stateData.noMore)
+
+const drawerVisible = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emits('update:modelValue', value)
+  },
+})
 
 onMounted(() => {
   stateData.notifyData = props.data
@@ -96,7 +110,8 @@ const getUnReadNotifyData = () => {
       }
       stateData.loading = false
       stateData.noMore = stateData.notifyData.length >= (res.total ?? 0)
-    }).catch(() => {
+    })
+    .catch(() => {
       stateData.loading = false
     })
 }
@@ -112,7 +127,8 @@ const getAllNotifyData = () => {
 
       stateData.loading = false
       stateData.noMore = stateData.notifyData.length >= (res.total ?? 0)
-    }).catch(() => {
+    })
+    .catch(() => {
       stateData.loading = false
     })
 }
@@ -134,7 +150,7 @@ const filterNotify = (type: number, name: string) => {
 
 const jumpTarget = (id: number, to: string) => {
   useRouterPush({
-    path: to
+    path: to,
   }).then(() => {
     drawerRef.value?.handleClose()
     setRead(id)
@@ -142,73 +158,70 @@ const jumpTarget = (id: number, to: string) => {
 }
 
 const setAllRead = () => {
-  updateAllFlag()
-    .then(() => {
-      stateData.pageQuery.pageIndex = 0
-      loadData()
-      userStore.notifyTotal = 0
-    })
+  updateAllFlag().then(() => {
+    stateData.pageQuery.pageIndex = 0
+    loadData()
+    userStore.notifyTotal = 0
+  })
 }
 
 const setRead = (id: number) => {
-  updateFlag(id)
-    .then(() => {
-      userStore.notifyTotal = userStore.notifyTotal - 1;
-    })
+  updateFlag(id).then(() => {
+    userStore.notifyTotal = userStore.notifyTotal - 1
+  })
 }
 
 const closeNotifyDrawer = () => {
   emits('update:modelValue', false)
 }
-
 </script>
 
 <style lang="scss" scoped>
-  .el-dropdown  {
-    .el-dropdown-link{
-      font-size: 16px;
-      cursor: pointer;
-      color: $primary;
-    }
-    .el-icon--left {
-      font-size: 16px;
-      vertical-align: top;
-    }
-
-    .el-icon--right {
-      font-size: 14px;
-      vertical-align: top;
-    }
+.el-dropdown {
+  .el-dropdown-link {
+    font-size: 16px;
+    cursor: pointer;
+    color: $primary;
+  }
+  .el-icon--left {
+    font-size: 16px;
+    vertical-align: top;
   }
 
-  .notify-list{
+  .el-icon--right {
+    font-size: 14px;
+    vertical-align: top;
+  }
+}
+
+.notify-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: initial;
+
+  .notify-list-item {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    font-size: initial;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 15px 25px;
+    border-bottom: 1px solid #f2f2f2;
 
-    .notify-list-item{
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      color: #333;
-      font-size: 15px;
-      line-height: 1.5;
-      padding: 15px 25px;
-      border-bottom: 1px solid #F2F2F2;
-
-      span{
-        margin-top: 10px;
-      }
-
-      .datetime{
-        font-size: 14px;
-        color: #ababab;
-      }
+    span {
+      margin-top: 10px;
     }
-    >p{
-      font-size: 12px;
-      margin-top: 15px;
+
+    .datetime {
+      font-size: 14px;
+      color: #ababab;
     }
   }
+  > p {
+    font-size: 12px;
+    margin-top: 15px;
+  }
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="modelValue" :title="title" :width="width" draggable append-to-body destroy-on-close @close="mClose">
+  <el-dialog v-model="dialogVisible" :title="title" :width="width" draggable append-to-body destroy-on-close @close="mClose">
     <slot />
 
     <template #footer>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { Checked, CircleCheck, CircleClose } from '@element-plus/icons-vue'
 
 interface Props {
@@ -46,9 +46,18 @@ const state = reactive({
   importShow: false as boolean,
 })
 
+const dialogVisible = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emits('update:modelValue', value)
+  },
+})
+
 onMounted(() => {
   props.btns.forEach((item) => {
-    state[(item + 'Show') as keyof typeof state] = true
+    state[`${item}Show` as keyof typeof state] = true
   })
 })
 
@@ -81,8 +90,7 @@ const mClose = () => {
   display: flex;
   flex-direction: column;
   margin-top: 10vh !important;
-  
-  
+
   .el-dialog__header {
     border-bottom: 1px solid #e5e5e5;
     padding: 10px 20px;
@@ -92,12 +100,12 @@ const mClose = () => {
       font-size: 1.4rem;
     }
 
-    .el-dialog__headerbtn{
+    .el-dialog__headerbtn {
       height: 45px;
       top: 3px;
     }
   }
-  
+
   .el-dialog__body {
     min-height: 200px;
     font-size: 1.2rem;
@@ -140,13 +148,13 @@ const mClose = () => {
       margin-top: 10px;
     }
   }
-  
+
   .el-dialog__footer {
     border-top: 1px solid #e5e5e5;
     padding: 10px 20px;
   }
 }
-  
+
 .tag-wrapper {
   display: flex;
   flex-direction: row;

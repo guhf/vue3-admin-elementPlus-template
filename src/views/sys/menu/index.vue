@@ -102,14 +102,12 @@ const mDel = () => {
     return
   }
 
-  useConfirmDel()
-    .then(() => {
-      delMenu(ids.join(',')).then((res: Response<any>) => {
-        useMessageSuccess(res.msg)
-        getPageData()
-      })
+  useConfirmDel().then(() => {
+    delMenu(ids.join(',')).then((res: Response<any>) => {
+      useMessageSuccess(res.msg)
+      getPageData()
     })
-    .catch(() => {})
+  })
 }
 
 const mEnableDisable = (row: Menu) => {

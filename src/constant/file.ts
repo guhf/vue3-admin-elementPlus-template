@@ -1,7 +1,7 @@
 /**
  * 文件类型
  */
- export enum FileType {
+export enum FileType {
   /** 全部 */
   All,
   /** 图片 */
@@ -31,79 +31,57 @@
 /**
  * 图片
  */
-export const ImageExt = [
-  'jpg', 'png', 'jpeg', 'gif', 'bmp'
-]
+export const ImageExt = ['jpg', 'png', 'jpeg', 'gif', 'bmp']
 
 /**
-* Word
-*/
-export const WordExt = [
-  'doc', 'docx', 'dotx', 'rtf'
-]
+ * Word
+ */
+export const WordExt = ['doc', 'docx', 'dotx', 'rtf']
 
 /**
  * Excel
  */
-export const ExcelExt = [
-  'xls', 'xlsx', 'xlsm', 'xlsb', 'xlt', 'xltm', 'xlsm', 'xla', 'xlm', 'xlw', 'odc'
-]
+export const ExcelExt = ['xls', 'xlsx', 'xlsm', 'xlsb', 'xlt', 'xltm', 'xlsm', 'xla', 'xlm', 'xlw', 'odc']
 
 /**
  * PPT
  */
-export const PPTExt = [
-  'ppt', 'pptx', 'potx', 'pptm', 'potm', 'pot', 'ppsx', 'pps', 'odp'
-]
+export const PPTExt = ['ppt', 'pptx', 'potx', 'pptm', 'potm', 'pot', 'ppsx', 'pps', 'odp']
 
 /**
  * PDF
  */
-export const PDFExt = [
-  'pdf'
-]
+export const PDFExt = ['pdf']
 
 /**
-* Word/Excel/PPT/PDF
-*/
-export const DocExt = [
-  ...WordExt, ...ExcelExt, ...PPTExt, ...PDFExt
-]
+ * Word/Excel/PPT/PDF
+ */
+export const DocExt = [...WordExt, ...ExcelExt, ...PPTExt, ...PDFExt]
 
 /**
-* 音频
-*/
-export const AudioExt = [
-  'mp2', 'mp3', 'wav', 'wma', 'flac', 'midi', 'ra', 'ape', 'acc', 'cda', 'mov'
-]
+ * 音频
+ */
+export const AudioExt = ['mp2', 'mp3', 'wav', 'wma', 'flac', 'midi', 'ra', 'ape', 'acc', 'cda', 'mov']
 
 /**
-* 视频
-*/
-export const VideoExt = [
-  'mp4', 'avi', 'wmv', 'rm', 'rmvb', 'flash', '3gp', 'flv', 'mov', 'm4v', 'mpg', 'mpeg', 'mpe'
-]
+ * 视频
+ */
+export const VideoExt = ['mp4', 'avi', 'wmv', 'rm', 'rmvb', 'flash', '3gp', 'flv', 'mov', 'm4v', 'mpg', 'mpeg', 'mpe']
 
 /**
-* txt文档
-*/
-export const TxtExt = [
-  'txt'
-]
+ * txt文档
+ */
+export const TxtExt = ['txt']
 
 /**
  * 压缩包
  */
-export const ZipExt = [
-  'zip', 'rar', '7z'
-]
+export const ZipExt = ['zip', 'rar', '7z']
 
 /**
  * 安装包
  */
-export const InstallPackageExt = [
-  'apk', 'ios', 'ipa'
-]
+export const InstallPackageExt = ['apk', 'ios', 'ipa']
 
 /**
  * 全部

@@ -1,7 +1,7 @@
-import { BaseModel } from "../baseModel";
+import type { BaseModel } from '../baseModel'
 
 /** 商品品牌 */
-export declare interface Brand extends BaseModel{
+export declare interface Brand extends BaseModel {
   brandCode?: string
   brandName?: string
   brandImg?: string

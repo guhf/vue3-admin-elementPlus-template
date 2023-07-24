@@ -1,13 +1,13 @@
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import routeWhiteList from './config/whitelist/route'
-import type { RouteLocationNormalized } from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import router from '~/router'
 import { useUserStore } from '~/store/user'
 import { usePermissionStore } from '~/store/permission'
 NProgress.configure({ showSpinner: false })
 
-router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: Function) => {
+router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
   NProgress.start()
   document.title = '管理系统' // to.meta.title
 

@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
-import { getSidebarStatus } from '~/utils/cache'
+import { getSidebarStatus, setLanguage, setSidebarStatus } from '~/utils/cache'
 import { getLocale } from '~/locales'
-import { setSidebarStatus, setLanguage } from '~/utils/cache'
 
 export enum DeviceType {
   Web = 1,
@@ -15,9 +14,9 @@ export const useAppStore = defineStore('app', {
       device: DeviceType.Web,
       sidebar: {
         opened: getSidebarStatus() !== 'closed',
-        withoutAnimation: false as boolean
+        withoutAnimation: false as boolean,
       },
-      language: getLocale() as string
+      language: getLocale() as string,
     }
   },
   actions: {
@@ -41,6 +40,6 @@ export const useAppStore = defineStore('app', {
     setLanguage(language: string) {
       this.language = language
       setLanguage(this.language)
-    }
-  }
+    },
+  },
 })

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{fullscreen: state.fullscreen}" class="tinymce-container" :style="{width: state.containerWidth}">
+  <div :class="{ fullscreen: state.fullscreen }" class="tinymce-container" :style="{ width: state.containerWidth }">
     <TinymceEditor :id="id" v-model:value="state.tinymceContent" :init="initOptions" />
   </div>
 </template>
@@ -48,10 +48,11 @@ import 'tinymce/plugins/textpattern'
 import 'tinymce/plugins/visualblocks'
 import 'tinymce/plugins/visualchars'
 import 'tinymce/plugins/wordcount'
+import { computed, nextTick, reactive, ref, watch } from 'vue'
 import TinymceEditor from '@tinymce/tinymce-vue' // TinyMCE vue wrapper
-import EditorImageUpload, { UploadObject } from './components/EditorImage.vue'
+// import EditorImageUpload from './components/EditorImage.vue'
 import { plugins, toolbar } from './config'
-import { reactive, watch, nextTick, ref, computed } from 'vue'
+import type { UploadObject } from './components/EditorImage.vue'
 import { useUserStore } from '~/store/user'
 import { useAppStore } from '~/store/app'
 import { useSettingsStore } from '~/store/settings'
@@ -68,23 +69,24 @@ interface Props {
   /** 高度 */
   height?: number | string
   /** 宽度 */
-  width?: string | number
+  width: string | number
   /** 单文件最大限制,单位:MB */
   tag?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
-  id: 'vue-tinymce-' + new Date() + ((Math.random() * 1000).toFixed(0) + ''),
-  toolbar: () => { return [] },
+  id: `vue-tinymce-${new Date()}${(Math.random() * 1000).toFixed(0)}`,
+  toolbar: () => {
+    return []
+  },
   menubar: 'file edit insert view format table',
   height: '360',
   width: '100%',
-  tag: ''
+  tag: '',
 })
 
-const emits = defineEmits<{(e: 'update:modelValue', content: string): void
-}>()
+const emits = defineEmits<{ (e: 'update:modelValue', content: string): void }>()
 
 const userStore = useUserStore()
 const appStore = useAppStore()
@@ -102,118 +104,116 @@ const state = reactive({
   tinymceContent: computed(() => {
     return props.modelValue
   }),
-  containerWidth: () => {
+  containerWidth: computed(() => {
     const width = props.width
     // Test matches `100`, `'100'`
     if (/^[\d]+(\.[\d]+)?$/.test(width.toString())) {
       return `${width}px`
     }
-    return width + ''
-  }
+    return `${width}`
+  }),
 })
 const token = userStore.token
 
-console.log(props.height);
+console.log(props.height)
 
-const initOptions = ref(
-  {
-    selector: `#${props.id}`,
-    height: props.height,
-    language: 'zh_CN',
-    body_class: 'panel-body',
-    branding: false,
-    object_resizing: false,
-    toolbar: props.toolbar.length > 0 ? props.toolbar : toolbar,
-    menubar: props.menubar,
-    plugins: plugins,
-    language_url: '/tinymce/langs/zh_CN.js',
-    skin_url: `/tinymce/skins`,
-    content_css: '/tinymce/skins/content.min.css',
-    emoticons_database_url: `/tinymce/emojis.min.js`,
-    end_container_on_empty_block: true,
-    code_dialog_height: 450,
-    code_dialog_width: 1000,
-    advlist_bullet_styles: 'square',
-    advlist_number_styles: 'default',
-    // imagetools_cors_hosts: ['ezhu.me','ezhu.com','ezhuchina.com'], //开启跨域白名单
-    // imagetools_proxy: 'proxy.php', //配置图片代理，和上面一起才能使用图片编辑插件
-    link_title: false,
-    paste_data_images: true, // 粘贴图片
-    powerpaste_word_import: 'merge',
-    // 开启默认过滤器,设置为false可以保留word复制格式
-    paste_enable_default_filters: false,
-    nonbreaking_force_tab: true, // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
-    urlconverter_callback: (url: any, node: any, onSave: any, name: any) => {
-      if (node === 'img' && url.startsWith('blob:')) {
-        const tinymce = (window as any).tinymce.get(props.id)
-        tinymce.activeEditor && tinymce.activeEditor.uploadImages()
+const initOptions = ref({
+  selector: `#${props.id}`,
+  height: props.height,
+  language: 'zh_CN',
+  body_class: 'panel-body',
+  branding: false,
+  object_resizing: false,
+  toolbar: props.toolbar.length > 0 ? props.toolbar : toolbar,
+  menubar: props.menubar,
+  plugins,
+  language_url: '/tinymce/langs/zh_CN.js',
+  skin_url: `/tinymce/skins`,
+  content_css: '/tinymce/skins/content.min.css',
+  emoticons_database_url: `/tinymce/emojis.min.js`,
+  end_container_on_empty_block: true,
+  code_dialog_height: 450,
+  code_dialog_width: 1000,
+  advlist_bullet_styles: 'square',
+  advlist_number_styles: 'default',
+  // imagetools_cors_hosts: ['ezhu.me','ezhu.com','ezhuchina.com'], //开启跨域白名单
+  // imagetools_proxy: 'proxy.php', //配置图片代理，和上面一起才能使用图片编辑插件
+  link_title: false,
+  paste_data_images: true, // 粘贴图片
+  powerpaste_word_import: 'merge',
+  // 开启默认过滤器,设置为false可以保留word复制格式
+  paste_enable_default_filters: false,
+  nonbreaking_force_tab: true, // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
+  urlconverter_callback: (url: any, node: any, onSave: any, name: any) => {
+    if (node === 'img' && url.startsWith('blob:')) {
+      const tinymce = (window as any).tinymce.get(props.id)
+      tinymce.activeEditor && tinymce.activeEditor.uploadImages()
+    }
+    return url
+  },
+  images_upload_handler: (blobInfo: any, succFun: any, failFun: any) => {
+    let xhr: any, formData
+    const file = blobInfo.blob() // 转化为易于理解的file对象
+    xhr = new XMLHttpRequest()
+    xhr.withCredentials = false
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}file/upload`)
+    xhr.setRequestHeader('Authorization', token)
+    xhr.onload = function () {
+      let json
+      if (xhr.status != 200) {
+        failFun(`HTTP Error: ${xhr.status}`)
+        return
       }
-      return url
-    },
-    images_upload_handler: (blobInfo: any, succFun: any, failFun: any) => {
-      let xhr: any, formData
-      const file = blobInfo.blob()// 转化为易于理解的file对象
-      xhr = new XMLHttpRequest()
-      xhr.withCredentials = false
-      xhr.open('POST', import.meta.env.VITE_API_URL + 'file/upload')
-      xhr.setRequestHeader('Authorization', token)
-      xhr.onload = function() {
-        let json
-        if (xhr.status != 200) {
-          failFun('HTTP Error: ' + xhr.status)
-          return
-        }
-        json = JSON.parse(xhr.responseText)
-        if (!json || typeof json.data[0].filePath !== 'string') {
-          failFun('Invalid JSON: ' + xhr.responseText)
-          return
-        }
+      json = JSON.parse(xhr.responseText)
+      if (!json || typeof json.data[0].filePath !== 'string') {
+        failFun(`Invalid JSON: ${xhr.responseText}`)
+        return
+      }
 
-        succFun(json.data[0].url)
-      }
-      formData = new FormData()
-      formData.append('tag', props.tag)
-      formData.append('file', file, file.name)// 此处与源文档不一样
-      xhr.send(formData)
-    },
-    default_link_target: '_blank',
-    init_instance_callback: (editor: any) => {
-      if (props.modelValue) {
-        editor.setContent(props.modelValue)
-      }
-      state.hasInit = true
-      editor.on('NodeChange Change KeyUp SetContent', () => {
-        state.hasChange = true
-        emits('update:modelValue', editor.getContent())
-      })
-    },
-    setup: (editor: any) => {
-      editor.on('FullscreenStateChanged', (e: any) => {
-        state.fullscreen = e.state
-      })
-    },
-    convert_urls: true
+      succFun(json.data[0].url)
+    }
+    formData = new FormData()
+    formData.append('tag', props.tag)
+    formData.append('file', file, file.name) // 此处与源文档不一样
+    xhr.send(formData)
+  },
+  default_link_target: '_blank',
+  init_instance_callback: (editor: any) => {
+    if (props.modelValue) {
+      editor.setContent(props.modelValue)
+    }
+    state.hasInit = true
+    editor.on('NodeChange Change KeyUp SetContent', () => {
+      state.hasChange = true
+      emits('update:modelValue', editor.getContent())
+    })
+  },
+  setup: (editor: any) => {
+    editor.on('FullscreenStateChanged', (e: any) => {
+      state.fullscreen = e.state
+    })
+  },
+  convert_urls: true,
+})
+
+watch(
+  () => appStore.language,
+  () => {
+    const tinymceManager = (window as any).tinymce
+    const tinymceInstance = tinymceManager.get(props.id)
+    if (state.fullscreen) {
+      tinymceInstance.execCommand('mceFullScreen')
+    }
+    if (tinymceInstance) {
+      tinymceInstance.destroy()
+    }
+    nextTick(() => {
+      console.log(initOptions)
+
+      tinymceManager.init(initOptions)
+    })
   }
 )
-
-watch(() => appStore.language, () => {
-  const tinymceManager = (window as any).tinymce
-  const tinymceInstance = tinymceManager.get(props.id)
-  if (state.fullscreen) {
-    tinymceInstance.execCommand('mceFullScreen')
-  }
-  if (tinymceInstance) {
-    tinymceInstance.destroy()
-  }
-  nextTick(() => {
-    console.log(initOptions);
-    
-    tinymceManager.init(initOptions)
-  })
-})
-
-watch(() => state.tinymceContent, (value) => {
-})
 
 const imageSuccessCBK = (arr: UploadObject[]) => {
   const tinymce = (window as any).tinymce.get(props.id)
@@ -250,7 +250,9 @@ textarea {
 </style>
 
 <style lang="scss">
-.tox-fullscreen .tox.tox-tinymce-aux, .tox-fullscreen~.tox.tox-tinymce-aux, .tox.tox-silver-sink.tox-tinymce-aux{
+.tox-fullscreen .tox.tox-tinymce-aux,
+.tox-fullscreen ~ .tox.tox-tinymce-aux,
+.tox.tox-silver-sink.tox-tinymce-aux {
   z-index: 9527;
 }
 </style>

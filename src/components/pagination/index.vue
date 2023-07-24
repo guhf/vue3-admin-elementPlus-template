@@ -1,20 +1,10 @@
 <template>
-  <div :class="{'hidden': hidden}" class="pagination-container">
-    <el-pagination
-      :layout="layout"
-      :background="background"
-      :current-page="pageIndex"
-      :page-size="pageSize"
-      :page-sizes="pageSizes || []"
-      :total="total"
-      @current-change="currentChange"
-      @size-change="sizeChange"
-    />
+  <div :class="{ hidden: hidden }" class="pagination-container">
+    <el-pagination :layout="layout" :background="background" :current-page="pageIndex" :page-size="pageSize" :page-sizes="pageSizes || []" :total="total" @current-change="currentChange" @size-change="sizeChange" />
   </div>
 </template>
 
 <script lang="ts" setup>
-
 // TODO 从其它文件进行类型导入 https://github.com/vuejs/core/issues/4294
 interface Props {
   total?: number
@@ -35,9 +25,8 @@ const props = withDefaults(defineProps<Props>(), {
   layout: 'total, sizes, prev, pager, next, jumper',
   background: true,
   autoScroll: true,
-  hidden: false
+  hidden: false,
 })
-
 
 const emit = defineEmits<{
   (e: 'size-change', size: number): void

@@ -1,4 +1,4 @@
-import { BaseModel } from '../baseModel'
+import type { BaseModel } from '../baseModel'
 
 /** 角色 */
 export declare interface Role extends BaseModel {
@@ -9,4 +9,3 @@ export declare interface Role extends BaseModel {
   isSuper?: boolean
   description?: string
 }
-

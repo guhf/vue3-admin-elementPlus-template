@@ -1,6 +1,6 @@
+import type { AttrTemplate } from '~/models/product/attrTemplateModel'
+import type { PageQuery } from '~/models/common/pageQueryModel'
 import { useRequest } from '~/hooks'
-import { AttrTemplate } from '~/models/product/attrTemplateModel'
-import { PageQuery } from '~/models/common/pageQueryModel'
 
 const { get, post, put, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateAttrTemplate = (data: AttrTemplate) => {
  * @param id 商品规格Id
  * @returns 商品规格
  */
-export const getAttrTemplate = (id : string) => {
+export const getAttrTemplate = (id: string) => {
   return get<AttrTemplate>(`product/attrtemplate/${id}`)
 }
 

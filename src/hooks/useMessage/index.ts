@@ -1,9 +1,8 @@
-
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 // #region 确认框
 
-interface confirmOptions{
+interface confirmOptions {
   message?: string
   title?: string
   confirmButtonText?: string
@@ -20,7 +19,7 @@ export const useConfirm = (options: confirmOptions) => {
   return ElMessageBox.confirm(options.message || '', options.title || '提示', {
     confirmButtonText: options.confirmButtonText || '确定',
     cancelButtonText: options.cancelButtonText || '取消',
-    type: options.type || 'warning'
+    type: options.type || 'warning',
   })
 }
 
@@ -38,7 +37,7 @@ export const useConfirmDel = (options: confirmOptions = {}) => {
 
 // #region 消息提示
 
-interface messageOptions{
+interface messageOptions {
   msg: string
   type: 'success' | 'warning' | 'info' | 'error'
 }
@@ -51,7 +50,7 @@ interface messageOptions{
 export const useMessage = (options: messageOptions) => {
   return ElMessage({
     message: options.msg || '',
-    type: options.type || 'info'
+    type: options.type || 'info',
   })
 }
 
@@ -61,7 +60,7 @@ export const useMessage = (options: messageOptions) => {
  * @returns
  */
 export const useMessageSuccess = (msg = '成功') => {
-  return useMessage({ msg: msg, type: 'success' })
+  return useMessage({ msg, type: 'success' })
 }
 
 /**
@@ -70,7 +69,7 @@ export const useMessageSuccess = (msg = '成功') => {
  * @returns
  */
 export const useMessageWarning = (msg = '警告') => {
-  return useMessage({ msg: msg, type: 'warning' })
+  return useMessage({ msg, type: 'warning' })
 }
 
 /**
@@ -79,7 +78,7 @@ export const useMessageWarning = (msg = '警告') => {
  * @returns
  */
 export const useMessageError = (msg = '错误') => {
-  return useMessage({ msg: msg, type: 'error' })
+  return useMessage({ msg, type: 'error' })
 }
 
 // #endregion

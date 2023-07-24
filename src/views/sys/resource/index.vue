@@ -10,12 +10,10 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue'
+import { reactive } from 'vue'
 import Upload from '~/components/upload/index.vue'
 
 const state = reactive({
   modelData: {} as any,
 })
-
-onMounted(() => {})
 </script>

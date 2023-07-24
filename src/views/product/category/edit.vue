@@ -42,8 +42,8 @@
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item label="附件:" prop="attrs">
-            <ConstUpload ref="attrsRef" v-model="state.modelData.attrs" />
+          <el-form-item label="附件:" prop="attachs">
+            <ConstUpload ref="attrsRef" v-model="state.modelData.attachs" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -98,9 +98,13 @@ const getData = () => {
 }
 
 const save = async () => {
-  return new Promise(async (resolve, reject) => {
-    if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidate(modelRef.value))) {
+    return new Promise((resolve, reject) => {
+      reject('效验失败')
+    })
+  }
 
+  return new Promise((resolve, reject) => {
     if (props.params.id) {
       updateCategory(state.modelData)
         .then((res: Response<any>) => {

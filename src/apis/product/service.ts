@@ -1,6 +1,6 @@
+import type { Service } from '~/models/product/ServiceModel'
+import type { PageQuery } from '~/models/common/pageQueryModel'
 import { useRequest } from '~/hooks'
-import { Service } from '~/models/product/ServiceModel'
-import { PageQuery } from '~/models/common/pageQueryModel'
 
 const { get, post, put, patch, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateService = (data: Service) => {
  * @param id 商品服务Id
  * @returns 商品服务
  */
-export const getService = (id : string) => {
+export const getService = (id: string) => {
   return get<Service>(`product/service/${id}`)
 }
 
@@ -56,5 +56,5 @@ export const delService = (ids: string) => {
  * @returns
  */
 export const enableDisableService = (id: string, enable: boolean) => {
-  return patch<any>(`product/service/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/service/${id}/${enable ? 'enable' : 'disable'}`)
 }

@@ -1,6 +1,6 @@
+import type { Product } from '~/models/product/productModel'
+import type { PageQuery } from '~/models/common/pageQueryModel'
 import { useRequest } from '~/hooks'
-import { Product } from '~/models/product/productModel'
-import { PageQuery } from '~/models/common/pageQueryModel'
 
 const { get, post, put, patch, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateProduct = (data: Product) => {
  * @param id 商品Id
  * @returns 商品
  */
-export const getProduct = (id : string) => {
+export const getProduct = (id: string) => {
   return get<Product>(`product/${id}`)
 }
 
@@ -56,5 +56,5 @@ export const delProduct = (ids: string) => {
  * @returns
  */
 export const shelvesProduct = (id: string, shelves: boolean) => {
-  return patch<any>(`product/${id}/${ shelves ? 'shelves': 'offshelves' }`)
+  return patch<any>(`product/${id}/${shelves ? 'shelves' : 'offshelves'}`)
 }

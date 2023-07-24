@@ -33,10 +33,10 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { useMessageSuccess, useValidate } from '~/hooks'
-import { Response } from '~/models/response'
-import { FormInstance } from 'element-plus'
 import { Checked } from '@element-plus/icons-vue'
+import type { FormInstance } from 'element-plus'
+import type { Response } from '~/models/response'
+import { useMessageSuccess, useValidate } from '~/hooks'
 
 import { updatePwd } from '~/apis/user'
 
@@ -68,36 +68,28 @@ const state = reactive({
     id: 0,
     oldPwd: '',
     pwd: '',
-    checkPwd: ''
+    checkPwd: '',
   },
   modelRules: {
-    oldPwd: [
-      { required: true, message: '请输入旧密码', trigger: 'blur' }
-    ],
-    pwd: [
-      { validator: validatePass, trigger: 'blur' }
-    ],
-    checkPwd: [
-      { validator: validatePass2, trigger: 'blur' }
-    ]
-  }
+    oldPwd: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
+    pwd: [{ validator: validatePass, trigger: 'blur' }],
+    checkPwd: [{ validator: validatePass2, trigger: 'blur' }],
+  },
 })
 const modelRef = ref<FormInstance>()
 
 const mSave = async () => {
-  if (!await useValidate(modelRef.value)) return
+  if (!(await useValidate(modelRef.value))) return
 
   const pwdData = {
     oldPwd: state.modelData.oldPwd,
-    pwd: state.modelData.pwd
+    pwd: state.modelData.pwd,
   }
 
   updatePwd(pwdData).then((res: Response<object>) => {
     useMessageSuccess(res.msg)
   })
 }
-
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -5,14 +5,12 @@
         <h2>你没有权限去该页面</h2>
         <ul class="list-unstyled">
           <li class="link-type">
-            <router-link to="/dashboard">
-              回首页
-            </router-link>
+            <router-link to="/dashboard"> 回首页 </router-link>
           </li>
         </ul>
       </el-col>
       <el-col :span="12">
-        <img :src="state.errGif" class="some-gif" width="313" height="428" alt="Girl has dropped her ice cream.">
+        <img :src="state.errGif" class="some-gif" width="313" height="428" alt="Girl has dropped her ice cream." />
       </el-col>
     </el-row>
   </div>
@@ -23,9 +21,8 @@ import { reactive } from 'vue'
 import errGif from '~/assets/images/401/401.gif'
 
 const state = reactive({
-  errGif: errGif + '?' + +new Date()
+  errGif: `${errGif}?${Date.now()}`,
 })
-
 </script>
 
 <style lang="scss" scoped>
@@ -37,7 +34,7 @@ const state = reactive({
   .back-btn {
     background: #008489;
     color: #fff;
-    border: none!important;
+    border: none !important;
   }
 
   .some-gif {

@@ -9,16 +9,16 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { ElNotification } from 'element-plus'
 import { Bell, BellFilled } from '@element-plus/icons-vue'
+import Drawer from './Drawer.vue'
+import type { Response } from '~/models/response'
+import type { Notify } from '~/models/common/notifyModel'
 import { useUserStore } from '~/store/user'
 import { useSignalR } from '~/hooks'
-import { Notify } from '~/models/common/notifyModel'
-import Drawer from './Drawer.vue'
 
 import { getUnReadNotifyList } from '~/apis/user/notify'
-import { Response } from '~/models/response'
 
 const userStore = useUserStore()
 const { receiveClient } = useSignalR()
@@ -30,18 +30,18 @@ const stateData = reactive({
 onMounted(async () => {
   await getNotifyData()
 
-  receiveClient("ReceiveMessage", (data: Notify) => {
+  receiveClient('ReceiveMessage', (data: Notify) => {
     let notify = ElNotification({
-      type: "success",
+      type: 'success',
       title: data.title,
       message: data.content,
-      position: "bottom-right",
+      position: 'bottom-right',
       duration: 5000,
-      onClick: () =>{
-        notify.close();
-      }
+      onClick: () => {
+        notify.close()
+      },
     })
-  });
+  })
 })
 
 const getNotifyData = () => {

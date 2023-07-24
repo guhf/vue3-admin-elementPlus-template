@@ -1,4 +1,4 @@
-import { BaseModel } from '../baseModel'
+import type { BaseModel } from '../baseModel'
 
 /** 用户 */
 export declare interface User extends BaseModel {
@@ -19,4 +19,3 @@ export declare interface UserRole {
   isAdmin?: boolean
   isSuper?: boolean
 }
-

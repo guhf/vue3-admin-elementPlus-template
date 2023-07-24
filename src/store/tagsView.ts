@@ -1,7 +1,7 @@
-import { Routes } from '~/models/route/routesModel'
 import { defineStore } from 'pinia'
-import { RouteLocationNormalized } from 'vue-router'
 import { usePermissionStore } from './permission'
+import type { RouteLocationNormalized } from 'vue-router'
+import type { Routes } from '~/models/route/routesModel'
 
 export interface TagView extends Partial<RouteLocationNormalized> {
   title?: string
@@ -11,7 +11,7 @@ export const useTagsViewStore = defineStore('tagsView', {
   state: () => {
     return {
       visitedViews: [] as TagView[],
-      cachedViews: [] as (string | undefined)[]
+      cachedViews: [] as (string | undefined)[],
     }
   },
   actions: {
@@ -26,7 +26,7 @@ export const useTagsViewStore = defineStore('tagsView', {
     },
 
     addVisitedView(view: TagView) {
-      let visitedView = this.visitedViews.find(v => v.meta?.tagName === view.meta?.tagName)
+      let visitedView = this.visitedViews.find((v) => v.meta?.tagName === view.meta?.tagName)
       if (visitedView) {
         // 替换tagView路径
         visitedView.path = view.path
@@ -40,8 +40,8 @@ export const useTagsViewStore = defineStore('tagsView', {
         fullPath: view.path || '',
         meta: view.meta || '',
         name: view.name || '',
-        path: view.path || ''
-      }as TagView)
+        path: view.path || '',
+      } as TagView)
     },
     delView(view: TagView) {
       for (const [i, v] of this.visitedViews.entries()) {
@@ -50,7 +50,7 @@ export const useTagsViewStore = defineStore('tagsView', {
           break
         }
       }
-      this.delCachedView(view.meta?.tagName + '')
+      this.delCachedView(`${view.meta?.tagName}`)
     },
     delOtherView(view: TagView) {
       this.otherViews(view)
@@ -62,17 +62,17 @@ export const useTagsViewStore = defineStore('tagsView', {
 
       const getNames = (routes: Routes) => {
         routes.forEach((route) => {
-          if(route.meta && route.meta.tagName && route.meta.tagName.toLowerCase() === tagName.toLowerCase()){
+          if (route.meta && route.meta.tagName && route.meta.tagName.toLowerCase() === tagName.toLowerCase()) {
             names.push(route.name)
           }
-          if(route.children && route.children.length){
+          if (route.children && route.children.length) {
             getNames(route.children)
           }
         })
       }
 
       getNames(usePermissionStore().routes)
-      
+
       names.forEach((name: string) => {
         const index = this.cachedViews.indexOf(name)
         index > -1 && this.cachedViews.splice(index, 1)
@@ -80,7 +80,7 @@ export const useTagsViewStore = defineStore('tagsView', {
     },
 
     otherViews(view: TagView) {
-      this.visitedViews = this.visitedViews.filter(v => {
+      this.visitedViews = this.visitedViews.filter((v) => {
         return v.meta?.affix || v.path === view.path
       })
 
@@ -94,7 +94,7 @@ export const useTagsViewStore = defineStore('tagsView', {
     },
     delAllViews() {
       // keep affix tags
-      const affixTags = this.visitedViews.filter(tag => tag.meta?.affix)
+      const affixTags = this.visitedViews.filter((tag) => tag.meta?.affix)
       this.visitedViews = affixTags
 
       this.cachedViews = []
@@ -110,12 +110,11 @@ export const useTagsViewStore = defineStore('tagsView', {
             fullPath: view.path || '',
             meta: view.meta || '',
             name: view.name || '',
-            path: view.path || ''
+            path: view.path || '',
           } as TagView
           break
         }
       }
-    }
-  }
+    },
+  },
 })
-

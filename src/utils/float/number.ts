@@ -4,45 +4,29 @@
  */
 
 /**
-* 格式金额，默认保留两位小数，并格式化为千分位
-* @param {number} number 要格式化的数字
-* @param {number} decimals 保留几位小数
-* @returns {string | null} dec_point 小数点符号
-* @returns {string | null} thousands_sep 千分位符号
-* @returns {string | null} roundtag 舍入参数("ceil" 向上取,"floor"向下取,"round" 四舍五入)，默认:round
-*/
-export function formatMoney(number, decimals, dec_point, thousands_sep, roundtag) {
-  if (!number) {
-    number = 0
-  }
-  if (!decimals) {
-    decimals = 2// 默认保留2位小数
-  }
-  if (!dec_point) {
-    dec_point = '.'
-  }
-  if (!thousands_sep) {
-    thousands_sep = ','
-  }
-  if (!roundtag) {
-    roundtag = 'round'
-  }
-  number = (number + '').replace(/[^0-9+-Ee.]/g, '')
-  roundtag = roundtag || 'ceil' // "ceil","floor","round"
-  const n = !isFinite(+number) ? 0 : +number
-  const prec = !isFinite(+decimals) ? 0 : Math.abs(decimals)
-  const sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep
-  const dec = (typeof dec_point === 'undefined') ? '.' : dec_point
-  let s = ''
-  const toFixedFix = function(n, prec) {
-    const k = Math.pow(10, prec)
+ * 格式金额，默认保留两位小数，并格式化为千分位
+ * @param {number} numerical 要格式化的数字
+ * @param {number} decimals 保留几位小数
+ * @returns {string} decPoint 小数点符号
+ * @returns {string} thousandsSep 千分位符号
+ * @returns {string} roundtag 舍入参数("ceil" 向上取,"floor"向下取,"round" 四舍五入)，默认:round
+ */
+export function formatMoney(numerical: string | number, decimals = 2, decPoint = '.', thousandsSep = ',', roundtag: 'ceil' | 'floor' | 'round' = 'round') {
+  numerical = Number(`${numerical}`.replace(/[^0-9+-Ee.]/g, ''))
+  const n = !Number.isFinite(+numerical) ? 0 : +numerical
+  const prec = !Number.isFinite(+decimals) ? 0 : Math.abs(decimals)
+  const sep = typeof thousandsSep === 'undefined' ? ',' : thousandsSep
+  const dec = typeof decPoint === 'undefined' ? '.' : decPoint
+  let s = [] as string[]
+  const toFixedFix = function (n: number, prec: number) {
+    const k = 10 ** prec
 
-    return '' + parseFloat(Math[roundtag](parseFloat((n * k).toFixed(prec * 2))).toFixed(prec * 2)) / k
+    return `${Number.parseFloat(Math[roundtag](Number.parseFloat((n * k).toFixed(prec * 2))).toFixed(prec * 2)) / k}`
   }
-  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.')
+  s = (prec ? toFixedFix(n, prec) : `${Math.round(n)}`).split('.')
   const re = /(-?\d+)(\d{3})/
   while (re.test(s[0])) {
-    s[0] = s[0].replace(re, '$1' + sep + '$2')
+    s[0] = s[0].replace(re, `$1${sep}$2`)
   }
 
   if ((s[1] || '').length < prec) {
@@ -53,20 +37,20 @@ export function formatMoney(number, decimals, dec_point, thousands_sep, roundtag
 }
 
 /**
-* 数字格式化
-* @param {number} number 要格式化的数字
-*/
-export function formatNumber(number) {
-  return isNaN(number) ? 0 : Number(number)
+ * 数字格式化
+ * @param {number} numerical 要格式化的数字
+ */
+export function formatNumber(numerical: string | number) {
+  return Number.isNaN(numerical) ? 0 : Number(numerical)
 }
 
 /**
-* 格式化单位为分的金额
-* @param {number} 金额/单位分
-*/
-export function formatCentsMoney(centsNumber) {
-  if (typeof centsNumber !== 'number') {
+ * 格式化单位为分的金额
+ * @param {number} 金额/单位分
+ */
+export function formatCentsMoney(cents: string | number) {
+  if (typeof cents !== 'number') {
     return '0.00'
   }
-  return formatMoney((centsNumber / 100), 2, '.', ',')
+  return formatMoney(cents / 100, 2, '.', ',')
 }

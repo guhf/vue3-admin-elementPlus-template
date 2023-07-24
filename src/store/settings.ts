@@ -10,11 +10,11 @@ export const useSettingsStore = defineStore('settings', {
       showSettings: layoutSettings.showSettings,
       showTagsView: layoutSettings.showTagsView,
       showSidebarLogo: layoutSettings.showSidebarLogo,
-      sidebarTextTheme: layoutSettings.sidebarTextTheme
+      sidebarTextTheme: layoutSettings.sidebarTextTheme,
     }
   },
   actions: {
-    changeSetting(payload: { key: string, value: any }) {
+    changeSetting(payload: { key: string; value: any }) {
       const { key, value } = payload
       switch (key) {
         case 'theme':
@@ -38,6 +38,6 @@ export const useSettingsStore = defineStore('settings', {
         default:
           break
       }
-    }
-  }
+    },
+  },
 })

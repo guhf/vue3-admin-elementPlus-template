@@ -1,6 +1,6 @@
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { User } from '~/models/sys/userModel'
 import { useRequest } from '~/hooks'
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { User } from '~/models/sys/userModel'
 
 const { get, post, put, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateUser = (data: User) => {
  * @param id 用户Id
  * @returns 用户
  */
-export const getUser = (id : string) => {
+export const getUser = (id: string) => {
   return get<User>(`sys/user/${id}`)
 }
 
@@ -59,10 +59,10 @@ export const delUser = (ids: string) => {
 }
 
 /**
-* 重置密码
+ * 重置密码
  * @param id 用户Id
-* @returns
-*/
+ * @returns
+ */
 export const resetPwd = (id: string) => {
   return put<any>(`sys/user/${id}/pwd/reset`)
 }

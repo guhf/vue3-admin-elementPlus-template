@@ -1,12 +1,11 @@
-
 import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useAppStore, DeviceType } from '~/store/app'
+import { DeviceType, useAppStore } from '~/store/app'
 
 const WIDTH = 992 // refer to Bootstrap's responsive design\
 const appStore = useAppStore()
 
-export default function() {
+export default function () {
   const device = computed(() => {
     return appStore.device
   })
@@ -16,11 +15,14 @@ export default function() {
   })
 
   const currentRoute = useRoute()
-  const watchRouter = watch(() => currentRoute.name, () => {
-    if (appStore.device === DeviceType.Mobile && appStore.sidebar.opened) {
-      appStore.closeSidebar(false)
+  const watchRouter = watch(
+    () => currentRoute.name,
+    () => {
+      if (appStore.device === DeviceType.Mobile && appStore.sidebar.opened) {
+        appStore.closeSidebar(false)
+      }
     }
-  })
+  )
 
   const isMobile = () => {
     const rect = document.body.getBoundingClientRect()
@@ -56,6 +58,6 @@ export default function() {
     resizeMounted,
     addEventListenerOnResize,
     removeEventListenerResize,
-    watchRouter
+    watchRouter,
   }
 }

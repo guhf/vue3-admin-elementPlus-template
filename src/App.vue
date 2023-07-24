@@ -10,7 +10,7 @@ import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 const state = reactive({
-  locale: zhCn
+  locale: zhCn,
 })
 
 // // 监听浏览器原生回退事件

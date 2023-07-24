@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-editor-container">
     <PanelGroup @handle-set-line-chart-data="handleSetLineChartData" />
-    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;border-radius: 8px;">
+    <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px; border-radius: 8px">
       <LineChart :chart-data="lineChartData" />
     </el-row>
 
@@ -44,20 +44,20 @@ export default {
     const data = {
       newVisitis: {
         expectedData: [100, 120, 161, 134, 105, 160, 165],
-        actualData: [120, 82, 91, 154, 162, 140, 145]
+        actualData: [120, 82, 91, 154, 162, 140, 145],
       },
       messages: {
         expectedData: [200, 192, 120, 144, 160, 130, 140],
-        actualData: [180, 160, 151, 106, 145, 150, 130]
+        actualData: [180, 160, 151, 106, 145, 150, 130],
       },
       purchases: {
         expectedData: [80, 100, 121, 104, 105, 90, 100],
-        actualData: [120, 90, 100, 138, 142, 130, 130]
+        actualData: [120, 90, 100, 138, 142, 130, 130],
       },
       shoppings: {
         expectedData: [130, 140, 141, 142, 145, 150, 160],
-        actualData: [120, 82, 91, 154, 162, 140, 130]
-      }
+        actualData: [120, 82, 91, 154, 162, 140, 130],
+      },
     }
 
     const lineChartData = ref(data.newVisitis)
@@ -67,16 +67,16 @@ export default {
 
     return {
       lineChartData,
-      handleSetLineChartData
+      handleSetLineChartData,
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .dashboard-editor-container {
   padding: 32px;
-  background-color: #F2F7FF;
+  background-color: #f2f7ff;
   position: relative;
 
   .chart-wrapper {
@@ -87,7 +87,7 @@ export default {
   }
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .chart-wrapper {
     padding: 8px;
   }

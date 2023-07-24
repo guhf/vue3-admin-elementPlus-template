@@ -2,7 +2,7 @@ import { ElMessage } from 'element-plus'
 import { router } from '~/router'
 import { useTagsViewStore } from '~/store/tagsView'
 
-interface routerOptions{
+interface routerOptions {
   path?: string
   msg?: string
   query?: Record<string, string | number | []>
@@ -64,8 +64,8 @@ export const useRouterUpdate = (options: routerOptions = {}) => {
  */
 export const useRouterBackIndex = (options: routerOptions = {}) => {
   let currentPath = router.currentRoute.value.fullPath
-  options.path = options.path || currentPath.substring(0, currentPath.lastIndexOf('/'))
-  options.path = currentPath.indexOf('/create') > -1 ? options.path : options.path.substring(0, options.path.lastIndexOf('/'))
+  options.path = options.path || currentPath.slice(0, Math.max(0, currentPath.lastIndexOf('/')))
+  options.path = currentPath.includes('/create') ? options.path : options.path.slice(0, Math.max(0, options.path.lastIndexOf('/')))
 
   //replace(/([A-Z])/g,"/$1")
   // 返回到index页面时清除掉其他页面缓存
@@ -74,6 +74,8 @@ export const useRouterBackIndex = (options: routerOptions = {}) => {
   return useRouterPush(options).then(() => {
     // 有缓存，需要跳转后清除
     // options.path = ''
-    if (options.msg) { ElMessage.success(options.msg) }
+    if (options.msg) {
+      ElMessage.success(options.msg)
+    }
   })
 }

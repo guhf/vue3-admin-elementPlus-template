@@ -25,7 +25,7 @@ export const getNotifyPageList = (cond: any) => {
  * @returns
  */
 export const delNotify = (ids: string) => {
-  return del<any>('user/notify/' + ids)
+  return del<any>(`user/notify/${ids}`)
 }
 
 /**

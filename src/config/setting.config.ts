@@ -1,8 +1,8 @@
-import { Language, Environment, RouterSource, RouterMode, StorageLocation } from '~/constant/settings'
+import { Environment, Language, RouterMode, RouterSource, StorageLocation } from '~/constant/settings'
 
-export interface Settings{
+export interface Settings {
   // 项目中页面显示的名称
-  title:string
+  title: string
   // 基础url
   baseURL?: string
   // pro版本copyright可随意修改
@@ -54,7 +54,7 @@ const settings: Settings = {
   // 项目中页面显示的名称
   title: '信息管理系统',
   // 基础url
-  baseURL: import.meta.env.VITE_API_URL + '',
+  baseURL: `${import.meta.env.VITE_API_URL}`,
   // pro版本copyright可随意修改
   copyright: 'hont',
   // 缓存路由的最大数量
@@ -97,7 +97,7 @@ const settings: Settings = {
   templateFolder: 'project',
   // 画廊布局和综合布局时，是否点击一级菜单默认开启第一个二级菜单
   openFirstMenu: true,
-  version: '1.0'
+  version: '1.0',
 }
 
 export default settings

@@ -144,11 +144,9 @@ const mSetAuth = (checkData: TreeData) => {
     authData.push(item.id)
   })
 
-  setAuth(state.roleId, authData)
-    .then((res: Response<any>) => {
-      useMessageSuccess(res.msg)
-      roleAuthDialogVisible.value = false
-    })
-    .catch((error) => {})
+  setAuth(state.roleId, authData).then((res: Response<any>) => {
+    useMessageSuccess(res.msg)
+    roleAuthDialogVisible.value = false
+  })
 }
 </script>

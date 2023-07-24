@@ -107,7 +107,7 @@ export const svg8 = `
                   <animate attributeName="height" attributeType="XML" dur="1s" values="30; 100; 30" repeatCount="indefinite" begin="0.1s"></animate>
                 </rect>`
 
-// Loader 9 
+// Loader 9
 export const svg9 = `
                 <rect x="20" y="50" width="4" height="10" fill="currentColor">
                   <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0" dur="0.6s" repeatCount="indefinite"></animateTransform>

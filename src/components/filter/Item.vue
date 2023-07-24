@@ -1,11 +1,11 @@
 <template>
-  <div class="filter-item" :style="{ width: `calc((100% - 10px * ${itemNum})/ ${itemNum})` }">
+  <div :id="String(key)" :key="key" class="filter-item" :style="{ width: `calc((100% - 10px * ${itemNum})/ ${itemNum})` }">
     <label>{{ label }}</label>
     <slot />
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 interface Props {
   label: string
 }
@@ -18,6 +18,11 @@ let itemNum = ref<number>(0)
 
 onMounted(() => {
   setItemNum()
+})
+
+const key = computed(() => {
+  console.log(Date.now())
+  return Date.now()
 })
 
 window.onresize = () => {

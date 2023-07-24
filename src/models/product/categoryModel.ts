@@ -1,7 +1,7 @@
-import { BaseModel } from "../baseModel";
+import type { BaseModel } from '../baseModel'
 
 /** 商品分类 */
-export declare interface Category extends BaseModel{
+export declare interface Category extends BaseModel {
   categoryCode?: string
   categoryName?: string
   parentId?: string
@@ -10,4 +10,4 @@ export declare interface Category extends BaseModel{
   sortNo?: string
   description?: string
   categoryItems?: Category[]
-} 
+}

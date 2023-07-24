@@ -2,8 +2,8 @@
   <div v-if="(!item?.meta || !item.meta.hidden) && item.menuType === 1">
     <template v-if="!alwaysShowRootMenu && theOnlyOneChild && (!theOnlyOneChild.children || theOnlyOneChild.children.length === 0)">
       <SidebarItemLink v-if="theOnlyOneChild.meta" :to="resolvePath(theOnlyOneChild.path)">
-        <el-menu-item :index="resolvePath(theOnlyOneChild.path)" :class="{'sub-menu-title-noDropdown': isFirstLevel}">
-          <SvgIcon v-if="theOnlyOneChild.meta.icon" :iconName="theOnlyOneChild.meta.icon" style="width: 1.5rem; height: 1.5rem;" />
+        <el-menu-item :index="resolvePath(theOnlyOneChild.path)" :class="{ 'sub-menu-title-noDropdown': isFirstLevel }">
+          <SvgIcon v-if="theOnlyOneChild.meta.icon" :icon-name="theOnlyOneChild.meta.icon" style="width: 1.5rem; height: 1.5rem" />
           <span v-if="theOnlyOneChild.meta.title">
             {{ theOnlyOneChild.meta.title }}
           </span>
@@ -12,16 +12,13 @@
     </template>
     <el-sub-menu v-else :index="resolvePath(item.path)" popper-append-to-body>
       <template #title>
-        <SvgIcon v-if="item.meta.icon" :iconName="item.meta.icon" />
+        <SvgIcon v-if="item.meta.icon" :icon-name="item.meta.icon" />
         <span v-if="item.meta && item.meta.title">
           {{ item.meta.title }}
         </span>
       </template>
       <template v-if="item.children">
-        <sidebar-item
-          v-for="child in item.children" :key="child.path" :item="child"
-          :is-collapse="isCollapse" :is-first-level="false" :base-path="resolvePath(child.path)" class="nest-menu"
-        />
+        <sidebar-item v-for="child in item.children" :key="child.path" :item="child" :is-collapse="isCollapse" :is-first-level="false" :base-path="resolvePath(child.path)" class="nest-menu" />
       </template>
     </el-sub-menu>
   </div>
@@ -29,10 +26,9 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { isExternal } from '~/utils/validate'
 import SidebarItemLink from './SidebarItemLink.vue'
-
-import { Route } from '~/models/route/routesModel'
+import type { Route } from '~/models/route/routesModel'
+import { isExternal } from '~/utils/validate'
 
 interface Props {
   item: Route
@@ -51,13 +47,13 @@ const props = withDefaults(defineProps<Props>(), {
       authority: '',
       meta: {
         title: '',
-        tagName: ''
-      }
+        tagName: '',
+      },
     }
   },
   isCollapse: false,
   isFirstLevel: false,
-  basePath: ''
+  basePath: '',
 })
 
 const alwaysShowRootMenu = computed(() => {

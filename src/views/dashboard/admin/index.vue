@@ -39,7 +39,7 @@
 <style lang="scss" scoped>
 .dashboard-editor-container {
   padding: 10px 20px;
-  background-color: #F2F7FF;
+  background-color: #f2f7ff;
   position: relative;
 
   .chart-wrapper {
@@ -50,7 +50,7 @@
   }
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .chart-wrapper {
     padding: 8px;
   }

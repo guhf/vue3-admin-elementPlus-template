@@ -7,43 +7,31 @@
 
       <div class="drawer-item">
         <span>{{ t('settings.showTagsView') }}</span>
-        <el-switch
-          v-model="stateData.showTagsView"
-          class="drawer-switch"
-        />
+        <el-switch v-model="stateData.showTagsView" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
         <span>{{ t('settings.showSidebarLogo') }}</span>
-        <el-switch
-          v-model="stateData.showSidebarLogo"
-          class="drawer-switch"
-        />
+        <el-switch v-model="stateData.showSidebarLogo" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
         <span>{{ t('settings.fixedHeader') }}</span>
-        <el-switch
-          v-model="stateData.fixedHeader"
-          class="drawer-switch"
-        />
+        <el-switch v-model="stateData.fixedHeader" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
         <span>{{ t('settings.sidebarTextTheme') }}</span>
-        <el-switch
-          v-model="stateData.sidebarTextTheme"
-          class="drawer-switch"
-        />
+        <el-switch v-model="stateData.sidebarTextTheme" class="drawer-switch" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useSettingsStore } from '~/store/settings'
 import { reactive, watch } from 'vue'
 import { useI18n } from 'vue-i18n/index'
+import { useSettingsStore } from '~/store/settings'
 
 const settingsStore = useSettingsStore()
 const { t } = useI18n()
@@ -54,24 +42,36 @@ const stateData = reactive({
   sidebarTextTheme: settingsStore.sidebarTextTheme,
   themeChange: (value: string) => {
     settingsStore.changeSetting({ key: 'theme', value })
+  },
+})
+
+watch(
+  () => stateData.fixedHeader,
+  (value) => {
+    settingsStore.changeSetting({ key: 'fixedHeader', value })
   }
-})
+)
 
-watch(() => stateData.fixedHeader, (value) => {
-  settingsStore.changeSetting({ key: 'fixedHeader', value })
-})
+watch(
+  () => stateData.showTagsView,
+  (value) => {
+    settingsStore.changeSetting({ key: 'showTagsView', value })
+  }
+)
 
-watch(() => stateData.showTagsView, (value) => {
-  settingsStore.changeSetting({ key: 'showTagsView', value })
-})
+watch(
+  () => stateData.showSidebarLogo,
+  (value) => {
+    settingsStore.changeSetting({ key: 'showSidebarLogo', value })
+  }
+)
 
-watch(() => stateData.showSidebarLogo, (value) => {
-  settingsStore.changeSetting({ key: 'showSidebarLogo', value })
-})
-
-watch(() => stateData.sidebarTextTheme, (value) => {
-  settingsStore.changeSetting({ key: 'sidebarTextTheme', value })
-})
+watch(
+  () => stateData.sidebarTextTheme,
+  (value) => {
+    settingsStore.changeSetting({ key: 'sidebarTextTheme', value })
+  }
+)
 </script>
 
 <style lang="scss" scoped>
@@ -83,19 +83,19 @@ watch(() => stateData.sidebarTextTheme, (value) => {
 
   .drawer-title {
     margin-bottom: 12px;
-    color: rgba(0, 0, 0, .85);
+    color: rgba(0, 0, 0, 0.85);
     font-size: 14px;
     line-height: 22px;
   }
 
   .drawer-item {
-    color: rgba(0, 0, 0, .65);
+    color: rgba(0, 0, 0, 0.65);
     font-size: 14px;
     padding: 12px 0;
   }
 
   .drawer-switch {
-    float: right
+    float: right;
   }
 }
 </style>

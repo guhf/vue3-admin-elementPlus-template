@@ -13,7 +13,6 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  isActive: false
+  isActive: false,
 })
-
 </script>

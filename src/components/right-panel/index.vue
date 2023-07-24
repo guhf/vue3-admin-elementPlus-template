@@ -1,5 +1,5 @@
 <template>
-  <div class="handle-button" :style="{'top': buttonTop+'px','backgroundColor': theme}" @click="show= true">
+  <div class="handle-button" :style="{ top: buttonTop + 'px', backgroundColor: theme }" @click="show = true">
     <i class="el-icon-setting" />
   </div>
   <el-drawer v-model="show" title="设置" size="300px" :direction="direction" destroy-on-close>
@@ -9,8 +9,8 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import type { Direction } from 'element-plus'
 import { useSettingsStore } from '~/store/settings'
-import { Direction } from 'element-plus'
 
 interface Props {
   buttonTop?: number
@@ -19,7 +19,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   buttonTop: 250,
-  direction: 'rtl'
+  direction: 'rtl',
 })
 
 const show = ref(false)
@@ -30,7 +30,6 @@ const theme = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-
 .handle-button {
   width: 48px;
   height: 48px;

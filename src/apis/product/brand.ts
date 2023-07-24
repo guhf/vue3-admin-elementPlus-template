@@ -1,6 +1,6 @@
+import type { Brand } from '~/models/product/brandModel'
+import type { PageQuery } from '~/models/common/pageQueryModel'
 import { useRequest } from '~/hooks'
-import { Brand } from '~/models/product/brandModel'
-import { PageQuery } from '~/models/common/pageQueryModel'
 
 const { get, post, put, patch, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateBrand = (data: Brand) => {
  * @param id 商品品牌Id
  * @returns 商品品牌
  */
-export const getBrand = (id : string) => {
+export const getBrand = (id: string) => {
   return get<Brand>(`product/brand/${id}`)
 }
 
@@ -56,5 +56,5 @@ export const delBrand = (ids: string) => {
  * @returns
  */
 export const enableDisableBrand = (id: string, enable: boolean) => {
-  return patch<any>(`product/brand/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/brand/${id}/${enable ? 'enable' : 'disable'}`)
 }

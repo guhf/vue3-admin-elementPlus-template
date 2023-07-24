@@ -1,10 +1,8 @@
 <template>
-  <div class="navbar">
-    
-  </div>
+  <div class="navbar" />
 </template>
 
-<script  lang="ts" setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
 import { useAppStore } from '~/store/app'
 

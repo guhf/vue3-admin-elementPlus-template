@@ -31,22 +31,28 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  value: () => { return [] },
+  value: () => {
+    return []
+  },
   url: '',
   field: '',
   width: 300,
   height: 300,
-  params: () => { return {} },
-  headers: () => { return {} }
+  params: () => {
+    return {}
+  },
+  headers: () => {
+    return {}
+  },
 })
 
-const emits = defineEmits<{(e: 'input', val: any[]): void
+const emits = defineEmits<{
+  (e: 'input', val: any[]): void
   (e: 'src-file-set', fileName: string, fileType: string, fileSize: number): void
   (e: 'crop-success', imgDataUrl: string, field: string): void
   (e: 'crop-upload-success', jsonData: any, field: string): void
   (e: 'crop-upload-fail', status: boolean, field: string): void
-}
->()
+}>()
 
 const show = computed({
   get: () => {
@@ -54,7 +60,7 @@ const show = computed({
   },
   set: (value) => {
     emits('input', [...value])
-  }
+  },
 })
 
 const srcFileSet = (fileName: string, fileType: string, fileSize: number) => {

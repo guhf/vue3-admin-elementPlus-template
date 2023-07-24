@@ -1,3 +1,3 @@
 interface ScrollPane {
-  moveToCurrentTag: (currentTag: HTMLElement) => {}
+  moveToCurrentTag: (currentTag: HTMLElement) => void
 }

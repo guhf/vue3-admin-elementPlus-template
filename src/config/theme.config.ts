@@ -1,21 +1,21 @@
 // 布局枚举
-enum Layout{
-    Horizontal,
-    Vertical,
-    Gallery,
-    Comprehensive,
-    Common
+enum Layout {
+  Horizontal,
+  Vertical,
+  Gallery,
+  Comprehensive,
+  Common,
 }
 // 主题分类
-enum ThemeName{
-    Default,
-    Ocean,
-    Green,
-    Glory,
-    White
+enum ThemeName {
+  Default,
+  Ocean,
+  Green,
+  Glory,
+  White,
 }
 
-export interface Theme{
+export interface Theme {
   // 布局种类 horizontal vertical gallery comprehensive common
   layout?: Layout
   // 主题名称 default ocean green glory white
@@ -62,7 +62,7 @@ const themeConfig: Theme = {
   // 是否显示通知组件
   showNotify: true,
   // 是否显示全屏组件
-  showFullScreen: true
+  showFullScreen: true,
 }
 
 export default themeConfig

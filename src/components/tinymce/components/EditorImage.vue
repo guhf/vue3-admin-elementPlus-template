@@ -1,52 +1,18 @@
 <template>
   <div class="upload-container">
-    <el-button
-      :style="{background: color, borderColor: color}"
-      icon="el-icon-upload"
-      size="small"
-      type="primary"
-      @click="dialogVisible = true"
-    >
-      上传
-    </el-button>
-    <el-dialog
-      v-model="dialogVisible"
-      :modal-append-to-body="false"
-    >
-      <el-upload
-        :multiple="true"
-        :file-list="defaultFileList"
-        :show-file-list="true"
-        :on-remove="handleRemove"
-        :on-success="handleSuccess"
-        :before-upload="beforeUpload"
-        class="editor-slide-upload"
-        action="https://httpbin.org/post"
-        list-type="picture-card"
-      >
-        <el-button
-          size="small"
-          type="primary"
-        >
-          Click upload
-        </el-button>
+    <el-button :style="{ background: color, borderColor: color }" icon="el-icon-upload" size="small" type="primary" @click="dialogVisible = true"> 上传 </el-button>
+    <el-dialog v-model="dialogVisible" :modal-append-to-body="false">
+      <el-upload :multiple="true" :file-list="defaultFileList" :show-file-list="true" :on-remove="handleRemove" :on-success="handleSuccess" :before-upload="beforeUpload" class="editor-slide-upload" action="https://httpbin.org/post" list-type="picture-card">
+        <el-button size="small" type="primary"> Click upload </el-button>
       </el-upload>
-      <el-button @click="dialogVisible = false">
-        Cancel
-      </el-button>
-      <el-button
-        type="primary"
-        @click="handleSubmit"
-      >
-        Confirm
-      </el-button>
+      <el-button @click="dialogVisible = false"> Cancel </el-button>
+      <el-button type="primary" @click="handleSubmit"> Confirm </el-button>
     </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
-
-import { reactive, defineComponent, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { ElMessage } from 'element-plus'
 export interface UploadObject {
   hasSuccess: boolean
@@ -59,9 +25,8 @@ export default defineComponent({
   props: {
     color: {
       type: String,
-      default: ''
-    }
-
+      default: '',
+    },
   },
   emits: ['success-callback'],
   setup(_, ctx) {
@@ -70,10 +35,10 @@ export default defineComponent({
       dialogVisible: false,
       defaultFileList: [],
       checkAllSuccess: () => {
-        return Object.keys(listObj).every(item => listObj[item].hasSuccess)
+        return Object.keys(listObj).every((item) => listObj[item].hasSuccess)
       },
       handleSubmi: () => {
-        const arr = Object.keys(listObj).map(v => listObj[v])
+        const arr = Object.keys(listObj).map((v) => listObj[v])
         if (!dataMap.checkAllSuccess()) {
           ElMessage.success('Please wait for all images to be uploaded successfully. If there is a network problem, please refresh the page and upload again!')
         }
@@ -115,12 +80,12 @@ export default defineComponent({
             uid: file.uid,
             url: '',
             width: img.width,
-            height: img.height
+            height: img.height,
           }
         }
       },
       handleSubmit() {
-        const arr = Object.keys(listObj).map(v => listObj[v])
+        const arr = Object.keys(listObj).map((v) => listObj[v])
         if (!dataMap.checkAllSuccess()) {
           ElMessage.warning('Please wait for all images to be uploaded successfully. If there is a network problem, please refresh the page and upload again!')
           return
@@ -129,11 +94,11 @@ export default defineComponent({
         listObj = {}
         dataMap.defaultFileList = []
         dataMap.dialogVisible = false
-      }
+      },
     })
 
     return { ...toRefs(dataMap), listObj }
-  }
+  },
 })
 </script>
 
@@ -146,7 +111,6 @@ export default defineComponent({
 </style>
 
 <style lang="scss" scoped>
-
 // Refine element ui upload
 .upload-container {
   .el-upload {

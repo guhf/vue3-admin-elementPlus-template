@@ -1,4 +1,4 @@
-import { BaseModel } from '../baseModel'
+import type { BaseModel } from '../baseModel'
 
 export declare interface userLogin extends BaseModel {
   accountName?: string
@@ -11,4 +11,3 @@ export declare interface userLogin extends BaseModel {
   loginDateTime?: Date
   loginType?: number
 }
-

@@ -1,4 +1,4 @@
-import { BaseModel } from "./baseModel"
+import type { BaseModel } from './baseModel'
 
 /** 登录信息 */
 export declare interface LoginInfo {
@@ -7,7 +7,7 @@ export declare interface LoginInfo {
 }
 
 /** 用户Token */
-export declare interface Token{
+export declare interface Token {
   accessToken: string
 }
 

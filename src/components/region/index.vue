@@ -17,10 +17,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted, watch } from 'vue'
+import { onMounted, reactive, watch } from 'vue'
 
-import { getProvinceList, getCityList, getDistrictList } from '~/apis/common/district'
-import { ComponentSize } from 'element-plus/es/constants'
+import type { ComponentSize } from 'element-plus/es/constants'
+import { getCityList, getDistrictList, getProvinceList } from '~/apis/common/district'
 
 interface Props {
   provinceId?: any
@@ -35,13 +35,10 @@ const props = withDefaults(defineProps<Props>(), {
   cityId: '',
   countyId: '',
   size: 'default',
-  clearable: false
+  clearable: false,
 })
 
-const emits = defineEmits<{(e: 'provinceChange', val: number): void
-    (e: 'cityChange', val: number): void
-    (e: 'countyChange', val: number): void
-  }>()
+const emits = defineEmits<{ (e: 'provinceChange', val: number): void; (e: 'cityChange', val: number): void; (e: 'countyChange', val: number): void }>()
 
 const stateData = reactive({
   provinceData: [] as any[],
@@ -49,26 +46,35 @@ const stateData = reactive({
   countyData: [] as any[],
   provinceId: '',
   cityId: '',
-  countyId: ''
+  countyId: '',
 })
 
-watch(() => props.provinceId, () => {
-  stateData.provinceId = props.provinceId
-})
-
-watch(() => props.cityId, () => {
-  stateData.cityId = props.cityId
-  if (props.cityId > 0) {
-    getCityData(Number(stateData.provinceId))
+watch(
+  () => props.provinceId,
+  () => {
+    stateData.provinceId = props.provinceId
   }
-})
+)
 
-watch(() => props.countyId, () => {
-  stateData.countyId = props.countyId
-  if (props.countyId > 0) {
-    getDistrictData(Number(stateData.cityId))
+watch(
+  () => props.cityId,
+  () => {
+    stateData.cityId = props.cityId
+    if (props.cityId > 0) {
+      getCityData(Number(stateData.provinceId))
+    }
   }
-})
+)
+
+watch(
+  () => props.countyId,
+  () => {
+    stateData.countyId = props.countyId
+    if (props.countyId > 0) {
+      getDistrictData(Number(stateData.cityId))
+    }
+  }
+)
 
 onMounted(() => {
   getProvinceData()
@@ -112,9 +118,7 @@ const countyChange = (val: number) => {
   emits('countyChange', val)
 }
 
-defineExpose({
-})
+defineExpose({})
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

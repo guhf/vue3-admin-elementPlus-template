@@ -1,8 +1,8 @@
+import type { PageQuery } from '~/models/common/pageQueryModel'
+import type { Role } from '~/models/sys/roleModel'
+import type { Options } from '~/models/common/optionModel'
 import { useRequest } from '~/hooks'
 const { get, post, put, del } = useRequest()
-import { PageQuery } from '~/models/common/pageQueryModel'
-import { Role } from '~/models/sys/roleModel'
-import { Options } from '~/models/common/optionModel'
 
 /**
  * 创建角色
@@ -27,7 +27,7 @@ export const updateRole = (data: Role) => {
  * @param id 角色Id
  * @returns 角色
  */
-export const getRole = (id : string) => {
+export const getRole = (id: string) => {
   return get<Role>(`sys/role/${id}`)
 }
 
@@ -55,7 +55,7 @@ export const getRoleSelectList = () => {
  * @returns
  */
 export const delRole = (ids: string) => {
-  return del<any>('sys/role/' + ids)
+  return del<any>(`sys/role/${ids}`)
 }
 
 /**

@@ -16,11 +16,10 @@ export default {
     sysMenu: 'Menu Manage',
 
     log: 'Log Manage',
-    logUserLogin: 'User Login Log'
-
+    logUserLogin: 'User Login Log',
   },
   navbar: {
-    logOut: 'Log Out'
+    logOut: 'Log Out',
   },
   login: {
     title: 'Login Form',
@@ -30,7 +29,7 @@ export default {
     capslock: 'Caps lock is On',
     any: 'any',
     thirdparty: 'Or connect with',
-    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !',
   },
   table: {
     add: 'Add',
@@ -38,23 +37,23 @@ export default {
     search: 'Search',
     export: 'Export',
     actions: 'Actions',
-    check: 'Check'
+    check: 'Check',
   },
   show: {
     edit: 'Edit',
-    back: 'Back'
+    back: 'Back',
   },
   edit: {
     save: 'Save',
     cancel: 'Cancel',
     confirm: 'Confirm',
-    back: 'Back'
+    back: 'Back',
   },
   tagsView: {
     refresh: 'Refresh',
     close: 'Close',
     closeOthers: 'Close Others',
-    closeAll: 'Close All'
+    closeAll: 'Close All',
   },
   settings: {
     title: 'Page style setting',
@@ -62,6 +61,6 @@ export default {
     showTagsView: 'Open Tags-View',
     showSidebarLogo: 'Sidebar Logo',
     fixedHeader: 'Fixed Header',
-    sidebarTextTheme: 'Sidebar Text Theme'
-  }
+    sidebarTextTheme: 'Sidebar Text Theme',
+  },
 }

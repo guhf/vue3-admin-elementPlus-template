@@ -4,16 +4,12 @@
  * @param value 枚举值
  * @returns
  */
-export const useEnumToDescription = (enums: any[], value : number) => {
+export const useEnumToDescription = (enums: any[], value: number) => {
   if (!enums) {
     return ''
   }
 
-  return enums.find((item : any) => {
-    if (Number(item.value) === value) {
-      return item.label
-    }
-  }).label
+  return enums.find((item: any) => {
+    return Number(item.value) === value
+  })?.label
 }
-
-

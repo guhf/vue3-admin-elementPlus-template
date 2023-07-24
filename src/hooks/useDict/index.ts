@@ -1,11 +1,11 @@
-import { Options } from '~/models/common/optionModel'
+import type { Options } from '~/models/common/optionModel'
 import { useDictStore } from '~/store/dict'
 
 /**
  * 字典信息
  * @param dictCode 字典编号
  */
-export const useDict = (dictCode: string = '') => {
+export const useDict = (dictCode = '') => {
   let dicts = useDictStore().getDictData(dictCode)
 
   return dicts
@@ -18,7 +18,7 @@ export const useDict = (dictCode: string = '') => {
  * @param labelName label名称
  * @param valueName value名称
  */
-export const useValueToLabel = (options: Options, value: string | number | boolean | undefined, labelName: string = 'label', valueName: string = 'value') => {
+export const useValueToLabel = (options: Options, value: string | number | boolean | undefined, labelName = 'label', valueName = 'value') => {
   let valOption = options.find((item) => {
     return String(item[valueName]) == String(value)
   })

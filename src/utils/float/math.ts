@@ -32,10 +32,10 @@ export function isInteger(obj: any) {
 }
 
 /**
-* 将一个浮点数转成整数，返回整数和倍数。如 3.14 >> 314，倍数是 100
-* @param floatNum 小数
-* @return {times:100, num: 314}
-*/
+ * 将一个浮点数转成整数，返回整数和倍数。如 3.14 >> 314，倍数是 100
+ * @param floatNum 小数
+ * @return {times:100, num: 314}
+ */
 export function toInteger(floatNum: number) {
   const ret = { times: 1, num: 0 }
   const isNegative = floatNum < 0
@@ -43,11 +43,11 @@ export function toInteger(floatNum: number) {
     ret.num = floatNum
     return ret
   }
-  const strfi = floatNum + ''
+  const strfi = `${floatNum}`
   const dotPos = strfi.indexOf('.')
   const len = strfi.slice(dotPos + 1).length
-  const times = Math.pow(10, len)
-  let intNum = parseInt(String(Math.abs(floatNum) * times + 0.5), 10)
+  const times = 10 ** len
+  let intNum = Number.parseInt(String(Math.abs(floatNum) * times + 0.5), 10)
   ret.times = times
   if (isNegative) {
     intNum = -intNum
@@ -57,19 +57,19 @@ export function toInteger(floatNum: number) {
 }
 
 /**
-* 浮点型数字运算精度丢失修复
-* @param num 小数
-* @param dig 精度，保留小数位数（默认两位）
-* @return dig位小数
-*/
+ * 浮点型数字运算精度丢失修复
+ * @param num 小数
+ * @param dig 精度，保留小数位数（默认两位）
+ * @return dig位小数
+ */
 export function toFixed(num: number, dig: number) {
-  const times = Math.pow(10, dig | 2)
+  const times = 10 ** (dig | 2)
   let des = String(num * times + 0.5)
-  des = (parseInt(des, 10) / times) + ''
+  des = `${Number.parseInt(des, 10) / times}`
 
-  const pos_decimal = des.indexOf('.')
-  if (pos_decimal > 0) {
-    while (des.length <= pos_decimal + dig) {
+  const posDecimal = des.indexOf('.')
+  if (posDecimal > 0) {
+    while (des.length <= posDecimal + dig) {
       des += '0'
     }
   }
@@ -78,15 +78,15 @@ export function toFixed(num: number, dig: number) {
 }
 
 /**
-* 浮点型数字运算精度丢失修复
-* 核心方法，实现加减乘除运算，确保不丢失精度
-* 思路：把小数放大为整数（乘），进行算术运算，再缩小为小数（除）
-* @param a 运算数1
-* @param b 运算数2
-* @param dig 精度，保留的小数点数
-* @param op 运算类型，有加减乘除（add/subtract/multiply/divide）
-* @return dig位小数
-*/
+ * 浮点型数字运算精度丢失修复
+ * 核心方法，实现加减乘除运算，确保不丢失精度
+ * 思路：把小数放大为整数（乘），进行算术运算，再缩小为小数（除）
+ * @param a 运算数1
+ * @param b 运算数2
+ * @param dig 精度，保留的小数点数
+ * @param op 运算类型，有加减乘除（add/subtract/multiply/divide）
+ * @return dig位小数
+ */
 function operation(a: number, b: number, dig: number, op: string) {
   const o1 = toInteger(a)
   const o2 = toInteger(b)
@@ -98,11 +98,14 @@ function operation(a: number, b: number, dig: number, op: string) {
   let result = null
   switch (op) {
     case 'add':
-      if (t1 === t2) { // 两个小数位数相同
+      if (t1 === t2) {
+        // 两个小数位数相同
         result = n1 + n2
-      } else if (t1 > t2) { // o1 小数位 大于 o2
+      } else if (t1 > t2) {
+        // o1 小数位 大于 o2
         result = n1 + n2 * (t1 / t2)
-      } else { // o1 小数位 小于 o2
+      } else {
+        // o1 小数位 小于 o2
         result = n1 * (t2 / t1) + n2
       }
       return toFixed(result / max, dig)
@@ -119,51 +122,55 @@ function operation(a: number, b: number, dig: number, op: string) {
       result = (n1 * n2) / (t1 * t2)
       return toFixed(result, dig)
     case 'divide':
-      if (n2 === 0) { result = 0 } else { result = (n1 / n2) * (t2 / t1) }
+      if (n2 === 0) {
+        result = 0
+      } else {
+        result = (n1 / n2) * (t2 / t1)
+      }
       return toFixed(result, dig)
   }
 }
 
 /**
-* 加法
-* @param a 运算数1
-* @param b 运算数2
-* @param dig 精度，保留小数位数（默认两位）
-* @return dig精度数字
-*/
+ * 加法
+ * @param a 运算数1
+ * @param b 运算数2
+ * @param dig 精度，保留小数位数（默认两位）
+ * @return dig精度数字
+ */
 export function add(a: number, b: number, dig: number) {
-  return operation(a, b, (dig | 2), 'add')
+  return operation(a, b, dig | 2, 'add')
 }
 
 /**
-* 减法
-* @param a 运算数1
-* @param b 运算数2
-* @param dig 精度，保留小数位数（默认两位）
-* @return dig精度数字
-*/
+ * 减法
+ * @param a 运算数1
+ * @param b 运算数2
+ * @param dig 精度，保留小数位数（默认两位）
+ * @return dig精度数字
+ */
 export function subtract(a: number, b: number, dig: number) {
-  return operation(a, b, (dig | 2), 'subtract')
+  return operation(a, b, dig | 2, 'subtract')
 }
 
 /**
-* 乘法
-* @param a 运算数1
-* @param b 运算数2
-* @param dig 精度，保留小数位数（默认两位）
-* @return dig精度数字
-*/
+ * 乘法
+ * @param a 运算数1
+ * @param b 运算数2
+ * @param dig 精度，保留小数位数（默认两位）
+ * @return dig精度数字
+ */
 export function multiply(a: number, b: number, dig: number) {
-  return operation(a, b, (dig | 2), 'multiply')
+  return operation(a, b, dig | 2, 'multiply')
 }
 
 /**
-* 除法
-* @param a 运算数1
-* @param b 运算数2
-* @param dig 精度，保留小数位数（默认两位）
-* @return dig精度数字
-*/
+ * 除法
+ * @param a 运算数1
+ * @param b 运算数2
+ * @param dig 精度，保留小数位数（默认两位）
+ * @return dig精度数字
+ */
 export function divide(a: number, b: number, dig: number) {
-  return operation(a, b, (dig | 2), 'divide')
+  return operation(a, b, dig | 2, 'divide')
 }

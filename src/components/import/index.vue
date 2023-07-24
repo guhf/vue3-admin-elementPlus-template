@@ -21,9 +21,9 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { UploadInstance, UploadUserFile } from 'element-plus'
 import { Upload as UploadIcon } from '@element-plus/icons-vue'
-import { useRequest, useMessageSuccess, useMessageWarning } from '~/hooks'
+import type { UploadInstance, UploadUserFile } from 'element-plus'
+import { useMessageSuccess, useMessageWarning, useRequest } from '~/hooks'
 import { ResponseCode } from '~/constant/responses'
 
 import Upload from '~/components/upload/index.vue'
@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
   dialogTitle: '导入',
   url: '',
   templateUrl: '',
-  fileSize: 5
+  fileSize: 5,
 })
 
 const emits = defineEmits<{
@@ -52,7 +52,7 @@ const emits = defineEmits<{
 
 const stateData = reactive({
   showImportDialog: false,
-  uploadList: [] as UploadUserFile[]
+  uploadList: [] as UploadUserFile[],
 })
 
 const importDialogRef = ref<ConstDialog>()
@@ -83,5 +83,4 @@ const handleImport = () => {
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

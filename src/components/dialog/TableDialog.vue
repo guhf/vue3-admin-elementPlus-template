@@ -1,14 +1,6 @@
 <template>
-  <ConstDialog
-    ref="tbDialogRef" :title="title" :width="width" :btns="btns"
-    @confirm="mConfirm" @check="mCheck" @save="mSave" @close="mClose"
-  >
-    <ConstTable
-      ref="tbRef"
-      :stateData="state.pageListData" :total="state.total" :pageSize="state.pageQuery.pageSize" :canCheck="canCheck"
-      @reload="reloadTableData" @selection-change="selectionChange"
-      @select="select" @select-all="selectAll" @row-click="rowClick"
-    >
+  <ConstDialog ref="tbDialogRef" :title="title" :width="width" :btns="btns" @confirm="mConfirm" @check="mCheck" @save="mSave" @close="mClose">
+    <ConstTable ref="tbRef" :state-data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" :can-check="canCheck" @reload="reloadTableData" @selection-change="selectionChange" @select="select" @select-all="selectAll" @row-click="rowClick">
       <slot />
     </ConstTable>
   </ConstDialog>
@@ -16,7 +8,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { PageQuery } from '~/models/common/pageQueryModel'
+import type { PageQuery } from '~/models/common/pageQueryModel'
 
 interface Props {
   title?: string
@@ -24,10 +16,10 @@ interface Props {
   btns?: string[]
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   title: '',
   width: '50%',
-  btns: () => ['confirm']
+  btns: () => ['confirm'],
 })
 
 const emits = defineEmits<{
@@ -41,9 +33,9 @@ const state = reactive({
   pageListData: [] as any[],
   total: 0 as number,
   pageQuery: {
-    pageIndex: 1
+    pageIndex: 1,
   } as PageQuery,
-  selectTableData: [] as any[]
+  selectTableData: [] as any[],
 })
 
 const tbDialogRef = ref<ConstDialog>()
@@ -74,9 +66,8 @@ const mClose = () => {
 
 defineExpose({
   open,
-  close
+  close,
 })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

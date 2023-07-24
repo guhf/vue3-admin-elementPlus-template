@@ -1,6 +1,6 @@
+import type { Menu, MenuTree } from '~/models/sys/menuModel'
+import type { Tree } from '~/models/common/treeModel'
 import { useRequest } from '~/hooks'
-import { MenuTree, Menu } from '~/models/sys/menuModel'
-import { Tree } from '~/models/common/treeModel'
 
 const { get, post, put, patch, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateMenu = (data: Menu) => {
  * @param id 菜单Id
  * @returns 菜单
  */
-export const getMenu = (id : string) => {
+export const getMenu = (id: string) => {
   return get<Menu>(`sys/menu/${id}`)
 }
 
@@ -55,7 +55,7 @@ export const getRoleMenuTreeList = (roleId: string) => {
  * @returns
  */
 export const delMenu = (ids: string) => {
-  return del<any>('sys/menu/' + ids)
+  return del<any>(`sys/menu/${ids}`)
 }
 
 /**
@@ -65,5 +65,5 @@ export const delMenu = (ids: string) => {
  * @returns
  */
 export const enableDisableMenu = (id: string, enable: boolean) => {
-  return patch<any>(`sys/menu/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`sys/menu/${id}/${enable ? 'enable' : 'disable'}`)
 }

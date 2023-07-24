@@ -1,6 +1,6 @@
+import type { Dict, DictData } from '~/models/sys/dictModel'
+import type { PageQuery } from '~/models/common/pageQueryModel'
 import { useRequest } from '~/hooks'
-import { Dict, DictData } from '~/models/sys/dictModel'
-import { PageQuery } from '~/models/common/pageQueryModel'
 
 const { get, post, put, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateDict = (data: Dict) => {
  * @param id 数据字典Id
  * @returns 数据字典
  */
-export const getDict = (id : string) => {
+export const getDict = (id: string) => {
   return get<Dict>(`sys/dict/${id}`)
 }
 

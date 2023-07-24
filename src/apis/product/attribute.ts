@@ -1,6 +1,6 @@
+import type { Attribute } from '~/models/product/attributeModel'
+import type { PageQuery } from '~/models/common/pageQueryModel'
 import { useRequest } from '~/hooks'
-import { Attribute } from '~/models/product/attributeModel'
-import { PageQuery } from '~/models/common/pageQueryModel'
 
 const { get, post, put, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateAttribute = (data: Attribute) => {
  * @param id 商品规格Id
  * @returns 商品规格
  */
-export const getAttribute = (id : string) => {
+export const getAttribute = (id: string) => {
   return get<Attribute>(`product/attribute/${id}`)
 }
 

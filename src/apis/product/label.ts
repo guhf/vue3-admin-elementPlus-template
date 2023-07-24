@@ -1,6 +1,6 @@
+import type { Label } from '~/models/product/labelModel'
+import type { PageQuery } from '~/models/common/pageQueryModel'
 import { useRequest } from '~/hooks'
-import { Label } from '~/models/product/labelModel'
-import { PageQuery } from '~/models/common/pageQueryModel'
 
 const { get, post, put, patch, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateLabel = (data: Label) => {
  * @param id 商品标签Id
  * @returns 商品标签
  */
-export const getLabel = (id : string) => {
+export const getLabel = (id: string) => {
   return get<Label>(`product/label/${id}`)
 }
 
@@ -56,5 +56,5 @@ export const delLabel = (ids: string) => {
  * @returns
  */
 export const enableDisableLabel = (id: string, enable: boolean) => {
-  return patch<any>(`product/label/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/label/${id}/${enable ? 'enable' : 'disable'}`)
 }

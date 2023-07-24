@@ -6,7 +6,7 @@ const { get } = useRequest()
  * @param id 用户登录日志Id
  * @returns 用户登录日志
  */
-export const getUserLoginLog = (id : number) => {
+export const getUserLoginLog = (id: number) => {
   return get<any>(`sys/userloginlog/${id}`)
 }
 

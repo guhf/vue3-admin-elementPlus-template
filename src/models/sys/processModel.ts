@@ -1,4 +1,4 @@
-import { BaseModel } from '../baseModel'
+import type { BaseModel } from '../baseModel'
 
 /** 流程 */
 export declare interface Process extends BaseModel {

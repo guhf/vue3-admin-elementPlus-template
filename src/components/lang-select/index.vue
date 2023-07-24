@@ -1,11 +1,11 @@
 <template>
   <el-dropdown>
-    <svg class="icon" aria-hidden="true" font-size="45px" :class="{'svg-color': isWhite}">
+    <svg class="icon" aria-hidden="true" font-size="45px" :class="{ 'svg-color': isWhite }">
       <use xlink:href="#iconzhongyingwen" />
     </svg>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item v-for="item in stateData.languages" :key="item.value" :disabled="language===item.value">
+        <el-dropdown-item v-for="item in stateData.languages" :key="item.value" :disabled="language === item.value">
           <span @click="handleSetLanguage(item.value)">{{ item.name }}</span>
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -15,21 +15,21 @@
 
 <script lang="ts" setup>
 import { computed, reactive } from 'vue'
-import { useAppStore } from '~/store/app'
 import { useI18n } from 'vue-i18n/index'
 import { ElMessage } from 'element-plus'
+import { useAppStore } from '~/store/app'
 
 interface Props {
   isWhite?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
-  isWhite: false
+  isWhite: false,
 })
 
 type Language = {
-    name: string
-    value: string
+  name: string
+  value: string
 }
 
 const appStore = useAppStore()
@@ -40,8 +40,10 @@ const language = computed(() => {
 })
 
 const stateData = reactive({
-  languages: [{ name: 'en', value: 'en' }, { name: '中文', value: 'zh-cn' }] as Array<Language>
-
+  languages: [
+    { name: 'en', value: 'en' },
+    { name: '中文', value: 'zh-cn' },
+  ] as Array<Language>,
 })
 
 const handleSetLanguage = (lang: string) => {
@@ -49,14 +51,13 @@ const handleSetLanguage = (lang: string) => {
   appStore.setLanguage(lang)
   ElMessage({
     message: lang === 'en' ? 'Switch Language Success' : '语言切换成功',
-    type: 'success'
+    type: 'success',
   })
 }
-
 </script>
 
 <style lang="scss" scoped>
-.svg-color{
+.svg-color {
   fill: white;
 }
 </style>

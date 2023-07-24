@@ -1,118 +1,46 @@
 <template>
-  <el-row
-    :gutter="40"
-    class="panel-group"
-  >
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="6"
-      class="card-panel-col"
-    >
-      <div
-        class="card-panel"
-        @click="handleSetLineChartData('newVisitis')"
-      >
+  <el-row :gutter="40" class="panel-group">
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
         <div class="card-panel-icon-wrapper icon-people">
-          <img
-            :src="visits"
-          >
+          <img :src="visits" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            New Visits
-          </div>
-          <CountTo
-            ref="myCount"
-            :start-val="0"
-            :end-val="102400"
-            :duration="2600"
-            class="card-panel-num"
-          />
+          <div class="card-panel-text"> New Visits </div>
+          <CountTo ref="myCount" :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="6"
-      class="card-panel-col"
-    >
-      <div
-        class="card-panel"
-        @click="handleSetLineChartData('messages')"
-      >
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <div class="card-panel" @click="handleSetLineChartData('messages')">
         <div class="card-panel-icon-wrapper icon-message">
-          <img
-            :src="messages"
-          >
+          <img :src="messages" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Messages
-          </div>
-          <CountTo
-            :start-val="0"
-            :end-val="81212"
-            :duration="3000"
-            class="card-panel-num"
-          />
+          <div class="card-panel-text"> Messages </div>
+          <CountTo :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
         </div>
       </div>
     </el-col>
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="6"
-      class="card-panel-col"
-    >
-      <div
-        class="card-panel"
-        @click="handleSetLineChartData('purchases')"
-      >
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <div class="card-panel" @click="handleSetLineChartData('purchases')">
         <div class="card-panel-icon-wrapper icon-money">
-          <img
-            :src="purchases"
-          >
+          <img :src="purchases" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Purchases
-          </div>
-          <CountTo
-            :start-val="0"
-            :end-val="9280"
-            :duration="3200"
-            class="card-panel-num"
-          />
+          <div class="card-panel-text"> Purchases </div>
+          <CountTo :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
         </div>
       </div>
     </el-col>
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="6"
-      class="card-panel-col"
-    >
-      <div
-        class="card-panel"
-        @click="handleSetLineChartData('shoppings')"
-      >
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <div class="card-panel" @click="handleSetLineChartData('shoppings')">
         <div class="card-panel-icon-wrapper icon-shopping">
-          <img
-            :src="shoppings"
-          >
+          <img :src="shoppings" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Shoppings
-          </div>
-          <CountTo
-            :start-val="0"
-            :end-val="13600"
-            :duration="3600"
-            class="card-panel-num"
-          />
+          <div class="card-panel-text"> Shoppings </div>
+          <CountTo :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -128,7 +56,7 @@ import shoppings from '~/assets/images/home/shoppings.png'
 import visits from '~/assets/images/home/visits.png'
 export default defineComponent({
   components: {
-    CountTo
+    CountTo,
   },
   emits: ['handle-set-line-chart-data'],
   setup(_, { emit }) {
@@ -137,18 +65,15 @@ export default defineComponent({
     }
 
     const myCount = ref(null)
-    onMounted(() => {
-    })
-
     return {
       handleSetLineChartData,
       myCount,
       messages,
       purchases,
       visits,
-      shoppings
+      shoppings,
     }
-  }
+  },
 })
 </script>
 
@@ -168,13 +93,13 @@ export default defineComponent({
     overflow: hidden;
     color: #666;
     background: #fff;
-    box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-    border-color: rgba(0, 0, 0, .05);
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.05);
     height: 124px;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 10px;
-    img{
-      width:60px;
+    img {
+      width: 60px;
       height: 60px;
       display: inline-block;
     }
@@ -191,7 +116,7 @@ export default defineComponent({
     }
 
     .icon-shopping {
-      color: #34bfa3
+      color: #34bfa3;
     }
 
     .card-panel-icon-wrapper {
@@ -227,7 +152,7 @@ export default defineComponent({
   }
 }
 
-@media (max-width:550px) {
+@media (max-width: 550px) {
   .card-panel-description {
     display: none;
   }

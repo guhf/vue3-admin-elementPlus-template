@@ -1,4 +1,4 @@
-import { Directive } from 'vue'
+import type { Directive } from 'vue'
 
 export const elDraggableDialog: Directive = {
   beforeMount(el, _, vnode) {
@@ -43,12 +43,12 @@ export const elDraggableDialog: Directive = {
         let top = e.clientY - disY
 
         // Handle edge cases
-        if (-(left) > minDragDomLeft) {
+        if (-left > minDragDomLeft) {
           left = -minDragDomLeft
         } else if (left > maxDragDomLeft) {
           left = maxDragDomLeft
         }
-        if (-(top) > minDragDomTop) {
+        if (-top > minDragDomTop) {
           top = -minDragDomTop
         } else if (top > maxDragDomTop) {
           top = maxDragDomTop
@@ -71,5 +71,5 @@ export const elDraggableDialog: Directive = {
         document.onmouseup = null
       }
     }
-  }
+  },
 }

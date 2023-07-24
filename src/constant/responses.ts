@@ -1,54 +1,54 @@
 /**
  * 响应码
  */
-export enum ResponseCode{
-    /**
-     * 成功
-     */
-    OK = 200,
+export enum ResponseCode {
+  /**
+   * 成功
+   */
+  OK = 200,
 
-    /**
-     * 验证失败
-     */
-    ValidateFail = 203,
+  /**
+   * 验证失败
+   */
+  ValidateFail = 203,
 
-    /**
-     * 失败
-     */
-    Failed = 400,
+  /**
+   * 失败
+   */
+  Failed = 400,
 
-    /**
-     * 未登录
-     */
-    Unauthorized = 401,
+  /**
+   * 未登录
+   */
+  Unauthorized = 401,
 
-    /**
-     * 没有权限
-     */
-    Forbidden = 403,
+  /**
+   * 没有权限
+   */
+  Forbidden = 403,
 
-    /**
-     * 不存在
-     */
-    NotFound = 404,
+  /**
+   * 不存在
+   */
+  NotFound = 404,
 
-    /**
-     * 未实现
-     */
-    Unrealized = 410,
+  /**
+   * 未实现
+   */
+  Unrealized = 410,
 
-    /**
-     * 无效凭证
-     */
-    PreconditionFailed = 412,
+  /**
+   * 无效凭证
+   */
+  PreconditionFailed = 412,
 
-    /**
-     * 系统异常
-     */
-    Error = 500,
+  /**
+   * 系统异常
+   */
+  Error = 500,
 
-    /**
-     * 系统错误
-     */
-    Unavailable = 503,
+  /**
+   * 系统错误
+   */
+  Unavailable = 503,
 }

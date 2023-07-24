@@ -1,6 +1,6 @@
+import type { Category } from '~/models/product/categoryModel'
+import type { Tree } from '~/models/common/treeModel'
 import { useRequest } from '~/hooks'
-import { Category } from '~/models/product/categoryModel'
-import { Tree } from '~/models/common/treeModel'
 
 const { get, post, put, patch, del } = useRequest()
 
@@ -27,7 +27,7 @@ export const updateCategory = (data: Category) => {
  * @param id 商品分类Id
  * @returns 商品分类
  */
-export const getCategory = (id : string) => {
+export const getCategory = (id: string) => {
   return get<Category>(`product/category/${id}`)
 }
 
@@ -45,7 +45,7 @@ export const getCategoryTreeList = () => {
  * @param id 商品分类Id
  * @returns 商品分类列表
  */
-export const getCategoryExcludeTreeList = (id : string) => {
+export const getCategoryExcludeTreeList = (id: string) => {
   return get<Tree>(`product/category/exclude/${id}/tree`)
 }
 
@@ -65,7 +65,7 @@ export const delCategory = (ids: string) => {
  * @returns
  */
 export const enableDisableCategory = (id: string, enable: boolean) => {
-  return patch<any>(`product/category/${id}/${ enable ? 'enable': 'disable' }`)
+  return patch<any>(`product/category/${id}/${enable ? 'enable' : 'disable'}`)
 }
 
 /**

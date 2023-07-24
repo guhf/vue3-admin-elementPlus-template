@@ -6,7 +6,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-interface Props{
+interface Props {
   iconName: string | null
   className?: string
   color?: string
@@ -15,7 +15,7 @@ interface Props{
 const props = withDefaults(defineProps<Props>(), {
   iconName: '',
   className: '',
-  color: ''
+  color: '',
 })
 
 // 图标在 iconfont 中的名字
@@ -38,6 +38,6 @@ const svgClass = computed(() => {
   height: 2rem;
   position: relative;
   fill: currentColor;
-  vertical-align: -.15em;
+  vertical-align: -0.15em;
 }
 </style>

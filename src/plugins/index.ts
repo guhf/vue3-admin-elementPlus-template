@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import type { createApp } from 'vue'
 
 /**
  * @description 加载所有 Plugins

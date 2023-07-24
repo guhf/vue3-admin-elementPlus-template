@@ -1,6 +1,4 @@
-import { BaseModel } from "../baseModel";
+import type { BaseModel } from '../baseModel'
 
 /** 商品 */
-export declare interface Product extends BaseModel{
-  
-} 
+export type Product = BaseModel

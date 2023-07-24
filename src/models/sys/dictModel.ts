@@ -1,5 +1,5 @@
-import { BaseModel } from '../baseModel'
-import { Options } from '~/models/common/optionModel'
+import type { BaseModel } from '../baseModel'
+import type { Options } from '~/models/common/optionModel'
 
 /** 字典 */
 export declare interface Dict extends BaseModel {

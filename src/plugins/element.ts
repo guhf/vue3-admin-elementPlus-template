@@ -5,5 +5,5 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 // 修改默认组件属性
 
 export default function loadComponent(app: any) {
-  app.use(ElementPlus, { zhCn })// size: "medium"
+  app.use(ElementPlus, { zhCn }) // size: "medium"
 }

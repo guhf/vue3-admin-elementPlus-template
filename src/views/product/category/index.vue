@@ -14,7 +14,7 @@
               <TreeDialog
                 v-if="state.checkData.categotyId"
                 ref="categoryDialogRef"
-                v-model="categoryDialogVisible"
+                v-model:dialog-visible="categoryDialogVisible"
                 v-permission="['product.category.update']"
                 button
                 btn-text="移动"
@@ -154,7 +154,7 @@ const mMove = (data: TreeData) => {
 }
 
 const mSave = async () => {
-  categoryEditRef.value?.save().then((res: any) => {
+  categoryEditRef.value?.save().then(() => {
     getTreeData()
     categoryEditDialogVisible.value = false
   })

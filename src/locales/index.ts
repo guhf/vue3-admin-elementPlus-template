@@ -1,21 +1,20 @@
 import { createI18n } from 'vue-i18n'
 
-import { getLanguage } from '~/utils/cache'
-
 // import elementEnLocale from 'element-plus/lib/locale/lang/en'
 // import elementZhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
 // User defined lang
 import enLocale from './en'
 import zhLocale from './zh-cn'
+import { getLanguage } from '~/utils/cache'
 
 const messages = {
   en: {
-    ...enLocale
+    ...enLocale,
   },
   'zh-cn': {
-    ...zhLocale
-  }
+    ...zhLocale,
+  },
 }
 
 export const getLocale = () => {
@@ -26,7 +25,7 @@ export const getLocale = () => {
   const language = navigator.language.toLowerCase()
   const locales = Object.keys(messages)
   for (const locale of locales) {
-    if (language.indexOf(locale) > -1) {
+    if (language.includes(locale)) {
       return locale
     }
   }
@@ -36,7 +35,7 @@ export const getLocale = () => {
 
 const i18n = createI18n({
   locale: getLocale(),
-  messages: messages
+  messages,
 })
 
 export default i18n

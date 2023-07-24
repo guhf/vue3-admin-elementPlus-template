@@ -1,4 +1,3 @@
-
 <template>
   <div class="dashboard-container">
     <component :is="AdminDashboard" v-if="isSuper" />
@@ -9,11 +8,11 @@
 </template>
 <script lang="ts" setup>
 import { computed, onBeforeMount, onUnmounted, ref } from 'vue'
-import { useUserStore } from '~/store/user'
-import { useSignalR } from '~/hooks'
-import { UserRole } from '~/models/userModel'
 import AdminDashboard from './admin/index.vue'
 import UserDashboard from './user/index.vue'
+import type { UserRole } from '~/models/userModel'
+import { useUserStore } from '~/store/user'
+import { useSignalR } from '~/hooks'
 
 const userStore = useUserStore()
 const { stopConnection } = useSignalR()
@@ -24,7 +23,7 @@ const isSuper = ref(false)
 const isAdmin = ref(true)
 
 onBeforeMount(() => {
-  (roles.value as UserRole[]).forEach((role: any) => {
+  ;(roles.value as UserRole[]).forEach((role: any) => {
     if (role.isSuper) {
       isSuper.value = true
     } else if (role.isAdmin) {
