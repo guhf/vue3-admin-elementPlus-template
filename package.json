@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@howdyjs/mouse-menu": "^2.0.2",
-    "@microsoft/signalr": "^6.0.8",
+    "@microsoft/signalr": "^7.0.9",
     "@tinymce/tinymce-vue": "^4.0.5",
     "@types/file-saver": "^2.0.5",
     "@types/js-cookie": "^3.0.2",

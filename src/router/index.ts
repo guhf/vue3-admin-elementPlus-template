@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import userRoutes from './modules/user'
 import type { RouteRecordRaw } from 'vue-router'
 import { LAYOUT } from '~/router/const'
@@ -78,7 +78,7 @@ export const constantRoutes: RouteRecordRaw[] = [...mainRoutes, ...userRoutes]
 
 // app router
 export const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory(),
   routes: constantRoutes,
 })
 

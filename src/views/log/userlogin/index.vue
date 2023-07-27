@@ -6,9 +6,9 @@
       </ConstFilterItem>
     </ConstFilter>
     <ConstTable ref="userloginTbRef" :data="state.pageListData" :total="state.total" :check="false" @reload="reloadTableData" @selection-change="selectedChange">
-      <el-table-column label="用户名称" prop="userName" sortable="custom" width="120" align="center" fixed="left" show-overflow-tooltip />
-      <el-table-column label="账号名称" prop="accountName" sortable="custom" width="120" align="center" show-overflow-tooltip />
-      <el-table-column label="登录IP" prop="ip" sortable="custom" width="120" align="center" show-overflow-tooltip />
+      <el-table-column label="用户名称" prop="userName" sortable="custom" width="150" align="center" fixed="left" show-overflow-tooltip />
+      <el-table-column label="账号名称" prop="accountName" sortable="custom" width="150" align="center" show-overflow-tooltip />
+      <el-table-column label="登录IP" prop="ip" sortable="custom" width="150" align="center" show-overflow-tooltip />
       <el-table-column label="操作系统" prop="os" sortable="custom" width="240" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="浏览器UA" prop="browserUA" sortable="custom" min-width="600" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="登录状态说明" prop="loginDesc" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
@@ -32,7 +32,7 @@ import { onMounted, reactive, ref } from 'vue'
 import type { PageQuery } from '~/models/common/pageQueryModel'
 import type { Response } from '~/models/response'
 import type { userLogin } from '~/models/log/userLoginModel'
-import { useDict, useRouterShow, useValueToLabel } from '~/hooks'
+import { useDict, useValueToLabel } from '~/hooks'
 
 import { getUserLoginLogPageList } from '~/apis/sys/userLoginLog'
 

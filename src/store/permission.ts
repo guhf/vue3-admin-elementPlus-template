@@ -44,10 +44,10 @@ export const usePermissionStore = defineStore('permissionStore', {
       //   menuType: 2,
       //   authority: '', // 权限码
       // }, ...await traverseMenu(this.menus)]
-      console.log(111, this.menus)
+      // console.log(111, this.menus)
 
       this.menus = await recursionMenu(this.menus)
-      console.log(222, this.menus)
+      // console.log(222, this.menus)
     },
   },
 })
