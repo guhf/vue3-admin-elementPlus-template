@@ -19,7 +19,7 @@
       <el-table-column label="品牌编号" prop="brandCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="品牌Logo" prop="brandImg" min-width="200" align="center" show-overflow-tooltip>
         <template #default="{ row }">
-          <el-image v-if="row.brandImg" style="height: 50px" :src="row.brandImg" :preview-src-list="[row.brandImg || '']" fit="cover" />
+          <el-image v-if="row.brandImg" :src="row.brandImg" :preview-src-list="[row.brandImg || '']" fit="cover" />
         </template>
       </el-table-column>
       <el-table-column label="描述" prop="description" min-width="240" header-align="center" align="left" show-overflow-tooltip />

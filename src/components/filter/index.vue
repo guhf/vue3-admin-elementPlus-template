@@ -1,57 +1,100 @@
 <template>
   <div ref="filterRef" class="filter-wrapper" tabindex="180429">
-    <div class="filter-tool">
-      <div ref="containerRef" class="filter-container">
+    <div ref="filterToolRef" class="filter-tool">
+      <div class="filter-container">
         <slot />
       </div>
       <div class="filter-btns">
         <el-button class="btn-item" type="primary" :icon="Search" @click="filter">搜索</el-button>
         <el-button class="btn-item" :icon="RefreshRight" @click="reset">重置</el-button>
-        <el-button v-show="more" class="btn-item" type="warning" @click="openMore">更多筛选</el-button>
+        <el-button v-if="more" class="btn-item" type="warning" @click="openMore">更多筛选</el-button>
       </div>
     </div>
   </div>
 
   <el-drawer ref="drawerRef" v-model="drawerVisible" direction="rtl" :size="400" destroy-on-close>
     <template #header>
-      <span>{{ props.moreTitle }}</span>
+      <span>{{ moreTitle }}</span>
     </template>
-    <div class="body">
-      <slot name="more" />
+    <div class="filter-container">
+      <slot />
     </div>
     <template #footer>
-      <el-button class="btn-item" :icon="CircleClose" @click="closeMore">取消</el-button>
       <el-button class="btn-item" type="primary" :icon="Search" @click="filter">搜索</el-button>
+      <el-button class="btn-item" :icon="RefreshRight" @click="reset">重置</el-button>
+      <el-button class="btn-item" :icon="CircleClose" @click="closeMore">取消</el-button>
     </template>
   </el-drawer>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { CircleClose, MoreFilled, RefreshRight, Search } from '@element-plus/icons-vue'
-
-interface Props {
-  more?: boolean
-  moreTitle?: string
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  more: false,
-  moreTitle: '更多筛选',
-})
+import { computed, nextTick, onMounted, ref, useSlots } from 'vue'
+import { CircleClose, RefreshRight, Search } from '@element-plus/icons-vue'
+import type { VNode } from 'vue'
 
 const emits = defineEmits<{
   (e: 'search', pageQuery: object): void
   (e: 'reset', val: object): void
 }>()
 
-const filterRef = ref<ElRef>()
-const containerRef = ref<ElRef>()
-const drawerVisible = ref(false)
+const moreTitle = '更多筛选'
+const slots = useSlots()
+let more = ref(false)
+let drawerVisible = ref(false)
+
+const vNodes = computed(() => {
+  const vNodes: VNode[] = (slots as any).default()
+  return vNodes
+})
+
+onMounted(() => {
+  setItemNum()
+})
+
+window.addEventListener('resize', () => {
+  setItemNum()
+})
+
+const setItemNum = () => {
+  let num = 2
+  const innerWidth = window.innerWidth
+
+  if (innerWidth > 767 && innerWidth <= 1200) {
+    num = 2
+  }
+  if (innerWidth > 1200 && innerWidth <= 1400) {
+    num = 3
+  }
+  if (innerWidth > 1400 && innerWidth <= 1600) {
+    num = 4
+  }
+  if (innerWidth > 1600 && innerWidth <= 1920) {
+    num = 5
+  }
+  if (innerWidth > 1920 && innerWidth <= 2500) {
+    num = 6
+  }
+  if (innerWidth > 2500 && innerWidth <= 3000) {
+    num = 7
+  }
+
+  console.log(11111, useSlots())
+
+  vNodes.value.forEach((node) => {
+    node.props!.num = num
+    ;(node.type as any).render()
+    console.log(22222, node)
+  })
+
+  if (vNodes.value.length > num) {
+    more.value = true
+  } else {
+    more.value = false
+  }
+}
 
 const openMore = () => {
   drawerVisible.value = true
-  // if(show) filterRef.value.focus();
 }
 
 const closeMore = () => {
@@ -69,161 +112,47 @@ const reset = (val: object) => {
 </script>
 
 <style lang="scss" scoped>
-.el-drawer__body .body {
+.filter-wrapper {
+  width: 100%;
+  height: 34px;
+  margin-bottom: 10px;
+
+  .filter-tool {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: #ffffff;
+
+    .filter-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      overflow: hidden;
+
+      :deep(.el-input-group__prepend) {
+        padding: 0 10px;
+      }
+    }
+
+    .filter-btns {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}
+
+.el-drawer__body .filter-container {
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  * {
-    margin-top: 20px;
-  }
-
-  *:not(:first-child) {
+  :deep(.filter-item) {
+    width: 100% !important;
     margin-top: 20px;
   }
 }
-
-.filter-wrapper {
-  height: 34px;
-  margin-bottom: 10px;
-}
-
-.filter-tool {
-  max-height: 34px;
-  overflow: hidden;
-}
-
-.filter-tool,
-.filter-tool-more {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  background-color: #ffffff;
-
-  .filter-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    overflow: hidden;
-
-    :deep(.el-input-group__prepend) {
-      padding: 0 10px;
-    }
-  }
-
-  .filter-container-more {
-    margin-right: 10px;
-    cursor: pointer;
-  }
-
-  .filter-btns {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    // margin-top: 2px;
-  }
-}
-
-.filter-tool-more {
-  height: auto;
-  position: absolute;
-  padding: 10px;
-  margin-right: 15px;
-  border-radius: 4px;
-  border: 1px solid #e4e7ed;
-  background-color: #ffffff;
-  overflow: hidden;
-  color: $primary;
-  transition: var(--el-transition-duration);
-  z-index: 99;
-  // flex-direction: column;
-  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
-
-  .filter-container {
-    max-height: none;
-  }
-
-  .filter-btns {
-    // width: 100%;
-    // justify-content: center;
-    // margin-top: 10px;
-    margin-left: 10px;
-  }
-}
-
-// //>=1900的设备
-// @media (min-width: 2801px) {
-//   .filter-container {
-//     > :deep(*) {
-//       margin-right: 10px;
-//       flex: 1 1 15%;
-//     }
-
-//     > :nth-child(n + 7) {
-//       margin-top: 15px;
-//     }
-//   }
-
-//   .filter-tool-more .filter-container {
-//     > :deep(*) {
-//       flex: 1 1 16.5%;
-//       max-width: calc(16.5% - 6px);
-//     }
-
-//     > :nth-child(6n) {
-//       margin-right: 0;
-//     }
-//   }
-// }
-
-// //>=1800的设备
-// @media (min-width: 1801px) {
-//   .filter-container {
-//     > :deep(*) {
-//       margin-right: 10px;
-//       flex: 1 1 19%;
-//     }
-
-//     > :nth-child(n + 6) {
-//       margin-top: 15px;
-//     }
-//   }
-
-//   .filter-tool-more .filter-container {
-//     > :deep(*) {
-//       flex: 1 1 20%;
-//       max-width: calc(20% - 8px);
-//     }
-
-//     > :nth-child(5n) {
-//       margin-right: 0;
-//     }
-//   }
-// }
-
-// //<=1400的设备
-// @media (max-width: 1400px) {
-//   .filter-container {
-//     > :deep(*) {
-//       margin-right: 10px;
-//       flex: 1 1 23%;
-//     }
-
-//     > :nth-child(n + 5) {
-//       margin-top: 15px;
-//     }
-//   }
-
-//   .filter-tool-more .filter-container {
-//     > :deep(*) {
-//       flex: 1 1 25%;
-//       max-width: calc(25% - 8px);
-//     }
-
-//     > :nth-child(4n) {
-//       margin-right: 0;
-//     }
-//   }
-// }
 </style>

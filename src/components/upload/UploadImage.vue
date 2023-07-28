@@ -1,5 +1,5 @@
 <template>
-  <ConstUpload ref="uploadRef" v-model="state.fileList" class="image-uploader" :url="url" :limit="limit" :file-types="['png', 'jpg', 'jpeg']" list-type="picture-card" :on-preview="handleImagePreview" @files-success="uploadAllSuccess">
+  <ConstUpload ref="uploadRef" v-model="fileList" class="image-uploader" :url="url" :limit="limit" :file-type="[1]" list-type="picture-card" :on-preview="handleImagePreview">
     <!-- <template> -->
     <!-- <template v-if="limit === 1">
       <el-icon v-if="!modelValue" class="image"><Plus /></el-icon>
@@ -14,13 +14,13 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadFile } from 'element-plus'
 
 interface Props {
   /** 上传文件列表 */
-  modelValue: any[] | string | null
+  modelValue: any[] | string | null | undefined
   /** 上传URL */
   url?: string
   /** 最大允许上传个数 */
@@ -35,20 +35,57 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', fileList: any[]): void
+  (e: 'update:modelValue', files: any[] | string | null | undefined): void
 }>()
 
 // 不能直接给reactive对象/数组赋值，否则会失去响应式
 const showImageViewer = ref(false)
 const previewIndex = ref(0)
 const state = reactive({
-  fileList: [] as any[],
   previewFiles: [] as string[],
+})
+
+const fileList = computed({
+  get() {
+    let list = []
+    if (props.limit === 1) {
+      list = props.modelValue
+        ? [
+            {
+              path: props.modelValue,
+              url: import.meta.env.VITE_BASE_API + String(props.modelValue).replaceAll(String(import.meta.env.VITE_BASE_API), ''),
+            },
+          ]
+        : []
+    } else {
+      list = new Array(props.modelValue).map((item: any) => {
+        return {
+          ...item,
+          url: item.url || import.meta.env.VITE_BASE_API + item.path.replaceAll(String(import.meta.env.VITE_BASE_API), ''),
+        }
+      })
+    }
+    return list
+  },
+  set(value) {
+    let val = [] as any[] | string
+    if (props.limit === 1) {
+      if (value.length === 0) {
+        val = ''
+      } else {
+        val = value[0].path
+      }
+    } else {
+      val = value
+    }
+
+    emit('update:modelValue', val)
+  },
 })
 
 const handleImagePreview = (uploadFile: UploadFile) => {
   state.previewFiles = []
-  state.fileList.forEach((file, index) => {
+  fileList.value.forEach((file, index) => {
     state.previewFiles.push(file.url || '')
     if (file.url == uploadFile.url) {
       previewIndex.value = index
@@ -56,48 +93,6 @@ const handleImagePreview = (uploadFile: UploadFile) => {
   })
 
   showImageViewer.value = true
-}
-
-watch(
-  () => props.modelValue,
-  () => {
-    if (props.limit === 1) {
-      state.fileList = props.modelValue
-        ? [
-            {
-              fileName: props.modelValue,
-              url: import.meta.env.VITE_APP_BASE_API + String(props.modelValue),
-            },
-          ]
-        : []
-    } else {
-      state.fileList = new Array(props.modelValue).map((item: any) => {
-        return {
-          ...item,
-          url: import.meta.env.VITE_APP_BASE_API + item.fileName,
-        }
-      })
-    }
-  }
-)
-
-// watch(
-//   () => state.fileList,
-//   () => {
-//     if (props.limit === 1) {
-//       emit('update:modelValue', state.fileList[0] ? state.fileList[0].fileName : '')
-//     } else {
-//       emit('update:modelValue', state.fileList)
-//     }
-//   }
-// )
-
-const uploadAllSuccess = () => {
-  if (props.limit === 1) {
-    emit('update:modelValue', state.fileList[0].fileName)
-  } else {
-    emit('update:modelValue', state.fileList)
-  }
 }
 </script>
 

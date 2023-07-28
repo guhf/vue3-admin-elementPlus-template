@@ -1,18 +1,27 @@
 <template>
-  <div :id="String(key)" :key="key" class="filter-item" :style="{ width: `calc((100% - 10px * ${itemNum})/ ${itemNum})` }">
+  <div class="filter-item" :style="{ '--num': itemNum }">
     <label>{{ label }}</label>
     <slot />
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 interface Props {
   label: string
+  num?: number
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   label: '',
+  num: 3,
 })
+
+watch(
+  () => props.num,
+  (num: number) => {
+    console.log(1111111111111, props.num)
+  }
+)
 
 let itemNum = ref<number>(0)
 
@@ -20,14 +29,9 @@ onMounted(() => {
   setItemNum()
 })
 
-const key = computed(() => {
-  console.log(Date.now())
-  return Date.now()
-})
-
-window.onresize = () => {
+window.addEventListener('resize', () => {
   setItemNum()
-}
+})
 
 const setItemNum = () => {
   const innerWidth = window.innerWidth
@@ -50,7 +54,6 @@ const setItemNum = () => {
   if (innerWidth > 2500 && innerWidth <= 3000) {
     itemNum.value = 7
   }
-  console.log(itemNum.value)
 }
 </script>
 

@@ -31,7 +31,7 @@ export enum FileType {
 /**
  * 图片
  */
-export const ImageExt = ['jpg', 'png', 'jpeg', 'gif', 'bmp']
+export const ImageExt = ['jpg', 'png', 'jpeg', 'gif', 'bmp', 'svg']
 
 /**
  * Word

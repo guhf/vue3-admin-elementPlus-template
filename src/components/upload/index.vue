@@ -29,11 +29,6 @@ import { useMessageError, useMessageWarning } from '~/hooks'
 import networkConfig from '~/config/net.config'
 import { AllExt, AudioExt, DocExt, ExcelExt, FileType, ImageExt, InstallPackageExt, PDFExt, PPTExt, TxtExt, VideoExt, WordExt, ZipExt } from '~/constant/file'
 
-interface CusUploadFile extends UploadFile {
-  fileName: string
-  filePath: string
-}
-
 interface Props {
   /** 上传文件列表 */
   modelValue: any[]
@@ -100,8 +95,7 @@ const beforeUpload = (rawFile: UploadRawFile) => {
 }
 
 const fileChange = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  // console.log(uploadFile)
-  // console.log(uploadFiles)
+  //
 }
 
 const fileProgress = (event: UploadProgressEvent) => {
@@ -109,23 +103,15 @@ const fileProgress = (event: UploadProgressEvent) => {
 }
 
 const fileSuccess = (response: any, uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  console.log(111, response)
-  console.log(222, uploadFile)
-  console.log(333, uploadFiles)
-
   if (uploadFiles.every((item) => item.status === 'success')) {
     const data = [...props.modelValue]
     uploadFiles.forEach(({ response }: any) => {
-      console.log(444, response)
       if (response && response.code === 200) {
-        data.push({
-          fileName: response.fileName,
-          filePath: response.filePath,
-          url: response.url,
-        })
+        data.push(response.data[0])
       }
     })
     updateLoading.value = false
+
     emit('update:modelValue', data)
     emit('files-success', data)
   }
@@ -139,12 +125,7 @@ const fileSuccess = (response: any, uploadFile: UploadFile, uploadFiles: UploadF
 }
 
 const fileRemove = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  emit(
-    'update:modelValue',
-    uploadFiles.map((item) => {
-      return { fileName: (item as CusUploadFile).fileName, filePath: (item as CusUploadFile).filePath, name: item.name, url: item.url }
-    })
-  )
+  emit('update:modelValue', uploadFiles)
 }
 
 const fileExceed = () => {
