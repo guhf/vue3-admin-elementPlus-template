@@ -30,21 +30,22 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, useSlots } from 'vue'
 import { CircleClose, RefreshRight, Search } from '@element-plus/icons-vue'
-import type { VNode } from 'vue'
+import emitter from '~/utils/emitt'
 
 const emits = defineEmits<{
   (e: 'search', pageQuery: object): void
   (e: 'reset', val: object): void
 }>()
 
-const moreTitle = '更多筛选'
 const slots = useSlots()
+
 let more = ref(false)
+let itemNum = ref<number>(0)
 let drawerVisible = ref(false)
+const moreTitle = '更多筛选'
 
 const vNodes = computed(() => {
-  const vNodes: VNode[] = (slots as any).default()
-  return vNodes
+  return (slots as any).default()
 })
 
 onMounted(() => {
@@ -56,41 +57,37 @@ window.addEventListener('resize', () => {
 })
 
 const setItemNum = () => {
-  let num = 2
   const innerWidth = window.innerWidth
 
+  // TODO 个数判断有bug，需要调整
   if (innerWidth > 767 && innerWidth <= 1200) {
-    num = 2
+    itemNum.value = 2
   }
   if (innerWidth > 1200 && innerWidth <= 1400) {
-    num = 3
+    itemNum.value = 3
   }
   if (innerWidth > 1400 && innerWidth <= 1600) {
-    num = 4
+    itemNum.value = 4
   }
   if (innerWidth > 1600 && innerWidth <= 1920) {
-    num = 5
+    itemNum.value = 5
   }
   if (innerWidth > 1920 && innerWidth <= 2500) {
-    num = 6
+    itemNum.value = 6
   }
   if (innerWidth > 2500 && innerWidth <= 3000) {
-    num = 7
+    itemNum.value = 7
   }
 
-  console.log(11111, useSlots())
-
-  vNodes.value.forEach((node) => {
-    node.props!.num = num
-    ;(node.type as any).render()
-    console.log(22222, node)
-  })
-
-  if (vNodes.value.length > num) {
+  if (vNodes.value.length > itemNum.value) {
     more.value = true
   } else {
     more.value = false
   }
+
+  nextTick(() => {
+    emitter.emit('setFilterItemNum', itemNum.value)
+  })
 }
 
 const openMore = () => {

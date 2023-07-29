@@ -5,56 +5,24 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
+import emitter from '~/utils/emitt'
+
 interface Props {
   label: string
-  num?: number
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   label: '',
-  num: 3,
 })
-
-watch(
-  () => props.num,
-  (num: number) => {
-    console.log(1111111111111, props.num)
-  }
-)
 
 let itemNum = ref<number>(0)
 
 onMounted(() => {
-  setItemNum()
+  emitter.on('setFilterItemNum', (num) => {
+    itemNum.value = num
+  })
 })
-
-window.addEventListener('resize', () => {
-  setItemNum()
-})
-
-const setItemNum = () => {
-  const innerWidth = window.innerWidth
-
-  if (innerWidth > 767 && innerWidth <= 1200) {
-    itemNum.value = 2
-  }
-  if (innerWidth > 1200 && innerWidth <= 1400) {
-    itemNum.value = 3
-  }
-  if (innerWidth > 1400 && innerWidth <= 1600) {
-    itemNum.value = 4
-  }
-  if (innerWidth > 1600 && innerWidth <= 1920) {
-    itemNum.value = 5
-  }
-  if (innerWidth > 1920 && innerWidth <= 2500) {
-    itemNum.value = 6
-  }
-  if (innerWidth > 2500 && innerWidth <= 3000) {
-    itemNum.value = 7
-  }
-}
 </script>
 
 <style lang="scss" scoped>
