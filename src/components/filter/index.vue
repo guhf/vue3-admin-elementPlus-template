@@ -82,6 +82,7 @@ const setItemNum = () => {
   if (vNodes.value.length > itemNum.value) {
     more.value = true
   } else {
+    itemNum.value = vNodes.value.length
     more.value = false
   }
 
