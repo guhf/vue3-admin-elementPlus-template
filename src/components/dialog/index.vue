@@ -1,13 +1,13 @@
 <template>
-  <el-dialog v-model="dialogVisible" :title="title" :width="width" draggable append-to-body destroy-on-close @close="mClose">
+  <el-dialog v-model="dialogVisible" :title="title" :width="width" draggable append-to-body destroy-on-close @close="handleClose">
     <slot />
 
     <template #footer>
-      <el-button v-if="state.confirmShow" type="primary" size="small" :icon="Checked" @click="mConfirm">确定</el-button>
-      <el-button v-if="state.checkShow" type="primary" size="small" :icon="CircleCheck" @click="mCheck">选择</el-button>
-      <el-button v-if="state.saveShow" type="primary" size="small" :icon="Checked" @click="mSave">保存</el-button>
-      <el-button v-if="state.importShow" type="primary" size="small" :icon="Checked" @click="mImport">导入</el-button>
-      <el-button type="info" size="small" :icon="CircleClose" @click="mClose">关闭</el-button>
+      <el-button v-if="state.confirmShow" type="primary" size="small" :icon="Checked" @click="handleConfirm">确定</el-button>
+      <el-button v-if="state.checkShow" type="primary" size="small" :icon="CircleCheck" @click="handleCheck">选择</el-button>
+      <el-button v-if="state.saveShow" type="primary" size="small" :icon="Checked" @click="handleSave">保存</el-button>
+      <el-button v-if="state.importShow" type="primary" size="small" :icon="Checked" @click="handleImport">导入</el-button>
+      <el-button type="info" size="small" :icon="CircleClose" @click="handleClose">关闭</el-button>
     </template>
   </el-dialog>
 </template>
@@ -61,23 +61,23 @@ onMounted(() => {
   })
 })
 
-const mConfirm = (val: any) => {
+const handleConfirm = (val: any) => {
   emits('confirm', val)
 }
 
-const mCheck = (val: any) => {
+const handleCheck = (val: any) => {
   emits('check', val)
 }
 
-const mSave = (val: any) => {
+const handleSave = (val: any) => {
   emits('save', val)
 }
 
-const mImport = (val: any) => {
+const handleImport = (val: any) => {
   emits('import', val)
 }
 
-const mClose = () => {
+const handleClose = () => {
   emits('close')
   emits('update:modelValue', false)
 }

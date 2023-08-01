@@ -1,7 +1,7 @@
 <template>
   <div class="app-main-wrapper">
     <div class="btn-container">
-      <el-button :icon="CircleClose" @click="mBack">关闭</el-button>
+      <el-button :icon="CircleClose" @click="handleBack">关闭</el-button>
     </div>
     <div class="context-container">
       <el-card header="基本信息">
@@ -54,7 +54,7 @@ const getData = () => {
   //   .catch(() => {});
 }
 
-const mBack = () => {
+const handleBack = () => {
   useRouterBackIndex({ path: '/user/message' })
 }
 </script>

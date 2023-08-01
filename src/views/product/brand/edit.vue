@@ -1,7 +1,7 @@
 <template>
   <div class="app-main-wrapper">
     <div class="btn-container">
-      <el-button v-permission="['product.brand.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
+      <el-button v-permission="['product.brand.update']" type="primary" :icon="Checked" @click="handleSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <el-form ref="modelRef" :model="state.modelData" :rules="state.modelRules" label-width="120px">
@@ -55,7 +55,7 @@ import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Brand } from '~/models/product/brandModel'
 import { useRouterBackIndex, useValidate } from '~/hooks'
-import UploadImage from '~/components/upload/UploadImage.vue'
+import UploadImage from '~/components/upload/upload-image.vue'
 
 import { createBrand, getBrand, updateBrand } from '~/apis/product/brand'
 
@@ -90,7 +90,7 @@ const getData = () => {
   })
 }
 
-const mSave = async () => {
+const handleSave = async () => {
   if (!(await useValidate(modelRef.value))) return
 
   if (state.id) {

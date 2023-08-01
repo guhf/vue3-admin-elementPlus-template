@@ -1,6 +1,6 @@
 <template>
   <el-button type="primary" :icon="UploadIcon" @click="show">{{ title }}</el-button>
-  <ConstDialog ref="importDialogRef" :title="dialogTitle" :btns="['import']" @import="handleImport">
+  <CommonDialog ref="importDialogRef" :title="dialogTitle" :btns="['import']" @import="handleImport">
     <el-form label-width="160px" :inline="false">
       <el-form-item label="下载模板：">
         <el-button type="text" @click="downloadTemplate">下载模板</el-button>
@@ -16,7 +16,7 @@
           <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="downloadTemplate">下载模板</el-link> -->
       </el-form-item>
     </el-form>
-  </ConstDialog>
+  </CommonDialog>
 </template>
 
 <script lang="ts" setup>
@@ -55,7 +55,7 @@ const stateData = reactive({
   uploadList: [] as UploadUserFile[],
 })
 
-const importDialogRef = ref<ConstDialog>()
+const importDialogRef = ref<CommonDialog>()
 const importUploadRef = ref<UploadInstance>()
 
 const show = () => {

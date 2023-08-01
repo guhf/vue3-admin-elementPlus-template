@@ -1,9 +1,9 @@
 <template>
-  <ConstDialog ref="tbDialogRef" :title="title" :width="width" :btns="btns" @confirm="mConfirm" @check="mCheck" @save="mSave" @close="mClose">
-    <ConstTable ref="tbRef" :state-data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" :can-check="canCheck" @reload="reloadTableData" @selection-change="selectionChange" @select="select" @select-all="selectAll" @row-click="rowClick">
+  <CommonDialog ref="tbDialogRef" :title="title" :width="width" :btns="btns" @confirm="handleConfirm" @check="handleCheck" @save="handleSave" @close="handleClose">
+    <CommonTable ref="tbRef" :state-data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" :can-check="canCheck" @reload="reloadTableData" @selection-change="selectionChange" @select="select" @select-all="selectAll" @row-click="rowClick">
       <slot />
-    </ConstTable>
-  </ConstDialog>
+    </CommonTable>
+  </CommonDialog>
 </template>
 
 <script lang="ts" setup>
@@ -38,7 +38,7 @@ const state = reactive({
   selectTableData: [] as any[],
 })
 
-const tbDialogRef = ref<ConstDialog>()
+const tbDialogRef = ref<CommonDialog>()
 
 const open = () => {
   tbDialogRef.value?.open()
@@ -48,19 +48,19 @@ const close = () => {
   tbDialogRef.value?.close()
 }
 
-const mConfirm = (val: any) => {
+const handleConfirm = (val: any) => {
   emits('confirm', val)
 }
 
-const mCheck = (val: any) => {
+const handleCheck = (val: any) => {
   emits('check', val)
 }
 
-const mSave = (val: any) => {
+const handleSave = (val: any) => {
   emits('save', val)
 }
 
-const mClose = () => {
+const handleClose = () => {
   emits('close')
 }
 

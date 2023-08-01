@@ -19,7 +19,7 @@ withDefaults(defineProps<Props>(), {
 let itemNum = ref<number>(0)
 
 onMounted(() => {
-  emitter.on('setFilterItemNum', (num) => {
+  emitter.on('setFilterItemNum', (num: number) => {
     itemNum.value = num
   })
 })

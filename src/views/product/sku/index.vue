@@ -1,18 +1,18 @@
 <template>
   <div class="app-main-wrapper">
-    <ConstFilter @search="filterData" @reset="resetData">
-      <ConstFilterItem label="字典名称">
+    <Filter @search="filterData" @reset="resetData">
+      <FilterItem label="字典名称">
         <el-input v-model="state.pageQuery.dictName" type="text" clearable placeholder="请输入字典名称" />
-      </ConstFilterItem>
-      <ConstFilterItem label="字典名称" />
-    </ConstFilter>
+      </FilterItem>
+      <FilterItem label="字典名称" />
+    </Filter>
     <div class="table-tool">
       <div class="btn-container">
-        <el-button v-permission="['sys.dict.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
-        <el-button v-permission="['sys.dict.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+        <el-button v-permission="['sys.dict.create']" class="btn-item" type="primary" :icon="Edit" @click="handleCreate">添加</el-button>
+        <el-button v-permission="['sys.dict.del']" class="btn-item" type="danger" :icon="Delete" @click="handleDel">删除</el-button>
       </div>
     </div>
-    <ConstTable ref="dictTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
+    <CommonTable ref="dictTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="字典名称" prop="dictName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="字典编号" prop="dictCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="字典类型" prop="dictType" sortable="custom" min-width="200" align="center" show-overflow-tooltip>
@@ -32,10 +32,10 @@
       </el-table-column>
       <el-table-column label="操作" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button v-permission="['sys.dict.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
+          <el-button v-permission="['sys.dict.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
         </template>
       </el-table-column>
-    </ConstTable>
+    </CommonTable>
   </div>
 </template>
 
@@ -61,7 +61,7 @@ const state = reactive({
   pageQuery: {} as PageQuery,
   selectTableData: [] as Dict[],
 })
-const dictTbRef = ref<ConstTable>()
+const dictTbRef = ref<CommonTable>()
 
 onMounted(() => {
   getPageData()
@@ -92,15 +92,15 @@ const selectedChange = (val: Dict[]) => {
   state.selectTableData = val ?? []
 }
 
-const mCreate = () => {
+const handleCreate = () => {
   useRouterCreate()
 }
 
-const mShow = (id: string) => {
+const handleShow = (id: string) => {
   useRouterShow({ path: id })
 }
 
-const mDel = () => {
+const handleDel = () => {
   const ids = [] as string[]
   state.selectTableData.forEach((item: Dict) => {
     ids.push(item.id)

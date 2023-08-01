@@ -1,20 +1,20 @@
 <template>
   <div class="app-main-wrapper">
-    <ConstFilter @search="filterData" @reset="resetData">
-      <ConstFilterItem label="品牌名称">
+    <Filter @search="filterData" @reset="resetData">
+      <FilterItem label="品牌名称">
         <el-input v-model="state.pageQuery.brandName" type="text" clearable placeholder="请输入品牌名称" />
-      </ConstFilterItem>
-      <ConstFilterItem label="品牌编号">
+      </FilterItem>
+      <FilterItem label="品牌编号">
         <el-input v-model="state.pageQuery.brandCode" type="text" clearable placeholder="请输入品牌编号" />
-      </ConstFilterItem>
-    </ConstFilter>
+      </FilterItem>
+    </Filter>
     <div class="table-tool">
       <div class="btn-container">
-        <el-button v-permission="['product.brand.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
-        <el-button v-permission="['product.brand.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+        <el-button v-permission="['product.brand.create']" class="btn-item" type="primary" :icon="Edit" @click="handleCreate">添加</el-button>
+        <el-button v-permission="['product.brand.del']" class="btn-item" type="danger" :icon="Delete" @click="handleDel">删除</el-button>
       </div>
     </div>
-    <ConstTable ref="brandTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
+    <CommonTable ref="brandTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="品牌名称" prop="brandName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="品牌编号" prop="brandCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="品牌Logo" prop="brandImg" min-width="200" align="center" show-overflow-tooltip>
@@ -26,7 +26,7 @@
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-model="row.status" v-permission="['product.brand.enable']" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" @change="mEnableDisable(row)" />
+          <el-switch v-model="row.status" v-permission="['product.brand.enable']" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" @change="handleEnableDisable(row)" />
           <el-tag v-permission:un="['product.brand.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>
@@ -34,10 +34,10 @@
       </el-table-column>
       <el-table-column label="操作" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button v-permission="['product.brand.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
+          <el-button v-permission="['product.brand.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
         </template>
       </el-table-column>
-    </ConstTable>
+    </CommonTable>
   </div>
 </template>
 
@@ -63,7 +63,7 @@ const state = reactive({
   pageQuery: {} as PageQuery,
   selectTableData: [] as Brand[],
 })
-const brandTbRef = ref<ConstTable>()
+const brandTbRef = ref<CommonTable>()
 
 onMounted(() => {
   getPageData()
@@ -94,15 +94,15 @@ const selectedChange = (val: Brand[]) => {
   state.selectTableData = val ?? []
 }
 
-const mCreate = () => {
+const handleCreate = () => {
   useRouterCreate()
 }
 
-const mShow = (id: string) => {
+const handleShow = (id: string) => {
   useRouterShow({ path: id })
 }
 
-const mDel = () => {
+const handleDel = () => {
   const ids = [] as string[]
   state.selectTableData.forEach((item: Brand) => {
     ids.push(item.id)
@@ -121,7 +121,7 @@ const mDel = () => {
   })
 }
 
-const mEnableDisable = (row: Brand) => {
+const handleEnableDisable = (row: Brand) => {
   useConfirm({ message: `确定${row.status ? '启用' : '禁用'}该品牌吗?`, type: 'warning' })
     .then(() => {
       enableDisableBrand(row.id, row.status || false)

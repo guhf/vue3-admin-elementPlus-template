@@ -1,5 +1,5 @@
 <template>
-  <ConstUpload ref="uploadRef" v-model="fileList" class="image-uploader" :url="url" :limit="limit" :file-type="[1]" list-type="picture-card" :on-preview="handleImagePreview">
+  <Upload ref="uploadRef" v-model="fileList" class="image-uploader" :url="url" :limit="limit" :file-type="[1]" list-type="picture-card" :on-preview="handleImagePreview">
     <!-- <template> -->
     <!-- <template v-if="limit === 1">
       <el-icon v-if="!modelValue" class="image"><Plus /></el-icon>
@@ -9,7 +9,7 @@
     </template> -->
     <!-- </template> -->
     <el-icon class="image"><Plus /></el-icon>
-  </ConstUpload>
+  </Upload>
   <el-image-viewer v-if="showImageViewer" :url-list="state.previewFiles" :initial-index="previewIndex" hide-on-click-modal @close="showImageViewer = false" />
 </template>
 

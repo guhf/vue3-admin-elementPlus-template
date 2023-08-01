@@ -5,7 +5,7 @@
     "dev": "vite",
     "dev:production": "vite --mode production",
     "build:preview": "vite build --mode preview",
-    "build:production": "vite build --mode production",
+    "build:production": "vite build",
     "eslint": "eslint --ext .ts,.vue src",
     "eslint:fix": "eslint --ext .ts,.vue src --fix"
   },

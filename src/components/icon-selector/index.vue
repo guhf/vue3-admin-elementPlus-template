@@ -8,13 +8,13 @@
     </template>
   </el-input>
 
-  <ConstDialog ref="selectIconDialogRef" v-model="state.iconDialogVisible" title="选择图标" :btns="['check']" @check="checkIcon">
-    <ConstFilter @search="filterData" @reset="resetData">
+  <CommonDialog ref="selectIconDialogRef" v-model="state.iconDialogVisible" title="选择图标" :btns="['check']" @check="checkIcon">
+    <Filter @search="filterData" @reset="resetData">
       <div class="filter-item">
         <label>图标名称</label>
         <el-input v-model="state.pageQuery.iconName" type="text" clearable placeholder="请输入图标名称/代码" @keyup.enter="filterData" />
       </div>
-    </ConstFilter>
+    </Filter>
     <ul class="icon-list">
       <li v-for="item in state.iconData" :key="item.icon_id" class="icon-item" @click="iconClick(item)">
         <span class="icon-wapper" :style="{ color: state.checkIcon.icon_id === item.icon_id ? variables.theme : '#666666' }">
@@ -25,7 +25,7 @@
         </span></li
       >
     </ul>
-  </ConstDialog>
+  </CommonDialog>
 </template>
 
 <script lang="ts" setup>

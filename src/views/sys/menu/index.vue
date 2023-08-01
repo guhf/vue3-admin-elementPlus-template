@@ -2,11 +2,11 @@
   <div class="app-main-wrapper">
     <div class="table-tool">
       <div class="btn-container">
-        <el-button v-permission="['sys.menu.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
-        <el-button v-permission="['sys.menu.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+        <el-button v-permission="['sys.menu.create']" class="btn-item" type="primary" :icon="Edit" @click="handleCreate">添加</el-button>
+        <el-button v-permission="['sys.menu.del']" class="btn-item" type="danger" :icon="Delete" @click="handleDel">删除</el-button>
       </div>
     </div>
-    <ConstTable :data="state.pageListData" :pagination="false" row-key="id" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" :expand-row-keys="expandRowKeys" @reload="reloadTableData" @selection-change="selectedChange">
+    <CommonTable :data="state.pageListData" :pagination="false" row-key="id" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" :expand-row-keys="expandRowKeys" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="菜单名称" prop="menuName" sortable="custom" width="200" header-align="center" align="left" fixed show-overflow-tooltip />
       <el-table-column label="菜单类型" prop="menuType" sortable="custom" width="120" align="center" show-overflow-tooltip>
         <template #default="{ row }">
@@ -28,7 +28,7 @@
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-model="row.status" v-permission="['sys.menu.enable']" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" @change="mEnableDisable(row)" />
+          <el-switch v-model="row.status" v-permission="['sys.menu.enable']" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" @change="handleEnableDisable(row)" />
           <el-tag v-permission:un="['sys.menu.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>
@@ -36,10 +36,10 @@
       </el-table-column>
       <el-table-column label="操作" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button v-permission="['sys.menu.update']" type="primary" size="small" @click="mEdit(row.id)">编辑</el-button>
+          <el-button v-permission="['sys.menu.update']" type="primary" size="small" @click="handleEdit(row.id)">编辑</el-button>
         </template>
       </el-table-column>
-    </ConstTable>
+    </CommonTable>
   </div>
 </template>
 
@@ -84,15 +84,15 @@ const selectedChange = (val: Menu[]) => {
   state.selectTableData = val
 }
 
-const mCreate = () => {
+const handleCreate = () => {
   useRouterCreate()
 }
 
-const mEdit = (id: string) => {
+const handleEdit = (id: string) => {
   useRouterPush({ path: `menu/update/${id}` })
 }
 
-const mDel = () => {
+const handleDel = () => {
   const ids = [] as string[]
   state.selectTableData.forEach((item) => {
     ids.push(item.id)
@@ -110,7 +110,7 @@ const mDel = () => {
   })
 }
 
-const mEnableDisable = (row: Menu) => {
+const handleEnableDisable = (row: Menu) => {
   useConfirm({ message: `确定${row.status ? '启用' : '禁用'}该菜单吗?`, type: 'warning' })
     .then(() => {
       enableDisableMenu(row.id, row.status || false)

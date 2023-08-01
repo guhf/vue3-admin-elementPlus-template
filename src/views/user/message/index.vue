@@ -1,14 +1,14 @@
 <template>
   <div class="app-main-wrapper">
-    <ConstFilter @search="filterData" @reset="resetData">
+    <Filter @search="filterData" @reset="resetData">
       <el-input v-model="state.pageQuery.code" type="text" clearable placeholder="请输入通知编号">
         <template #prepend>通知编号</template>
       </el-input>
       <el-input v-model="state.pageQuery.title" type="text" clearable placeholder="请输入通知名称">
         <template #prepend>通知名称</template>
       </el-input>
-    </ConstFilter>
-    <ConstTable ref="messageTbRef" :data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" size="small" @reload="reloadTableData" @selection-change="selectedChange">
+    </Filter>
+    <CommonTable ref="messageTbRef" :data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" size="small" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="通知编号" prop="code" sortable="custom" width="150" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="通知名称" prop="title" sortable="custom" width="240" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="通知内容" prop="content" sortable="custom" min-width="400" header-align="center" align="left" show-overflow-tooltip />
@@ -23,10 +23,10 @@
       </el-table-column>
       <el-table-column label="操作" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button type="primary" size="small" @click="mShow(row.id)">查看</el-button>
+          <el-button type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
         </template>
       </el-table-column>
-    </ConstTable>
+    </CommonTable>
   </div>
 </template>
 
@@ -47,7 +47,7 @@ const state = reactive({
   selectTableData: [] as Array<any>,
   enums: {} as any,
 })
-const messageTbRef = ref<ConstTable>()
+const messageTbRef = ref<CommonTable>()
 
 onMounted(() => {
   getPageData()
@@ -79,11 +79,11 @@ const selectedChange = (val: Array<any>) => {
   state.selectTableData = val ?? []
 }
 
-const mShow = (id: string) => {
+const handleShow = (id: string) => {
   useRouterShow({ path: id })
 }
 
-const mDel = () => {
+const handleDel = () => {
   const ids = [] as Array<any>
   state.selectTableData.forEach((item) => {
     ids.push(item.id)

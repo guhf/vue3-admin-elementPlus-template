@@ -1,20 +1,20 @@
 <template>
   <div class="app-main-wrapper">
-    <ConstFilter @search="filterData" @reset="resetData">
-      <ConstFilterItem label="用户编号">
+    <Filter @search="filterData" @reset="resetData">
+      <FilterItem label="用户编号">
         <el-input v-model="state.pageQuery.userCode" type="text" clearable placeholder="请输入用户编号" />
-      </ConstFilterItem>
-      <ConstFilterItem label="用户名称">
+      </FilterItem>
+      <FilterItem label="用户名称">
         <el-input v-model="state.pageQuery.userName" type="text" clearable placeholder="请输入用户名称" />
-      </ConstFilterItem>
-    </ConstFilter>
+      </FilterItem>
+    </Filter>
     <div class="table-tool">
       <div class="btn-container">
-        <el-button v-permission="['sys.user.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
-        <el-button v-permission="['sys.user.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+        <el-button v-permission="['sys.user.create']" class="btn-item" type="primary" :icon="Edit" @click="handleCreate">添加</el-button>
+        <el-button v-permission="['sys.user.del']" class="btn-item" type="danger" :icon="Delete" @click="handleDel">删除</el-button>
       </div>
     </div>
-    <ConstTable ref="userTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
+    <CommonTable ref="userTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="用户编号" prop="userCode" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="用户名称" prop="userName" sortable="custom" width="200" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="性别" prop="sex" sortable="custom" width="80" align="center" show-overflow-tooltip>
@@ -40,11 +40,11 @@
       </el-table-column>
       <el-table-column label="操作" width="180" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button v-permission="['sys.user.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
-          <el-button v-permission="['sys.user.resetpwd']" type="warning" size="small" @click="mReset(row.id)">重置密码</el-button>
+          <el-button v-permission="['sys.user.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
+          <el-button v-permission="['sys.user.resetpwd']" type="warning" size="small" @click="handleReset(row.id)">重置密码</el-button>
         </template>
       </el-table-column>
-    </ConstTable>
+    </CommonTable>
   </div>
 </template>
 
@@ -69,7 +69,7 @@ const state = reactive({
   pageQuery: {} as PageQuery,
   selectTableData: [] as User[],
 })
-const userTbRef = ref<ConstTable>()
+const userTbRef = ref<CommonTable>()
 
 onMounted(() => {
   getPageData()
@@ -100,7 +100,7 @@ const selectedChange = (val: User[]) => {
   state.selectTableData = val ?? []
 }
 
-const mReset = (id: string) => {
+const handleReset = (id: string) => {
   useConfirm({ message: '确认重置该用户密码吗？', type: 'warning' }).then(() => {
     resetPwd(id).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
@@ -108,15 +108,15 @@ const mReset = (id: string) => {
   })
 }
 
-const mCreate = () => {
+const handleCreate = () => {
   useRouterCreate()
 }
 
-const mShow = (id: string) => {
+const handleShow = (id: string) => {
   useRouterShow({ path: id })
 }
 
-const mDel = () => {
+const handleDel = () => {
   const ids = [] as string[]
   state.selectTableData.forEach((item: User) => {
     ids.push(item.id)

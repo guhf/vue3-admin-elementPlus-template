@@ -9,8 +9,8 @@
         <div class="r-description">
           <div class="table-tool">
             <div class="btn-container">
-              <el-button v-if="state.checkData.categotyId" v-permission="['product.category.update']" class="btn-item" type="primary" :icon="Edit" @click="mUpdate">编辑</el-button>
-              <el-button v-permission="['product.category.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加下级</el-button>
+              <el-button v-if="state.checkData.categotyId" v-permission="['product.category.update']" class="btn-item" type="primary" :icon="Edit" @click="handleUpdate">编辑</el-button>
+              <el-button v-permission="['product.category.create']" class="btn-item" type="primary" :icon="Edit" @click="handleCreate">添加下级</el-button>
               <TreeDialog
                 v-if="state.checkData.categotyId"
                 ref="categoryDialogRef"
@@ -24,9 +24,9 @@
                 title="商品分类"
                 :load="getCategoryExcludeTreeList"
                 :load-params="state.checkData.categotyId"
-                @confirm="mMove"
+                @confirm="handleMove"
               />
-              <el-button v-if="state.checkData.categotyId" v-permission="['product.category.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+              <el-button v-if="state.checkData.categotyId" v-permission="['product.category.del']" class="btn-item" type="danger" :icon="Delete" @click="handleDel">删除</el-button>
             </div>
           </div>
           <el-descriptions v-if="state.modelData.id" title="" :column="2" border>
@@ -41,7 +41,7 @@
           </el-descriptions>
         </div>
         <div class="r-table">
-          <ConstTable ref="categoryTbRef" :data="state.modelData.categoryItems" :height="state.modelData.id ? 'calc(100vh - 349px)' : 'calc(100vh - 155px)'">
+          <CommonTable ref="categoryTbRef" :data="state.modelData.categoryItems" :height="state.modelData.id ? 'calc(100vh - 349px)' : 'calc(100vh - 155px)'">
             <el-table-column label="分类编号" prop="categoryCode" min-width="200" header-align="center" align="left" show-overflow-tooltip />
             <el-table-column label="分类名称" prop="categoryName" min-width="200" header-align="center" align="left" show-overflow-tooltip />
             <el-table-column label="分类图片" prop="categoryImg" min-width="200" align="center" show-overflow-tooltip>
@@ -58,13 +58,13 @@
                 </el-tag>
               </template>
             </el-table-column>
-          </ConstTable>
+          </CommonTable>
         </div>
       </div>
     </div>
-    <ConstDialog ref="editDialogRef" v-model="categoryEditDialogVisible" :title="'添加商品分类'" :btns="['save']" @save="mSave">
+    <CommonDialog ref="editDialogRef" v-model="categoryEditDialogVisible" :title="'添加商品分类'" :btns="['save']" @save="handleSave">
       <CategoryEdit ref="categoryEditRef" :params="state.editParams" />
-    </ConstDialog>
+    </CommonDialog>
   </div>
 </template>
 
@@ -80,14 +80,14 @@ import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useValueToLabel 
 
 import { delCategory, getCategory, getCategoryExcludeTreeList, getCategoryTreeList, moveCategory } from '~/apis/product/category'
 import ConstTree from '~/components/tree/index.vue'
-import TreeDialog from '~/components/dialog/TreeDialog.vue'
+import TreeDialog from '~/components/dialog/tree-dialog.vue'
 
 defineOptions({
   name: 'ProductCategory',
 })
 
 const { commonStatus } = useDict()
-const categoryTbRef = ref<ConstTable>()
+const categoryTbRef = ref<CommonTable>()
 const categoryEditRef = ref<ComponentRef>()
 const categoryDialogVisible = ref(false)
 const categoryEditDialogVisible = ref(false)
@@ -129,21 +129,21 @@ const getData = (data: TreeItem) => {
   })
 }
 
-const mUpdate = () => {
+const handleUpdate = () => {
   state.editParams.id = state.checkData.categotyId
   state.editParams.parentId = ''
   state.editParams.parentName = ''
   categoryEditDialogVisible.value = true
 }
 
-const mCreate = () => {
+const handleCreate = () => {
   state.editParams.id = ''
   state.editParams.parentId = state.checkData.categotyId
   state.editParams.parentName = state.checkData.categoryName
   categoryEditDialogVisible.value = true
 }
 
-const mMove = (data: TreeData) => {
+const handleMove = (data: TreeData) => {
   useConfirm({ message: '确定移动至该分类下吗?', type: 'warning' }).then(() => {
     moveCategory(state.checkData.categotyId, data[0].id).then((res: Response<any>) => {
       getTreeData()
@@ -153,14 +153,14 @@ const mMove = (data: TreeData) => {
   })
 }
 
-const mSave = async () => {
+const handleSave = async () => {
   categoryEditRef.value?.save().then(() => {
     getTreeData()
     categoryEditDialogVisible.value = false
   })
 }
 
-const mDel = () => {
+const handleDel = () => {
   useConfirmDel({ message: '确定删除当前分类及其下级分类吗？' }).then(() => {
     delCategory(state.checkData.categotyId).then((res: Response<any>) => {
       useMessageSuccess(res.msg)

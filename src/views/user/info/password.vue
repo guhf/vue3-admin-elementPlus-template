@@ -24,7 +24,7 @@
     <el-row>
       <el-col>
         <el-form-item label="">
-          <el-button type="primary" size="small" :icon="Checked" @click="mSave">保存</el-button>
+          <el-button type="primary" size="small" :icon="Checked" @click="handleSave">保存</el-button>
         </el-form-item>
       </el-col>
     </el-row>
@@ -78,7 +78,7 @@ const state = reactive({
 })
 const modelRef = ref<FormInstance>()
 
-const mSave = async () => {
+const handleSave = async () => {
   if (!(await useValidate(modelRef.value))) return
 
   const pwdData = {

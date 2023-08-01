@@ -13,11 +13,11 @@ import '~/permission'
 import '~/assets/icons/menu/iconfont.js'
 import '~/assets/icons/operate/iconfont.js'
 
-import ConstTable from '~/components/table/index.vue'
-import ConstDialog from '~/components/dialog/index.vue'
-import ConstFilter from '~/components/filter/index.vue'
-import ConstFilterItem from '~/components/filter/Item.vue'
-import ConstUpload from '~/components/upload/index.vue'
+import CommonTable from '~/components/table/index.vue'
+import CommonDialog from '~/components/dialog/index.vue'
+import Filter from '~/components/filter/index.vue'
+import FilterItem from '~/components/filter/item.vue'
+import Upload from '~/components/upload/index.vue'
 import SvgIcon from '~/components/svg-icon/index.vue'
 
 const app = createApp(App)
@@ -39,11 +39,12 @@ app.config.globalProperties.currency = (v: string | number) => currency(v, { sym
 app.config.globalProperties.fmtMoney = (v: string | number) => app.config.globalProperties.currency(v).format()
 
 // 全局组件
-app.component('ConstTable', ConstTable)
-app.component('ConstDialog', ConstDialog)
-app.component('ConstFilter', ConstFilter)
-app.component('ConstFilterItem', ConstFilterItem)
-app.component('ConstUpload', ConstUpload)
+app.component('CommonTable', CommonTable)
+app.component('CommonDialog', CommonDialog)
+// eslint-disable-next-line vue/no-reserved-component-names
+app.component('Filter', Filter)
+app.component('FilterItem', FilterItem)
+app.component('Upload', Upload)
 app.component('SvgIcon', SvgIcon)
 
 // 自定义指令

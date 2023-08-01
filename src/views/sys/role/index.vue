@@ -1,20 +1,20 @@
 <template>
   <div class="app-main-wrapper">
-    <ConstFilter @search="filterData" @reset="resetData">
-      <ConstFilterItem label="角色名称">
+    <Filter @search="filterData" @reset="resetData">
+      <FilterItem label="角色名称">
         <el-input v-model="state.pageQuery.roleName" type="text" clearable placeholder="请输入角色名称" />
-      </ConstFilterItem>
-      <ConstFilterItem label="角色标识">
+      </FilterItem>
+      <FilterItem label="角色标识">
         <el-input v-model="state.pageQuery.roleCode" type="text" clearable placeholder="请输入角色标识" />
-      </ConstFilterItem>
-    </ConstFilter>
+      </FilterItem>
+    </Filter>
     <div class="table-tool">
       <div class="btn-container">
-        <el-button v-permission="['sys.role.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
-        <el-button v-permission="['sys.role.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+        <el-button v-permission="['sys.role.create']" class="btn-item" type="primary" :icon="Edit" @click="handleCreate">添加</el-button>
+        <el-button v-permission="['sys.role.del']" class="btn-item" type="danger" :icon="Delete" @click="handleDel">删除</el-button>
       </div>
     </div>
-    <ConstTable ref="roleTbRef" :data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" :can-check="canCheck" @reload="reloadTableData" @selection-change="selectedChange">
+    <CommonTable ref="roleTbRef" :data="state.pageListData" :total="state.total" :page-size="state.pageQuery.pageSize" :can-check="canCheck" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="角色名称" prop="roleName" sortable="custom" width="120" header-align="center" align="left" fixed="left" show-overflow-tooltip />
       <el-table-column label="角色标识" prop="roleCode" sortable="custom" width="120" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="描述" prop="description" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
@@ -27,11 +27,11 @@
       </el-table-column>
       <el-table-column label="操作" width="180" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button v-permission="['sys.role.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
-          <TreeDialog ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" v-permission="['sys.role.auth']" button btn-text="分配权限" title="分配权限" :btns="['save']" :load="getRoleMenuTreeList" :load-params="row.id" @open="setRoleId(row.id)" @save="mSetAuth" />
+          <el-button v-permission="['sys.role.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
+          <TreeDialog ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" v-permission="['sys.role.auth']" button btn-text="分配权限" title="分配权限" :btns="['save']" :load="getRoleMenuTreeList" :load-params="row.id" @open="setRoleId(row.id)" @save="handleSetAuth" />
         </template>
       </el-table-column>
-    </ConstTable>
+    </CommonTable>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ import type { Response } from '~/models/response'
 import type { Role } from '~/models/sys/roleModel'
 import type { Tree } from '~/models/common/treeModel'
 import { useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
-import TreeDialog from '~/components/dialog/TreeDialog.vue'
+import TreeDialog from '~/components/dialog/tree-dialog.vue'
 
 import { delRole, getRolePageList, setAuth } from '~/apis/sys/role'
 import { getRoleMenuTreeList } from '~/apis/sys/menu'
@@ -54,7 +54,7 @@ defineOptions({
 })
 
 const { commonStatus } = useDict()
-const roleTbRef = ref<ConstTable>()
+const roleTbRef = ref<CommonTable>()
 const roleAuthDialogVisible = ref(false)
 const state = reactive({
   pageListData: [] as Role[],
@@ -102,15 +102,15 @@ const canCheck = (row: Role) => {
   return row.roleType !== 1
 }
 
-const mCreate = () => {
+const handleCreate = () => {
   useRouterCreate()
 }
 
-const mShow = (id: string) => {
+const handleShow = (id: string) => {
   useRouterShow({ path: id })
 }
 
-const mDel = () => {
+const handleDel = () => {
   const ids = [] as string[]
   state.selectTableData.forEach((item: Role) => {
     ids.push(item.id)
@@ -133,7 +133,7 @@ const setRoleId = (id: string) => {
   state.roleId = id
 }
 
-const mSetAuth = (checkData: TreeData) => {
+const handleSetAuth = (checkData: TreeData) => {
   if (checkData.length < 1) {
     useMessageWarning('请选择需要分配的权限')
     return

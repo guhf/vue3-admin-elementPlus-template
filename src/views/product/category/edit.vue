@@ -43,7 +43,7 @@
       <el-row>
         <el-col>
           <el-form-item label="附件:" prop="attachs">
-            <ConstUpload ref="attrsRef" v-model="state.modelData.attachs" />
+            <Upload ref="attrsRef" v-model="state.modelData.attachs" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -57,7 +57,7 @@ import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Category } from '~/models/product/categoryModel'
 import { useMessageSuccess, useValidate } from '~/hooks'
-import UploadImage from '~/components/upload/UploadImage.vue'
+import UploadImage from '~/components/upload/upload-image.vue'
 
 import { createCategory, getCategory, updateCategory } from '~/apis/product/category'
 

@@ -7,9 +7,9 @@
     </el-input>
     <el-button v-else-if="button" type="primary" :icon="btnIcon" :size="btnSize" @click="openDialog">{{ btnText }}</el-button>
 
-    <ConstDialog ref="treeDialogRef" v-model="dialogVisible" :title="title" :width="width" :btns="btns" @confirm="mConfirm" @check="mCheck" @save="mSave" @close="mClose">
+    <CommonDialog ref="treeDialogRef" v-model="dialogVisible" :title="title" :width="width" :btns="btns" @confirm="handleConfirm" @check="handleCheck" @save="handleSave" @close="handleClose">
       <ConstTree ref="constTreeRef" :data="treeData" :default-props="defaultProps" show-checkbox :radio="radio" />
-    </ConstDialog>
+    </CommonDialog>
   </div>
 </template>
 
@@ -106,22 +106,22 @@ const open = () => {
     })
 }
 
-const mConfirm = () => {
+const handleConfirm = () => {
   let data = constTreeRef.value?.getCheckData() || []
   emits('confirm', data)
 }
 
-const mCheck = () => {
+const handleCheck = () => {
   let data = constTreeRef.value?.getCheckData() || []
   emits('check', data)
 }
 
-const mSave = () => {
+const handleSave = () => {
   let data = constTreeRef.value?.getCheckData() || []
   emits('save', data)
 }
 
-const mClose = () => {
+const handleClose = () => {
   emits('close')
   emits('update:dialogVisible', false)
 }

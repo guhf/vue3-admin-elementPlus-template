@@ -1,7 +1,7 @@
 <template>
   <div class="app-main-wrapper">
     <div class="btn-container">
-      <el-button v-permission="['sys.role.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
+      <el-button v-permission="['sys.role.update']" type="primary" :icon="Edit" @click="handleEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <el-card header="基本信息">
@@ -51,7 +51,7 @@ const getData = () => {
   })
 }
 
-const mEdit = () => {
+const handleEdit = () => {
   useRouterUpdate({ path: state.id })
 }
 </script>

@@ -7,7 +7,7 @@ declare type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElR
 
 type ElRef<T extends HTMLElement = HTMLDivElement> = import('./global').Nullable<T>;
 
-interface ConstTable extends InstanceType<typeof import('element-plus').ElTable> {
+interface CommonTable extends InstanceType<typeof import('element-plus').ElTable> {
   reloadData: Function
 }
 
@@ -15,7 +15,7 @@ interface ConstTree extends InstanceType<typeof import('element-plus').ElTree> {
   getCheckData: () => import('element-plus/es/components/tree/src/tree.type').TreeData
 }
 
-interface ConstDialog extends InstanceType<typeof import('element-plus').ElDialog> {
+interface CommonDialog extends InstanceType<typeof import('element-plus').ElDialog> {
   open: Function
   close: Function
 }

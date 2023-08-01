@@ -1,7 +1,7 @@
 <template>
   <div class="app-main-wrapper">
     <div class="btn-container">
-      <el-button v-permission="['sys.user.update']" type="primary" :icon="Edit" @click="mEdit">编辑</el-button>
+      <el-button v-permission="['sys.user.update']" type="primary" :icon="Edit" @click="handleEdit">编辑</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <el-descriptions title="" :column="2" border>
@@ -58,7 +58,7 @@ const getData = () => {
   })
 }
 
-const mEdit = () => {
+const handleEdit = () => {
   useRouterUpdate({ path: state.id })
 }
 </script>

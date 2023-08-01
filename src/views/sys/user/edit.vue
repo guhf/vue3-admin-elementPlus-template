@@ -1,7 +1,7 @@
 <template>
   <div class="app-main-wrapper">
     <div class="btn-container">
-      <el-button v-permission="['sys.user.update']" type="primary" :icon="Checked" @click="mSave">保存</el-button>
+      <el-button v-permission="['sys.user.update']" type="primary" :icon="Checked" @click="handleSave">保存</el-button>
       <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <el-form ref="modelRef" :model="state.modelData" :rules="state.modelRules" label-width="120px">
@@ -129,7 +129,7 @@ const getRoleData = () => {
   })
 }
 
-const mSave = async () => {
+const handleSave = async () => {
   if (!(await useValidate(modelRef.value))) return
 
   if (state.id) {

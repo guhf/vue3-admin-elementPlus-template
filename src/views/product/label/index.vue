@@ -1,26 +1,26 @@
 <template>
   <div class="app-main-wrapper">
-    <ConstFilter @search="filterData" @reset="resetData">
-      <ConstFilterItem label="标签名称">
+    <Filter @search="filterData" @reset="resetData">
+      <FilterItem label="标签名称">
         <el-input v-model="state.pageQuery.labelName" type="text" clearable placeholder="请输入标签名称" />
-      </ConstFilterItem>
-      <ConstFilterItem label="标签编号">
+      </FilterItem>
+      <FilterItem label="标签编号">
         <el-input v-model="state.pageQuery.labelCode" type="text" clearable placeholder="请输入标签编号" />
-      </ConstFilterItem>
-    </ConstFilter>
+      </FilterItem>
+    </Filter>
     <div class="table-tool">
       <div class="btn-container">
-        <el-button v-permission="['product.label.create']" class="btn-item" type="primary" :icon="Edit" @click="mCreate">添加</el-button>
-        <el-button v-permission="['product.label.del']" class="btn-item" type="danger" :icon="Delete" @click="mDel">删除</el-button>
+        <el-button v-permission="['product.label.create']" class="btn-item" type="primary" :icon="Edit" @click="handleCreate">添加</el-button>
+        <el-button v-permission="['product.label.del']" class="btn-item" type="danger" :icon="Delete" @click="handleDel">删除</el-button>
       </div>
     </div>
-    <ConstTable ref="labelTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
+    <CommonTable ref="labelTbRef" :data="state.pageListData" :total="state.total" @reload="reloadTableData" @selection-change="selectedChange">
       <el-table-column label="标签名称" prop="labelName" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="标签编号" prop="labelCode" sortable="custom" min-width="200" align="center" show-overflow-tooltip />
       <el-table-column label="排序号" prop="sortNo" sortable="custom" width="100" align="center" show-overflow-tooltip />
       <el-table-column label="状态" prop="status" sortable="custom" width="90" align="center" fixed="right">
         <template #default="{ row }">
-          <el-switch v-model="row.status" v-permission="['product.label.enable']" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" @change="mEnableDisable(row)" />
+          <el-switch v-model="row.status" v-permission="['product.label.enable']" size="large" inline-prompt width="60px" active-text="启用" inactive-text="禁用" @change="handleEnableDisable(row)" />
           <el-tag v-permission:un="['product.label.enable']" :type="row.status ? 'success' : 'danger'" size="small" effect="light">
             {{ useValueToLabel(commonStatus, row.status) }}
           </el-tag>
@@ -28,10 +28,10 @@
       </el-table-column>
       <el-table-column label="操作" width="80" align="center" fixed="right">
         <template #default="{ row }">
-          <el-button v-permission="['product.label.show']" type="primary" size="small" @click="mShow(row.id)">查看</el-button>
+          <el-button v-permission="['product.label.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
         </template>
       </el-table-column>
-    </ConstTable>
+    </CommonTable>
   </div>
 </template>
 
@@ -57,7 +57,7 @@ const state = reactive({
   pageQuery: {} as PageQuery,
   selectTableData: [] as Label[],
 })
-const labelTbRef = ref<ConstTable>()
+const labelTbRef = ref<CommonTable>()
 
 onMounted(() => {
   getPageData()
@@ -88,15 +88,15 @@ const selectedChange = (val: Label[]) => {
   state.selectTableData = val ?? []
 }
 
-const mCreate = () => {
+const handleCreate = () => {
   useRouterCreate()
 }
 
-const mShow = (id: string) => {
+const handleShow = (id: string) => {
   useRouterShow({ path: id })
 }
 
-const mDel = () => {
+const handleDel = () => {
   const ids = [] as string[]
   state.selectTableData.forEach((item: Label) => {
     ids.push(item.id)
@@ -115,7 +115,7 @@ const mDel = () => {
   })
 }
 
-const mEnableDisable = (row: Label) => {
+const handleEnableDisable = (row: Label) => {
   useConfirm({ message: `确定${row.status ? '启用' : '禁用'}该标签吗?`, type: 'warning' })
     .then(() => {
       enableDisableLabel(row.id, row.status || false)
