@@ -1,54 +1,33 @@
 <template>
-  <div class="operation-element">
-    <el-input v-if="input" v-model="inputValue" type="text" class="icon-input" :placeholder="placeholder" disabled>
-      <template #append>
-        <el-button :icon="Search" @click="openDialog" />
-      </template>
-    </el-input>
-    <el-button v-else-if="button" type="primary" :icon="btnIcon" :size="btnSize" @click="openDialog">{{ btnText }}</el-button>
-
-    <CommonDialog ref="treeDialogRef" v-model="dialogVisible" :title="title" :width="width" :btns="btns" @confirm="handleConfirm" @check="handleCheck" @save="handleSave" @close="handleClose">
-      <ConstTree ref="constTreeRef" :data="treeData" :default-props="defaultProps" show-checkbox :radio="radio" />
-    </CommonDialog>
-  </div>
+  <CommonDialog ref="treeDialogRef" v-model="dialogVisible" :title="title" :width="width" :btns="btns" @confirm="handleConfirm" @check="handleCheck" @save="handleSave" @close="handleClose">
+    <Tree ref="treeRef" :data="treeData" :default-props="defaultProps" show-checkbox :radio="radio" />
+  </CommonDialog>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
-import { Search } from '@element-plus/icons-vue'
+import { computed, reactive, ref, watch } from 'vue'
 import type { TreeData } from 'element-plus/es/components/tree/src/tree.type'
-import type { DefineComponent } from 'vue'
-import type { Tree } from '~/models/common/treeModel'
 import type { Response } from '~/models/response'
+import type { Tree as TreeModel } from '~/models/common/treeModel'
 
-import ConstTree from '~/components/tree/index.vue'
+import Tree from '~/components/tree/index.vue'
 
 interface Props {
-  modelValue?: string
-  placeholder?: string
-  input?: boolean
-  button?: boolean
-  btnText?: string
-  btnIcon?: DefineComponent
-  btnSize?: '' | 'default' | 'small' | 'large'
-  dialogVisible: boolean
+  modelValue: boolean
   title?: string
   width?: string | number
   btns?: string[]
-  data?: Tree
+  data?: TreeModel
   radio?: boolean
   defaultProps?: {
     label: string
     children: string
   }
-  load?: (params: any) => Promise<Response<Tree>>
+  load?: Promise<Response<TreeModel>>
   loadParams?: any
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  placeholder: '请输入',
-  btnSize: 'small',
-  dialogVisible: false,
   title: '',
   width: '50%',
   btns: () => ['confirm'],
@@ -57,87 +36,65 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emits = defineEmits<{
-  (e: 'update:modelValue', newValue: string): void
-  (e: 'update:dialogVisible', newValue: boolean): void
+  (e: 'update:modelValue', newValue: boolean): void
   (e: 'confirm', data: TreeData): void
   (e: 'check', data: TreeData): void
   (e: 'save', data: TreeData): void
-  (e: 'open'): void
   (e: 'close'): void
 }>()
 
-const constTreeRef = ref<ConstTree>()
-let treeData = ref<Tree>([])
-let showTree = ref(false)
+const treeRef = ref<Tree>()
+let treeData = ref<TreeModel>([])
 
-const inputValue = computed({
+const dialogVisible = computed({
   get() {
     return props.modelValue
   },
   set(value) {
-    emits('update:modelValue', value || '')
+    emits('update:modelValue', value)
   },
 })
 
-const dialogVisible = computed({
-  get() {
-    return props.dialogVisible
-  },
-  set(value) {
-    emits('update:dialogVisible', value)
-  },
-})
-
-const openDialog = () => {
-  emits('open')
-  open()
-}
-
-const open = () => {
-  emits('update:dialogVisible', true)
-  props.load &&
-    props.load(props.loadParams).then((res: Response<Tree>) => {
-      if (res.data) {
-        treeData.value = res.data
-        showTree.value = true
-        console.log(treeData.value)
-        console.log(showTree.value)
-      }
-    })
-}
+watch(
+  () => props.modelValue,
+  () => {
+    if (props.modelValue) {
+      // 先置空，否则回显选中状态时有bug
+      treeData.value = []
+      props.load &&
+        props.load.then((res: Response<TreeModel>) => {
+          if (res.data) {
+            treeData.value = res.data
+          }
+        })
+    }
+  }
+)
 
 const handleConfirm = () => {
-  let data = constTreeRef.value?.getCheckData() || []
+  let data = treeRef.value?.getCheckData() || []
   emits('confirm', data)
 }
 
 const handleCheck = () => {
-  let data = constTreeRef.value?.getCheckData() || []
+  let data = treeRef.value?.getCheckData() || []
   emits('check', data)
 }
 
 const handleSave = () => {
-  let data = constTreeRef.value?.getCheckData() || []
+  let data = treeRef.value?.getCheckData() || []
   emits('save', data)
 }
 
 const handleClose = () => {
   emits('close')
-  emits('update:dialogVisible', false)
+  emits('update:modelValue', false)
 }
 
 watch(
   () => props.data,
-  (newVal: Tree) => {
+  (newVal: TreeModel) => {
     treeData.value = newVal
   }
 )
 </script>
-
-<style scoped>
-.operation-element {
-  display: inline-flex;
-  vertical-align: middle;
-  margin: 0 15px;
-}
-</style>

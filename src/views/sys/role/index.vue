@@ -28,10 +28,13 @@
       <el-table-column label="操作" width="180" align="center" fixed="right">
         <template #default="{ row }">
           <el-button v-permission="['sys.role.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
-          <TreeDialog ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" v-permission="['sys.role.auth']" button btn-text="分配权限" title="分配权限" :btns="['save']" :load="getRoleMenuTreeList" :load-params="row.id" @open="setRoleId(row.id)" @save="handleSetAuth" />
+          <el-button v-permission="['sys.role.auth']" type="primary" size="small" @click="openDialog(row.id)">分配权限</el-button>
         </template>
       </el-table-column>
     </CommonTable>
+
+    <!-- 分配权限 -->
+    <TreeDialog ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" title="分配权限" :btns="['save']" :load="getRoleMenuTreeList(state.roleId)" :load-params="state.roleId" @save="handleSetAuth" />
   </div>
 </template>
 
@@ -129,8 +132,9 @@ const handleDel = () => {
   })
 }
 
-const setRoleId = (id: string) => {
+const openDialog = (id: string) => {
   state.roleId = id
+  roleAuthDialogVisible.value = true
 }
 
 const handleSetAuth = (checkData: TreeData) => {

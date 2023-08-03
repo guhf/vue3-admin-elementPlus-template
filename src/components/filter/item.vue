@@ -28,7 +28,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .filter-item {
   width: calc((100% - 10px * var(--num)) / var(--num));
-  max-width: 350px;
+  max-width: 300px;
   flex-shrink: 0;
   line-height: normal;
   display: inline-table;

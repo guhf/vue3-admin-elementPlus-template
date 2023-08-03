@@ -3,7 +3,7 @@
     <div class="l-tree-r-table">
       <div class="l-container">
         <!-- 左侧树 -->
-        <ConstTree ref="authTree" :data="state.treeData" :default-expanded-keys="expandKeys" @node-click="getData" />
+        <Tree ref="authTree" :data="state.treeData" :default-expanded-keys="expandKeys" @node-click="getData" />
       </div>
       <div class="r-container">
         <div class="r-description">
@@ -73,13 +73,14 @@ import { onMounted, reactive, ref } from 'vue'
 import { Delete, Edit, Rank } from '@element-plus/icons-vue'
 import CategoryEdit from './edit.vue'
 import type { TreeData } from 'element-plus/es/components/tree/src/tree.type'
-import type { Tree, TreeItem } from '~/models/common/treeModel'
+import type { TreeItem } from '~/models/common/treeModel'
 import type { Response } from '~/models/response'
 import type { Category } from '~/models/product/categoryModel'
+import { Tree } from '~/models/common/treeModel'
 import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useValueToLabel } from '~/hooks'
 
 import { delCategory, getCategory, getCategoryExcludeTreeList, getCategoryTreeList, moveCategory } from '~/apis/product/category'
-import ConstTree from '~/components/tree/index.vue'
+import Tree from '~/components/tree/index.vue'
 import TreeDialog from '~/components/dialog/tree-dialog.vue'
 
 defineOptions({

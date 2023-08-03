@@ -57,26 +57,25 @@ window.addEventListener('resize', () => {
 })
 
 const setItemNum = () => {
-  const innerWidth = window.innerWidth
+  const filterWidth = (document.querySelector('.filter-container') as HTMLElement)?.offsetWidth
 
-  // TODO 个数判断有bug，需要调整
-  if (innerWidth > 767 && innerWidth <= 1200) {
+  if (filterWidth > 0 && filterWidth <= 310) {
+    itemNum.value = 1
+  }
+  if (filterWidth > 310 && filterWidth <= 620) {
     itemNum.value = 2
   }
-  if (innerWidth > 1200 && innerWidth <= 1400) {
+  if (filterWidth > 620 && filterWidth <= 930) {
     itemNum.value = 3
   }
-  if (innerWidth > 1400 && innerWidth <= 1600) {
+  if (filterWidth > 930 && filterWidth <= 1240) {
     itemNum.value = 4
   }
-  if (innerWidth > 1600 && innerWidth <= 1920) {
+  if (filterWidth > 1240 && filterWidth <= 1550) {
     itemNum.value = 5
   }
-  if (innerWidth > 1920 && innerWidth <= 2500) {
+  if (filterWidth > 1550 && filterWidth <= 1860) {
     itemNum.value = 6
-  }
-  if (innerWidth > 2500 && innerWidth <= 3000) {
-    itemNum.value = 7
   }
 
   if (vNodes.value.length > itemNum.value) {

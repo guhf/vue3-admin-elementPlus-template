@@ -5,17 +5,17 @@ declare interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
 
 declare type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElRef<T> | null
 
-type ElRef<T extends HTMLElement = HTMLDivElement> = import('./global').Nullable<T>;
+type ElRef<T extends HTMLElement = HTMLDivElement> = import('./global').Nullable<T>
 
 interface CommonTable extends InstanceType<typeof import('element-plus').ElTable> {
-  reloadData: Function
+  reloadData: (pageIndex?: number, pageSize?: number) => void
 }
 
-interface ConstTree extends InstanceType<typeof import('element-plus').ElTree> {
+interface Tree extends InstanceType<typeof import('element-plus').ElTree> {
   getCheckData: () => import('element-plus/es/components/tree/src/tree.type').TreeData
 }
 
 interface CommonDialog extends InstanceType<typeof import('element-plus').ElDialog> {
-  open: Function
-  close: Function
+  open: () => void
+  close: () => void
 }
