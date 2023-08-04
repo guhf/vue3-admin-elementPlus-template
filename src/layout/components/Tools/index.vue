@@ -57,19 +57,24 @@ const logout = () => {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-right: 15px;
 
   &:focus {
     outline: none;
   }
 
   .tools-item {
+    height: 100%;
     color: #666666;
     padding: 0 5px;
-    margin-right: 15px;
 
     &.hover-effect {
       cursor: pointer;
       transition: background 0.3s;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.025);
     }
   }
 
@@ -89,8 +94,8 @@ const logout = () => {
       .el-icon-caret-bottom {
         cursor: pointer;
         position: absolute;
-        right: -25px;
-        top: 1px;
+        right: -20px;
+        // top: 1px;
         font-size: 20px;
       }
     }

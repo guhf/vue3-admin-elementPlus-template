@@ -113,10 +113,10 @@ const handleShow = (id: string) => {
 }
 
 const handleDel = () => {
-  const ids = [] as string[]
-  state.selectTableData.forEach((item: Dict) => {
-    ids.push(item.id)
+  const ids = state.selectTableData.map((item) => {
+    return item.id
   })
+
   if (ids.length < 1) {
     useMessageWarning('请先选择需要删除的数据！')
     return

@@ -23,7 +23,7 @@ import { useRoute } from 'vue-router'
 import { CircleClose } from '@element-plus/icons-vue'
 import { useRouterBackIndex } from '~/hooks'
 
-// import { getNotify, } from "~/apis/user/notify";
+import { getMessage } from '~/apis/user/message'
 
 const state = reactive({
   id: '',
@@ -42,16 +42,15 @@ onMounted(() => {
 })
 
 const getData = () => {
-  // getNotify(state.id)
-  //   .then((res: any) => {
-  //     if (res?.data != null)
-  //       state.modelData = res?.data;
-  //     state.enums = res.enums;
-  //     if(state.modelData.isRead === false){
-  //       store.dispatch(UserActionTypes.ACTION_GET_NOTICE_TOTAL, store.state.user.notifyTotal > 1 ? store.state.user.notifyTotal - 1 : "")
-  //     }
-  //   })
-  //   .catch(() => {});
+  getMessage(state.id)
+    .then((res: any) => {
+      if (res?.data != null) state.modelData = res?.data
+      state.enums = res.enums
+      if (state.modelData.isRead === false) {
+        store.dispatch(UserActionTypes.ACTION_GET_NOTICE_TOTAL, store.state.user.messageTotal > 1 ? store.state.user.messageTotal - 1 : '')
+      }
+    })
+    .catch(() => {})
 }
 
 const handleBack = () => {

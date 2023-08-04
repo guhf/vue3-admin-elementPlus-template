@@ -66,12 +66,6 @@ export const mainRoutes: Array<RouteRecordRaw> = [
       hidden: true,
     },
   },
-  // 必须放在最后，否则页面不存在不会跳转到404
-  // { path: '/:pathMatch(.*)*', redirect: '/404',
-  //   meta: {
-  //     hidden: true
-  //   }
-  // }
 ]
 
 export const constantRoutes: RouteRecordRaw[] = [...mainRoutes, ...userRoutes]

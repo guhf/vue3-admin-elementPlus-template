@@ -12,7 +12,7 @@ const userRoutes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: '/user/message/',
+        path: 'message',
         component: () => import('~/views/user/message/index.vue'),
         name: 'UserMessage',
         meta: {
@@ -22,7 +22,7 @@ const userRoutes: Array<RouteRecordRaw> = [
         },
       },
       {
-        path: '/user/message/show/:id',
+        path: 'message/show/:id',
         component: () => import('~/views/user/message/show.vue'),
         name: 'UserMessageShow',
         meta: {
@@ -32,7 +32,7 @@ const userRoutes: Array<RouteRecordRaw> = [
         },
       },
       {
-        path: '/user/info/',
+        path: 'info',
         component: () => import('~/views/user/info/index.vue'),
         name: 'UserInfo',
         meta: {

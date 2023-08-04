@@ -1,6 +1,6 @@
 /**
  * loading黑名单
  */
-const loadingBlackList = ['user/notify/remind', 'user/message/remind']
+const loadingBlackList = ['user/message/unread']
 
 export default loadingBlackList
