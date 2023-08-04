@@ -64,6 +64,10 @@ const logout = () => {
   }
 
   .tools-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
     height: 100%;
     color: #666666;
     padding: 0 5px;

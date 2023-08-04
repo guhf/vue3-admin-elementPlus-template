@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-popover placement="bottom" :width="400">
+    <el-popover placement="bottom" :width="400" :popper-style="{ padding: 0 }">
       <div class="message-box">
         <div class="message-box-title">
           <p>消息中心</p>
@@ -17,7 +17,7 @@
         <el-empty v-else description="暂无消息~~" />
       </div>
       <template #reference>
-        <el-badge :value="messageTotal > 0 ? messageTotal : ''" :max="99" class="item">
+        <el-badge :value="messageTotal > 0 ? messageTotal : ''" :max="99">
           <el-icon v-if="messageTotal > 0" :size="20"><BellFilled /></el-icon>
           <el-icon v-else :size="20"><Bell /></el-icon>
         </el-badge>
@@ -73,12 +73,12 @@ const getMessageData = () => {
 <style lang="scss" scoped>
 .message-box {
   .message-box-title {
-    height: 40px;
+    // height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #e3e3e3;
-    padding: 0 15px;
+    padding: 15px;
 
     p {
       font-size: 14px;
@@ -90,29 +90,28 @@ const getMessageData = () => {
   }
 
   .message-box-content {
+    max-height: 500px;
     display: flex;
     flex-direction: column;
     list-style: none;
+    overflow: auto;
 
     li {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding: 0 15px;
+      border-bottom: 1px solid #e3e3e3;
 
       .message-title {
+        line-height: 2;
         font-size: 14px;
       }
       .message-datetime {
+        line-height: 2;
         font-size: 12px;
       }
     }
   }
-}
-
-.item {
-  width: 40px;
-  line-height: 60px;
-  text-align: center;
 }
 </style>
