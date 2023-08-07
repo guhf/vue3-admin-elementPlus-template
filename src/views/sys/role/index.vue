@@ -46,7 +46,7 @@ import type { PageQuery } from '~/models/common/pageQueryModel'
 import type { Response } from '~/models/response'
 import type { Role } from '~/models/sys/roleModel'
 import type { Tree } from '~/models/common/treeModel'
-import { useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
+import { useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValidateTableDel, useValueToLabel } from '~/hooks'
 import TreeDialog from '~/components/dialog/tree-dialog.vue'
 
 import { delRole, getRolePageList, setAuth } from '~/apis/sys/role'
@@ -114,17 +114,11 @@ const handleShow = (id: string) => {
 }
 
 const handleDel = () => {
-  const ids = [] as string[]
-  state.selectTableData.forEach((item: Role) => {
-    ids.push(item.id)
-  })
-  if (ids.length < 1) {
-    useMessageWarning('请先选择需要删除的数据！')
-    return
-  }
+  const ids = useValidateTableDel(state.selectTableData)
+  if (!ids) return
 
   useConfirmDel().then(() => {
-    delRole(ids.join(',')).then((res: Response<any>) => {
+    delRole(ids).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       state.pageQuery.pageIndex = 1
       getPageData()

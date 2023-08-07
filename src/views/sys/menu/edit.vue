@@ -86,7 +86,7 @@ import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Menu, MenuTree } from '~/models/sys/menuModel'
 import IconSelector from '~/components/icon-selector/index.vue'
-import { useDict, useRouterBackIndex, useValidate } from '~/hooks'
+import { useDict, useRouterBackIndex, useValidateForm } from '~/hooks'
 
 import { createMenu, getMenu, getMenuTreeList, updateMenu } from '~/apis/sys/menu'
 
@@ -138,7 +138,7 @@ const getMenuTreeData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateMenu(state.modelData).then((res: Response<any>) => {

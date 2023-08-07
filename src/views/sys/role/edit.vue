@@ -37,7 +37,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Role } from '~/models/sys/roleModel'
-import { useRouterBackIndex, useValidate } from '~/hooks'
+import { useRouterBackIndex, useValidateForm } from '~/hooks'
 
 import { createRole, getRole, updateRole } from '~/apis/sys/role'
 
@@ -79,7 +79,7 @@ const getData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateRole(state.modelData).then((res: Response<any>) => {

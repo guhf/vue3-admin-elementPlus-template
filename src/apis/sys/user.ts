@@ -54,8 +54,8 @@ export const getUserSelectList = (cond: PageQuery) => {
  * @param ids 用户Id集合
  * @returns
  */
-export const delUser = (ids: string) => {
-  return del<any>(`sys/user/${ids}`)
+export const delUser = (ids: string[]) => {
+  return del<any>(`sys/user`, ids)
 }
 
 /**

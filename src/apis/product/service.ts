@@ -45,8 +45,8 @@ export const getServicePageList = (cond: PageQuery) => {
  * @param ids 商品服务Id集合
  * @returns
  */
-export const delService = (ids: string) => {
-  return del<any>(`product/service/${ids}`)
+export const delService = (ids: string[]) => {
+  return del<any>(`product/service`, ids)
 }
 
 /**

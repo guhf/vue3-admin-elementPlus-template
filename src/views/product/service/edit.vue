@@ -47,7 +47,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Service } from '~/models/product/serviceModel'
-import { useRouterBackIndex, useValidate } from '~/hooks'
+import { useRouterBackIndex, useValidateForm } from '~/hooks'
 
 import { createService, getService, updateService } from '~/apis/product/service'
 
@@ -83,7 +83,7 @@ const getData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateService(state.modelData).then((res: Response<any>) => {

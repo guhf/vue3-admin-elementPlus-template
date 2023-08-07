@@ -57,7 +57,7 @@ import { Delete, Edit } from '@element-plus/icons-vue'
 import type { PageQuery } from '~/models/common/pageQueryModel'
 import type { Response } from '~/models/response'
 import type { Dict } from '~/models/sys/dictModel'
-import { useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
+import { useConfirmDel, useDict, useMessageSuccess, useRouterCreate, useRouterShow, useValidateTableDel, useValueToLabel } from '~/hooks'
 
 import { delDict, getDictPageList } from '~/apis/sys/dict'
 
@@ -113,17 +113,11 @@ const handleShow = (id: string) => {
 }
 
 const handleDel = () => {
-  const ids = state.selectTableData.map((item) => {
-    return item.id
-  })
-
-  if (ids.length < 1) {
-    useMessageWarning('请先选择需要删除的数据！')
-    return
-  }
+  const ids = useValidateTableDel(state.selectTableData)
+  if (!ids) return
 
   useConfirmDel().then(() => {
-    delDict(ids.join(',')).then((res: Response<any>) => {
+    delDict(ids).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       state.pageQuery.pageIndex = 1
       getPageData()

@@ -45,8 +45,8 @@ export const getProductPageList = (cond: PageQuery) => {
  * @param ids 商品Id集合
  * @returns
  */
-export const delProduct = (ids: string) => {
-  return del<any>(`product/${ids}`)
+export const delProduct = (ids: string[]) => {
+  return del<any>(`product`, ids)
 }
 
 /**

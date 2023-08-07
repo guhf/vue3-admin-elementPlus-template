@@ -43,7 +43,7 @@ export const updateAllFlag = () => {
  * @returns
  */
 export const updateFlag = (ids: string[]) => {
-  return patch<any>(`user/message/read`, { ids })
+  return patch<any>(`user/message/read`, ids)
 }
 
 /**
@@ -52,5 +52,5 @@ export const updateFlag = (ids: string[]) => {
  * @returns
  */
 export const delMessage = (ids: string[]) => {
-  return del<any>(`user/message`, { ids })
+  return del<any>(`user/message`, ids)
 }

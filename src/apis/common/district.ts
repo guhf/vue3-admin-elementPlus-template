@@ -42,8 +42,8 @@ export const getDistrictPageList = (cond: any) => {
  * @param ids 区域Id集合
  * @returns
  */
-export const delDistrict = (ids: string) => {
-  return del<any>(`district/${ids}`)
+export const delDistrict = (ids: string[]) => {
+  return del<any>(`district`, ids)
 }
 
 // #region 下拉框

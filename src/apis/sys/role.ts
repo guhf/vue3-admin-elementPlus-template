@@ -54,8 +54,8 @@ export const getRoleSelectList = () => {
  * @param ids 角色Id集合
  * @returns
  */
-export const delRole = (ids: string) => {
-  return del<any>(`sys/role/${ids}`)
+export const delRole = (ids: string[]) => {
+  return del<any>(`sys/role`, ids)
 }
 
 /**

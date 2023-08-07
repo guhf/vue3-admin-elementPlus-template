@@ -67,7 +67,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Attribute } from '~/models/product/attributeModel'
-import { useRouterBackIndex, useValidate } from '~/hooks'
+import { useRouterBackIndex, useValidateForm } from '~/hooks'
 
 import { createAttribute, getAttribute, updateAttribute } from '~/apis/product/attribute'
 
@@ -107,7 +107,7 @@ const getData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateAttribute(state.modelData).then((res: Response<any>) => {

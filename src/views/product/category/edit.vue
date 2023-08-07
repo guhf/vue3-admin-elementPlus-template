@@ -56,7 +56,7 @@ import { onMounted, reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Category } from '~/models/product/categoryModel'
-import { useMessageSuccess, useValidate } from '~/hooks'
+import { useMessageSuccess, useValidateForm } from '~/hooks'
 import UploadImage from '~/components/upload/upload-image.vue'
 
 import { createCategory, getCategory, updateCategory } from '~/apis/product/category'
@@ -98,7 +98,7 @@ const getData = () => {
 }
 
 const save = async () => {
-  if (!(await useValidate(modelRef.value))) {
+  if (!(await useValidateForm(modelRef.value))) {
     return new Promise((resolve, reject) => {
       reject('效验失败')
     })

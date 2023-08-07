@@ -48,7 +48,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
 import type { Response } from '~/models/response'
 import type { Menu, MenuTree } from '~/models/sys/menuModel'
-import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterPush, useValueToLabel } from '~/hooks'
+import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useRouterCreate, useRouterPush, useValidateTableDel, useValueToLabel } from '~/hooks'
 
 import { delMenu, enableDisableMenu, getMenuTreeList } from '~/apis/sys/menu'
 
@@ -93,17 +93,11 @@ const handleEdit = (id: string) => {
 }
 
 const handleDel = () => {
-  const ids = [] as string[]
-  state.selectTableData.forEach((item) => {
-    ids.push(item.id)
-  })
-  if (ids.length < 1) {
-    useMessageWarning('请先选择需要删除的数据！')
-    return
-  }
+  const ids = useValidateTableDel(state.selectTableData)
+  if (!ids) return
 
   useConfirmDel().then(() => {
-    delMenu(ids.join(',')).then((res: Response<any>) => {
+    delMenu(ids).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       getPageData()
     })

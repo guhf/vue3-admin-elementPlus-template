@@ -54,8 +54,8 @@ export const getCategoryExcludeTreeList = (id: string) => {
  * @param ids 商品分类Id集合
  * @returns
  */
-export const delCategory = (ids: string) => {
-  return del<any>(`product/category/${ids}`)
+export const delCategory = (ids: string[]) => {
+  return del<any>(`product/category`, ids)
 }
 
 /**

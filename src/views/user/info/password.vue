@@ -36,7 +36,7 @@ import { reactive, ref } from 'vue'
 import { Checked } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
-import { useMessageSuccess, useValidate } from '~/hooks'
+import { useMessageSuccess, useValidateForm } from '~/hooks'
 
 import { updatePwd } from '~/apis/user'
 
@@ -79,7 +79,7 @@ const state = reactive({
 const modelRef = ref<FormInstance>()
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   const pwdData = {
     oldPwd: state.modelData.oldPwd,

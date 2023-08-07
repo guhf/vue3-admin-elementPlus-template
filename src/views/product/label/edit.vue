@@ -47,7 +47,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Label } from '~/models/product/labelModel'
-import { useRouterBackIndex, useValidate } from '~/hooks'
+import { useRouterBackIndex, useValidateForm } from '~/hooks'
 
 import { createLabel, getLabel, updateLabel } from '~/apis/product/label'
 
@@ -83,7 +83,7 @@ const getData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateLabel(state.modelData).then((res: Response<any>) => {

@@ -45,6 +45,6 @@ export const getAttrTemplatePageList = (cond: PageQuery) => {
  * @param ids 商品规格Id集合
  * @returns
  */
-export const delAttrTemplate = (ids: string) => {
-  return del<any>(`product/attrtemplate/${ids}`)
+export const delAttrTemplate = (ids: string[]) => {
+  return del<any>(`product/attrtemplate`, ids)
 }

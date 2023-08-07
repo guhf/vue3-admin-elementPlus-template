@@ -54,6 +54,6 @@ export const getDictList = () => {
  * @param ids 数据字典Id集合
  * @returns
  */
-export const delDict = (ids: string) => {
-  return del<any>(`sys/dict/${ids}`)
+export const delDict = (ids: string[]) => {
+  return del<any>(`sys/dict`, ids)
 }

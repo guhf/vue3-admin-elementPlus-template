@@ -54,7 +54,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Brand } from '~/models/product/brandModel'
-import { useRouterBackIndex, useValidate } from '~/hooks'
+import { useRouterBackIndex, useValidateForm } from '~/hooks'
 import UploadImage from '~/components/upload/upload-image.vue'
 
 import { createBrand, getBrand, updateBrand } from '~/apis/product/brand'
@@ -91,7 +91,7 @@ const getData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateBrand(state.modelData).then((res: Response<any>) => {

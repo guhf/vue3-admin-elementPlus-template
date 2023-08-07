@@ -73,10 +73,10 @@ import { onMounted, reactive, ref } from 'vue'
 import { Delete, Edit, Rank } from '@element-plus/icons-vue'
 import CategoryEdit from './edit.vue'
 import type { TreeData } from 'element-plus/es/components/tree/src/tree.type'
-import type { TreeItem } from '~/models/common/treeModel'
+import type { TreeItem, Tree as TreeModel } from '~/models/common/treeModel'
 import type { Response } from '~/models/response'
 import type { Category } from '~/models/product/categoryModel'
-import { Tree } from '~/models/common/treeModel'
+
 import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useValueToLabel } from '~/hooks'
 
 import { delCategory, getCategory, getCategoryExcludeTreeList, getCategoryTreeList, moveCategory } from '~/apis/product/category'
@@ -93,7 +93,7 @@ const categoryEditRef = ref<ComponentRef>()
 const categoryDialogVisible = ref(false)
 const categoryEditDialogVisible = ref(false)
 const state = reactive({
-  treeData: [] as Tree,
+  treeData: [] as TreeModel,
   modelData: {} as Category,
   checkData: {
     categotyId: '',
@@ -112,7 +112,7 @@ onMounted(() => {
 
 const expandKeys = ref<string[]>([])
 const getTreeData = () => {
-  getCategoryTreeList().then((res: Response<Tree>) => {
+  getCategoryTreeList().then((res: Response<TreeModel>) => {
     state.treeData = res.data
     expandKeys.value.push(state.treeData[0]?.id)
   })
@@ -162,8 +162,8 @@ const handleSave = async () => {
 }
 
 const handleDel = () => {
-  useConfirmDel({ message: '确定删除当前分类及其下级分类吗？' }).then(() => {
-    delCategory(state.checkData.categotyId).then((res: Response<any>) => {
+  useConfirmDel({ message: '确定删除当前分类及其子级分类吗？' }).then(() => {
+    delCategory([state.checkData.categotyId]).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       getTreeData()
     })

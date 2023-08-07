@@ -45,8 +45,8 @@ export const getLabelPageList = (cond: PageQuery) => {
  * @param ids 商品标签Id集合
  * @returns
  */
-export const delLabel = (ids: string) => {
-  return del<any>(`product/label/${ids}`)
+export const delLabel = (ids: string[]) => {
+  return del<any>(`product/label`, ids)
 }
 
 /**

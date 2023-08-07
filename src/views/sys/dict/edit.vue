@@ -81,7 +81,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { Dict } from '~/models/sys/dictModel'
-import { useDict, useRouterBackIndex, useValidate } from '~/hooks'
+import { useDict, useRouterBackIndex, useValidateForm } from '~/hooks'
 
 import { createDict, getDict, updateDict } from '~/apis/sys/dict'
 
@@ -124,7 +124,7 @@ const getData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateDict(state.modelData).then((res: Response<any>) => {

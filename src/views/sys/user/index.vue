@@ -54,7 +54,7 @@ import { Delete, Edit } from '@element-plus/icons-vue'
 import type { PageQuery } from '~/models/common/pageQueryModel'
 import type { Response } from '~/models/response'
 import type { User } from '~/models/sys/userModel'
-import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
+import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useRouterCreate, useRouterShow, useValidateTableDel, useValueToLabel } from '~/hooks'
 
 import { delUser, getUserPageList, resetPwd } from '~/apis/sys/user'
 
@@ -117,17 +117,11 @@ const handleShow = (id: string) => {
 }
 
 const handleDel = () => {
-  const ids = [] as string[]
-  state.selectTableData.forEach((item: User) => {
-    ids.push(item.id)
-  })
-  if (ids.length < 1) {
-    useMessageWarning('请先选择需要删除的数据！')
-    return
-  }
+  const ids = useValidateTableDel(state.selectTableData)
+  if (!ids) return
 
   useConfirmDel().then(() => {
-    delUser(ids.join(',')).then((res: Response<any>) => {
+    delUser(ids).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       state.pageQuery.pageIndex = 1
       getPageData()

@@ -45,6 +45,6 @@ export const getAttributePageList = (cond: PageQuery) => {
  * @param ids 商品规格Id集合
  * @returns
  */
-export const delAttribute = (ids: string) => {
-  return del<any>(`product/attribute/${ids}`)
+export const delAttribute = (ids: string[]) => {
+  return del<any>(`product/attribute`, ids)
 }

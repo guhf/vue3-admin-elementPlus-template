@@ -40,7 +40,7 @@ export const useRequest = () => {
    * @param extra 额外参数
    */
   const patch = <T>(path = '', params?: RequestParams, extra: any = {}) => {
-    return HttpClient.request<T>(path, Method.PATCH, params, ContentType.json, extra)
+    return HttpClient.request<T>(path, Method.PATCH, params, ContentType.jsonPatch, extra)
   }
 
   /**

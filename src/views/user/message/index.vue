@@ -40,7 +40,7 @@
 import { onMounted, reactive, ref } from 'vue'
 import { Delete, Reading } from '@element-plus/icons-vue'
 import type { Message } from '~/models/common/messageModel'
-import { useConfirmDel, useMessageSuccess, useMessageWarning, useRouterShow } from '~/hooks'
+import { useConfirmDel, useMessageSuccess, useMessageWarning, useRouterShow, useValidateTableDel } from '~/hooks'
 
 import { delMessage, getMessagePageList, updateAllFlag, updateFlag } from '~/apis/user/message'
 
@@ -90,14 +90,8 @@ const handleShow = (id: string) => {
 }
 
 const handleDel = () => {
-  const ids = [] as string[]
-  state.selectTableData.forEach((item) => {
-    ids.push(item.id)
-  })
-  if (ids.length < 1) {
-    useMessageWarning('请先选择需要删除的数据！')
-    return
-  }
+  const ids = useValidateTableDel(state.selectTableData)
+  if (!ids) return
 
   useConfirmDel().then(() => {
     delMessage(ids).then((res: any) => {

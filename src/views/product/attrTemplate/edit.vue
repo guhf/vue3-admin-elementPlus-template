@@ -67,7 +67,7 @@ import { Checked, CircleClose } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { AttrTemplate } from '~/models/product/attrTemplateModel'
-import { useRouterBackIndex, useValidate } from '~/hooks'
+import { useRouterBackIndex, useValidateForm } from '~/hooks'
 
 import { createAttrTemplate, getAttrTemplate, updateAttrTemplate } from '~/apis/product/attrTemplate'
 
@@ -107,7 +107,7 @@ const getData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateAttrTemplate(state.modelData).then((res: Response<any>) => {

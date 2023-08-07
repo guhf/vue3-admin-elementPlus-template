@@ -54,8 +54,8 @@ export const getRoleMenuTreeList = (roleId: string) => {
  * @param ids 菜单Id集合
  * @returns
  */
-export const delMenu = (ids: string) => {
-  return del<any>(`sys/menu/${ids}`)
+export const delMenu = (ids: string[]) => {
+  return del<any>(`sys/menu`, ids)
 }
 
 /**

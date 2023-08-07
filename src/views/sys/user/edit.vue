@@ -71,7 +71,7 @@ import type { FormInstance } from 'element-plus'
 import type { Response } from '~/models/response'
 import type { User, UserRole } from '~/models/sys/userModel'
 import type { Options } from '~/models/common/optionModel'
-import { useDict, useRouterBackIndex, useValidate } from '~/hooks'
+import { useDict, useRouterBackIndex, useValidateForm } from '~/hooks'
 
 import { createUser, getUser, updateUser } from '~/apis/sys/user'
 import { getRoleSelectList } from '~/apis/sys/role'
@@ -130,7 +130,7 @@ const getRoleData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   if (state.id) {
     updateUser(state.modelData).then((res: Response<any>) => {

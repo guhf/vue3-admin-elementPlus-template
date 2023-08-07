@@ -66,7 +66,7 @@ import { Checked } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import type { UserInfo } from '~/models/userModel'
 import type { Response } from '~/models/response'
-import { useMessageSuccess, useValidate } from '~/hooks'
+import { useMessageSuccess, useValidateForm } from '~/hooks'
 
 import { getOnlineInfo, updateInfo } from '~/apis/user'
 
@@ -93,7 +93,7 @@ const getPageData = () => {
 }
 
 const handleSave = async () => {
-  if (!(await useValidate(modelRef.value))) return
+  if (!(await useValidateForm(modelRef.value))) return
 
   updateInfo(state.modelData).then((res: Response<object>) => {
     useMessageSuccess(res.msg)

@@ -47,7 +47,7 @@ import { Delete, Edit } from '@element-plus/icons-vue'
 import type { PageQuery } from '~/models/common/pageQueryModel'
 import type { Response } from '~/models/response'
 import type { Brand } from '~/models/product/brandModel'
-import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useMessageWarning, useRouterCreate, useRouterShow, useValueToLabel } from '~/hooks'
+import { useConfirm, useConfirmDel, useDict, useMessageSuccess, useRouterCreate, useRouterShow, useValidateTableDel, useValueToLabel } from '~/hooks'
 
 import { delBrand, enableDisableBrand, getBrandPageList } from '~/apis/product/brand'
 
@@ -103,17 +103,11 @@ const handleShow = (id: string) => {
 }
 
 const handleDel = () => {
-  const ids = [] as string[]
-  state.selectTableData.forEach((item: Brand) => {
-    ids.push(item.id)
-  })
-  if (ids.length < 1) {
-    useMessageWarning('请先选择需要删除的数据！')
-    return
-  }
+  const ids = useValidateTableDel(state.selectTableData)
+  if (!ids) return
 
   useConfirmDel().then(() => {
-    delBrand(ids.join(',')).then((res: Response<any>) => {
+    delBrand(ids).then((res: Response<any>) => {
       useMessageSuccess(res.msg)
       state.pageQuery.pageIndex = 1
       getPageData()
