@@ -17,9 +17,9 @@ export const usePermissionStore = defineStore('permissionStore', {
   },
   actions: {
     async setRoutes(routes: Routes) {
-      this.menus = []
       this.auths = []
-      this.routes = [...routes, ...constantRoutes] as Routes
+      this.menus = [...constantRoutes, ...routes] as Routes
+      this.routes = [...constantRoutes, ...routes] as Routes
       this.dynamicRoutes = routes
 
       await traverseConstRoutes(constantRoutes, '')
@@ -31,23 +31,7 @@ export const usePermissionStore = defineStore('permissionStore', {
         meta: { hidden: true },
       })
 
-      // this.menus = [{
-      //   id: '',
-      //   name: 'Dashboard',
-      //   path: '/dashboard',
-      //   component: 'dashboard/index.vue',
-      //   meta: {
-      //     title: '首页',
-      //     tagName: '首页',
-      //     icon: 'icon-shouye'
-      //   },
-      //   menuType: 2,
-      //   authority: '', // 权限码
-      // }, ...await traverseMenu(this.menus)]
-      // console.log(111, this.menus)
-
-      this.menus = await recursionMenu(this.menus)
-      // console.log(222, this.menus)
+      this.menus = this.menus.sort((a, b) => a.meta.sortNo - b.meta.sortNo)
     },
   },
 })
@@ -59,18 +43,16 @@ export const usePermissionStore = defineStore('permissionStore', {
  */
 const dynamicRegisterRouter = (routes: Routes, name: string) => {
   routes.forEach((route: Route) => {
-    if (route.meta.menuType !== 3) {
-      const menu = lodash.cloneDeep(route)
-      menu.children = []
-      usePermissionStore().menus.push(menu)
-    }
+    // if (route.meta.menuType === 3) {
+    //   return
+    // }
 
     if (route.component) {
       if (route.component === 'Layout') {
         name = route.name
         router.addRoute({
           name: route.name,
-          path: `/${route.path}`,
+          path: `${route.path}`,
           component: () => import('../layout/index.vue'),
           meta: route.meta
             ? {
@@ -84,7 +66,7 @@ const dynamicRegisterRouter = (routes: Routes, name: string) => {
         if (route.component !== 'Layout') {
           router.addRoute(name, {
             name: route.name,
-            path: `/${route.path}`,
+            path: `${route.path}`,
             component: modules[`../views/${route.component}`],
             meta: route.meta
               ? {
@@ -119,37 +101,11 @@ const traverseConstRoutes = (routes: RouteRecordRaw[], name: string) => {
     if (!route.meta || !route.meta.hidden) {
       const menu = lodash.cloneDeep(route)
       menu.children = []
-      usePermissionStore().menus.push(menu)
+      usePermissionStore().menus.push(menu as unknown as Route)
     }
 
     if (route.children && route.children.length) {
       traverseConstRoutes(route.children, name)
     }
   })
-}
-
-/**
- * 递归生成菜单树
- * @param menus 菜单数据
- */
-const recursionMenu = (menus: Routes) => {
-  const menuTree: Routes = []
-  const map: Map<string, Route> = new Map()
-  menus.forEach((menu: Route) => {
-    map.set(menu.id, menu)
-  })
-
-  menus.forEach((menu: Route) => {
-    menu.path = `/${menu.path}`
-    const parent = map.get(menu.parentId || '')
-    if (parent) {
-      if (!parent.children) {
-        parent.children = []
-      }
-      parent.children.push(menu)
-    } else {
-      menuTree.push(menu)
-    }
-  })
-  return menuTree
 }

@@ -35,6 +35,7 @@ export const mainRoutes: Array<RouteRecordRaw> = [
           icon: 'icon-gongzuotai',
           menuType: 2,
           affix: true,
+          sortNo: 0,
         },
       },
     ],
