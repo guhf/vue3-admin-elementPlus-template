@@ -9,5 +9,5 @@ export declare interface userLogin extends BaseModel {
   browserUA?: string
   loginDesc?: string
   loginDateTime?: Date
-  loginType?: number
+  loginStatus?: number
 }
