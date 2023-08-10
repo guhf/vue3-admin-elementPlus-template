@@ -18,6 +18,8 @@ export const useUserStore = defineStore('user', {
       token: getToken() || '',
       userInfo: {} as UserInfo,
       notifyTotal: 0 as number,
+      isAdmin: false,
+      isSuper: false,
     }
   },
   actions: {
@@ -28,8 +30,8 @@ export const useUserStore = defineStore('user', {
             this.token = `Bearer ${res.data.accessToken}`
             setToken(this.token)
 
+            this.getUserInfo()
             // 登录后先获取权限信息，否则跳转路由会出错
-            await this.getUserInfo()
             await this.getMenuList()
 
             resolve(res.data)
@@ -48,9 +50,14 @@ export const useUserStore = defineStore('user', {
           .then((res: Response<UserInfo>) => {
             this.userInfo = res.data
             this.userInfo.avatar = res.data.avatar || defaultAvatar
-
-            // 获取全部字典信息
-            this.getDictList()
+            ;(res.data.userRoles || []).forEach((role: any) => {
+              if (role.isSuper) {
+                this.isSuper = true
+              }
+              if (role.isAdmin) {
+                this.isAdmin = true
+              }
+            })
             resolve(res.data)
           })
           .catch((error) => {
@@ -63,6 +70,8 @@ export const useUserStore = defineStore('user', {
         getMenuList()
           .then((res: Response<Routes>) => {
             usePermissionStore().setRoutes(res.data)
+            // 获取全部字典信息
+            this.getDictList()
             resolve(res.data)
           })
           .catch((error) => {
@@ -72,9 +81,14 @@ export const useUserStore = defineStore('user', {
     },
     getDictList() {
       return new Promise((resolve, reject) => {
-        getDictList().then((res: Response<DictData[]>) => {
-          useDictStore().setDictData(res.data)
-        })
+        getDictList()
+          .then((res: Response<DictData[]>) => {
+            useDictStore().setDictData(res.data)
+            resolve(res.data)
+          })
+          .catch((error) => {
+            reject(error)
+          })
       })
     },
     refreshToken() {

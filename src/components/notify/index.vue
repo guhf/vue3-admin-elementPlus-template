@@ -108,6 +108,10 @@ const getMessageData = () => {
       border-bottom: 1px solid #e3e3e3;
       cursor: pointer;
 
+      &:hover {
+        background: #e3e3e3;
+      }
+
       .message-title {
         line-height: 2;
         font-size: 14px;

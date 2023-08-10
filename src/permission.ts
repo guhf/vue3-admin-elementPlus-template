@@ -20,7 +20,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
       NProgress.done()
     } else {
       if (permissionStore.routes.length === 0) {
-        await userStore.getUserInfo()
+        userStore.getUserInfo()
         await userStore.getMenuList()
 
         if (permissionStore.routes.length === 0) {

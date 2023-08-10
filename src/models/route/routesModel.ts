@@ -1,5 +1,3 @@
-import type { RouteRecordRaw } from 'vue-router'
-
 export interface Meta {
   affix?: boolean // 固定
   title: string
@@ -12,7 +10,7 @@ export interface Meta {
   /** 只有一个子级是是否加载父级 */
   alwaysShow?: boolean
   /** 排序号 */
-  sortNo: number
+  sortNo?: number
 }
 
 export declare interface Route {

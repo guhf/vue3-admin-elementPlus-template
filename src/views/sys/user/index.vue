@@ -41,7 +41,7 @@
       <el-table-column label="操作" width="180" align="center" fixed="right">
         <template #default="{ row }">
           <el-button v-permission="['sys.user.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
-          <el-button v-permission="['sys.user.resetpwd']" type="warning" size="small" @click="handleReset(row.id)">重置密码</el-button>
+          <el-button v-permission="['sys.user.resetpwd']" type="warning" size="small" :disabled="isAdmin(row)" @click="handleReset(row.id)">重置密码</el-button>
         </template>
       </el-table-column>
     </CommonTable>
@@ -98,6 +98,12 @@ const reloadTableData = (pageQuery: PageQuery) => {
 
 const selectedChange = (val: User[]) => {
   state.selectTableData = val ?? []
+}
+
+const isAdmin = (user: User) => {
+  return (user.userRoles || []).some((role: any) => {
+    return role.isSuper || role.isAdmin
+  })
 }
 
 const handleReset = (id: string) => {

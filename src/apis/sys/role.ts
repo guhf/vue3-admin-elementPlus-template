@@ -65,5 +65,5 @@ export const delRole = (ids: string[]) => {
  * @returns
  */
 export const setAuth = (id: string, menuIds: string[]) => {
-  return post<any>(`sys/role/${id}/setauth`, menuIds)
+  return post<any>(`sys/role/${id}/auth`, menuIds)
 }
