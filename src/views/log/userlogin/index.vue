@@ -10,8 +10,8 @@
       <el-table-column label="账号名称" prop="accountName" sortable="custom" width="150" align="center" show-overflow-tooltip />
       <el-table-column label="登录IP" prop="ip" sortable="custom" width="150" align="center" show-overflow-tooltip />
       <el-table-column label="登录地点" prop="loginAddress" sortable="custom" width="150" align="center" show-overflow-tooltip />
-      <el-table-column label="操作系统" prop="os" sortable="custom" width="240" header-align="center" align="left" show-overflow-tooltip />
-      <el-table-column label="浏览器UA" prop="browserUA" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
+      <el-table-column label="操作系统" prop="os" sortable="custom" width="200" align="center" show-overflow-tooltip />
+      <el-table-column label="浏览器UA" prop="browserUA" sortable="custom" width="200" align="center" show-overflow-tooltip />
       <el-table-column label="登录状态说明" prop="loginDesc" sortable="custom" min-width="200" header-align="center" align="left" show-overflow-tooltip />
       <el-table-column label="登陆时间" prop="loginDateTime" sortable="custom" width="180" align="center" fixed="right" show-overflow-tooltip />
       <el-table-column label="登录状态" prop="loginType" sortable="custom" width="120" align="center" fixed="right">
@@ -20,8 +20,8 @@
             {{ useValueToLabel(loginStatus, row.loginType) }}
           </el-tag>
           <!-- <el-tag v-if="row.loginType === 1" type="success" size="small" effect="light">登录成功</el-tag>
-            <el-tag v-else-if="row.loginType === 2" type="success" size="small" effect="light">刷新Token</el-tag>
-            <el-tag v-else-if="row.loginType === 3" type="danger" size="small" effect="light">登录失败</el-tag> -->
+          <el-tag v-else-if="row.loginType === 2" type="success" size="small" effect="light">刷新Token</el-tag>
+          <el-tag v-else-if="row.loginType === 3" type="danger" size="small" effect="light">登录失败</el-tag> -->
         </template>
       </el-table-column>
     </CommonTable>

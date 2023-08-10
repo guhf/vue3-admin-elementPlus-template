@@ -34,7 +34,7 @@
     </CommonTable>
 
     <!-- 分配权限 -->
-    <TreeDialog ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" title="分配权限" :btns="['save']" :load="getRoleMenuTreeList(state.roleId)" :load-params="state.roleId" @save="handleSetAuth" />
+    <TreeDialog ref="roleAuthDialogRef" v-model="roleAuthDialogVisible" title="分配权限" :btns="['save']" :load="getRoleMenuTreeList" :load-params="state.roleId" @save="handleSetAuth" />
   </div>
 </template>
 

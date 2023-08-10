@@ -36,9 +36,6 @@ import { useSignalR } from '~/hooks'
 import { getUnReadMessageList } from '~/apis/user/message'
 
 const { receiveClient } = useSignalR()
-const state = reactive({
-  messageData: [] as Message[],
-})
 
 onMounted(async () => {
   await getMessageData()
@@ -55,9 +52,16 @@ onMounted(async () => {
       },
     })
   })
+
+  receiveClient('ReceiveMessageTotal', (total: number) => {
+    messageTotal.value = total
+  })
 })
 
 let messageTotal = ref(0)
+const state = reactive({
+  messageData: [] as Message[],
+})
 const getMessageData = () => {
   return getUnReadMessageList({}).then((res: Response<Message[]>) => {
     if (res.total) {
@@ -102,6 +106,7 @@ const getMessageData = () => {
       justify-content: space-between;
       padding: 0 15px;
       border-bottom: 1px solid #e3e3e3;
+      cursor: pointer;
 
       .message-title {
         line-height: 2;

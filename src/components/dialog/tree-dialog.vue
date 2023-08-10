@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { TreeData } from 'element-plus/es/components/tree/src/tree.type'
 import type { Response } from '~/models/response'
 import type { Tree as TreeModel } from '~/models/common/treeModel'
@@ -23,7 +23,7 @@ interface Props {
     label: string
     children: string
   }
-  load?: Promise<Response<TreeModel>>
+  load?: (...params: any) => Promise<Response<TreeModel>>
   loadParams?: any
 }
 
@@ -62,7 +62,7 @@ watch(
       // 先置空，否则回显选中状态时有bug
       treeData.value = []
       props.load &&
-        props.load.then((res: Response<TreeModel>) => {
+        props.load(props.loadParams).then((res: Response<TreeModel>) => {
           if (res.data) {
             treeData.value = res.data
           }

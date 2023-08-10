@@ -11,21 +11,7 @@
             <div class="btn-container">
               <el-button v-if="state.checkData.categotyId" v-permission="['product.category.update']" class="btn-item" type="primary" :icon="Edit" @click="handleUpdate">编辑</el-button>
               <el-button v-permission="['product.category.create']" class="btn-item" type="primary" :icon="Edit" @click="handleCreate">添加下级</el-button>
-              <TreeDialog
-                v-if="state.checkData.categotyId"
-                ref="categoryDialogRef"
-                v-model:dialog-visible="categoryDialogVisible"
-                v-permission="['product.category.update']"
-                button
-                btn-text="移动"
-                btn-size=""
-                :btn-icon="Rank"
-                radio
-                title="商品分类"
-                :load="getCategoryExcludeTreeList"
-                :load-params="state.checkData.categotyId"
-                @confirm="handleMove"
-              />
+              <el-button v-if="state.checkData.categotyId" v-permission="['product.category.update']" class="btn-item" type="primary" :icon="Rank" @click="openRemoveDialog">移动</el-button>
               <el-button v-if="state.checkData.categotyId" v-permission="['product.category.del']" class="btn-item" type="danger" :icon="Delete" @click="handleDel">删除</el-button>
             </div>
           </div>
@@ -62,9 +48,14 @@
         </div>
       </div>
     </div>
+
+    <!-- 添加/编辑商品分类 -->
     <CommonDialog ref="editDialogRef" v-model="categoryEditDialogVisible" :title="'添加商品分类'" :btns="['save']" @save="handleSave">
       <CategoryEdit ref="categoryEditRef" :params="state.editParams" />
     </CommonDialog>
+
+    <!-- 选择商品分类 -->
+    <TreeDialog ref="categoryDialogRef" v-model="categoryDialogVisible" title="商品分类" :load="getCategoryExcludeTreeList" :load-params="state.checkData.categotyId" @confirm="handleMove" />
   </div>
 </template>
 
@@ -142,6 +133,10 @@ const handleCreate = () => {
   state.editParams.parentId = state.checkData.categotyId
   state.editParams.parentName = state.checkData.categoryName
   categoryEditDialogVisible.value = true
+}
+
+const openRemoveDialog = () => {
+  categoryDialogVisible.value = true
 }
 
 const handleMove = (data: TreeData) => {

@@ -89,7 +89,7 @@ http.interceptors.response.use(
     if (response.data.code === ResponseCode.OK) {
       return Promise.resolve(response)
     } else {
-      console.log('接口请求成功，返回错误信息', response)
+      // console.log('接口请求成功，返回错误信息', response)
       return Promise.reject(ElMessage.error(response.data.msg))
     }
   },
