@@ -16,6 +16,8 @@
       </el-tooltip>
 
       <el-button :loading="state.loading" type="primary" style="width: 100%; margin-bottom: 30px" @click.prevent="handleLogin"> 登录 </el-button>
+
+      <p><span>体验账号：test</span>，<span>密码：111111</span></p>
     </el-form>
   </div>
 </template>

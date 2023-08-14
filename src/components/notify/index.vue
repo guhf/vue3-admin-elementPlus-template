@@ -42,7 +42,7 @@ onMounted(async () => {
 
   receiveClient('ReceiveMessage', (data: Notify) => {
     let notify = ElNotification({
-      type: 'success',
+      type: data.notifyType,
       title: data.title,
       message: data.content,
       position: 'bottom-right',

@@ -28,19 +28,7 @@ export interface Message extends BaseModel {
  * 实时消息通知
  */
 export interface Notify {
-  messageType: NotifyType
+  notifyType: 'success' | 'warning' | 'info' | 'error' | ''
   title: string
   content: string
-}
-
-/**
- * 消息通知类型
- */
-export enum NotifyType {
-  /** 成功 */
-  success = 1,
-  /** 提醒 */
-  warning = 2,
-  /** 信息 */
-  info = 3,
 }

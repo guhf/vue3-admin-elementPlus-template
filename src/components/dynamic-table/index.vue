@@ -184,7 +184,8 @@ defineExpose({
   }
 
   .dynamic-table {
-    // height: 400px;
+    // TODO 高度还不能自适应
+    height: 500px;
 
     :deep(.el-table__body-wrapper) {
       height: 100%;
