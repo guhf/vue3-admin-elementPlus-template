@@ -1,7 +1,7 @@
 <template>
   <div class="app-main-wrapper">
     <div class="btn-container">
-      <el-button :icon="CircleClose" @click="handleBack">关闭</el-button>
+      <el-button :icon="CircleClose" @click="useRouterBackIndex()">关闭</el-button>
     </div>
     <div class="context-container">
       <el-card header="基本信息">
@@ -30,7 +30,6 @@ const state = reactive({
   modelData: {
     id: '',
   } as any,
-  enums: {} as any,
 })
 
 onMounted(() => {
@@ -42,19 +41,9 @@ onMounted(() => {
 })
 
 const getData = () => {
-  getMessage(state.id)
-    .then((res: any) => {
-      if (res?.data != null) state.modelData = res?.data
-      state.enums = res.enums
-      if (state.modelData.isRead === false) {
-        store.dispatch(UserActionTypes.ACTION_GET_NOTICE_TOTAL, store.state.user.messageTotal > 1 ? store.state.user.messageTotal - 1 : '')
-      }
-    })
-    .catch(() => {})
-}
-
-const handleBack = () => {
-  useRouterBackIndex({ path: '/user/message' })
+  getMessage(state.id).then((res: any) => {
+    state.modelData = res?.data
+  })
 }
 </script>
 

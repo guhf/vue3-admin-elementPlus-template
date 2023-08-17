@@ -1,6 +1,6 @@
 <template>
   <div class="table-wrapper">
-    <el-table ref="elTbRef" v-bind="$attrs" :height="tableHeight" :row-key="rowKey" border fit @sort-change="sortChange" @row-contextmenu="rightClick" @cell-click="cellClick">
+    <el-table ref="elTbRef" v-fit-column v-bind="$attrs" :height="tableHeight" :row-key="rowKey" border fit @sort-change="sortChange" @row-contextmenu="rightClick" @cell-click="cellClick">
       <el-table-column v-if="check" type="selection" :width="$attrs.showSummary ? 60 : 40" align="center" fixed="left" :selectable="canCheck" />
       <slot />
       <template #empty>
@@ -118,8 +118,13 @@ const cellClick = (row: any, column: any) => {
   emits('cell-click', { field: String(index) + column.property })
 }
 
+const doLayout = () => {
+  elTbRef.value?.doLayout()
+}
+
 defineExpose({
   reloadData,
+  doLayout,
 })
 </script>
 

@@ -1,5 +1,5 @@
 import path from 'path'
-import { ConfigEnv, defineConfig, loadEnv } from 'vite'
+import { UserConfig, ConfigEnv, defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import ElementPlus from 'unplugin-element-plus/vite'
 import Icons from 'unplugin-icons/vite'
@@ -16,7 +16,7 @@ const resolve = (dir: string) => path.join(__dirname, dir)
 const root = process.cwd();
 const envResolve = (mode: string, env: string) => loadEnv(mode, root)[env];
 
-export default defineConfig(({ mode } : ConfigEnv) => {
+export default defineConfig(({ mode } : ConfigEnv): UserConfig => {
   const host = envResolve(mode, 'VITE_DOMAIN_URL')
   const devPort = parseInt(envResolve(mode, 'VITE_DOMAIN_PORT'))
   
@@ -59,15 +59,25 @@ export default defineConfig(({ mode } : ConfigEnv) => {
       minify: 'esbuild',
       assetsDir: 'assets',
       outDir: outPutDir,
-      // 是否进行压缩计算
-      brotliSize: true,
-      // 去除 console debugger
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true
-        }
-      }
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'assets/js/[name]-[hash].js',
+          entryFileNames: 'assets/js/[name]-[hash].js',
+          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+          //静态资源分拆打包
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return id.toString().split('node_modules/')[1].split('/')[0].toString();
+            }
+          },
+        },
+      },
+    },
+    esbuild: {
+      // 是否保留 console debugger
+      drop: mode === 'production' ? ['console', 'debugger'] : [],
+      jsxFactory: 'h',
+      jsxFragment: 'Fragment',
     },
     css: {
       //css预处理

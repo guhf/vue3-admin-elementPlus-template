@@ -63,9 +63,11 @@ export const useRouterUpdate = (options: routerOptions = {}) => {
  * @param options 路由参数
  */
 export const useRouterBackIndex = (options: routerOptions = {}) => {
-  let currentPath = router.currentRoute.value.fullPath
-  options.path = options.path || currentPath.slice(0, Math.max(0, currentPath.lastIndexOf('/')))
-  options.path = currentPath.includes('/create') ? options.path : options.path.slice(0, Math.max(0, options.path.lastIndexOf('/')))
+  if (!options.path) {
+    let currentPath = router.currentRoute.value.fullPath
+    options.path = currentPath.slice(0, Math.max(0, currentPath.lastIndexOf('/')))
+    options.path = currentPath.includes('/create') ? options.path : options.path.slice(0, Math.max(0, options.path.lastIndexOf('/')))
+  }
 
   //replace(/([A-Z])/g,"/$1")
   // 返回到index页面时清除掉其他页面缓存

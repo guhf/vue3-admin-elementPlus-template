@@ -42,7 +42,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="80" align="center" fixed="right">
+      <el-table-column label="操作" class-name="fit" align="center" fixed="right">
         <template #default="{ row }">
           <el-button v-permission="['sys.dict.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
         </template>

@@ -97,6 +97,7 @@ export const useUserStore = defineStore('user', {
     removeToken() {
       this.token = ''
       this.userInfo = {} as UserInfo
+      useTagsViewStore().visitedViews = []
       useTagsViewStore().cachedViews = []
       removeToken()
     },

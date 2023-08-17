@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "removeComments": false,
+    "removeComments": true,
     "types": ["vite/client", "node", "element-plus/global", "jest", "unplugin-vue-define-options/macros-global"],
     "lib": ["esnext", "dom"],
     "paths": {

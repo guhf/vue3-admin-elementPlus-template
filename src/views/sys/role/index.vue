@@ -25,7 +25,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180" align="center" fixed="right">
+      <el-table-column label="操作" class-name="fit" align="center" fixed="right">
         <template #default="{ row }">
           <el-button v-permission="['sys.role.show']" type="primary" size="small" @click="handleShow(row.id)">查看</el-button>
           <el-button v-permission="['sys.role.auth']" type="primary" size="small" @click="openDialog(row.id)">分配权限</el-button>

@@ -161,7 +161,7 @@ const filterAffixTags = (routes: Routes, basePath = '/') => {
   routes.forEach((route) => {
     if (route.meta && route.meta.affix) {
       // Record<string | number | symbol, unknown>
-      const tagPath = `${basePath}/${route.path}`.replaceAll('//', '/') // basePath + route.path//path.resolve(basePath, route.path)
+      const tagPath = `${basePath}/${route.path}`.replaceAll('///', '/').replaceAll('//', '/')
       tags.push({
         fullPath: tagPath,
         path: tagPath,

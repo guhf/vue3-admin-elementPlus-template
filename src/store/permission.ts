@@ -31,7 +31,7 @@ export const usePermissionStore = defineStore('permissionStore', {
         meta: { hidden: true },
       })
 
-      this.menus = this.menus.sort((a, b) => a.meta.sortNo - b.meta.sortNo)
+      this.menus = this.menus.sort((a, b) => Number(a.meta.sortNo) - Number(b.meta.sortNo))
     },
   },
 })

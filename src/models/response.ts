@@ -6,5 +6,4 @@ export declare interface Response<T> {
   msg?: string
   data: T
   total?: number
-  enums?: any
 }

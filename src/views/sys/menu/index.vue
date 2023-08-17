@@ -34,7 +34,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="80" align="center" fixed="right">
+      <el-table-column label="操作" class-name="fit" align="center" fixed="right">
         <template #default="{ row }">
           <el-button v-permission="['sys.menu.update']" type="primary" size="small" @click="handleEdit(row.id)">编辑</el-button>
         </template>
