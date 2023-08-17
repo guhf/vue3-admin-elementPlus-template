@@ -27,3 +27,7 @@ export const setLanguage = (language: string) => storage.setItem(Keys.languageKe
 export const getToken = () => storage.getItem(Keys.tokenKey)
 export const setToken = (token: string) => storage.setItem(Keys.tokenKey, token)
 export const removeToken = () => storage.removeItem(Keys.tokenKey)
+
+export const getRefreshToken = () => storage.getItem(Keys.refreshTokenKey)
+export const setRefreshToken = (refreshToken: string) => storage.setItem(Keys.refreshTokenKey, refreshToken)
+export const removeRefreshToken = () => storage.removeItem(Keys.refreshTokenKey)

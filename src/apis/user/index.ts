@@ -14,6 +14,14 @@ export const login = (loginInfo: LoginInfo) => {
 }
 
 /**
+ * 刷新token
+ * @returns
+ */
+export const refreshAccessToken = () => {
+  return post<Token>('sys/user/refresh')
+}
+
+/**
  * 当前登录用户信息
  * @returns
  */

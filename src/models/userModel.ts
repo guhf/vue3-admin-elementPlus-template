@@ -9,6 +9,7 @@ export declare interface LoginInfo {
 /** 用户Token */
 export declare interface Token {
   accessToken: string
+  refreshToken: string
 }
 
 /** 用户角色 */

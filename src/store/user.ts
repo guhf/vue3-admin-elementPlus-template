@@ -6,16 +6,17 @@ import type { DictData } from '~/models/sys/dictModel'
 import type { LoginInfo, Token, UserInfo } from '~/models/userModel'
 import type { Routes } from '~/models/route/routesModel'
 import type { Response } from '~/models/response'
-import { getToken, removeToken, setToken } from '~/utils/cache'
+import { getRefreshToken, getToken, removeRefreshToken, removeToken, setRefreshToken, setToken } from '~/utils/cache'
 import { defaultAvatar } from '~/config/user.config'
 
-import { getMenuList, getOnlineInfo, login } from '~/apis/user'
+import { getMenuList, getOnlineInfo, login, refreshAccessToken } from '~/apis/user'
 import { getDictList } from '~/apis/sys/dict'
 
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
       token: getToken() || '',
+      refreshToken: getRefreshToken() || '',
       userInfo: {} as UserInfo,
       notifyTotal: 0 as number,
       isAdmin: false,
@@ -28,7 +29,9 @@ export const useUserStore = defineStore('user', {
         login(loginInfo)
           .then(async (res: Response<Token>) => {
             this.token = `Bearer ${res.data.accessToken}`
+            this.refreshToken = `Bearer ${res.data.refreshToken}`
             setToken(this.token)
+            setToken(this.refreshToken)
 
             this.getUserInfo()
             // 登录后先获取权限信息，否则跳转路由会出错
@@ -92,7 +95,10 @@ export const useUserStore = defineStore('user', {
       })
     },
     refreshToken() {
-      // TODO 一定时间后刷新Token
+      return refreshAccessToken().then((res: Response<Token>) => {
+        this.token = `Bearer ${res.data.accessToken}`
+        setToken(this.token)
+      })
     },
     removeToken() {
       this.token = ''
@@ -100,6 +106,7 @@ export const useUserStore = defineStore('user', {
       useTagsViewStore().visitedViews = []
       useTagsViewStore().cachedViews = []
       removeToken()
+      removeRefreshToken()
     },
   },
 })

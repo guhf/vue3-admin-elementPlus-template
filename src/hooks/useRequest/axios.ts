@@ -106,10 +106,15 @@ http.interceptors.response.use(
     // 根据返回的http状态码做不同的处理
     switch (response.status) {
       case ResponseCode.Unauthorized:
-      case ResponseCode.PreconditionFailed:
         ElMessage.error(response.data.msg)
         useUserStore().logout()
         window.location.href = `/login?redirect=${route.fullPath}`
+        break
+      case ResponseCode.PreconditionFailed:
+        // TODO凭证失效，使用refreshToken重新获取凭证
+        // 清楚全部请求，将关闭的请求存放在数组内，凭证获取后重新发起请求
+        // 添加一个字段如果正在重新获取凭证则不在获取
+        //
         break
       case ResponseCode.Forbidden:
         router.push({
