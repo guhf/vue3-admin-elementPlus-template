@@ -34,6 +34,7 @@ class HttpClient {
       extra,
     }
 
+    params && (params.t = new Date().getTime)
     if (contentType === ContentType.form) {
       requestConfig.params = lodash.pickBy(params, (item: any) => item) ?? {}
     } else {

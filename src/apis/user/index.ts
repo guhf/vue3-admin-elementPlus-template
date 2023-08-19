@@ -10,7 +10,7 @@ const { get, post, put } = useRequest()
  * @returns
  */
 export const login = (loginInfo: LoginInfo) => {
-  return post<Token>('sys/user/login', loginInfo)
+  return post<Token>('login/login', loginInfo)
 }
 
 /**
@@ -18,7 +18,7 @@ export const login = (loginInfo: LoginInfo) => {
  * @returns
  */
 export const refreshAccessToken = () => {
-  return post<Token>('sys/user/refresh')
+  return post<Token>('login/refresh')
 }
 
 /**

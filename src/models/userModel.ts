@@ -2,7 +2,7 @@ import type { BaseModel } from './baseModel'
 
 /** 登录信息 */
 export declare interface LoginInfo {
-  username: string
+  accountName: string
   password: string
 }
 

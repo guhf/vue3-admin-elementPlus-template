@@ -11,7 +11,7 @@ import { svg2 } from '~/constant/loading'
 const router = useRouter
 const route = useRouter.currentRoute.value
 
-interface PendingType {
+interface Requesting {
   url?: string
   method?: Method
   params: any
@@ -19,8 +19,8 @@ interface PendingType {
   cancel: (msg: string) => void
 }
 
-// 取消重复请求
-const pending: Array<PendingType> = []
+// 正在请求列表
+const requestingList: Requesting[] = []
 const CancelToken = axios.CancelToken
 let loadingInstance: any
 let loadingCount = 0
@@ -32,17 +32,16 @@ const http = axios.create({
   headers: networkConfig.headers,
 })
 
-// 移除重复请求
-const removePending = (config: AxiosRequestConfig) => {
-  for (const key in pending) {
-    const item: number = +key
-    const list: PendingType = pending[key]
-    // 当前请求在数组中存在时执行函数体
-    if (list.url === config.url && list.method === config.method && JSON.stringify(list.params) === JSON.stringify(config.params) && JSON.stringify(list.data) === JSON.stringify(config.data)) {
-      // 执行取消操作
-      list.cancel('操作频繁，请稍后重试！')
-      // 从数组中移除记录
-      pending.splice(item, 1)
+/**
+ * 移除完成请求
+ * @param config 请求参数
+ */
+const removeCompleteRequest = (config: AxiosRequestConfig) => {
+  for (let index = 0; index < requestingList.length; index++) {
+    const request = requestingList[index]
+    if (request.url === config.url && request.method === config.method && JSON.stringify(request.params) === JSON.stringify(config.params) && JSON.stringify(request.data) === JSON.stringify(config.data) && request.t === config.timeout) {
+      requestingList.splice(index, 1)
+      break
     }
   }
 }
@@ -65,9 +64,8 @@ http.interceptors.request.use(
     }
     loadingCount++
 
-    // removePending(request);
     request.cancelToken = new CancelToken((c) => {
-      pending.push({ url: request.url, method: request.method, params: request.params, data: request.data, cancel: c })
+      requestingList.push({ url: request.url, method: request.method, params: request.params, data: request.data, cancel: c })
     })
     return request
   },
@@ -85,7 +83,9 @@ http.interceptors.response.use(
       loadingInstance.close()
     }
 
-    // removePending(response.config);
+    console.log(1111, response.config)
+
+    removeCompleteRequest(response.config)
     if (response.data.code === ResponseCode.OK) {
       return Promise.resolve(response)
     } else {
@@ -97,6 +97,8 @@ http.interceptors.response.use(
     loadingCount > 0 && loadingCount--
     loadingInstance && loadingInstance.close()
     const response = error.response
+    console.log(2222, response.config)
+    removeCompleteRequest(response.config)
 
     if (!response) {
       ElMessage.error('网络错误，请稍后重试！')
@@ -115,6 +117,19 @@ http.interceptors.response.use(
         // 清楚全部请求，将关闭的请求存放在数组内，凭证获取后重新发起请求
         // 添加一个字段如果正在重新获取凭证则不在获取
         //
+
+        requestingList.forEach((request) => {
+          request.cancel('')
+        })
+
+        useUserStore()
+          .refreshAccessToken()
+          .then(() => {
+            // 获取到新token 继续刚才请求
+            requestingList.forEach((request) => {
+              request.cancel('')
+            })
+          })
         break
       case ResponseCode.Forbidden:
         router.push({

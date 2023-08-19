@@ -31,7 +31,7 @@ export const useUserStore = defineStore('user', {
             this.token = `Bearer ${res.data.accessToken}`
             this.refreshToken = `Bearer ${res.data.refreshToken}`
             setToken(this.token)
-            setToken(this.refreshToken)
+            setRefreshToken(this.refreshToken)
 
             this.getUserInfo()
             // 登录后先获取权限信息，否则跳转路由会出错
@@ -94,7 +94,7 @@ export const useUserStore = defineStore('user', {
           })
       })
     },
-    refreshToken() {
+    refreshAccessToken() {
       return refreshAccessToken().then((res: Response<Token>) => {
         this.token = `Bearer ${res.data.accessToken}`
         setToken(this.token)

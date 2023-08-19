@@ -6,8 +6,8 @@
         <!-- <LangSelect class="set-language" /> -->
       </div>
 
-      <el-form-item prop="username">
-        <el-input ref="userNameRef" v-model="state.lgionInfo.username" placeholder="请输入账号" type="text" size="large" tabindex="1" autocomplete="on" :prefix-icon="User" />
+      <el-form-item prop="accountName">
+        <el-input ref="accountNameRef" v-model="state.lgionInfo.accountName" placeholder="请输入账号" type="text" size="large" tabindex="1" autocomplete="on" :prefix-icon="User" />
       </el-form-item>
       <el-tooltip v-model:visible="state.capsTooltip" content="大写锁定已打开" placement="right" manual>
         <el-form-item prop="password">
@@ -41,7 +41,7 @@ const route = useRoute()
 const state = reactive({
   lgionInfo: {} as LoginInfo,
   loginRules: {
-    userName: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+    accountName: [{ required: true, message: '请输入账号', trigger: 'blur' }],
     password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
   },
   loading: false,
