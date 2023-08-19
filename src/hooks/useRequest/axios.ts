@@ -12,16 +12,16 @@ const router = useRouter
 const route = useRouter.currentRoute.value
 
 interface Requesting {
-  url?: string
-  method?: Method
-  params: any
-  data: any
-  cancel: (msg: string) => void
+  request: any
+  // url?: string
+  // method?: Method
+  // params: any
+  // data: any
+  controller: AbortController
 }
 
 // 正在请求列表
-const requestingList: Requesting[] = []
-const CancelToken = axios.CancelToken
+const requestingQueue: Requesting[] = []
 let loadingInstance: any
 let loadingCount = 0
 
@@ -37,10 +37,10 @@ const http = axios.create({
  * @param config 请求参数
  */
 const removeCompleteRequest = (config: AxiosRequestConfig) => {
-  for (let index = 0; index < requestingList.length; index++) {
-    const request = requestingList[index]
-    if (request.url === config.url && request.method === config.method && JSON.stringify(request.params) === JSON.stringify(config.params) && JSON.stringify(request.data) === JSON.stringify(config.data) && request.t === config.timeout) {
-      requestingList.splice(index, 1)
+  for (let index = 0; index < requestingQueue.length; index++) {
+    const request = requestingQueue[index]
+    if (request.request.url === config.url && request.request.method === config.method && JSON.stringify(request.request.params) === JSON.stringify(config.params) && JSON.stringify(request.request.data) === JSON.stringify(config.data)) {
+      requestingQueue.splice(index, 1)
       break
     }
   }
@@ -64,9 +64,10 @@ http.interceptors.request.use(
     }
     loadingCount++
 
-    request.cancelToken = new CancelToken((c) => {
-      requestingList.push({ url: request.url, method: request.method, params: request.params, data: request.data, cancel: c })
-    })
+    const abortController = new AbortController()
+    request.signal = abortController.signal
+    requestingQueue.push({ request, controller: abortController })
+
     return request
   },
   (error) => {
@@ -75,6 +76,7 @@ http.interceptors.request.use(
   }
 )
 
+let isRefresh = false
 // 添加响应拦截器
 http.interceptors.response.use(
   (response) => {
@@ -83,53 +85,41 @@ http.interceptors.response.use(
       loadingInstance.close()
     }
 
-    console.log(1111, response.config)
-
-    removeCompleteRequest(response.config)
-    if (response.data.code === ResponseCode.OK) {
-      return Promise.resolve(response)
-    } else {
-      // console.log('接口请求成功，返回错误信息', response)
-      return Promise.reject(ElMessage.error(response.data.msg))
+    if (response.data.code !== ResponseCode.Unauthorized) {
+      removeCompleteRequest(response.config)
     }
-  },
-  (error) => {
-    loadingCount > 0 && loadingCount--
-    loadingInstance && loadingInstance.close()
-    const response = error.response
-    console.log(2222, response.config)
-    removeCompleteRequest(response.config)
-
-    if (!response) {
-      ElMessage.error('网络错误，请稍后重试！')
-      return Promise.reject('网络错误，请稍后重试！')
-    }
-
-    // 根据返回的http状态码做不同的处理
-    switch (response.status) {
+    switch (response.data.code) {
+      case ResponseCode.OK:
+        return Promise.resolve(response)
       case ResponseCode.Unauthorized:
-        ElMessage.error(response.data.msg)
-        useUserStore().logout()
-        window.location.href = `/login?redirect=${route.fullPath}`
+        if (response.headers['token-expired']) {
+          // refreshToken失效，重新登录
+          if (response.headers['refreshtoken-expired']) {
+            ElMessage.error(response.data.msg)
+            useUserStore().logout()
+            window.location.href = `/login?redirect=${route.fullPath}`
+          }
+
+          // 关闭全部请求，将关闭的请求存放在数组内，凭证获取后重新发起请求
+          // 添加一个字段如果正在重新获取凭证则不在获取
+          requestingQueue.forEach((request) => {
+            request.controller.abort()
+          })
+
+          // 使用refreshToken重新获取凭证
+          isRefresh = true
+          useUserStore()
+            .refreshAccessToken()
+            .then(() => {
+              isRefresh = false
+              // 获取到新token 继续刚才请求
+              requestingQueue.forEach((request: Requesting) => {
+                http.request(request.request)
+              })
+            })
+        }
         break
       case ResponseCode.PreconditionFailed:
-        // TODO凭证失效，使用refreshToken重新获取凭证
-        // 清楚全部请求，将关闭的请求存放在数组内，凭证获取后重新发起请求
-        // 添加一个字段如果正在重新获取凭证则不在获取
-        //
-
-        requestingList.forEach((request) => {
-          request.cancel('')
-        })
-
-        useUserStore()
-          .refreshAccessToken()
-          .then(() => {
-            // 获取到新token 继续刚才请求
-            requestingList.forEach((request) => {
-              request.cancel('')
-            })
-          })
         break
       case ResponseCode.Forbidden:
         router.push({
@@ -142,6 +132,30 @@ http.interceptors.response.use(
         ElMessage.error('当前请求接口不存在')
         return Promise.reject(response.data.msg)
       case ResponseCode.Failed: // 请求失败
+      case ResponseCode.Error: // 服务端错误
+      case ResponseCode.Unavailable:
+      default:
+        ElMessage.error(response.data.msg)
+        return Promise.reject(response.data.msg)
+    }
+  },
+  (error) => {
+    loadingCount > 0 && loadingCount--
+    loadingInstance && loadingInstance.close()
+    const response = error.response
+    removeCompleteRequest(response.config)
+
+    if (isRefresh) {
+      return
+    }
+
+    if (!response) {
+      ElMessage.error('网络错误，请稍后重试！')
+      return Promise.reject('网络错误，请稍后重试！')
+    }
+
+    // 根据返回的http状态码做不同的处理
+    switch (response.status) {
       case ResponseCode.Error: // 服务端错误
       case ResponseCode.Unavailable:
         ElMessage.error(response.data.msg)

@@ -17,8 +17,8 @@ export const login = (loginInfo: LoginInfo) => {
  * 刷新token
  * @returns
  */
-export const refreshAccessToken = () => {
-  return post<Token>('login/refresh')
+export const refreshAccessToken = (refreshToken: string) => {
+  return post<Token>('login/refresh', { refreshToken })
 }
 
 /**

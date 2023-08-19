@@ -18,7 +18,7 @@ export enum ResponseCode {
   Failed = 400,
 
   /**
-   * 未登录
+   * 未登录/token失效
    */
   Unauthorized = 401,
 

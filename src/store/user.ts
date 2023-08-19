@@ -29,7 +29,7 @@ export const useUserStore = defineStore('user', {
         login(loginInfo)
           .then(async (res: Response<Token>) => {
             this.token = `Bearer ${res.data.accessToken}`
-            this.refreshToken = `Bearer ${res.data.refreshToken}`
+            this.refreshToken = res.data.refreshToken
             setToken(this.token)
             setRefreshToken(this.refreshToken)
 
@@ -95,7 +95,7 @@ export const useUserStore = defineStore('user', {
       })
     },
     refreshAccessToken() {
-      return refreshAccessToken().then((res: Response<Token>) => {
+      return refreshAccessToken(this.refreshToken).then((res: Response<Token>) => {
         this.token = `Bearer ${res.data.accessToken}`
         setToken(this.token)
       })

@@ -20,7 +20,7 @@ class HttpClient {
    * @param contentType http配置
    * @return
    */
-  request<T>(path = '', method: Method = Method.GET, params?: RequestParams, contentType: ContentType = ContentType.json, extra: any = {}) {
+  request<T>(path = '', method: Method = Method.GET, params: RequestParams = {}, contentType: ContentType = ContentType.json, extra: any = {}) {
     const headers = {
       'content-type': contentType,
     }
@@ -29,16 +29,16 @@ class HttpClient {
       url: `${path}`,
       method,
       headers,
-      params: {} as RequestParams,
-      data: {},
+      params: null as RequestParams | null,
+      data: null as RequestParams | null,
       extra,
     }
 
-    params && (params.t = new Date().getTime)
+    params.t = Date.now()
     if (contentType === ContentType.form) {
       requestConfig.params = lodash.pickBy(params, (item: any) => item) ?? {}
     } else {
-      requestConfig.data = JSON.stringify(params)
+      requestConfig.data = params
     }
 
     return this.httpClient
