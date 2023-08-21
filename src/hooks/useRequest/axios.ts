@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ElLoading, ElMessage } from 'element-plus'
-import type { AxiosRequestConfig, Method } from 'axios'
+import refreshTokenService from './refreshTokenService'
+import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import useRouter from '~/router'
 import { useUserStore } from '~/store/user'
 import networkConfig from '~/config/net.config'
@@ -12,11 +13,8 @@ const router = useRouter
 const route = useRouter.currentRoute.value
 
 interface Requesting {
-  request: any
-  // url?: string
-  // method?: Method
-  // params: any
-  // data: any
+  http: AxiosInstance
+  config: any
   controller: AbortController
 }
 
@@ -34,12 +32,13 @@ const http = axios.create({
 
 /**
  * 移除完成请求
- * @param config 请求参数
+ * @param config 请求配置
  */
 const removeCompleteRequest = (config: AxiosRequestConfig) => {
   for (let index = 0; index < requestingQueue.length; index++) {
     const request = requestingQueue[index]
-    if (request.request.url === config.url && request.request.method === config.method && JSON.stringify(request.request.params) === JSON.stringify(config.params) && JSON.stringify(request.request.data) === JSON.stringify(config.data)) {
+
+    if (request.config.url === config.url && request.config.method === config.method && JSON.stringify(request.config.params) === JSON.stringify(config.params) && JSON.stringify(request.config.data) === JSON.stringify(config.data)) {
       requestingQueue.splice(index, 1)
       break
     }
@@ -48,13 +47,13 @@ const removeCompleteRequest = (config: AxiosRequestConfig) => {
 
 // 请求拦截器
 http.interceptors.request.use(
-  (request: any) => {
+  async (config: any) => {
     const token = useUserStore().token
-    token ? (request.headers['Authorization'] = token) : delete request.headers['Authorization']
+    token ? (config.headers['Authorization'] = token) : delete config.headers['Authorization']
 
-    if (loadingCount === 0 && !loadingBlackList.includes(request.url) && (document.querySelector('.el-dialog') || document.querySelector('.app-main-wrapper'))) {
+    if (loadingCount === 0 && !loadingBlackList.includes(config.url) && (document.querySelector('.el-dialog') || document.querySelector('.app-main-wrapper'))) {
       loadingInstance = ElLoading.service({
-        text: request.extra.loadingText || '加载中...',
+        text: config.extra.loadingText || '加载中...',
         background: 'rgba(0, 0, 0, 0.3)',
         svg: svg2,
         svgViewBox: '0 0 100 100',
@@ -65,10 +64,10 @@ http.interceptors.request.use(
     loadingCount++
 
     const abortController = new AbortController()
-    request.signal = abortController.signal
-    requestingQueue.push({ request, controller: abortController })
+    config.signal = abortController.signal
+    requestingQueue.push({ http, config, controller: abortController })
 
-    return request
+    return config
   },
   (error) => {
     loadingCount > 0 && loadingCount--
@@ -79,7 +78,7 @@ http.interceptors.request.use(
 let isRefresh = false
 // 添加响应拦截器
 http.interceptors.response.use(
-  (response) => {
+  async (response) => {
     loadingCount > 0 && loadingCount--
     if (loadingInstance && loadingCount === 0) {
       loadingInstance.close()
@@ -100,23 +99,8 @@ http.interceptors.response.use(
             window.location.href = `/login?redirect=${route.fullPath}`
           }
 
-          // 关闭全部请求，将关闭的请求存放在数组内，凭证获取后重新发起请求
-          // 添加一个字段如果正在重新获取凭证则不在获取
-          requestingQueue.forEach((request) => {
-            request.controller.abort()
-          })
-
-          // 使用refreshToken重新获取凭证
-          isRefresh = true
-          useUserStore()
-            .refreshAccessToken()
-            .then(() => {
-              isRefresh = false
-              // 获取到新token 继续刚才请求
-              requestingQueue.forEach((request: Requesting) => {
-                http.request(request.request)
-              })
-            })
+          await refreshTokenService.refreshToken()
+          return Promise.resolve(http(response.config))
         }
         break
       case ResponseCode.PreconditionFailed:
@@ -190,4 +174,16 @@ http.interceptors.response.use(
   }
 )
 
-export default http
+// 如果正在刷新token时，需等待token刷新完毕再触发接口请求(暂时挂起)
+const request = async () => {
+  let refreshIsLoading = refreshTokenService.refreshing()
+  if (refreshIsLoading) {
+    await refreshTokenService.refreshToken()
+  }
+
+  return http
+}
+
+export default await request().then((response) => {
+  return response
+})

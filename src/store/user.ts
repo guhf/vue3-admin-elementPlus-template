@@ -71,10 +71,10 @@ export const useUserStore = defineStore('user', {
     getMenuList() {
       return new Promise((resolve, reject) => {
         getMenuList()
-          .then((res: Response<Routes>) => {
+          .then(async (res: Response<Routes>) => {
             usePermissionStore().setRoutes(res.data)
             // 获取全部字典信息
-            this.getDictList()
+            await this.getDictList()
             resolve(res.data)
           })
           .catch((error) => {
