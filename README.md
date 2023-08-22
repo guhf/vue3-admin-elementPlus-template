@@ -1,6 +1,6 @@
 ## 简介
 
-项目的基础版本出自于源vue3-composition-admin(https://github.com/RainManGO/vue3-composition-admin)。
+项目的基础版本出自于源[vue3-composition-admin](https://github.com/RainManGO/vue3-composition-admin)。
 后端采用.net6 webapi。
 
 ## 特性
