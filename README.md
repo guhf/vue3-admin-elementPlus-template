@@ -30,7 +30,7 @@
 
 ## 预览
 
-- [vue3-admin-elementPlus-template](https://erp.hontmall.com:2208/) - 完整版中文站点
+- [vue3-admin-elementPlus-template](http://erp.hontmall.com:2208/) - 完整版中文站点
 
 ## 项目预览图
 
